@@ -1,0 +1,26 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-typescript",
+        "next/core-web-vitals"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project":"./tsconfig.json"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+      "react/props-types": "off",
+      "react/jsx-props-no-spreading": "off",
+      "import/prefer-default-export": "off"
+    }
+}
