@@ -109,3 +109,8 @@ a {
     color-scheme: dark;
   }
 }
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import './Home.module.css';
+@import 'tailwindcss/utilities';
