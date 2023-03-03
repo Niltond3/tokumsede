@@ -1,9 +1,8 @@
-import Head from 'next/head';
 import Image from 'next/image';
-import { useState, useRef } from 'react';
 
-import Header from 'components/header/Header';
-import LeftBar from 'components/leftBar/LeftBar';
+import Header from 'components/Header';
+import LeftBar from 'components/LeftBar';
+import Head from 'components/Ui/DataDisplay/Head';
 
 import contactMap from '../../public/images/contact-map.webp';
 import downloadBg from '../../public/images/download-bg.webp';
@@ -36,41 +35,9 @@ import screen7 from '../../public/images/screenshots/screen7.webp';
 import truck from '../../public/images/truck.webp';
 
 export default function Home() {
-  const sidebar = useRef<HTMLElement>(null);
-  const maxSidebar = useRef<HTMLDivElement>(null);
-  const miniSidebar = useRef<HTMLDivElement>(null);
-  const maxToolbar = useRef<HTMLDivElement>(null);
-  const logo = useRef<HTMLDivElement>(null);
-  const content = useRef<HTMLDivElement>(null);
-  const moon = useRef<HTMLDivElement>(null);
-  const sun = useRef<HTMLDivElement>(null);
-
-  //const sidebar = document.querySelector('aside');
-  //const maxSidebar = document.querySelector('.max');
-  //const miniSidebar = document.querySelector('.mini');
-  //const roundout = document.querySelector('.roundout');
-  //const maxToolbar = document.querySelector('.max-toolbar');
-  //const logo = document.querySelector('.logo');
-  //const content = document.querySelector('.content');
-  //const moon = document.querySelector('.moon');
-  //const sun = document.querySelector('.sun');
-
   return (
     <>
-      <Head>
-        <title>
-          TôKumSede - O melhor e mais confiável delivery de água do Nordeste.
-        </title>
-        <meta
-          name="description"
-          content="O TôKumSede é uma rede inovadora de distribuição de água com
-        entrega porta a porta. Através de nossa central telefônica, site ou aplicativo, você poderá
-        escolher solicitar a entrega das águas Alcalinas da fonte Terra Santa. Na sua casa ou na sua empresa,
-        seu pedido será entregue em instantes ou em data e horário agendados por você."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="shortcut icon" href="/images/favicon.ico" />
-      </Head>
+      <Head />
       <main>
         {/* Header */}
         {Header()}
@@ -1209,18 +1176,4 @@ Com ele você pode pedir água, gelo, bebidas e muito mais, sem precisar sair do
       </main>
     </>
   );
-  function Contador() {
-    const [contador, setContador] = useState(1);
-
-    const plusOne = () => setContador(contador + 1);
-    const lesOne = () => setContador(contador - 1);
-
-    return (
-      <div>
-        <div>{contador}</div>
-        <button onClick={plusOne}>Add One</button>
-        <button onClick={lesOne}>Sub One</button>
-      </div>
-    );
-  }
 }

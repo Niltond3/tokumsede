@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useReducer } from 'react';
 
-import menuItem from 'components/menuItem/menuItem';
+import menuItem from 'components/menuItem';
 
 // function reducer(state, action) {
 //   return state;

@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { useReducer } from 'react';
 
-import LeftMenu from 'components/leftMenu/LeftMenu';
+import LeftMenu from 'components/LeftMenu';
 
-import logo from '../../../public/images/logo.webp';
+import logo from '../../public/images/logo.webp';
 
 type State = { toggleMenu: boolean };
 

@@ -1,8 +1,10 @@
 import Image from 'next/image';
 
-import logo from '../../../public/images/logo.webp';
+import logo from '../../public/images/logo.webp';
+import Typography from './Ui/DataDisplay/Typography/DeliverySystem';
 
 export default function Header() {
+  const { h1 } = Typography();
   return (
     <div className="fixed w-full z-30 flex bg-white dark:bg-[#0F172A] p-2 items-center justify-center h-16 px-10">
       <div className="logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">
