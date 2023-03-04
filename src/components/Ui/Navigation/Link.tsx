@@ -2,19 +2,17 @@ import NextLink from 'next/link';
 import { ReactNode } from 'react';
 
 import PropTypes from 'prop-types';
-interface Props {
-  Children?: ReactNode;
+interface Props extends React.HTMLAttributes<HTMLElement> {
   href: string;
 }
-export default function Link({ href, Children }: Props) {
+export default function Link({ href, children, ...rest }: Props) {
   return (
-    <NextLink href={href} passHref>
-      <a>{Children}</a>
+    <NextLink href={href} passHref {...rest}>
+      {children}
     </NextLink>
   );
 }
 
 Link.propTypes = {
-  href: PropTypes.string.isRequired,
-  Children: PropTypes.node.isRequired
+  href: PropTypes.string.isRequired
 };

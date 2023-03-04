@@ -2,15 +2,15 @@ import Image from 'next/image';
 
 import Typography from 'components/Ui/DataDisplay/Typography';
 
-import logo from '../../../public/images/logo.webp';
+import logo from '../../public/images/logo.webp';
 export default function Header() {
   return (
     <div className="header">
       <div className="logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">
         TOKUMSEDE
       </div>
-      <Typography variant="h1" color="text-white">
-        TOKUMSEDsE
+      <Typography variant="h1" color="shadow-sm drop-shadow-md">
+        TOKUMSEDE
       </Typography>
       {/* /#SPACER */}
       <div className="grow h-full flex items-center justify-center"></div>

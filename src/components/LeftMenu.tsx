@@ -1,7 +1,4 @@
-import Image from 'next/image';
-import { useReducer } from 'react';
-
-import menuItem from 'components/menuItem';
+import MenuItem from 'components/MenuItem';
 
 // function reducer(state, action) {
 //   return state;
@@ -16,12 +13,12 @@ export default function LeftMenu(open: boolean) {
     <div
       className={`text-white mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]`}
     >
-      {menuItem('home', open)}
-      {menuItem('app', open)}
-      {menuItem('why', open)}
-      {menuItem('who', open)}
-      {menuItem('download', open)}
-      {menuItem('chat', open)}
+      {MenuItem('home', open)}
+      {MenuItem('app', open)}
+      {MenuItem('why', open)}
+      {MenuItem('who', open)}
+      {MenuItem('download', open)}
+      {MenuItem('chat', open)}
     </div>
   );
 }

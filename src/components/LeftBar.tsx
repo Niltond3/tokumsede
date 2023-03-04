@@ -37,6 +37,7 @@ export default function LeftBar() {
       moon.classList.remove('hidden');
     }
   }
+
   // function openNav() {
   //   if (sidebar.classList.contains('-translate-x-48')) {
   //     // max sidebar
@@ -59,6 +60,7 @@ export default function LeftBar() {
   //     content.classList.add('ml-12');
   //   }
   // }
+
   const { toggleMenu } = state;
   return (
     <aside
@@ -69,7 +71,7 @@ export default function LeftBar() {
       {/* /#open sidebar button */}
       <div
         className={`
-        max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white dark:border-[#0F172A] bg-[#1E293B]  absolute top-2 rounded-full h-12${
+        translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white dark:border-[#0F172A] bg-[#1E293B]  absolute top-2 rounded-full h-12${
           !toggleMenu ? 'translate-x-24 scale-x-0' : 'translate-x-0'
         }
       `}

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { FaBusinessTime } from 'react-icons/fa';
 import { GiSmartphone } from 'react-icons/gi';
 import {
@@ -8,7 +7,9 @@ import {
   HiOutlineChatAlt
 } from 'react-icons/hi';
 
-export default function SideMenuItem(
+import Link from './Ui/Navigation/Link';
+
+export default function MenuItem(
   type: 'home' | 'app' | 'why' | 'who' | 'download' | 'chat',
   open: boolean
 ) {
