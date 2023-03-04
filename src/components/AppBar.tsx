@@ -1,9 +1,14 @@
 import Image from 'next/image';
+import { ReactNode } from 'react';
 
 import Typography from 'components/Ui/DataDisplay/Typography';
 
 import logo from '../../public/images/logo.webp';
-export default function Header() {
+
+interface props {
+  children: ReactNode;
+}
+export default function AppBar({ children }: props) {
   return (
     <div className="header">
       <div className="logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">

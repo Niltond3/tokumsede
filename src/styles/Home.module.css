@@ -1,8 +1,14 @@
 .header {
-  @apply fixed w-full z-30 flex bg-white dark:bg-[#0F122A] p-2 items-center justify-center h-16 px-10
+  @apply z-30 bg-white dark:bg-[#0F122A] h-16 px-10
 }
+
+/* Layout */
+.container {
+  @apply w-full flex p-2 items-center justify-center
+}
+
 .typography--variant-h1 {
-  @apply transform ease-in-out duration-500 h-full flex items-center
+  @apply font-sans transform ease-in-out duration-500 h-full flex items-center
 }
 
 .description {

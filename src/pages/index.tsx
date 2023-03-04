@@ -1,4 +1,4 @@
-import Header from 'components/Header';
+import AppBar from 'components/AppBar';
 import LeftBar from 'components/LeftBar';
 import Head from 'components/Utils/Head';
 
@@ -38,7 +38,7 @@ export default function Home() {
       <Head />
       <main>
         {/* Header */}
-        {Header()}
+        {AppBar()}
         {/* LeftBar */}
         {LeftBar()}
         {/* CONTENT */}

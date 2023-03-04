@@ -4,9 +4,9 @@ import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 
 interface Props {
-  Children?: ReactNode;
+  children?: ReactNode;
 }
-export default function Head({ Children }: Props) {
+export default function Head({ children }: Props) {
   return (
     <NextHead>
       <title>
@@ -21,11 +21,11 @@ export default function Head({ Children }: Props) {
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="shortcut icon" href="/images/favicon.ico" />
-      {Children}
+      {children}
     </NextHead>
   );
 }
 
 Head.propTypes = {
-  Children: PropTypes.node
+  children: PropTypes.node
 };
