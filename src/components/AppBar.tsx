@@ -4,13 +4,20 @@ import { ReactNode } from 'react';
 import Typography from 'components/Ui/DataDisplay/Typography';
 
 import logo from '../../public/images/logo.webp';
+import Container from './Ui/Layout/Container';
 
 interface props {
-  children: ReactNode;
+  children?: ReactNode;
 }
-export default function AppBar({ children }: props) {
+export default function AppBar() {
   return (
-    <div className="header">
+    <Container
+      display="flex"
+      position="fixed"
+      height="4rem"
+      width="100%"
+      color="tertiary"
+    >
       <div className="logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">
         TOKUMSEDE
       </div>
@@ -35,6 +42,6 @@ export default function AppBar({ children }: props) {
           John Doe
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
