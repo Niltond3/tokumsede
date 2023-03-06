@@ -1,34 +1,59 @@
 import { ReactNode } from 'react';
 
 const variantsMapping = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  h6: 'h6',
-  subtitle: 'h6',
-  body: 'p',
-  button: 'p',
-  caption: 'p',
-  overline: 'h6'
+  h1: {
+    Component: 'h1',
+    twClass:
+      'font-sans transform ease-in-out duration-500 flex-none h-full flex items-center justify-center'
+  },
+  h2: {
+    Component: 'h2',
+    twClass: ''
+  },
+  h3: {
+    Component: 'h3',
+    twClass: ''
+  },
+  h4: {
+    Component: 'h4',
+    twClass: ''
+  },
+  h5: {
+    Component: 'h5',
+    twClass: ''
+  },
+  h6: {
+    Component: 'h6',
+    twClass: ''
+  },
+  subtitle: {
+    Component: 'h6',
+    twClass: ''
+  },
+  body: {
+    Component: 'p',
+    twClass: ''
+  },
+  button: {
+    Component: 'p',
+    twClass: ''
+  },
+  caption: {
+    Component: 'p',
+    twClass: ''
+  },
+  overline: {
+    Component: 'h6',
+    twClass: ''
+  }
 } as const;
 
 interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant: keyof typeof variantsMapping;
-  color: string;
+  bold: boolean;
   children: ReactNode;
 }
-export default function Typography({
-  variant,
-  color,
-  children,
-  ...props
-}: TypographyProps) {
-  const Component = variantsMapping[variant];
-  return (
-    <Component className={`typography--variant-${variant} ${color}`} {...props}>
-      {children}
-    </Component>
-  );
+export default function Typography({ variant, children }: TypographyProps) {
+  const { Component, twClass } = variantsMapping[variant];
+  return <Component className={`${twClass}`}>{children}</Component>;
 }

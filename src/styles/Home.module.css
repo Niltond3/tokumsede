@@ -3,13 +3,6 @@
 }
 
 /* Layout */
-.container {
-  @apply w-full
-}
-
-.typography--variant-h1 {
-  @apply font-sans transform ease-in-out duration-500 h-full flex items-center
-}
 
 .description {
   display: inherit;

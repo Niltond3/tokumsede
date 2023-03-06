@@ -18,10 +18,10 @@ export default function AppBar() {
       width="100%"
       color="tertiary"
     >
-      <div className="logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">
+      <div className="padding logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">
         TOKUMSEDE
       </div>
-      <Typography variant="h1" color="shadow-sm drop-shadow-md">
+      <Typography variant="h1" bold={false}>
         TOKUMSEDE
       </Typography>
       {/* /#SPACER */}

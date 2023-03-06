@@ -3,11 +3,13 @@ import { ReactNode } from 'react';
 import Colors from 'components/Foundation/Colors';
 import Layout from 'components/Foundation/Layout';
 import Sizing from 'components/Foundation/Sizing';
+import Spacing from 'components/Foundation/Spacing';
 
 import PropTypes from 'prop-types';
 
 const { position, display } = Layout;
 const { width, height } = Sizing;
+const { margin, padding } = Spacing;
 
 interface props {
   children?: ReactNode;
@@ -15,6 +17,8 @@ interface props {
   display: keyof typeof display;
   height: keyof typeof height;
   width: keyof typeof width;
+  margin: keyof typeof margin;
+  padding: keyof typeof padding;
   color: keyof typeof Colors;
 }
 export default function Container({
@@ -23,16 +27,20 @@ export default function Container({
   display,
   height,
   width,
+  margin,
+  padding,
   color
 }: props) {
-  const containerPosition = Layout.position[position];
-  const containerDisplay = Layout.display[display];
-  const containerHeight = Sizing.height[height];
-  const containerWidth = Sizing.width[width];
-  const containerColors = Colors[color];
+  const twPosition = Layout.position[position];
+  const twDisplay = Layout.display[display];
+  const twHeight = Sizing.height[height];
+  const twWidth = Sizing.width[width];
+  const twColors = Colors[color];
+  const twMargin = Spacing.margin[margin];
+  const twPadding = Spacing.padding[padding];
   return (
     <div
-      className={`${containerPosition} ${containerDisplay} ${containerHeight} ${containerWidth} ${containerColors}`}
+      className={`${twPosition} ${twDisplay} ${twHeight} ${twWidth} ${twColors} ${twMargin} ${twPadding}`}
     >
       {children}
     </div>
