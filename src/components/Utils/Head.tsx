@@ -9,9 +9,7 @@ interface Props {
 export default function Head({ children }: Props) {
   return (
     <NextHead>
-      <title>
-        TôKumSede - O melhor e mais confiável delivery de água do Nordeste.
-      </title>
+      <title>TôKumSede - O melhor e mais confiável delivery de água do Nordeste.</title>
       <meta
         name="description"
         content="O TôKumSede é uma rede inovadora de distribuição de água com

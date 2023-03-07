@@ -1,3 +1,7 @@
+interface ISizingProps {}
+
+interface ISizing {}
+
 export default {
   width: {
     auto: 'w-auto',
