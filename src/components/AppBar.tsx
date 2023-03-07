@@ -13,14 +13,16 @@ export default function AppBar() {
   return (
     <Container
       display="flex"
+      pleft="xl"
+      pRight="m"
       position="fixed"
       height="4rem"
       width="100%"
       color="tertiary"
     >
-      <div className="padding logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">
+      {/* <div className="padding logo ml-12 dark:text-white  transform ease-in-out duration-500 flex-none h-full flex items-center justify-center">
         TOKUMSEDE
-      </div>
+      </div> */}
       <Typography variant="h1" bold={false}>
         TOKUMSEDE
       </Typography>
