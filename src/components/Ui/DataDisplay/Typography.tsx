@@ -3,8 +3,7 @@ import { ReactNode } from 'react';
 const variantsMapping = {
   h1: {
     Component: 'h1',
-    twClass:
-      'font-sans transform ease-in-out duration-500 flex-none h-full flex items-center justify-center'
+    twClass: 'text-lg font-semibold'
   },
   h2: {
     Component: 'h2',
@@ -28,7 +27,7 @@ const variantsMapping = {
   },
   subtitle: {
     Component: 'h6',
-    twClass: ''
+    twClass: 'text-sm font-normal	'
   },
   body: {
     Component: 'p',
@@ -48,12 +47,20 @@ const variantsMapping = {
   }
 } as const;
 
-interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
+interface TypographyProps {
   variant: keyof typeof variantsMapping;
-  bold: boolean;
-  children: ReactNode;
+  bold?: boolean;
+  children?: ReactNode;
 }
-export default function Typography({ variant, children }: TypographyProps) {
+export default function Typography({ variant, children, bold }: TypographyProps) {
   const { Component, twClass } = variantsMapping[variant];
-  return <Component className={`${twClass}`}>{children}</Component>;
+  return (
+    <Component
+      className={`font-mono text-justify ${
+        bold ? 'font-bold' : ''
+      } transform ease-in-out duration-500 flex-none h-full flex items-center justify-center ${twClass} `}
+    >
+      {children}
+    </Component>
+  );
 }

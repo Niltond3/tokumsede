@@ -42,9 +42,9 @@ export default function Home() {
         {/* LeftBar */}
         {LeftBar()}
         {/* CONTENT */}
-        <div className="content ml-12 transform ease-in-out duration-500 pt-20 px-2 md:px-5 pb-4 ">
+        <div className="content ml-12 transform px-2 pt-20 pb-4 duration-500 ease-in-out md:px-5 ">
           <nav
-            className="flex px-5 py-3 text-gray-700  rounded-lg bg-gray-50 dark:bg-[#1E293B] "
+            className="flex rounded-lg bg-gray-50 px-5  py-3 text-gray-700 dark:bg-[#1E293B] "
             aria-label="Breadcrumb"
           >
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -54,7 +54,7 @@ export default function Home() {
                   className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                 >
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="mr-2 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ export default function Home() {
               <li>
                 <div className="flex items-center">
                   <svg
-                    className="w-6 h-6 text-gray-400"
+                    className="h-6 w-6 text-gray-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export default function Home() {
                   </svg>
                   <a
                     href="#"
-                    className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
+                    className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white md:ml-2"
                   >
                     Templates
                   </a>
@@ -88,10 +88,10 @@ export default function Home() {
               </li>
             </ol>
           </nav>
-          <div className="flex flex-wrap my-5 -mx-2">
-            <div className="w-full lg:w-1/3 p-2">
-              <div className="flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
-                <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12">
+          <div className="my-5 -mx-2 flex flex-wrap">
+            <div className="w-full p-2 lg:w-1/3">
+              <div className="flex w-full flex-row items-center rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 dark:from-cyan-500 dark:to-blue-500">
+                <div className="flex h-8 w-8 flex-none items-center rounded-md bg-white p-2 text-indigo-500 dark:bg-[#0F172A] dark:text-white md:h-12 md:w-12">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -107,18 +107,18 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <div className="flex flex-col justify-around flex-grow ml-5 text-white">
-                  <div className="text-xs whitespace-nowrap">Total User</div>
+                <div className="ml-5 flex flex-grow flex-col justify-around text-white">
+                  <div className="whitespace-nowrap text-xs">Total User</div>
                   <div className="">100</div>
                 </div>
-                <div className=" flex items-center flex-none text-white">
+                <div className=" flex flex-none items-center text-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="h-6 w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -129,9 +129,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className='"w-full md:w-1/2 lg:w-1/3 p-2 '>
-              <div className="flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
-                <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
+            <div className='"w-full p-2 md:w-1/2 lg:w-1/3 '>
+              <div className="flex w-full flex-row items-center rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 dark:from-cyan-500 dark:to-blue-500">
+                <div className="flex h-8 w-8 flex-none items-center rounded-md bg-white p-2 text-indigo-500 dark:bg-[#0F172A] dark:text-white md:h-12 md:w-12 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -147,18 +147,18 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <div className="flex flex-col justify-around flex-grow ml-5 text-white">
-                  <div className="text-xs whitespace-nowrap">Total Product</div>
+                <div className="ml-5 flex flex-grow flex-col justify-around text-white">
+                  <div className="whitespace-nowrap text-xs">Total Product</div>
                   <div className="">500</div>
                 </div>
-                <div className=" flex items-center flex-none text-white">
+                <div className=" flex flex-none items-center text-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="h-6 w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -169,9 +169,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 p-2">
-              <div className="flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
-                <div className="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
+            <div className="w-full p-2 md:w-1/2 lg:w-1/3">
+              <div className="flex w-full flex-row items-center rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 dark:from-cyan-500 dark:to-blue-500">
+                <div className="flex h-8 w-8 flex-none items-center rounded-md bg-white p-2 text-indigo-500 dark:bg-[#0F172A] dark:text-white md:h-12 md:w-12 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -187,18 +187,18 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <div className="flex flex-col justify-around flex-grow ml-5 text-white">
-                  <div className="text-xs whitespace-nowrap">Total Visitor</div>
+                <div className="ml-5 flex flex-grow flex-col justify-around text-white">
+                  <div className="whitespace-nowrap text-xs">Total Visitor</div>
                   <div className="">500</div>
                 </div>
-                <div className=" flex items-center flex-none text-white">
+                <div className=" flex flex-none items-center text-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="h-6 w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -211,25 +211,25 @@ export default function Home() {
             </div>
           </div>
           <div
-            className="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
+            className="mb-4 rounded-lg bg-blue-100 p-4 text-sm text-blue-700 dark:bg-blue-200 dark:text-blue-800"
             role="alert"
           >
-            <span className="font-medium">Info alert!</span> Change a few things
-            up and try submitting again.
+            <span className="font-medium">Info alert!</span> Change a few things up and
+            try submitting again.
           </div>
           <div
-            className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+            className="mb-4 rounded-lg bg-red-100 p-4 text-sm text-red-700 dark:bg-red-200 dark:text-red-800"
             role="alert"
           >
-            <span className="font-medium">Danger alert!</span> Change a few
-            things up and try submitting again.
+            <span className="font-medium">Danger alert!</span> Change a few things up and
+            try submitting again.
           </div>
           <div
-            className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+            className="mb-4 rounded-lg bg-green-100 p-4 text-sm text-green-700 dark:bg-green-200 dark:text-green-800"
             role="alert"
           >
-            <span className="font-medium">Success alert!</span> Change a few
-            things up and try submitting again.
+            <span className="font-medium">Success alert!</span> Change a few things up and
+            try submitting again.
           </div>
         </div>
         {/* Banner ==============================*/}

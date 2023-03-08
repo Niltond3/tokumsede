@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import { ReactNode } from 'react';
 
 import Typography from 'components/Ui/DataDisplay/Typography';
 
-import logo from '../../public/images/logo.webp';
+import logo from '../../../../public/images/logo.webp';
+import Avatar from './Ui/DataDisplay/Avatar';
 import Container from './Ui/Layout/Container';
 
 interface props {
@@ -15,8 +15,8 @@ export default function AppBar() {
       display="flex"
       position="fixed"
       height="4rem"
-      width="100%"
-      color="tertiary"
+      width="100vw"
+      color="primary"
       p-inline-begin="xxl"
       p-inline-end="l"
     >
@@ -24,23 +24,24 @@ export default function AppBar() {
         TOKUMSEDE
       </Typography>
       {/* /#SPACER */}
-      <div className="grow h-full flex items-center justify-center"></div>
-      <div className="flex-none h-full text-center flex items-center justify-center">
-        <div className="flex space-x-3 items-center px-3">
-          <div className="flex-none flex justify-center">
+      <div className="flex h-full grow items-center justify-center"></div>
+      <Avatar subtitle="tks" src="" />
+      {/* <div className="flex h-full flex-none items-center justify-center text-center">
+        <div className="flex items-center space-x-3 px-3">
+          <div className="flex flex-none justify-center">
             <Image
               src={logo}
               alt="profile"
-              className="shadow rounded-full object-cover"
+              className="rounded-full object-cover shadow"
               width={25}
               height={25}
             ></Image>
           </div>
         </div>
-        <div className="hidden md:block text-sm md:text-md text-black dark:text-white">
+        <div className="md:text-md hidden text-sm text-black dark:text-white md:block">
           John Doe
         </div>
-      </div>
+      </div> */}
     </Container>
   );
 }

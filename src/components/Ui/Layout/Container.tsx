@@ -41,7 +41,6 @@ export default function Container({ ...rest }: props) {
   const { 'p-inline': pInl, 'p-inline-end': pInlE, 'p-inline-begin': pInlB } = rest;
 
   const { 'm-stack': mSta, 'm-stack-end': mStaE, 'm-stack-begin': mStaB } = rest;
-  // eslint-disable-next-line prettier/prettier
   const { 'p-stack': pSta, 'p-stack-end': pStaE, 'p-stack-begin': pStaB } = rest;
 
   const { margin, padding } = Spacing;
