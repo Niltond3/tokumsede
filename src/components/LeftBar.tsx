@@ -17,9 +17,7 @@ const reducer = (state: State, action: Action): State => {
   };
   const { type } = action;
 
-  return Object.getOwnPropertyDescriptor(actions, type)
-    ? actions[type]()
-    : { ...state };
+  return Object.getOwnPropertyDescriptor(actions, type) ? actions[type]() : { ...state };
 };
 export default function LeftBar() {
   const [state, dispatch] = useReducer(reducer, { toggleMenu: false });
@@ -64,19 +62,19 @@ export default function LeftBar() {
   const { toggleMenu } = state;
   return (
     <aside
-      className={`w-60 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ${
+      className={`fixed z-50 flex h-screen w-60 transform bg-[#1E293B] transition duration-1000 ease-in-out ${
         !toggleMenu ? '-translate-x-48' : ''
       }`}
     >
       {/* /#open sidebar button */}
       <div
         className={`
-        translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white dark:border-[#0F172A] bg-[#1E293B]  absolute top-2 rounded-full h-12${
+        absolute -right-6 top-2 flex w-full translate-x-24 scale-x-0 transform items-center justify-between rounded-full border-4 border-white bg-[#1E293B] transition  duration-300 ease-in dark:border-[#0F172A] h-12${
           !toggleMenu ? 'translate-x-24 scale-x-0' : 'translate-x-0'
         }
       `}
       >
-        <div className="flex pl-4 items-center space-x-2 ">
+        <div className="flex items-center space-x-2 pl-4 ">
           <div>
             <div
               onClick="setDark('dark')"
@@ -88,7 +86,7 @@ export default function LeftBar() {
                 viewBox="0 0 24 24"
                 strokeWidth={3}
                 stroke="currentColor"
-                className="w-4 h-4"
+                className="h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -107,7 +105,7 @@ export default function LeftBar() {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-4 h-4"
+                className="h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -125,7 +123,7 @@ export default function LeftBar() {
               viewBox="0 0 24 24"
               strokeWidth={3}
               stroke="currentColor"
-              className="w-4 h-4"
+              className="h-4 w-4"
             >
               <path
                 strokeLinecap="round"
@@ -135,16 +133,16 @@ export default function LeftBar() {
             </svg>
           </div>
         </div>
-        <div className="flex items-center space-x-3 group bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-purple-500  pl-10 pr-2 py-1 rounded-full text-white  ">
-          <div className="transform ease-in-out duration-300 mr-12">NERVE</div>
+        <div className="group flex items-center space-x-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-purple-500 py-1  pl-10 pr-2 text-white dark:from-cyan-500 dark:to-blue-500  ">
+          <div className="mr-12 transform duration-300 ease-in-out">NERVE</div>
         </div>
       </div>
       <button
         onClick={handleClick}
-        className="-right-6 transition transform ease-in-out duration-500 flex border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500 hover:bg-purple-500 absolute top-2 p-3 rounded-full text-white"
+        className="absolute -right-6 top-2 flex transform rounded-full border-4 border-white bg-[#1E293B] p-3 text-white transition duration-500 ease-in-out hover:bg-purple-500 dark:border-[#0F172A] dark:hover:bg-blue-500"
       >
         <Image
-          className="w-5 h-5"
+          className="h-5 w-5"
           src={logo}
           width={16}
           height={16}

@@ -4,14 +4,9 @@ import Typography from './Typography';
 
 import PropTypes from 'prop-types';
 
-interface StaticRequire {
-  default: StaticImageData;
-}
-declare type StaticImport = StaticRequire | StaticImageData;
-
 interface IAvatarProps {
   subtitle?: string;
-  src?: string | StaticImport;
+  src: string | StaticImageData;
 }
 function Avatar({ subtitle, src }: IAvatarProps) {
   return (
@@ -19,7 +14,7 @@ function Avatar({ subtitle, src }: IAvatarProps) {
       <Image
         src={src}
         alt="profile"
-        className="flex flex-none items-center rounded-full mx-s object-cover shadow"
+        className="mx-s flex flex-none items-center rounded-full object-cover shadow"
         width={25}
         height={25}
       ></Image>
