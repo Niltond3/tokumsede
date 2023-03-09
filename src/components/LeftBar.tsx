@@ -4,6 +4,7 @@ import { useReducer } from 'react';
 import LeftMenu from 'components/LeftMenu';
 
 import logo from '../../public/images/logo.webp';
+import Container from './Ui/Layout/Container';
 
 type State = { toggleMenu: boolean };
 
@@ -61,11 +62,7 @@ export default function LeftBar() {
 
   const { toggleMenu } = state;
   return (
-    <aside
-      className={`fixed z-50 flex h-screen w-60 transform bg-[#1E293B] transition duration-1000 ease-in-out ${
-        !toggleMenu ? '-translate-x-48' : ''
-      }`}
-    >
+    <Container theme="left-bar" className={`${!toggleMenu ? '-translate-x-48' : ''}`}>
       {/* /#open sidebar button */}
       <div
         className={`
@@ -150,6 +147,6 @@ export default function LeftBar() {
         ></Image>
       </button>
       {LeftMenu(toggleMenu)}
-    </aside>
+    </Container>
   );
 }

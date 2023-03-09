@@ -1,24 +1,3 @@
-const position = (post: 'fixed' | 'absolute' | 'relative') => {
-  return {
-    [`${post}-inset-none`]: `${post} inset-none`,
-    [`${post}-inset-xxs`]: `${post} inset-xxs`,
-    [`${post}-inset-xs`]: `${post} inset-xs`,
-    [`${post}-inset-s`]: `${post} inset-s`,
-    [`${post}-inset-x-none`]: `${post} inset-x-none`,
-    [`${post}-inset-x-xxs`]: `${post} inset-x-xxs`,
-    [`${post}-inset-x-xs`]: `${post} inset-x-xs`,
-    [`${post}-inset-x-s`]: `${post} inset-x-s`,
-    [`${post}-inset-y-none`]: `${post} inset-none`,
-    [`${post}-inset-y-xxs`]: `${post} inset-xxs`,
-    [`${post}-inset-y-xs`]: `${post} inset-xs`,
-    [`${post}-inset-y-s`]: `${post} inset-s`,
-    [`${post}-top-right`]: ``,
-    [`${post}-bottom-right`]: ``,
-    [`${post}-top-left`]: ``,
-    [`${post}-bottom-left`]: ``
-  };
-};
-
 export default {
   display: {
     block: 'block',
@@ -35,7 +14,6 @@ export default {
   position: {
     fixed: 'fixed',
     absolute: 'absolute',
-
     relative: 'relative'
   },
   visibility: {

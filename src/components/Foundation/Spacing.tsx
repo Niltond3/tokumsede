@@ -21,6 +21,7 @@ interface ISpacing {
   margin: ISpacingOptions;
   padding: ISpacingOptions;
 }
+
 export const Spacing: ISpacing = {
   margin: {
     inset: {

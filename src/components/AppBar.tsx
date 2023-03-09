@@ -12,16 +12,7 @@ interface IAppBar {
 }
 export default function AppBar({ children }: IAppBar) {
   return (
-    <Container
-      display="flex"
-      position="absolute"
-      placeContent="between"
-      height="4rem"
-      width="100vw"
-      color="primary"
-      p-inline-begin="xxl"
-      p-inline-end="l"
-    >
+    <Container theme="app-bar">
       <Typography variant="h1" bold={false}>
         TOKUMSEDE
       </Typography>

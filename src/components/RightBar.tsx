@@ -7,13 +7,7 @@ import PropTypes from 'prop-types';
 
 function RightBar() {
   return (
-    <Container
-      color="transparent"
-      display="flex"
-      height="100%"
-      position="absolute"
-      width="4rem"
-    >
+    <Container theme="right-bar">
       <NavBar theme="vertical"></NavBar>
     </Container>
   );

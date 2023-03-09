@@ -1,3 +1,19 @@
 .header {
   @apply p-2 z-30 bg-white dark:bg-[#0F122A] h-16 px-10 items-center justify-center
 }
+
+.container-bar {
+  @apply absolute flex
+}
+
+.container-bar_app {
+  @apply top-0 place-content-between h-xl w-screen pl-xxl pr-l
+}
+
+.container-bar_left {
+  @apply z-50 h-screen  w-60 flex-col transform transition duration-1000 ease-in-out
+}
+
+.container-bar_right {
+  @apply h-screen flex-col right-0 w-min
+}
