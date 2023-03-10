@@ -16,7 +16,7 @@ module.exports = {
         xxl: '5rem'
       },
       fontFamily: {
-        sans: []
+        title: ['Josefin Sans', 'sans-serif']
       },
       colors: {
         primary: {

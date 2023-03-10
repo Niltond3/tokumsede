@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
 const variantsMapping = {
   h1: {
@@ -27,7 +27,7 @@ const variantsMapping = {
   },
   subtitle: {
     Component: 'h6',
-    twClass: 'text-sm font-normal	'
+    twClass: 'text-sm font-normal	items-center'
   },
   body: {
     Component: 'p',
@@ -47,18 +47,23 @@ const variantsMapping = {
   }
 } as const;
 
-interface TypographyProps {
+interface TypographyProps extends HTMLAttributes<HTMLElement> {
   variant: keyof typeof variantsMapping;
   bold?: boolean;
   children?: ReactNode;
 }
-export default function Typography({ variant, children, bold }: TypographyProps) {
+export default function Typography({
+  variant,
+  children,
+  bold,
+  className
+}: TypographyProps) {
   const { Component, twClass } = variantsMapping[variant];
   return (
     <Component
-      className={`font-mono text-justify ${
+      className={`text-justify${
         bold ? 'font-bold' : ''
-      } transform ease-in-out duration-500 flex-none h-full flex items-center justify-center ${twClass} `}
+      } flex h-full flex-none transform justify-center duration-500 ease-in-out ${twClass} ${className}`}
     >
       {children}
     </Component>
