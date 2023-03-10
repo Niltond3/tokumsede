@@ -21,6 +21,10 @@ const themeMapping = {
   'right-bar': {
     component: 'aside',
     style: 'container-bar container-bar_right'
+  },
+  wrapper: {
+    component: 'div',
+    style: ''
   }
 } as const;
 
@@ -65,7 +69,7 @@ export default function Container({
   const twAnimation = animation ? ` ${animationMapping[animation]}` : '';
 
   return (
-    <Component className={`${style} ${twColor} ${className}${twAnimation}`}>
+    <Component className={`theme ${style} ${twColor} ${className}${twAnimation}`}>
       {children}
     </Component>
   );

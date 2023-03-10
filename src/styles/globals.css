@@ -4,6 +4,7 @@
 @import './Home.module.css';
 @import './Animations.css';
 @import './Colors.css';
+@import '.../components/Ui/Inputs/Inputs.css';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 @layer base {

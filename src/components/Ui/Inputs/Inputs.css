@@ -1,0 +1,3 @@
+.wrapper .wrapper_logo {
+  @apply flex group cursor-pointer
+}
