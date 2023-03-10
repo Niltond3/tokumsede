@@ -62,7 +62,12 @@ export default function LeftBar() {
 
   const { toggleMenu } = state;
   return (
-    <Container theme="left-bar" className={`${!toggleMenu ? '-translate-x-48' : ''}`}>
+    <Container
+      theme="aside-bar"
+      color="primary-disable"
+      animation="slow"
+      className={`w-60 col-start-1 ${!toggleMenu ? '-translate-x-48' : ''}`}
+    >
       {/* /#open sidebar button */}
       <div
         className={`

@@ -37,14 +37,15 @@ export default function Home() {
   return (
     <>
       <Head />
-      <main>
-        {/* Header */}
+      <main className="grid grid-cols-5 gap-xs">
+        {/* HEADER */}
         <AppBar />
-        {/* LeftBar */}
-        {LeftBar()}
+        {/* SIDE BAR LEFT */}
+        <LeftBar />
+        {/* SIDE BAR RIGHT */}
         <RightBar />
         {/* CONTENT */}
-        <div className="content ml-12 transform px-2 pt-20 pb-4 duration-500 ease-in-out md:px-5 ">
+        <div className="min-h-min transform px-2 pt-20 pb-4 duration-500 ease-in-out md:px-5 col-start-2 col-span-3">
           <div className="my-5 -mx-2 flex flex-wrap">
             <div className="w-full p-2 lg:w-1/3">
               <div className="flex w-full flex-row items-center rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 dark:from-cyan-500 dark:to-blue-500">
@@ -189,7 +190,8 @@ export default function Home() {
             try submitting again.
           </div>
         </div>
-        {/* Banner ==============================*/}
+        {/* FOOTER */}
+        <div className="bg-slate-500 rounded-lg shadow-lg min-h-[50px] col-span-5"></div>
       </main>
     </>
   );

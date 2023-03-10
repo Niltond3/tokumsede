@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import './Home.module.css';
+@import './Animations.css';
+@import './Colors.css';
 
 @layer base {
   body {

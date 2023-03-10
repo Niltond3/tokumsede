@@ -1,37 +1,17 @@
-.color-transparent {
-  @apply bg-transparent text-primary-contrast dark:bg-transparent dark:text-primary-contrast
-}
-
-.color-primary {
-  @apply bg-primary-default text-primary-contrast dark:bg-primary-dark dark:text-primary-contrast
-}
-
-.color-secondary {
-  @apply bg-secondary-default text-secondary-contrast dark:bg-secondary-dark dark:text-secondary-contrast
-}
-
-.color-tertiary {
-  @apply bg-tertiary-default text-tertiary-contrast dark:bg-tertiary-dark dark:text-tertiary-contrast
-}
-
 .container-bar {
-  @apply absolute flex z-50
+  @apply flex z-50
+}
+
+.container-bar-aside {
+  @apply h-screen flex-col row-span-6
 }
 
 .container-bar_app {
-  @apply top-0 place-content-between h-xl w-screen pl-xxl pr-l
-}
-
-.container-bar_left {
-  @apply  h-screen  w-60 flex-col transform transition duration-1000 ease-in-out
-}
-
-.container-bar_right {
-  @apply h-screen flex-col right-0 w-min pt-xl
+  @apply place-content-between h-xl pl-xxl pr-l col-span-5 bg-opacity-10
 }
 
 .nav-bar_top{
-  @apply m-m flex rounded-full px-m py-s transform transition duration-500 ease-in-out opacity-50 hover:opacity-100
+  @apply m-m flex rounded-full px-m py-s transition duration-500 ease-in-out opacity-50 hover:opacity-100
 }
 
 .nav-bar_top ul{

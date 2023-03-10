@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 function RightBar() {
   return (
-    <Container theme="right-bar">
+    <Container theme="aside-bar" color="transparent" className="col-start-5">
       <NavBar theme="side"></NavBar>
     </Container>
   );
