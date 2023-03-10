@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 function RightBar() {
   return (
     <Container theme="right-bar">
-      <NavBar theme="vertical"></NavBar>
+      <NavBar theme="side"></NavBar>
     </Container>
   );
 }

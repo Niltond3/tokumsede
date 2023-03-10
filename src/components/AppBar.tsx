@@ -16,7 +16,7 @@ export default function AppBar({ children }: IAppBar) {
       <Typography variant="h1" bold={false}>
         TOKUMSEDE
       </Typography>
-      <NavBar theme="horizontal"></NavBar>
+      <NavBar theme="top"></NavBar>
       <Avatar subtitle="tks" src="" />
     </Container>
   );

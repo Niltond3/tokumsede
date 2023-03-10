@@ -1,9 +1,21 @@
-.header {
-  @apply p-2 z-30 bg-white dark:bg-[#0F122A] h-16 px-10 items-center justify-center
+.color-transparent {
+  @apply bg-transparent text-primary-contrast dark:bg-transparent dark:text-primary-contrast
+}
+
+.color-primary {
+  @apply bg-primary-default text-primary-contrast dark:bg-primary-dark dark:text-primary-contrast
+}
+
+.color-secondary {
+  @apply bg-secondary-default text-secondary-contrast dark:bg-secondary-dark dark:text-secondary-contrast
+}
+
+.color-tertiary {
+  @apply bg-tertiary-default text-tertiary-contrast dark:bg-tertiary-dark dark:text-tertiary-contrast
 }
 
 .container-bar {
-  @apply absolute flex
+  @apply absolute flex z-50
 }
 
 .container-bar_app {
@@ -11,9 +23,29 @@
 }
 
 .container-bar_left {
-  @apply z-50 h-screen  w-60 flex-col transform transition duration-1000 ease-in-out
+  @apply  h-screen  w-60 flex-col transform transition duration-1000 ease-in-out
 }
 
 .container-bar_right {
-  @apply h-screen flex-col right-0 w-min
+  @apply h-screen flex-col right-0 w-min pt-xl
+}
+
+.nav-bar_top{
+  @apply m-m flex rounded-full px-m py-s transform transition duration-500 ease-in-out opacity-50 hover:opacity-100
+}
+
+.nav-bar_top ul{
+  @apply relative z-10 inline-flex items-center space-x-1
+}
+
+.nav-bar_top li{
+  @apply inline-flex items-center
+}
+
+.nav-bar_top li a{
+  @apply flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white
+}
+
+.nav-bar_side {
+  @apply flex flex-col transform transition duration-500 ease-in-out
 }
