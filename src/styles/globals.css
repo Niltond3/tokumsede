@@ -1,10 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 @import './Home.module.css';
 @import './Animations.css';
-@import './Colors.css';
-@import '.../components/Ui/Inputs/Inputs.css';
+@import '../components/Foundation/Colors.css';
+@import '../components/Ui/Inputs/Inputs.css';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 @layer base {

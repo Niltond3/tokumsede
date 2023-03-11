@@ -1,3 +1,18 @@
-.wrapper .wrapper_logo {
-  @apply flex group cursor-pointer
+.wrapper_logo {
+  @apply flex cursor-pointer
+}
+.wrapper_logo--image{
+  @apply opacity-50 transition duration-500 ease-in-out
+}
+
+.wrapper_logo--title {
+  @apply flex-col items-start font-title text-base pointer-events-none
+}
+
+.wrapper_logo--title span{
+  @apply relative select-none left-[-10px] text-xs leading-3
+}
+
+.wrapper_logo--title span:last-child {
+  @apply opacity-50 mb-m text-xl text-white leading-4
 }

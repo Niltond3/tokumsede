@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Colors } from 'components/Foundation/Colors';
-
 import Typography from '../DataDisplay/Typography';
 
 import PropTypes from 'prop-types';
@@ -9,23 +7,21 @@ import PropTypes from 'prop-types';
 const themeMapping = {
   top: {
     title: false,
-    style: 'nav-bar_top',
-    color: Colors.tertiary
+    style: 'nav-bar_top color-tertiary-active'
   },
   side: {
     title: true,
-    style: 'nav-bar_side',
-    color: Colors.transparent
+    style: 'nav-bar_side color-transparent'
   }
 } as const;
 interface INavBar {
   theme: keyof typeof themeMapping;
 }
 function NavBar({ theme }: INavBar) {
-  const { title, color, style } = themeMapping[theme];
+  const { title, style } = themeMapping[theme];
   return (
     <>
-      <nav className={`${style} ${color}`} aria-label="Breadcrumb">
+      <nav className={`${style}`} aria-label="Breadcrumb">
         {title && (
           <Typography variant="h5" bold={true}>
             Nesta página
