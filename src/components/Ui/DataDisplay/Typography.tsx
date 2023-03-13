@@ -3,7 +3,7 @@ import { HTMLAttributes, ReactNode } from 'react';
 const variantsMapping = {
   h1: {
     Component: 'h1',
-    twClass: 'text-lg font-semibold'
+    twClass: 'flex h-full flex-none text-lg font-semibold'
   },
   h2: {
     Component: 'h2',
@@ -63,7 +63,7 @@ export default function Typography({
     <Component
       className={`text-justify${
         bold ? 'font-bold' : ''
-      } flex h-full flex-none transform justify-center duration-500 ease-in-out ${twClass} ${className}`}
+      } transform justify-center duration-500 ease-in-out ${twClass} ${className}`}
     >
       {children}
     </Component>

@@ -1,69 +1,70 @@
 import React from 'react';
 
+import { ArrowRight, Home } from '../DataDisplay/Icons';
 import Typography from '../DataDisplay/Typography';
+import Link from './Link';
 
-import PropTypes from 'prop-types';
+interface IThemes {
+  Breadcrumbs: string;
+  TableOfContents: string;
+}
+
+export interface entry {
+  title: string;
+  href: string;
+  level: 'primary' | 'secondary';
+}
+
+interface INavBar {
+  theme: keyof IThemes;
+  entrys: entry[];
+}
 
 const themeMapping = {
-  top: {
+  Breadcrumbs: {
     title: false,
-    style: 'nav-bar_top color-tertiary-active'
+    style: 'nav-bar_top color__tertiary'
   },
-  side: {
+  TableOfContents: {
     title: true,
-    style: 'nav-bar_side color-transparent'
+    style: 'nav-bar_side'
   }
 } as const;
-interface INavBar {
-  theme: keyof typeof themeMapping;
-}
-function NavBar({ theme }: INavBar) {
+
+const renderSvg = (level: 'primary' | 'secondary') => {
+  const svg = {
+    primary: <Home className="mr-2 h-4 w-4" />,
+    secondary: <ArrowRight className="h-4 w-4" />
+  };
+  return svg[level];
+};
+
+const renderRows = (entrys: entry[], theme: keyof IThemes) =>
+  entrys.map(({ href, level, title }, index) => (
+    <li key={index} className={level}>
+      <Link href={href} className="group">
+        {theme !== 'TableOfContents' && renderSvg(level)}
+        {title}
+      </Link>
+    </li>
+  ));
+
+export default function NavBar({ theme, entrys }: INavBar) {
   const { title, style } = themeMapping[theme];
   return (
     <>
-      <nav className={`${style}`} aria-label="Breadcrumb">
-        {title && (
-          <Typography variant="h5" bold={true}>
-            Nesta página
-          </Typography>
-        )}
-        <ul>
-          <li>
-            <a href="#">
-              <svg
-                className="mr-2 h-4 w-4"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-              </svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <svg
-                className="h-6 w-6 text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              Dashboard
-            </a>
-          </li>
-        </ul>
+      {title && (
+        <Typography
+          variant="h5"
+          bold={true}
+          className="my-m text-slate-900 font-semibold text-sm leading-6 dark:text-slate-100"
+        >
+          Nesta página
+        </Typography>
+      )}
+      <nav className={`${style}`} aria-label={theme}>
+        <ul>{renderRows(entrys, theme)}</ul>
       </nav>
     </>
   );
 }
-
-NavBar.propTypes = {};
-
-export default NavBar;

@@ -5,7 +5,7 @@ import paths from '../../Utils/Constants/ImagesPaths';
 interface IImg {
   size?: number;
   image: keyof typeof paths;
-  className: string;
+  className?: string;
 }
 
 export default function Img({ image, size, className }: IImg) {

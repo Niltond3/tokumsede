@@ -7,7 +7,7 @@ import {
   HiOutlineChatAlt
 } from 'react-icons/hi';
 
-import Link from './Ui/Navigation/Link';
+import Link from '../Navigation/Link';
 
 export default function MenuItem(
   type: 'home' | 'app' | 'why' | 'who' | 'download' | 'chat',

@@ -1,10 +1,7 @@
-import Image from 'next/image';
 import { useReducer } from 'react';
 
-import LeftMenu from 'components/LeftMenu';
-
-import logo from '../../public/images/logo.webp';
-import Container from './Ui/Layout/Container';
+import Img from 'components/Ui/DataDisplay/Image';
+import MenuItem from 'components/Ui/Inputs/MenuItem';
 
 type State = { toggleMenu: boolean };
 
@@ -62,11 +59,10 @@ export default function LeftBar() {
 
   const { toggleMenu } = state;
   return (
-    <Container
-      theme="aside-bar"
-      color="primary-disable"
-      animation="slow"
-      className={`w-60 col-start-1 ${!toggleMenu ? '-translate-x-48' : ''}`}
+    <aside
+      className={`container-bar container-bar-aside transition-slow color__transparent w-60 col-start-1 ${
+        !toggleMenu ? '-translate-x-48' : ''
+      }`}
     >
       {/* /#open sidebar button */}
       <div
@@ -143,15 +139,16 @@ export default function LeftBar() {
         onClick={handleClick}
         className="absolute -right-6 top-2 flex transform rounded-full border-4 border-white bg-[#1E293B] p-3 text-white transition duration-500 ease-in-out hover:bg-purple-500 dark:border-[#0F172A] dark:hover:bg-blue-500"
       >
-        <Image
-          className="h-5 w-5"
-          src={logo}
-          width={16}
-          height={16}
-          alt="TokumSede Logo"
-        ></Image>
+        <Img size={16} image="logo"></Img>
       </button>
-      {LeftMenu(toggleMenu)}
-    </Container>
+      <div className={`text-white mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]`}>
+        {MenuItem('home', toggleMenu)}
+        {MenuItem('app', toggleMenu)}
+        {MenuItem('why', toggleMenu)}
+        {MenuItem('who', toggleMenu)}
+        {MenuItem('download', toggleMenu)}
+        {MenuItem('chat', toggleMenu)}
+      </div>
+    </aside>
   );
 }

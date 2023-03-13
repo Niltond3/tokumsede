@@ -1,40 +1,15 @@
-.color-transparent {
+.color__transparent {
   @apply bg-transparent text-primary-contrast dark:bg-transparent dark:text-primary-contrast
 }
 
-active
-disable
-hover
-idle
-
-
-.color-primary-active, .color-primary-disable, .color-primary-hover, .color-primary-idle {
+.color__primary{
   @apply bg-primary-default text-primary-contrast dark:bg-primary-dark dark:text-primary-contrast
 }
 
-.color-secondary-active, .color-secondary-disable, .color-secondary-hover, .color-secondary-idle {
+.color__secondary{
   @apply bg-secondary-default text-secondary-contrast dark:bg-secondary-dark dark:text-secondary-contrast
 }
 
-.color-tertiary-active, .color-tertiary-disable, .color-tertiary-hover, .color-tertiary-idle {
-  @apply bg-tertiary-default text-tertiary-contrast dark:bg-tertiary-dark dark:text-tertiary-contrast
-}
-
-.color-primary-disable, .color-secondary-disable, .color-tertiary-disable{
-  @apply bg-opacity-10 dark:bg-opacity-10
-}
-.color-primary-hover, .color-secondary-hover, .color-tertiary-hover{
-  @apply bg-opacity-10 dark:bg-opacity-10
-}
-.color-primary-idle, .color-secondary-idle, .color-tertiary-idle{
-  @apply bg-opacity-10 dark:bg-opacity-10
-}
-
-
-.color-secondary-active {
-  @apply bg-secondary-default text-secondary-contrast dark:bg-secondary-dark dark:text-secondary-contrast
-}
-
-.color-tertiary-active {
+.color__tertiary{
   @apply bg-tertiary-default text-tertiary-contrast dark:bg-tertiary-dark dark:text-tertiary-contrast
 }

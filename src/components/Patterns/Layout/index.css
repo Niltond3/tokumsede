@@ -1,0 +1,12 @@
+.container-bar {
+  @apply flex fixed z-50
+}
+
+.container-bar_app {
+  @apply w-full h-xl px-l backdrop-blur-sm place-content-between
+}
+
+.container-bar-aside {
+  @apply h-full top-xl flex-col
+}
+

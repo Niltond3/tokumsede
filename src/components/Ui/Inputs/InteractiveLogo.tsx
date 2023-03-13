@@ -3,21 +3,20 @@ import React from 'react';
 import Typography from 'components/Ui/DataDisplay/Typography';
 
 import Img from '../DataDisplay/Image';
-import Container from '../Layout/Container';
 
 export default function InteractiveLogo() {
   return (
-    <Container theme="wrapper" color="transparent" className="wrapper_logo group">
+    <div className="wrapper_logo color__transparent group">
       <Img
-        size={55}
+        size={48}
         image="logo"
-        className="wrapper_logo--image group-hover:opacity-100"
+        className="max-h-12 mt-xs wrapper_logo--image group-hover:opacity-100"
       ></Img>
       <Typography variant="h1" bold={false} className="wrapper_logo--title ">
         <span>Tô</span>
         <span>Kum</span>
         <span className="transition-fast group-hover:opacity-100">ede</span>
       </Typography>
-    </Container>
+    </div>
   );
 }

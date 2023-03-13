@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 interface Props {
   href: string;
   children: ReactNode;
-  className: string;
+  className?: string;
 }
 export default function Link({ href, children, className }: Props) {
   return (

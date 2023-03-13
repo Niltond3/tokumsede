@@ -13,7 +13,8 @@ module.exports = {
         m: '1rem',
         l: '2rem',
         xl: '4rem',
-        xxl: '5rem'
+        xxl: '5rem',
+        xxxl: '16rem'
       },
       fontFamily: {
         title: ['Josefin Sans', 'sans-serif']
@@ -40,7 +41,8 @@ module.exports = {
         success: '', //Entregue
         danger: '', //Cancelado
         wait: '' //Agendado
-      }
+      },
+      opacity: {}
     }
   },
   plugins: []
