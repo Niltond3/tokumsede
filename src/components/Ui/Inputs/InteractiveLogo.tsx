@@ -8,16 +8,16 @@ interface IInteractiveLogo {
 }
 export default function InteractiveLogo({ className }: IInteractiveLogo) {
   return (
-    <div className={`${className} wrapper_logo color__transparent group`}>
+    <div className={`${className} wrapper_logo color__transparent transition-slow group`}>
       <Img
         size={48}
         image="logo"
-        className="max-h-12 mt-xs wrapper_logo--image group-hover:opacity-100"
+        className="transition-slow max-h-12 mt-xs wrapper_logo--image group-hover:opacity-100"
       ></Img>
       <Typography variant="h1" bold={false} className="wrapper_logo--title ">
         <span>Tô</span>
         <span>Kum</span>
-        <span className="transition-fast group-hover:opacity-100">ede</span>
+        <span className="transition-slow group-hover:opacity-100">ede</span>
       </Typography>
     </div>
   );

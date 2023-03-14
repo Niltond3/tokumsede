@@ -32,7 +32,7 @@ module.exports = {
         },
         tertiary: {
           default: '#3088D4',
-          dark: '#37404F',
+          dark: '#1D3B55',
           contrast: '#D2DFEE'
         },
         warning: '', //pendente

@@ -1,8 +1,12 @@
 .wrapper_logo {
-  @apply flex cursor-pointer
+  @apply flex cursor-pointer rounded-full border-secondary-default dark:border-secondary-dark
 }
 .wrapper_logo--image{
   @apply opacity-50 transition duration-500 ease-in-out
+}
+
+.wrapper_logo.full .wrapper_logo--title{
+  @apply opacity-0
 }
 
 .wrapper_logo--title {
