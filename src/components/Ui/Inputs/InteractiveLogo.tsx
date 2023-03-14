@@ -3,10 +3,12 @@ import React from 'react';
 import Typography from 'components/Ui/DataDisplay/Typography';
 
 import Img from '../DataDisplay/Image';
-
-export default function InteractiveLogo() {
+interface IInteractiveLogo {
+  className?: string;
+}
+export default function InteractiveLogo({ className }: IInteractiveLogo) {
   return (
-    <div className="wrapper_logo color__transparent group">
+    <div className={`${className} wrapper_logo color__transparent group`}>
       <Img
         size={48}
         image="logo"

@@ -20,11 +20,7 @@
 
 
 .nav-bar_side ul {
-  @apply text-slate-700 text-sm leading-6 first:block first:py-1 first:font-medium first:text-sky-500 first:dark:text-sky-400
-}
-
-.nav-bar_side li a {
-  @apply block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300
+  @apply text-slate-700 text-xs leading-6 first:block first:py-1 first:font-medium first:text-sky-500 first:dark:text-sky-400
 }
 
 .nav-bar_side li a {

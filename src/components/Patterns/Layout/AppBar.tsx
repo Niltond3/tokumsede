@@ -22,7 +22,7 @@ const entrys: entry[] = [
 export default function AppBar({ children }: IAppBar) {
   return (
     <div className="container-bar container-bar_app color__tertiary bg-opacity-10 backdrop-blur-md">
-      <InteractiveLogo />
+      <div></div>
       <NavBar theme="Breadcrumbs" entrys={entrys}></NavBar>
       <Avatar subtitle="tks" src="" />
     </div>

@@ -14,7 +14,7 @@ module.exports = {
         l: '2rem',
         xl: '4rem',
         xxl: '5rem',
-        xxxl: '16rem'
+        xxxl: '13rem'
       },
       fontFamily: {
         title: ['Josefin Sans', 'sans-serif']

@@ -15,7 +15,10 @@ export default function Home() {
         {/* SIDE BAR RIGHT */}
         <RightBar />
         {/* CONTENT */}
-        <div className="content transform ease-in-out duration-500 pt-20 px-2 md:px-5 pb-4 h-screen ml-xl mr-xxxl">
+        <div className="transition-fast bg-purple-900 h-screen pt-xxl pl-m pr-s pb-m mr-xxxl md:px-l ">
+          CONTENT
+        </div>
+        {/* <div className="content transform ease-in-out duration-500 pt-20 px-2 md:px-5 pb-4 h-screen ml-xl mr-xxxl">
           <div className="my-5 -mx-2 flex flex-wrap">
             <div className="w-full p-2 lg:w-1/3">
               <div className="flex w-full flex-row items-center rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 dark:from-cyan-500 dark:to-blue-500">
@@ -159,7 +162,7 @@ export default function Home() {
             <span className="font-medium">Success alert!</span> Change a few things up and
             try submitting again.
           </div>
-        </div>
+        </div> */}
       </main>
     </>
   );

@@ -7,6 +7,6 @@
 }
 
 .container-bar-aside {
-  @apply h-full top-xl flex-col
+  @apply h-screen pt-xl flex-col
 }
 
