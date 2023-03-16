@@ -10,23 +10,25 @@ export default function LeftBar() {
   const [hideFullMenu, toggleFullMenu] = useState(true);
   const [showParcialMenu, toggleParcialMenu] = useState(false);
   const [colorMode, setClorMode] = useColorMode();
-
-  const handleToggle = () => toggleFullMenu(!hideFullMenu);
-  const handleShow = () => toggleParcialMenu(true);
-  const handleHide = () => toggleParcialMenu(false);
   const { DARK, LIGHT } = THEMES;
+
+  const handleToggleFullMenu = () => toggleFullMenu(!hideFullMenu);
+  const handleShowParcialMenu = () => toggleParcialMenu(true);
+  const handleHide = () => toggleParcialMenu(false);
+  const handleToggleColorMode = () => setClorMode(colorMode === LIGHT ? DARK : LIGHT);
+
   return (
     <aside
       onMouseLeave={handleHide}
-      className={`container-bar container-bar-aside transition-slow backdrop-blur-md w-40
+      className={`container-bar container-bar-aside transition-slow w-40 backdrop-blur-md
       ${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'menu')}
 `}
     >
-      <div className="absolute flex justify-between rounded-l-full top-0 pr-[2.2rem] pl-s border-y-8 border-l-8 ml-m h-xl w-full z-[52] border-secondary-default dark:border-secondary-dark">
+      <div className="transition-slow absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pr-[2.2rem] pl-s dark:border-secondary-dark">
         <Button
           typeOf="DarkModeToggle"
           aria-label="Dark mode toggle"
-          onClick={() => setClorMode(colorMode === 'light' ? 'dark' : 'light')}
+          onClick={handleToggleColorMode}
         ></Button>
         <Button
           typeOf="Notifications"
@@ -47,13 +49,13 @@ export default function LeftBar() {
       <Button
         typeOf="InteractiveLogo"
         className={`${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'logo')}`}
-        onClick={handleToggle}
+        onClick={handleToggleFullMenu}
       />
       <Button
         typeOf="InteractiveBar"
         className={`${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'barButton')}`}
-        onClick={handleToggle}
-        onMouseEnter={handleShow}
+        onClick={handleToggleFullMenu}
+        onMouseEnter={handleShowParcialMenu}
       />
     </aside>
   );
@@ -72,7 +74,7 @@ function actionsWhenMenuToggle(
     logo: {
       hide: '',
       parcial: '-translate-x-4 scale-90',
-      full: 'full top-0 -translate-x-full items-center dark:bg-tertiary-dark border-8'
+      full: 'full top-0 -translate-x-full items-center bg-tertiary-default dark:bg-tertiary-dark border-8'
     },
     barButton: {
       hide: 'color__secondary',

@@ -7,10 +7,9 @@ import {
   Settings,
   NotificationsOn,
   NotificationsOff
-} from 'components/Ui/DataDisplay/Icons';
-import Typography from 'components/Ui/DataDisplay/Typography';
-
+} from '../DataDisplay/Icons';
 import Img from '../DataDisplay/Image';
+import Typography from '../DataDisplay/Typography';
 
 const buttonsMapping = {
   InteractiveLogo: {
@@ -22,10 +21,21 @@ const buttonsMapping = {
           image="logo"
           className="transition-slow wrapper_logo--image group-hover:opacity-100"
         ></Img>
-        <Typography variant="h1" bold={false} className="wrapper_logo--title ">
-          <span>Tô</span>
-          <span>Kum</span>
-          <span className="transition-slow group-hover:opacity-100">ede</span>
+        <Typography
+          variant="h1"
+          bold={false}
+          className="pointer-events-none flex-col items-start font-title text-secondary-contrast
+          child:relative child:left-[-10px] child:select-none child:text-xs child:leading-3
+          "
+        >
+          <span className="transition-slow">Tô</span>
+          <span className="transition-slow">Kum</span>
+          <span
+            className="transition-slow mb-xxs text-white antialiased opacity-50
+          group-hover:text-base group-hover:opacity-100"
+          >
+            ede
+          </span>
         </Typography>
       </>
     )
@@ -36,12 +46,14 @@ const buttonsMapping = {
   },
   DarkModeToggle: {
     style: '',
-    defaultChildren: () => (
-      <>
-        <LightMode></LightMode>
-        <DarkMode></DarkMode>
-      </>
-    )
+    defaultChildren: () => {
+      return (
+        <>
+          <LightMode className="transition-slow absolute top-1/2 -translate-y-1/2 opacity-100 dark:opacity-0"></LightMode>
+          <DarkMode className="transition-slow absolute top-1/2 -translate-y-1/2 opacity-0 dark:opacity-100"></DarkMode>
+        </>
+      );
+    }
   },
   Settings: {
     style: '',

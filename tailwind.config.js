@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   darkMode: 'class',
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
@@ -20,9 +22,9 @@ module.exports = {
       },
       colors: {
         primary: {
-          default: '#1971BD',
+          default: '#B9C9DA',
           dark: '#232D3D',
-          contrast: '#B9C9DA'
+          contrast: '#1971BD'
         },
         secondary: {
           default: '#1767AC',
@@ -44,5 +46,9 @@ module.exports = {
       opacity: {}
     }
   },
-  plugins: []
+  plugins: [
+    plugin(({ addVariant }) => {
+      addVariant('child', '&>*');
+    })
+  ]
 };

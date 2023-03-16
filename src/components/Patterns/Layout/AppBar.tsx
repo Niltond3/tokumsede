@@ -20,7 +20,7 @@ const entrys: entry[] = [
 ];
 export default function AppBar({ children }: IAppBar) {
   return (
-    <div className="container-bar container-bar_app color__secondary">
+    <div className="container-bar container-bar_app color__secondary transition-slow">
       <div></div>
       <NavBar theme="Breadcrumbs" entrys={entrys}></NavBar>
       <Avatar subtitle="tks" src="" />

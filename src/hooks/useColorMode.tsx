@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 
 import useLocalStorage from './useLocalStorage';
 
+import { THEMES } from 'utils/Constants';
+
 export default function useColorMode() {
-  const [colorMode, setColorMode] = useLocalStorage('color-mode', 'light');
+  const { DARK, LIGHT } = THEMES;
+  const [colorMode, setColorMode] = useLocalStorage('color-mode', LIGHT);
   useEffect(() => {
-    const className = 'dark';
+    const className = DARK;
     const classes = document.documentElement.classList;
-    colorMode === className ? classes.add('dark') : classes.remove('dark');
-  }, [colorMode]);
+    colorMode === className ? classes.add(DARK) : classes.remove(DARK);
+  }, [DARK, colorMode]);
   return [colorMode, setColorMode];
 }

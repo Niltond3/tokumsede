@@ -5,20 +5,8 @@
   @apply opacity-50 max-h-12 mt-xs
 }
 
-.wrapper_logo.full .wrapper_logo--title{
+.wrapper_logo.full h1{
   @apply opacity-0
-}
-
-.wrapper_logo--title {
-  @apply flex-col items-start font-title text-base pointer-events-none
-}
-
-.wrapper_logo--title span{
-  @apply relative select-none left-[-10px] text-xs leading-3
-}
-
-.wrapper_logo--title span:last-child {
-  @apply opacity-50 mb-m text-xl text-white leading-4
 }
 
 .wrapper_bar {

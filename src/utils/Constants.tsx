@@ -1,7 +1,7 @@
 export const THEMES = {
-  LIGHT: 'LIGHT',
-  DARK: 'DARK'
+  LIGHT: 'light',
+  DARK: 'dark'
 };
 export const LOCAL_STORAGE = {
-  COLOR_MODE: 'COLOR_MODE'
+  COLOR_MODE: 'color-mode'
 };

@@ -10,7 +10,7 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-r from-primary-default to-primary-contrast dark:from-primary-dark dark:to-black
+    @apply antialiased bg-primary-default dark:bg-gradient-to-r dark:from-primary-dark dark:to-black
   }
 }
 
