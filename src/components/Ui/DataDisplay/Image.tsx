@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import paths from '../../Utils/Constants/ImagesPaths';
+import paths from '../../../utils/ImagesPaths';
 
 interface IImg {
   size?: number;

@@ -1,7 +1,8 @@
 import AppBar from 'components/Patterns/Layout/AppBar';
 import LeftBar from 'components/Patterns/Layout/LeftBar';
 import RightBar from 'components/Patterns/Layout/RightBar';
-import Head from 'components/Utils/Head';
+
+import Head from 'utils/Head';
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
         {/* SIDE BAR RIGHT */}
         <RightBar />
         {/* CONTENT */}
-        <div className="transition-fast bg-purple-900 h-screen pt-xxl pl-m pr-s pb-m mr-xxxl md:px-l ">
+        <div className="transition-fast h-screen pt-xxl pl-m pr-s pb-m mr-xxxl md:px-l ">
           CONTENT
         </div>
         {/* <div className="content transform ease-in-out duration-500 pt-20 px-2 md:px-5 pb-4 h-screen ml-xl mr-xxxl">

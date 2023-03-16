@@ -1,14 +1,17 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import '../components/Foundation/index.css';
 @import '../components/Patterns/Layout/index.css';
 @import '../components/Ui/Inputs/index.css';
 @import '../components/Ui/Navigation/index.css';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
+
 @layer base {
   body {
     @apply bg-gradient-to-r from-primary-default to-primary-contrast dark:from-primary-dark dark:to-black
   }
 }
+
+

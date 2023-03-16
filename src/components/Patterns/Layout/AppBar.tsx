@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 import Avatar from 'components/Ui/DataDisplay/Avatar';
-import InteractiveLogo from 'components/Ui/Inputs/InteractiveLogo';
 import NavBar, { entry } from 'components/Ui/Navigation/NavBar';
 
 interface IAppBar {
