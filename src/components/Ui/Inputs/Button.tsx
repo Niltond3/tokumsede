@@ -24,7 +24,7 @@ const buttonsMapping = {
         <Typography
           variant="h1"
           bold={false}
-          className="pointer-events-none flex-col items-start font-title text-secondary-contrast
+          className="pointer-events-none flex-col items-start font-title text-secondary-contrast-df
           child:relative child:left-[-10px] child:select-none child:text-xs child:leading-3
           "
         >

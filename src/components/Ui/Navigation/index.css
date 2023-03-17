@@ -6,10 +6,6 @@
   @apply block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300
 }
 
-.nav-bar_side li.secondary {
-  @apply ml-4
-}
-
 .nav-bar_side li.secondary a{
   @apply flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300
 }

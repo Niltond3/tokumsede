@@ -2,7 +2,6 @@ import React from 'react';
 
 import NavBar, { entry } from 'components/Ui/Navigation/NavBar';
 
-import PropTypes from 'prop-types';
 const entrys: entry[] = [
   {
     href: '#',
@@ -65,14 +64,10 @@ const entrys: entry[] = [
     level: 'secondary'
   }
 ];
-function RightBar() {
+export default function RightBar() {
   return (
     <aside className="container-bar container-bar-aside transition-slow color__transparent right-0 col-start-5">
       <NavBar theme="TableOfContents" entrys={entrys}></NavBar>
     </aside>
   );
 }
-
-RightBar.propTypes = {};
-
-export default RightBar;

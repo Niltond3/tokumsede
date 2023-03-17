@@ -2,13 +2,11 @@ import Image, { StaticImageData } from 'next/image';
 
 import Typography from './Typography';
 
-import PropTypes from 'prop-types';
-
 interface IAvatarProps {
   subtitle?: string;
   src: string | StaticImageData;
 }
-function Avatar({ subtitle, src }: IAvatarProps) {
+export default function Avatar({ subtitle, src }: IAvatarProps) {
   return (
     <div className="flex h-full flex-none items-center justify-center text-center">
       <Image
@@ -24,7 +22,3 @@ function Avatar({ subtitle, src }: IAvatarProps) {
     </div>
   );
 }
-
-Avatar.propTypes = {};
-
-export default Avatar;

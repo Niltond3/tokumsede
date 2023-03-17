@@ -16,7 +16,7 @@ export default function Home() {
         {/* SIDE BAR RIGHT */}
         <RightBar />
         {/* CONTENT */}
-        <div className="transition-fast h-screen pt-xxl pl-m pr-s pb-m mr-xxxl md:px-l ">
+        <div className="transition-fast mr-xxxl h-screen pt-xxl pl-m pr-s pb-m md:px-l ">
           CONTENT
         </div>
         {/* <div className="content transform ease-in-out duration-500 pt-20 px-2 md:px-5 pb-4 h-screen ml-xl mr-xxxl">

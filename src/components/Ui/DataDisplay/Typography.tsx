@@ -63,7 +63,7 @@ export default function Typography({
     <Component
       className={`text-justify${
         bold ? 'font-bold' : ''
-      } transform justify-center duration-500 ease-in-out ${twClass} ${className}`}
+      } transition-slow justify-center ${twClass} ${className}`}
     >
       {children}
     </Component>

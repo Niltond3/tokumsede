@@ -24,26 +24,26 @@ module.exports = {
         primary: {
           default: '#B9C9DA',
           dark: '#232D3D',
-          'contrast-df': '#1E252C',
+          'contrast-df': '#1F4A6A',
           'contrast-dk': '#D2DFEE',
-          'select-df':'#38bdf8',
-          'select-dk':'#0ea5e9',
+          'select-df': '#001D3D',
+          'select-dk': '#0ea5e9'
         },
         secondary: {
           default: '#1767AC',
           dark: '#0F122A',
           'contrast-df': '#D2DFEE',
           'contrast-dk': '#D2DFEE',
-          'select-df':'#FFFFFF',
-          'select-dk':'#0ea5e9',
+          'select-df': '#FFFFFF',
+          'select-dk': '#0ea5e9'
         },
         tertiary: {
           default: '#3088D4',
           dark: '#1D3B55',
           'contrast-df': '#D2DFEE',
           'contrast-dk': '#D2DFEE',
-          'select-df':'#FFFFFF',
-          'select-dk':'#0ea5e9',
+          'select-df': '#FFFFFF',
+          'select-dk': '#0ea5e9'
         },
         warning: '', //pendente
         accept: '', //aceito
@@ -52,12 +52,26 @@ module.exports = {
         danger: '', //Cancelado
         wait: '' //Agendado
       },
-      opacity: {}
+      content: {
+        right: 'url("../../public/images/icons/right.svg")',
+        hashtag: 'url("../../public/images/icons/hashtag.svg")'
+      }
     }
   },
   plugins: [
-    plugin(({ addVariant }) => {
+    plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
+      addUtilities({
+        '.transition-slow': {
+          transition: 'all 1s ease-out'
+        },
+        '.transition-fast': {
+          transition: 'all 0.5s ease-out'
+        },
+        '.transition-faster': {
+          transition: 'all 0.3s ease-out'
+        }
+      });
     })
   ]
 };

@@ -12,9 +12,9 @@ export default function InteractiveLogo({ className }: IInteractiveLogo) {
       <Img
         size={48}
         image="logo"
-        className="transition-slow max-h-12 mt-xs wrapper_logo--image group-hover:opacity-100"
+        className="transition-slow wrapper_logo--image mt-xs max-h-12 group-hover:opacity-100"
       ></Img>
-      <Typography variant="h1" bold={false} className="wrapper_logo--title ">
+      <Typography variant="h1" bold={false}>
         <span>Tô</span>
         <span>Kum</span>
         <span className="transition-slow group-hover:opacity-100">ede</span>

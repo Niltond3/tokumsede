@@ -1,11 +1,6 @@
-import { ReactNode } from 'react';
-
 import Avatar from 'components/Ui/DataDisplay/Avatar';
 import NavBar, { entry } from 'components/Ui/Navigation/NavBar';
 
-interface IAppBar {
-  children?: ReactNode;
-}
 const entrys: entry[] = [
   {
     href: '#',
@@ -18,7 +13,7 @@ const entrys: entry[] = [
     level: 'secondary'
   }
 ];
-export default function AppBar({ children }: IAppBar) {
+export default function AppBar() {
   return (
     <div className="container-bar container-bar_app color__secondary transition-slow">
       <div></div>
