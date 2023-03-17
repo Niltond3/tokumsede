@@ -1,15 +1,15 @@
 .color__transparent {
-  @apply bg-transparent text-primary-contrast dark:bg-transparent dark:text-primary-contrast
+  @apply bg-transparent text-primary-contrast-df dark:bg-transparent dark:text-primary-contrast-dk
 }
 
 .color__primary{
-  @apply bg-primary-default text-primary-contrast dark:bg-primary-dark dark:text-primary-contrast
+  @apply bg-primary-default text-primary-contrast-df dark:bg-primary-dark dark:text-primary-contrast-dk
 }
 
 .color__secondary{
-  @apply bg-secondary-default text-secondary-contrast dark:bg-secondary-dark dark:text-secondary-contrast
+  @apply bg-secondary-default text-secondary-contrast-df dark:bg-secondary-dark dark:text-secondary-contrast-dk
 }
 
 .color__tertiary{
-  @apply bg-tertiary-default text-tertiary-contrast dark:bg-tertiary-dark dark:text-tertiary-contrast
+  @apply bg-tertiary-default text-tertiary-contrast-df dark:bg-tertiary-dark dark:text-tertiary-contrast-dk
 }

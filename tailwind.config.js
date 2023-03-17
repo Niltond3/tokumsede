@@ -24,17 +24,26 @@ module.exports = {
         primary: {
           default: '#B9C9DA',
           dark: '#232D3D',
-          contrast: '#1971BD'
+          'contrast-df': '#1E252C',
+          'contrast-dk': '#D2DFEE',
+          'select-df':'#38bdf8',
+          'select-dk':'#0ea5e9',
         },
         secondary: {
           default: '#1767AC',
           dark: '#0F122A',
-          contrast: '#D2DFEE'
+          'contrast-df': '#D2DFEE',
+          'contrast-dk': '#D2DFEE',
+          'select-df':'#FFFFFF',
+          'select-dk':'#0ea5e9',
         },
         tertiary: {
           default: '#3088D4',
           dark: '#1D3B55',
-          contrast: '#D2DFEE'
+          'contrast-df': '#D2DFEE',
+          'contrast-dk': '#D2DFEE',
+          'select-df':'#FFFFFF',
+          'select-dk':'#0ea5e9',
         },
         warning: '', //pendente
         accept: '', //aceito
