@@ -14,17 +14,17 @@ export default function LeftBar() {
 
   const handleToggleFullMenu = () => toggleFullMenu(!hideFullMenu);
   const handleShowParcialMenu = () => toggleParcialMenu(true);
-  const handleHide = () => toggleParcialMenu(false);
+  const handleHideParcialMenu = () => toggleParcialMenu(false);
   const handleToggleColorMode = () => setClorMode(colorMode === LIGHT ? DARK : LIGHT);
 
   return (
     <aside
-      onMouseLeave={handleHide}
-      className={`container-bar container-bar-aside transition-slow w-40 backdrop-blur-md
+      onMouseLeave={handleHideParcialMenu}
+      className={`container-bar container-bar-aside w-40 backdrop-blur-md transition-slow
       ${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'menu')}
 `}
     >
-      <div className="transition-slow absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pr-[2.2rem] pl-s dark:border-secondary-dark">
+      <div className="absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pr-[2.2rem] pl-s transition-slow dark:border-secondary-dark">
         <Button
           typeOf="DarkModeToggle"
           aria-label="Dark mode toggle"

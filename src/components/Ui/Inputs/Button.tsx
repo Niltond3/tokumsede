@@ -13,13 +13,27 @@ import Typography from '../DataDisplay/Typography';
 
 const buttonsMapping = {
   InteractiveLogo: {
+    style: '',
+    defaultChildren: () => (
+      <>
+        <Img
+          size={48}
+          image="logo"
+          className="wrapper_logo--image transition-slow group-hover:opacity-100"
+        ></Img>
+        <Img size={48} image="name"></Img>
+        <Img size={48} image="waves"></Img>
+      </>
+    )
+  },
+  _InteractiveLogo: {
     style: 'wrapper_logo color__transparent transition-slow group',
     defaultChildren: () => (
       <>
         <Img
           size={48}
           image="logo"
-          className="transition-slow wrapper_logo--image group-hover:opacity-100"
+          className="wrapper_logo--image transition-slow group-hover:opacity-100"
         ></Img>
         <Typography
           variant="h1"
@@ -31,7 +45,7 @@ const buttonsMapping = {
           <span className="transition-slow">Tô</span>
           <span className="transition-slow">Kum</span>
           <span
-            className="transition-slow mb-xxs text-white antialiased opacity-50
+            className="mb-xxs text-white antialiased opacity-50 transition-slow
           group-hover:text-base group-hover:opacity-100"
           >
             ede
@@ -49,8 +63,8 @@ const buttonsMapping = {
     defaultChildren: () => {
       return (
         <>
-          <LightMode className="transition-slow absolute top-1/2 -translate-y-1/2 opacity-100 dark:opacity-0"></LightMode>
-          <DarkMode className="transition-slow absolute top-1/2 -translate-y-1/2 opacity-0 dark:opacity-100"></DarkMode>
+          <LightMode className="absolute top-1/2 -translate-y-1/2 opacity-100 transition-slow dark:opacity-0"></LightMode>
+          <DarkMode className="absolute top-1/2 -translate-y-1/2 opacity-0 transition-slow dark:opacity-100"></DarkMode>
         </>
       );
     }

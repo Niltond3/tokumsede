@@ -11,12 +11,14 @@ import dimpool from '../../public/images/logo/dimpool.webp';
 import honda from '../../public/images/logo/honda.webp';
 import Kanakaiana from '../../public/images/logo/Kanakaiana.webp';
 import magalu from '../../public/images/logo/magalu.webp';
-import logo from '../../public/images/logo/new-logo.webp';
 import novacosmeticos from '../../public/images/logo/novacosmeticos.webp';
 import paguemenos from '../../public/images/logo/paguemenos.webp';
 import suggar from '../../public/images/logo/suggar.webp';
 import mapMarker from '../../public/images/map-marker.webp';
 import motorcycle from '../../public/images/motorcycle.webp';
+import logo from '../../public/images/new-logo/logo.png';
+import name from '../../public/images/new-logo/name.png';
+import waves from '../../public/images/new-logo/waves.png';
 import qrCode from '../../public/images/qr-code.webp';
 import qrcodeFrame from '../../public/images/qrcode-frame.webp';
 import screen1 from '../../public/images/screenshots/screen1.webp';
@@ -34,6 +36,8 @@ export default {
   headerBg2,
   mobileMockupHand,
   logo,
+  name,
+  waves,
   armazempb,
   bb,
   caixa,
