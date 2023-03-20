@@ -1,14 +1,3 @@
-.wrapper_logo {
-  @apply flex cursor-pointer rounded-full absolute p-xs w-16 h-16 border-2 right-[-7rem] top-0 z-[51] border-secondary-default dark:border-secondary-dark
-}
-.wrapper_logo--image{
-  @apply opacity-50 max-h-12 mt-xs
-}
-
-.wrapper_logo.full h1{
-  @apply opacity-0
-}
-
 .wrapper_bar {
   @apply absolute right-[-1rem] top-0 w-m h-screen
 }

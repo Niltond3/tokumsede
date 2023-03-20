@@ -21,6 +21,7 @@ module.exports = {
         title: ['Josefin Sans', 'sans-serif']
       },
       colors: {
+        current: 'currentColor',
         primary: {
           default: '#B9C9DA',
           dark: '#232D3D',

@@ -65,6 +65,7 @@ function actionsWhenMenuToggle(
   showParcialMenu: boolean,
   component: 'menu' | 'logo' | 'barButton'
 ) {
+  //[&>img]:left-1/2 [&>img]:-translate-x-1/2
   const stylesMapping = {
     menu: {
       hide: '-translate-x-full color__secondary',
@@ -74,7 +75,12 @@ function actionsWhenMenuToggle(
     logo: {
       hide: '',
       parcial: '-translate-x-4 scale-90',
-      full: 'full top-0 -translate-x-full items-center bg-tertiary-default dark:bg-tertiary-dark border-8'
+      full: `-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark
+      [&>img]:p-xxs
+      [&>img:nth-child(1)]:-translate-y-[0.1rem] [&>img:nth-child(1)]:translate-x-[0.4rem]
+      [&>img:nth-child(2)]:!opacity-0
+      [&>img:nth-child(3)]:w-8 [&>img:nth-child(3)]:translate-y-[0.1rem] [&>img:nth-child(3)]:translate-x-[0.2rem]
+      `
     },
     barButton: {
       hide: 'color__secondary',

@@ -13,16 +13,25 @@ import Typography from '../DataDisplay/Typography';
 
 const buttonsMapping = {
   InteractiveLogo: {
-    style: '',
+    style: `group flex cursor-pointer rounded-full absolute p-xs w-16 h-16 right-[-7rem] top-0 z-[51] border-secondary-default dark:border-secondary-dark
+      [&>img]:opacity-50`,
     defaultChildren: () => (
       <>
         <Img
-          size={48}
+          size={24}
           image="logo"
-          className="wrapper_logo--image transition-slow group-hover:opacity-100"
+          className="absolute w-6 transition-slow group-hover:opacity-100"
         ></Img>
-        <Img size={48} image="name"></Img>
-        <Img size={48} image="waves"></Img>
+        <Img
+          size={26}
+          image="name"
+          className="absolute top-5 right-3 transition-slow group-hover:opacity-100"
+        ></Img>
+        <Img
+          size={48}
+          image="waves"
+          className="absolute bottom-1 transition-slow group-hover:opacity-100"
+        ></Img>
       </>
     )
   },
@@ -110,7 +119,7 @@ export default function Button({
     <button
       onClick={onClick}
       onMouseEnter={onMouseEnter}
-      className={`${className} ${style}`}
+      className={`${className} ${style} transition-slow`}
       aria-label={ariaLabel}
     >
       {defaultChildren()}

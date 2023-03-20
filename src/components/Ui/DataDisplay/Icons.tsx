@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { AiOutlineRight, AiFillHome } from 'react-icons/ai';
+import { AiOutlineRight, AiFillHome, AiOutlineNumber } from 'react-icons/ai';
+import { FaAngleRight, FaSlackHash } from 'react-icons/fa';
 import {
   MdDragHandle,
   MdLightMode,
@@ -15,7 +16,11 @@ interface IProps {
 }
 
 export const ArrowRight = ({ children, className }: IProps) => (
-  <AiOutlineRight className={className}>{children}</AiOutlineRight>
+  <FaAngleRight className={className}>{children}</FaAngleRight>
+);
+
+export const Hashtag = ({ children, className }: IProps) => (
+  <FaSlackHash className={className}>{children}</FaSlackHash>
 );
 
 export const Home = ({ children, className }: IProps) => (

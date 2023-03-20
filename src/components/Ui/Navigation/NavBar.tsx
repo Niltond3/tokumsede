@@ -1,12 +1,18 @@
 import React, { ReactNode } from 'react';
 
-import { ArrowRight, Home } from '../DataDisplay/Icons';
+import { ArrowRight, Home, Hashtag } from '../DataDisplay/Icons';
 import Typography from '../DataDisplay/Typography';
 import Link from './Link';
 
 const svg = {
-  primary: <Home className="mr-2 h-4 w-4" />,
-  secondary: <ArrowRight className="h-4 w-4" />
+  primary: (theme: keyof IThemes) => {
+    const themeMapping = {
+      Breadcrumbs: <Home className="mr-2 h-4 w-4" />,
+      TableOfContents: <Hashtag className="mr-2 h-4 w-4"></Hashtag>
+    };
+    return themeMapping[theme];
+  },
+  secondary: () => <ArrowRight className="h-4 w-4" />
 } as const;
 
 interface IThemes {
@@ -53,11 +59,9 @@ const themeMapping = {
       <nav
         className={`${className} color__transparent px-s
         [&>*]:text-xs [&>*]:leading-6 [&>*]:text-primary-contrast-df
-        [&>ul>li>a]:block [&>ul>li>a]:py-1 [&>ul>li>a]:font-medium
-        hover:[&>ul>li>a]:text-primary-select-df [&>ul>li>a]:dark:text-primary-contrast-dk dark:hover:[&>ul>li>a]:text-primary-select-dk
-        [&>ul>li]:relative [&>ul>li]:before:absolute [&>ul>li]:before:right-full [&>ul>li]:before:top-0 [&>ul>li]:before:m-s [&>ul>li]:before:h-4 [&>ul>li]:before:w-4
-        [&>ul>li]:before:fill-primary-select-dk [&>ul>li]:before:transition-faster [&_.primary]:before:opacity-0 [&_.primary]:before:content-hashtag hover:[&_.primary]:before:opacity-100
-        [&_.secondary]:before:content-right
+        [&>ul>li>a>svg]:absolute [&>ul>li>a>svg]:right-full [&>ul>li>a>svg]:top-1/2 [&>ul>li>a>svg]:-translate-y-1/2 [&>ul>li>a]:block
+        [&>ul>li>a]:py-1 [&>ul>li>a]:font-medium hover:[&>ul>li>a]:text-primary-select-df [&>ul>li>a]:dark:text-primary-contrast-dk dark:hover:[&>ul>li>a]:text-primary-select-dk [&>ul>li]:relative
+        [&_.primary>svg]:opacity-0
     `}
       >
         {children}
@@ -75,7 +79,7 @@ const renderRows = (entrys: entry[], theme: keyof IThemes) =>
       } transition-faster`}
     >
       <Link href={href} className="group transition-faster">
-        {theme !== 'TableOfContents' && svg[level]}
+        {svg[level](theme)}
         {title}
       </Link>
     </li>
