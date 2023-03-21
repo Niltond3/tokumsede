@@ -20,45 +20,56 @@ export default function LeftBar() {
 
   const content: IContent[] = [
     {
-      icon: 'Home',
-      title: 'Home Page',
-      href: '#'
+      title: 'Principal',
+      content: [
+        {
+          icon: 'Home',
+          title: 'Home Page',
+          href: '#'
+        },
+        {
+          icon: 'Purchase',
+          title: 'Pedidos',
+          href: '#'
+        }
+      ]
     },
     {
-      icon: 'Purchase',
-      title: 'Novo Pedido',
-      href: '#'
+      title: 'Painel da Empresa',
+      content: [
+        {
+          icon: 'Customer',
+          title: 'Clientes',
+          href: '#'
+        },
+        {
+          icon: 'Distributor',
+          title: 'Distribuidoras',
+          href: '#'
+        },
+        {
+          icon: 'Administrator',
+          title: 'Administradores',
+          href: '#'
+        },
+        {
+          icon: 'Representative',
+          title: 'Representantes',
+          href: '#'
+        },
+        {
+          icon: 'Deliveryman',
+          title: 'Entregadores',
+          href: '#'
+        },
+        {
+          icon: 'Attendant',
+          title: 'Atendentes',
+          href: '#'
+        }
+      ]
     },
-    {
-      icon: 'Customer',
-      title: 'Clientes',
-      href: '#'
-    },
-    {
-      icon: 'Distributor',
-      title: 'Distribuidoras',
-      href: '#'
-    },
-    {
-      icon: 'Administrator',
-      title: 'Administradores',
-      href: '#'
-    },
-    {
-      icon: 'Representative',
-      title: 'Representantes',
-      href: '#'
-    },
-    {
-      icon: 'Deliveryman',
-      title: 'Entregadores',
-      href: '#'
-    },
-    {
-      icon: 'Attendant',
-      title: 'Atendentes',
-      href: '#'
-    },
+
     {
       icon: 'Dashboard',
       title: 'Dashboard',
@@ -69,7 +80,7 @@ export default function LeftBar() {
   return (
     <aside
       onMouseLeave={handleHideParcialMenu}
-      className={`container-bar container-bar-aside w-40 backdrop-blur-md transition-slow
+      className={`container-bar container-bar-aside w-min backdrop-blur-md transition-slow
       ${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'menu')}
 `}
     >

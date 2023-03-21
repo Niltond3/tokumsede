@@ -19,37 +19,42 @@ interface IMenu {
   content: IContent[];
 }
 
-export default function Menu({ content, type, children, className }: IMenu) {
-  return renderSubMenu(content);
+interface IRenderSubMenu {
+  content: IContent[];
+  className?: string;
 }
 
-function renderSubMenu(content: IContent[]) {
+export default function Menu({ content, type, children, className }: IMenu) {
+  return renderSubMenu({ content });
+}
+
+function renderSubMenu({ content, className }: IRenderSubMenu) {
   return (
     <ul className="ml-m mt-m">
       {content.map(({ title, href, onClick, content, icon }, index) => (
         <li
-          className="flex items-center pb-m text-secondary-contrast-df opacity-50 transition-faster hover:opacity-100"
+          className={`
+           group flex-col p-s text-secondary-contrast-df opacity-50 transition-faster
+            hover:text-secondary-contrast-df hover:opacity-100
+            ${className}
+          `}
           key={`${title}${index}`}
           onClick={onClick}
         >
-          <>
+          <div className="flex items-center pl-s [&>svg]:min-w-min [&>svg]:pr-s ">
             {icon && Icons[icon]({})}
             {href ? (
-              <Link href={href} className="pl-s">
-                {title}
-              </Link>
+              <Link href={href}>{title}</Link>
             ) : (
-              <Typography variant="h3" className="pl-s">
-                {title}
-              </Typography>
+              <Typography variant="button">{title}</Typography>
             )}
-            {content && (
-              <>
-                <ArrowRight />
-                {renderSubMenu(content)}
-              </>
-            )}
-          </>
+          </div>
+          {content &&
+            renderSubMenu({
+              content,
+              className:
+                'border-l-2 border-secondary-default hover:border-secondary-contrast-df hover:bg-secondary-default hover:dark:bg-secondary-dark'
+            })}
         </li>
       ))}
     </ul>
