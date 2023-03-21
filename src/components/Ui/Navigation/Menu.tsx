@@ -34,8 +34,7 @@ function renderSubMenu({ content, className }: IRenderSubMenu) {
       {content.map(({ title, href, onClick, content, icon }, index) => (
         <li
           className={`
-           group flex-col p-s text-secondary-contrast-df opacity-50 transition-faster
-            hover:text-secondary-contrast-df hover:opacity-100
+           group flex-col p-s text-secondary-contrast-df transition-faster
             ${className}
           `}
           key={`${title}${index}`}
@@ -46,14 +45,19 @@ function renderSubMenu({ content, className }: IRenderSubMenu) {
             {href ? (
               <Link href={href}>{title}</Link>
             ) : (
-              <Typography variant="button">{title}</Typography>
+              <Typography
+                variant="button"
+                className="w-full rounded-l-full bg-primary-default p-s text-primary-contrast-df"
+              >
+                {title}
+              </Typography>
             )}
           </div>
           {content &&
             renderSubMenu({
               content,
               className:
-                'border-l-2 border-secondary-default hover:border-secondary-contrast-df hover:bg-secondary-default hover:dark:bg-secondary-dark'
+                'border-l-2 border-secondary-default hover:border-secondary-contrast-df hover:bg-secondary-default hover:dark:bg-secondary-dark opacity-50 hover:text-secondary-contrast-df hover:opacity-100'
             })}
         </li>
       ))}
