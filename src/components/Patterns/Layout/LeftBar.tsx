@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from 'components/Ui/Inputs/Button';
+import Menu, { IContent } from 'components/Ui/Navigation/Menu';
 
 import { THEMES } from '../../../utils/Constants';
 
@@ -16,6 +17,54 @@ export default function LeftBar() {
   const handleShowParcialMenu = () => toggleParcialMenu(true);
   const handleHideParcialMenu = () => toggleParcialMenu(false);
   const handleToggleColorMode = () => setClorMode(colorMode === LIGHT ? DARK : LIGHT);
+
+  const content: IContent[] = [
+    {
+      icon: 'Home',
+      title: 'Home Page',
+      href: '#'
+    },
+    {
+      icon: 'Purchase',
+      title: 'Novo Pedido',
+      href: '#'
+    },
+    {
+      icon: 'Customer',
+      title: 'Clientes',
+      href: '#'
+    },
+    {
+      icon: 'Distributor',
+      title: 'Distribuidoras',
+      href: '#'
+    },
+    {
+      icon: 'Administrator',
+      title: 'Administradores',
+      href: '#'
+    },
+    {
+      icon: 'Representative',
+      title: 'Representantes',
+      href: '#'
+    },
+    {
+      icon: 'Deliveryman',
+      title: 'Entregadores',
+      href: '#'
+    },
+    {
+      icon: 'Attendant',
+      title: 'Atendentes',
+      href: '#'
+    },
+    {
+      icon: 'Dashboard',
+      title: 'Dashboard',
+      href: '#'
+    }
+  ];
 
   return (
     <aside
@@ -45,7 +94,9 @@ export default function LeftBar() {
           }}
         ></Button>
       </div>
-      Left Bar
+      <div className="flex-col ">
+        <Menu content={content} type="accordion"></Menu>
+      </div>
       <Button
         typeOf="InteractiveLogo"
         className={`${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'logo')}`}

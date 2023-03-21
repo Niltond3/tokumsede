@@ -1,19 +1,62 @@
 import { ReactNode } from 'react';
-import { AiOutlineRight, AiFillHome, AiOutlineNumber } from 'react-icons/ai';
-import { FaAngleRight, FaSlackHash } from 'react-icons/fa';
+import { AiFillHome } from 'react-icons/ai';
 import {
+  FaAngleRight,
+  FaChartBar,
+  FaShoppingCart,
+  FaSlackHash,
+  FaUsers,
+  FaWarehouse
+} from 'react-icons/fa';
+import {
+  MdAdminPanelSettings,
+  MdDarkMode,
+  MdDeliveryDining,
   MdDragHandle,
   MdLightMode,
-  MdDarkMode,
   MdNotifications,
   MdNotificationsOff,
-  MdSettings
+  MdRealEstateAgent,
+  MdSettings,
+  MdSupportAgent
 } from 'react-icons/md';
 
 interface IProps {
   children?: ReactNode;
   className?: string;
 }
+
+export const Purchase = ({ className, children }: IProps) => (
+  <FaShoppingCart className={className}>{children}</FaShoppingCart>
+);
+
+export const Attendant = ({ className, children }: IProps) => (
+  <MdSupportAgent className={className}>{children}</MdSupportAgent>
+);
+
+export const Distributor = ({ className, children }: IProps) => (
+  <FaWarehouse className={className}>{children}</FaWarehouse>
+);
+
+export const Customer = ({ children, className }: IProps) => (
+  <FaUsers className={className}>{children}</FaUsers>
+);
+
+export const Administrator = ({ children, className }: IProps) => (
+  <MdAdminPanelSettings className={className}>{children}</MdAdminPanelSettings>
+);
+
+export const Representative = ({ children, className }: IProps) => (
+  <MdRealEstateAgent className={className}>{children}</MdRealEstateAgent>
+);
+
+export const Deliveryman = ({ children, className }: IProps) => (
+  <MdDeliveryDining className={className}>{children}</MdDeliveryDining>
+);
+
+export const Dashboard = ({ children, className }: IProps) => (
+  <FaChartBar className={className}>{children}</FaChartBar>
+);
 
 export const ArrowRight = ({ children, className }: IProps) => (
   <FaAngleRight className={className}>{children}</FaAngleRight>
@@ -50,3 +93,23 @@ export const NotificationsOff = ({ children, className }: IProps) => (
 export const Settings = ({ children, className }: IProps) => (
   <MdSettings className={className}>{children}</MdSettings>
 );
+
+export default {
+  Administrator,
+  ArrowRight,
+  Attendant,
+  Customer,
+  DarkMode,
+  Dashboard,
+  Deliveryman,
+  Distributor,
+  DragBar,
+  Hashtag,
+  Home,
+  LightMode,
+  NotificationsOff,
+  NotificationsOn,
+  Purchase,
+  Representative,
+  Settings
+};

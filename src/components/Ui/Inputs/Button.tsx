@@ -35,34 +35,6 @@ const buttonsMapping = {
       </>
     )
   },
-  _InteractiveLogo: {
-    style: 'wrapper_logo color__transparent transition-slow group',
-    defaultChildren: () => (
-      <>
-        <Img
-          size={48}
-          image="logo"
-          className="wrapper_logo--image transition-slow group-hover:opacity-100"
-        ></Img>
-        <Typography
-          variant="h1"
-          bold={false}
-          className="pointer-events-none flex-col items-start font-title text-secondary-contrast-df
-          child:relative child:left-[-10px] child:select-none child:text-xs child:leading-3
-          "
-        >
-          <span className="transition-slow">Tô</span>
-          <span className="transition-slow">Kum</span>
-          <span
-            className="mb-xxs text-white antialiased opacity-50 transition-slow
-          group-hover:text-base group-hover:opacity-100"
-          >
-            ede
-          </span>
-        </Typography>
-      </>
-    )
-  },
   InteractiveBar: {
     style: 'wrapper_bar transition-slow',
     defaultChildren: () => <DragBar className="rotate-90" />
@@ -90,8 +62,8 @@ const buttonsMapping = {
     style: '',
     defaultChildren: () => (
       <>
-        <NotificationsOn></NotificationsOn>
-        <NotificationsOff></NotificationsOff>
+        <NotificationsOn className="absolute top-1/2 -translate-y-1/2 opacity-100 transition-slow dark:opacity-0"></NotificationsOn>
+        <NotificationsOff className="absolute top-1/2 -translate-y-1/2 opacity-0 transition-slow dark:opacity-100"></NotificationsOff>
       </>
     )
   }
