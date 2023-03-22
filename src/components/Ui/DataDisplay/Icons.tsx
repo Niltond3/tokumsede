@@ -1,10 +1,12 @@
 import { ReactNode } from 'react';
 import { AiFillHome } from 'react-icons/ai';
+import { BiMoneyWithdraw } from 'react-icons/bi';
 import {
   FaAngleRight,
   FaChartBar,
   FaShoppingCart,
   FaSlackHash,
+  FaStore,
   FaUsers,
   FaWarehouse
 } from 'react-icons/fa';
@@ -18,13 +20,34 @@ import {
   MdNotificationsOff,
   MdRealEstateAgent,
   MdSettings,
-  MdSupportAgent
+  MdSupportAgent,
+  MdWork
 } from 'react-icons/md';
+import { SiHomeassistant } from 'react-icons/si';
+import { TbTruckDelivery } from 'react-icons/tb';
 
 interface IProps {
   children?: ReactNode;
   className?: string;
 }
+export const Homes = ({ className, children }: IProps) => (
+  <SiHomeassistant className={className}>{children}</SiHomeassistant>
+);
+export const Work = ({ className, children }: IProps) => (
+  <MdWork className={className}>{children}</MdWork>
+);
+
+export const Financial = ({ className, children }: IProps) => (
+  <BiMoneyWithdraw className={className}>{children}</BiMoneyWithdraw>
+);
+
+export const logistics = ({ className, children }: IProps) => (
+  <TbTruckDelivery className={className}>{children}</TbTruckDelivery>
+);
+
+export const Commercial = ({ className, children }: IProps) => (
+  <FaStore className={className}>{children}</FaStore>
+);
 
 export const Purchase = ({ className, children }: IProps) => (
   <FaShoppingCart className={className}>{children}</FaShoppingCart>
@@ -98,18 +121,23 @@ export default {
   Administrator,
   ArrowRight,
   Attendant,
+  Commercial,
   Customer,
   DarkMode,
   Dashboard,
   Deliveryman,
   Distributor,
   DragBar,
+  Financial,
   Hashtag,
   Home,
+  Homes,
   LightMode,
+  logistics,
   NotificationsOff,
   NotificationsOn,
   Purchase,
   Representative,
-  Settings
+  Settings,
+  Work
 };

@@ -20,10 +20,11 @@ export default function LeftBar() {
 
   const content: IContent[] = [
     {
+      icon: 'Home',
       title: 'Principal',
       content: [
         {
-          icon: 'Home',
+          icon: 'Homes',
           title: 'Home Page',
           href: '#'
         },
@@ -35,6 +36,7 @@ export default function LeftBar() {
       ]
     },
     {
+      icon: 'Work',
       title: 'Painel da Empresa',
       content: [
         {
@@ -69,11 +71,31 @@ export default function LeftBar() {
         }
       ]
     },
-
     {
       icon: 'Dashboard',
       title: 'Dashboard',
-      href: '#'
+      content: [
+        {
+          icon: 'Purchase',
+          title: 'Varejo',
+          href: '#'
+        },
+        {
+          icon: 'Financial',
+          title: 'Financeiro',
+          href: '#'
+        },
+        {
+          icon: 'Commercial',
+          title: 'Comercial',
+          href: '#'
+        },
+        {
+          icon: 'logistics',
+          title: 'Logístico',
+          href: '#'
+        }
+      ]
     }
   ];
 

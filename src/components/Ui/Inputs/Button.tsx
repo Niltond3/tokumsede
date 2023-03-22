@@ -14,7 +14,7 @@ import Typography from '../DataDisplay/Typography';
 const buttonsMapping = {
   InteractiveLogo: {
     style: `group flex cursor-pointer rounded-full absolute p-xs w-16 h-16 right-[-7rem] top-0 z-[51] border-secondary-default dark:border-secondary-dark
-      [&>img]:opacity-50`,
+      [&>img]:opacity-50 transition-slow`,
     defaultChildren: () => (
       <>
         <Img
@@ -40,7 +40,7 @@ const buttonsMapping = {
     defaultChildren: () => <DragBar className="rotate-90" />
   },
   DarkModeToggle: {
-    style: '',
+    style: 'transition-slow',
     defaultChildren: () => {
       return (
         <>
@@ -51,7 +51,7 @@ const buttonsMapping = {
     }
   },
   Settings: {
-    style: '',
+    style: 'transition-slow',
     defaultChildren: () => (
       <>
         <Settings></Settings>
@@ -59,12 +59,26 @@ const buttonsMapping = {
     )
   },
   Notifications: {
-    style: '',
+    style: 'transition-slow',
     defaultChildren: () => (
       <>
         <NotificationsOn className="absolute top-1/2 -translate-y-1/2 opacity-100 transition-slow dark:opacity-0"></NotificationsOn>
         <NotificationsOff className="absolute top-1/2 -translate-y-1/2 opacity-0 transition-slow dark:opacity-100"></NotificationsOff>
       </>
+    )
+  },
+  MenuControl: {
+    style: `group transition-faster relative h-10 w-full rounded-l-full bg-primary-default bg-opacity-0 bg text-primary-contrast-df
+    hover:bg-opacity-30
+    focus:bg-opacity-100 focus:transition-none
+    before:transition-faster focus:before:transition-none
+    before:absolute before:top-[-1.58rem] before:right-0 before:z-50 before:-mr-5 before:h-[25px] before:w-[25px] before:opacity-0
+    before:rotate-90 before:scale-[1.04] before:bg-menu-corner before:bg-[length:100%] before:bg-no-repeat focus:before:opacity-100
+    after:transition-faster focus:after:transition-none
+    after:absolute after:bottom-[-1.58rem] after:right-0 after:z-50 after:-mr-5 after:h-[25px] after:opacity-0 focus:after:opacity-100
+    after:w-[25px] after:scale-[1.04] after:bg-menu-corner after:bg-[length:100%] after:bg-no-repeat after:content-['']`,
+    defaultChildren: () => (
+      <div className="absolute left-full top-0 z-50 h-10 w-5 bg-primary-default opacity-0 transition-faster group-hover:opacity-30 group-focus:opacity-100 group-focus:transition-none "></div>
     )
   }
 } as const;
@@ -91,7 +105,7 @@ export default function Button({
     <button
       onClick={onClick}
       onMouseEnter={onMouseEnter}
-      className={`${className} ${style} transition-slow`}
+      className={`${className} ${style}`}
       aria-label={ariaLabel}
     >
       {defaultChildren()}

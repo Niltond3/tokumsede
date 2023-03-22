@@ -53,6 +53,9 @@ module.exports = {
         danger: '', //Cancelado
         wait: '' //Agendado
       },
+      backgroundImage: {
+        'menu-corner': "url('../../public/images/corner.svg')"
+      },
       content: {
         right: 'url("../../public/images/icons/right.svg")',
         hashtag: 'url("../../public/images/icons/hashtag.svg")'
