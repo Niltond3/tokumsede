@@ -6,7 +6,6 @@ export default function useLocalStorage(key: string, initialValue: string) {
       const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
       return initialValue;
     }
   });
@@ -16,7 +15,7 @@ export default function useLocalStorage(key: string, initialValue: string) {
         typeof storedValue === 'function' ? storedValue[storedValue] : storedValue;
       localStorage.setItem('theme', JSON.stringify(valueToStore));
     } catch (error) {
-      console.log(error);
+      //void
     }
   }, [key, storedValue]);
   return [storedValue, setStoredValue];

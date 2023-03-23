@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 
 import { ArrowRight, Home, Hashtag } from '../DataDisplay/Icons';
-import Typography from '../DataDisplay/Typography';
 import Link from './Link';
 
 const svg = {
@@ -90,13 +89,9 @@ export default function NavBar({ theme, entrys }: INavBar) {
   return (
     <>
       {title && (
-        <Typography
-          variant="h5"
-          bold={true}
-          className="my-m block py-1 text-sm font-semibold leading-6 text-primary-select-df dark:text-sky-400"
-        >
+        <h5 className="my-m block py-1 text-sm font-semibold leading-6 text-primary-select-df dark:text-sky-400">
           Nesta página
-        </Typography>
+        </h5>
       )}
       <Element aria-label={theme} className="flex transition-faster">
         <ul>{renderRows(entrys, theme)}</ul>

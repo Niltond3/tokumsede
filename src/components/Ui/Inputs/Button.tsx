@@ -10,7 +10,6 @@ import Icons, {
   ArrowRight
 } from '../DataDisplay/Icons';
 import Img from '../DataDisplay/Image';
-import Typography from '../DataDisplay/Typography';
 
 const buttonsMapping = {
   InteractiveLogo: {
@@ -69,23 +68,20 @@ const buttonsMapping = {
     )
   },
   MenuControl: {
-    style: `group relative mr-m flex h-10 w-full items-center rounded-l-full bg-primary-default  bg-opacity-0 pl-m  text-secondary-contrast-df transition-faster
+    style: `group relative mr-m flex h-10 w-full items-center rounded-l-full bg-primary-default/0 pl-m text-secondary-contrast-df transition-faster
     before:absolute
-    before:top-[-1.58rem] before:right-0
+    before:top-[-1.58rem] before:right-2
     before:z-50 before:-mr-7
     before:h-[25px] before:w-[25px] before:rotate-90 before:scale-[1.04] before:bg-menu-corner before:bg-[length:100%] before:bg-no-repeat before:opacity-0 before:transition-faster
-    after:absolute after:bottom-[-1.58rem] after:right-0 after:z-50 after:-mr-7 after:h-[25px]
+    after:absolute after:bottom-[-1.58rem] after:right-2 after:z-50 after:-mr-7 after:h-[25px]
     after:w-[25px] after:scale-[1.04]
-    after:bg-menu-corner after:bg-[length:100%] after:bg-no-repeat after:opacity-0 after:content-[''] after:transition-faster hover:bg-opacity-30 focus:bg-opacity-100 focus:text-primary-contrast-df
-    focus:transition-none focus:before:opacity-100 focus:before:transition-none focus:after:opacity-100 focus:after:transition-none dark:bg-primary-dark dark:bg-opacity-0
-    dark:before:bg-menu-corner-dark dark:after:bg-menu-corner-dark dark:hover:bg-opacity-50
-    focus:dark:bg-opacity-100 focus:dark:text-primary-contrast-dk
-    [&>svg]:min-w-min [&>svg]:pr-s`,
+    after:bg-menu-corner after:bg-[length:100%] after:bg-no-repeat after:opacity-0 after:content-[''] after:transition-faster hover:bg-primary-default/30
+    dark:bg-primary-dark/0 dark:before:bg-menu-corner-dark dark:after:bg-menu-corner-dark dark:hover:bg-primary-dark/50`,
     defaultChildren: (icon?: keyof typeof Icons) => (
       <>
-        <div className="absolute left-full top-0 z-50 h-10 w-7 bg-primary-default opacity-0 transition-faster group-hover:opacity-30 group-focus:opacity-100 group-focus:transition-none dark:bg-primary-dark " />
-        {icon && Icons[icon]({})}
-        <ArrowRight className="absolute -right-7 z-[52]"></ArrowRight>
+        <div className="absolute left-full top-0 z-50 h-10 w-7 bg-primary-default/0 transition-faster group-hover:bg-primary-default/30 dark:bg-primary-dark " />
+        {icon && Icons[icon]({ className: 'min-w-min pr-s' })}
+        <ArrowRight className="absolute -right-4 top-1/2 z-[52] -translate-y-1/2 transition-faster"></ArrowRight>
       </>
     )
   }
@@ -93,7 +89,7 @@ const buttonsMapping = {
 
 interface IButton {
   children?: ReactNode;
-  onClick: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onMouseEnter?: () => void;
   className?: string;
   typeOf: keyof typeof buttonsMapping;

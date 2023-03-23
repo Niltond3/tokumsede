@@ -64,6 +64,7 @@ module.exports = {
     }
   },
   plugins: [
+    require('tailwindcss-animate'),
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
       addUtilities({
