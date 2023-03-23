@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
 
-import {
+import Icons, {
   DragBar,
   LightMode,
   DarkMode,
   Settings,
   NotificationsOn,
-  NotificationsOff
+  NotificationsOff,
+  ArrowRight
 } from '../DataDisplay/Icons';
 import Img from '../DataDisplay/Image';
 import Typography from '../DataDisplay/Typography';
@@ -68,17 +69,24 @@ const buttonsMapping = {
     )
   },
   MenuControl: {
-    style: `group transition-faster relative h-10 w-full rounded-l-full bg-primary-default bg-opacity-0 bg text-primary-contrast-df
-    hover:bg-opacity-30
-    focus:bg-opacity-100 focus:transition-none
-    before:transition-faster focus:before:transition-none
-    before:absolute before:top-[-1.58rem] before:right-0 before:z-50 before:-mr-5 before:h-[25px] before:w-[25px] before:opacity-0
-    before:rotate-90 before:scale-[1.04] before:bg-menu-corner before:bg-[length:100%] before:bg-no-repeat focus:before:opacity-100
-    after:transition-faster focus:after:transition-none
-    after:absolute after:bottom-[-1.58rem] after:right-0 after:z-50 after:-mr-5 after:h-[25px] after:opacity-0 focus:after:opacity-100
-    after:w-[25px] after:scale-[1.04] after:bg-menu-corner after:bg-[length:100%] after:bg-no-repeat after:content-['']`,
-    defaultChildren: () => (
-      <div className="absolute left-full top-0 z-50 h-10 w-5 bg-primary-default opacity-0 transition-faster group-hover:opacity-30 group-focus:opacity-100 group-focus:transition-none "></div>
+    style: `group relative mr-m flex h-10 w-full items-center rounded-l-full bg-primary-default  bg-opacity-0 pl-m  text-secondary-contrast-df transition-faster
+    before:absolute
+    before:top-[-1.58rem] before:right-0
+    before:z-50 before:-mr-7
+    before:h-[25px] before:w-[25px] before:rotate-90 before:scale-[1.04] before:bg-menu-corner before:bg-[length:100%] before:bg-no-repeat before:opacity-0 before:transition-faster
+    after:absolute after:bottom-[-1.58rem] after:right-0 after:z-50 after:-mr-7 after:h-[25px]
+    after:w-[25px] after:scale-[1.04]
+    after:bg-menu-corner after:bg-[length:100%] after:bg-no-repeat after:opacity-0 after:content-[''] after:transition-faster hover:bg-opacity-30 focus:bg-opacity-100 focus:text-primary-contrast-df
+    focus:transition-none focus:before:opacity-100 focus:before:transition-none focus:after:opacity-100 focus:after:transition-none dark:bg-primary-dark dark:bg-opacity-0
+    dark:before:bg-menu-corner-dark dark:after:bg-menu-corner-dark dark:hover:bg-opacity-50
+    focus:dark:bg-opacity-100 focus:dark:text-primary-contrast-dk
+    [&>svg]:min-w-min [&>svg]:pr-s`,
+    defaultChildren: (icon?: keyof typeof Icons) => (
+      <>
+        <div className="absolute left-full top-0 z-50 h-10 w-7 bg-primary-default opacity-0 transition-faster group-hover:opacity-30 group-focus:opacity-100 group-focus:transition-none dark:bg-primary-dark " />
+        {icon && Icons[icon]({})}
+        <ArrowRight className="absolute -right-7 z-[52]"></ArrowRight>
+      </>
     )
   }
 } as const;
@@ -90,6 +98,7 @@ interface IButton {
   className?: string;
   typeOf: keyof typeof buttonsMapping;
   'aria-label'?: string;
+  icon?: keyof typeof Icons;
 }
 
 export default function Button({
@@ -98,7 +107,8 @@ export default function Button({
   children,
   className,
   'aria-label': ariaLabel,
-  typeOf
+  typeOf,
+  icon
 }: IButton) {
   const { style, defaultChildren } = buttonsMapping[typeOf];
   return (
@@ -108,7 +118,7 @@ export default function Button({
       className={`${className} ${style}`}
       aria-label={ariaLabel}
     >
-      {defaultChildren()}
+      {defaultChildren(icon)}
       {children}
     </button>
   );

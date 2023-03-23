@@ -37,7 +37,7 @@ export default function LeftBar() {
     },
     {
       icon: 'Work',
-      title: 'Painel da Empresa',
+      title: 'Empresarial',
       content: [
         {
           icon: 'Customer',

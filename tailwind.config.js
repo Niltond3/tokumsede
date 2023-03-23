@@ -54,7 +54,8 @@ module.exports = {
         wait: '' //Agendado
       },
       backgroundImage: {
-        'menu-corner': "url('../../public/images/corner.svg')"
+        'menu-corner': "url('../../public/images/corner.svg')",
+        'menu-corner-dark': "url('../../public/images/corner-dark.svg')"
       },
       content: {
         right: 'url("../../public/images/icons/right.svg")',
