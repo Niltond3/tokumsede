@@ -44,7 +44,7 @@ module.exports = {
           'contrast-df': '#D2DFEE',
           'contrast-dk': '#D2DFEE',
           'select-df': '#FFFFFF',
-          'select-dk': '#0ea5e9'
+          'select-dk': '#38BCF7'
         },
         warning: '', //pendente
         accept: '', //aceito

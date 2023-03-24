@@ -73,6 +73,7 @@ const renderRows = (entrys: entry[], theme: keyof IThemes) =>
   entrys.map(({ href, level, title }, index) => (
     <li
       key={index}
+      // eslint-disable-next-line tailwindcss/no-custom-classname
       className={`${
         level === 'primary' ? 'primary' : 'secondary ml-4'
       } transition-faster`}

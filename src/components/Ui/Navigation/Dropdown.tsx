@@ -12,7 +12,7 @@ export default function Dropdown({ content, icon, title }: IDropDown) {
 
   return (
     <div
-      className="relative flex-col p-xs pl-s text-secondary-contrast-df transition-fast
+      className="relative flex-col pl-s text-secondary-contrast-df transition-fast
       "
     >
       <Button
@@ -21,8 +21,8 @@ export default function Dropdown({ content, icon, title }: IDropDown) {
           showDropdown &&
           `!bg-primary-default/100 !text-primary-contrast-df transition-none
           before:opacity-100 before:transition-none after:opacity-100 after:transition-none
-          dark:bg-primary-dark/100 dark:text-primary-contrast-dk
-          [&>div]:!bg-primary-default/100 [&>svg:nth-child(3)]:rotate-90
+          dark:!bg-primary-dark/100 dark:!text-primary-contrast-dk
+          [&>div]:!bg-primary-default/100 [&>svg:nth-child(2)]:rotate-90
           `
         }
       `}
@@ -32,7 +32,11 @@ export default function Dropdown({ content, icon, title }: IDropDown) {
       >
         {title}
       </Button>
-      <ul className={`max-h-0 ${showDropdown && 'max-h-96'} transition-faster`}>
+      <ul
+        className={`max-h-0 ${
+          showDropdown && 'max-h-96'
+        } my-1 flex-col transition-faster`}
+      >
         {content.map(({ title, href, onClick, icon }, index) => (
           <li key={`${title}${index}`}>
             {href && (
@@ -40,11 +44,15 @@ export default function Dropdown({ content, icon, title }: IDropDown) {
                 href={href}
                 onClick={onClick}
                 //translate-x-[50px] animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-20
-                className={`opacity-0
-                  ${showDropdown && 'translate-x-[50px] opacity-10'}
+                className={`ml-m flex border-l-2 p-s opacity-0 transition-faster
+                  ${
+                    showDropdown &&
+                    `opacity-50
+                    hover:opacity-100`
+                  }
                 `}
               >
-                {icon && Icons[icon]({})}
+                {icon && Icons[icon]({ className: 'mr-s' })}
                 {title}
               </Link>
             )}

@@ -1,7 +1,5 @@
 import Image, { StaticImageData } from 'next/image';
 
-import Typography from './Typography';
-
 interface IAvatarProps {
   subtitle?: string;
   src: string | StaticImageData;
@@ -16,7 +14,7 @@ export default function Avatar({ subtitle, src }: IAvatarProps) {
         width={25}
         height={25}
       ></Image>
-      <Typography variant="subtitle">{subtitle}</Typography>
+      <p>{subtitle}</p>
       {/* <div className="md:text-md hidden text-sm text-black dark:text-white md:block">
       </div> */}
     </div>

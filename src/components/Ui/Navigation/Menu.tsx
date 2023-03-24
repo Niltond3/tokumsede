@@ -7,7 +7,7 @@ import { IContent } from 'utils/Types';
 export default function Menu({ content }: IMenu) {
   //[&>ul]:pointer-events-none [&>ul]:hidden [&>ul]:max-h-0 [&>ul]:opacity-0
   return (
-    <ul className={`ml-m mt-m flex-col transition-fast`}>
+    <ul className={`ml-m mt-m w-full flex-col transition-fast`}>
       {content.map(({ title, content, icon }, index) => (
         <li key={`${title}${index}`}>
           {content && icon && (
