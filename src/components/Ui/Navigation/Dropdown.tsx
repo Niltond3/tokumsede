@@ -4,9 +4,9 @@ import Icons from '../DataDisplay/Icons';
 import Button from '../Inputs/Button';
 import Link from './Link';
 
-import { IContent, Icon } from 'utils/Types';
+import { IContent } from 'utils/Types';
 
-export default function Dropdown({ content, icon, title }: IDropDown) {
+export default function Dropdown({ content = [], icon, title }: IContent) {
   const [showDropdown, setShowDropdown] = useState(false);
   const handleClick = () => setShowDropdown(!showDropdown);
 
@@ -33,86 +33,64 @@ export default function Dropdown({ content, icon, title }: IDropDown) {
         {title}
       </Button>
       <ul
-        className={`max-h-0 ${
-          showDropdown && 'max-h-96'
+        className={`pointer-events-none max-h-0 ${
+          showDropdown && 'pointer-events-auto max-h-96'
         } my-1 flex-col transition-faster`}
       >
-        {content.map(({ title, href, onClick, icon }, index) => (
-          <li key={`${title}${index}`}>
-            {href && (
-              <Link
-                href={href}
-                onClick={onClick}
-                //translate-x-[50px] animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-20
-                className={`ml-m flex border-l-2 p-s opacity-0 transition-faster
-                  ${
-                    showDropdown &&
-                    `opacity-50
-                    hover:opacity-100`
-                  }
-                `}
-              >
-                {icon && Icons[icon]({ className: 'mr-s' })}
-                {title}
-              </Link>
-            )}
-          </li>
-        ))}
+        {content.map(({ title, href, onClick, icon }, index) => {
+          enum EDelay {
+            'animation-delay-[40ms]',
+            'animation-delay-[60ms]',
+            'animation-delay-[80ms]',
+            'animation-delay-[100ms]',
+            'animation-delay-[120ms]',
+            'animation-delay-[140ms]'
+          }
+          const delay = EDelay[index];
+          return renderLi({ delay, icon, index, title, href, onClick, showDropdown });
+        })}
       </ul>
     </div>
   );
 }
 
-// function renderSubMenu({ content, className, toggle, visibility }: IRenderSubMenu) {
-//   return (
-//     <ul>
-//       {content.map(({ title, href, onClick, content, icon }, index) => (
-//         <li key={`${title}${index}`}>
-//           <div
-//             className={`${className} relative flex flex-col p-xs pl-s text-secondary-contrast-df
-//               transition-fast
-//               [&>ul]:pointer-events-none [&>ul]:max-h-0 [&>ul]:items-start [&>ul]:opacity-0`}
-//           >
-//             {href ? (
-//               <Link href={href} onClick={onClick}>
-//                 {icon && Icons[icon]({})}
-//                 {title}
-//               </Link>
-//             ) : (
-//               <Button
-//                 className={`peer`}
-//                 onClick={toggle}
-//                 typeOf="MenuControl"
-//                 icon={icon}
-//               >
-//                 {title}
-//               </Button>
-//             )}
-//             {content &&
-//               renderSubMenu({
-//                 content,
-//                 className: `border-l-2 border-secondary-default cursor-pointer
-//                 hover:border-secondary-contrast-df hover:bg-secondary-default hover:dark:bg-secondary-dark opacity-50 hover:text-secondary-contrast-df hover:opacity-100
-//                 `,
-//                 toggle,
-//                 visibility
-//               })}
-//           </div>
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// }
+const renderLi = ({
+  delay,
+  icon,
+  index,
+  title,
+  href,
+  onClick,
+  showDropdown
+}: IRenderLi) => (
+  <li key={`${title}${index}`}>
+    {href && (
+      <Link
+        href={href}
+        onClick={onClick}
+        //animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-40
+        className={`ml-m flex border-l-2 p-s transition-faster ${
+          showDropdown
+            ? `border-l-primary-default/30 hover:border-l-primary-default/100`
+            : 'border-l-primary-default/0'
+        }`}
+      >
+        <span
+          // eslint-disable-next-line tailwindcss/no-custom-classname
+          className={`flex translate-x-[25px] items-center opacity-0 ${
+            showDropdown ? `${delay} animate-intro-menu` : ''
+          } fill-mode-forwards`}
+        >
+          {icon && Icons[icon]({ className: 'mr-s' })}
+          {title}
+        </span>
+      </Link>
+    )}
+  </li>
+);
 
-// interface IRenderSubMenu {
-//   content: IContent[];
-//   className?: string;
-//   toggle: () => void;
-//   visibility: boolean;
-// }
-
-interface IDropDown {
-  content: IContent[];
-  icon: keyof Icon;
-  title: string;
+interface IRenderLi extends IContent {
+  delay: string;
+  index: number;
+  showDropdown: boolean;
 }

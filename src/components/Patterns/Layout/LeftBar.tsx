@@ -109,11 +109,11 @@ export default function LeftBar() {
       onClick={handleShowFullMenu}
       onMouseEnter={handleShowParcialMenu}
       onMouseLeave={handleHideParcialMenu}
-      className={`container-bar  container-bar-aside w-min pr-m backdrop-blur-md transition-slow
+      className={`container-bar  container-bar-aside w-min min-w-[13.375rem] pr-m backdrop-blur-md transition-slow
       ${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'menu')}
 `}
     >
-      <div className="absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pr-xl pl-s transition-slow dark:border-secondary-dark">
+      <div className="absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pr-xl pl-m transition-slow dark:border-secondary-dark">
         <Button
           typeOf="DarkModeToggle"
           aria-label="Dark mode toggle"
@@ -158,7 +158,7 @@ function actionsWhenMenuToggle(
     logo: {
       hide: '',
       parcial: '-translate-x-4 scale-90',
-      full: `-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-[-5.6rem]
+      full: `-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-[-6rem]
       [&>img]:p-xxs
       [&>img:nth-child(1)]:-translate-y-[0.1rem] [&>img:nth-child(1)]:translate-x-[0.4rem]
       [&>img:nth-child(2)]:!opacity-0

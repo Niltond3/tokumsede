@@ -6,6 +6,14 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      keyframes: {
+        'intro-menu': {
+          '100%': { opacity: '50', transform: 'translate(0)' }
+        }
+      },
+      animation: {
+        'intro-menu': '0.4s ease-in-out 0.1s intro-menu'
+      },
       spacing: {
         none: '0px',
         xxs: '0.125rem',
@@ -78,6 +86,20 @@ module.exports = {
           transition: 'all 0.3s ease-out'
         }
       });
+    }),
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          'animation-delay': (value) => {
+            return {
+              'animation-delay': value
+            };
+          }
+        },
+        {
+          values: theme('transitionDelay')
+        }
+      );
     })
   ]
 };
