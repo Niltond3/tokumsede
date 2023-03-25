@@ -30,7 +30,7 @@ import screen6 from '../../public/images/screenshots/screen6.webp';
 import screen7 from '../../public/images/screenshots/screen7.webp';
 import truck from '../../public/images/truck.webp';
 
-export default {
+const Images = {
   contactMap,
   downloadBg,
   headerBg2,
@@ -63,3 +63,5 @@ export default {
   screen7,
   truck
 };
+
+export default Images;
