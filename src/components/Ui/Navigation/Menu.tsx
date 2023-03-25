@@ -1,31 +1,22 @@
-import React, { ReactNode } from 'react';
-
 import Dropdown from './Dropdown';
 
 import { IContent } from 'utils/Types';
 
-export default function Menu({ content }: IMenu) {
+export default function Menu({ content }: { content: IContent[] }) {
   //[&>ul]:pointer-events-none [&>ul]:hidden [&>ul]:max-h-0 [&>ul]:opacity-0
   return (
     <ul className={`ml-m mt-m w-full flex-col transition-fast`}>
-      {content.map(({ title, content, icon }, index) => (
+      {content.map(({ title, content, icon, href }, index) => (
         <li key={`${title}${index}`}>
           {content && icon && (
-            <Dropdown content={content} icon={icon} title={title}></Dropdown>
+            <Dropdown content={content} icon={icon} title={title} href={href}></Dropdown>
           )}
         </li>
       ))}
     </ul>
   );
-  // return renderSubMenu({ content, toggle: handleToggle, visibility });
 }
 
-interface IMenu {
-  type: 'toast' | 'accordion';
-  className?: string;
-  children?: ReactNode;
-  content: IContent[];
-}
 // function renderSubMenu({ content, className, toggle, visibility }: IRenderSubMenu) {
 //   return (
 //     <ul

@@ -1,14 +1,6 @@
-import NextHead from 'next/head';
-import { ReactNode } from 'react';
-
-import PropTypes from 'prop-types';
-
-interface Props {
-  children?: ReactNode;
-}
-export default function Head({ children }: Props) {
+export default function Head() {
   return (
-    <NextHead>
+    <>
       <title>TôKumSede - O melhor e mais confiável delivery de água do Nordeste.</title>
       <meta
         name="description"
@@ -19,11 +11,6 @@ export default function Head({ children }: Props) {
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="shortcut icon" href="/images/favicon.ico" />
-      {children}
-    </NextHead>
+    </>
   );
 }
-
-Head.propTypes = {
-  children: PropTypes.node
-};

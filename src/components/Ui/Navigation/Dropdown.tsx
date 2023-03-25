@@ -6,7 +6,7 @@ import Link from './Link';
 
 import { IContent } from 'utils/Types';
 
-export default function Dropdown({ content = [], icon, title }: IContent) {
+export default function Dropdown({ content = [], icon, title, href }: IContent) {
   const [showDropdown, setShowDropdown] = useState(false);
   const handleClick = () => setShowDropdown(!showDropdown);
 

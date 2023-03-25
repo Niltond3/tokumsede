@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 
 import Button from 'components/Ui/Inputs/Button';
 import Menu from 'components/Ui/Navigation/Menu';
@@ -31,12 +31,12 @@ export default function LeftBar() {
         {
           icon: 'Homes',
           title: 'Home Page',
-          href: '#'
+          href: '/main/toKumSede'
         },
         {
           icon: 'Purchase',
           title: 'Pedidos',
-          href: '#'
+          href: '/main/requests'
         }
       ]
     },
@@ -47,32 +47,32 @@ export default function LeftBar() {
         {
           icon: 'Customer',
           title: 'Clientes',
-          href: '#'
+          href: '/business/clients'
         },
         {
           icon: 'Distributor',
           title: 'Distribuidoras',
-          href: '#'
+          href: '/business/distributors'
         },
         {
           icon: 'Administrator',
           title: 'Administradores',
-          href: '#'
+          href: '/business/administrators'
         },
         {
           icon: 'Representative',
           title: 'Representantes',
-          href: '#'
+          href: '/business/representatives'
         },
         {
           icon: 'Deliveryman',
           title: 'Entregadores',
-          href: '#'
+          href: '/business/deliverymans'
         },
         {
           icon: 'Attendant',
           title: 'Atendentes',
-          href: '#'
+          href: '/business/attendant'
         }
       ]
     },
@@ -83,22 +83,22 @@ export default function LeftBar() {
         {
           icon: 'Purchase',
           title: 'Varejo',
-          href: '#'
+          href: '/dashboard/retail'
         },
         {
           icon: 'Financial',
           title: 'Financeiro',
-          href: '#'
+          href: '/dashboard/financial'
         },
         {
           icon: 'Commercial',
           title: 'Comercial',
-          href: '#'
+          href: '/dashboard/commercial'
         },
         {
           icon: 'logistics',
           title: 'Logístico',
-          href: '#'
+          href: '/dashboard/logistical'
         }
       ]
     }
@@ -113,7 +113,7 @@ export default function LeftBar() {
       ${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'menu')}
 `}
     >
-      <div className="absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pr-xl pl-m transition-slow dark:border-secondary-dark">
+      <div className="absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default px-m pr-xxl transition-slow dark:border-secondary-dark">
         <Button
           typeOf="DarkModeToggle"
           aria-label="Dark mode toggle"
@@ -134,12 +134,12 @@ export default function LeftBar() {
           }}
         ></Button>
       </div>
-      <Menu content={content} type="accordion"></Menu>
       <Button
         typeOf="InteractiveLogo"
         className={`${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'logo')}`}
         onClick={handleSetShowFullMenu}
       />
+      <Menu content={content}></Menu>
     </aside>
   );
 }
@@ -158,7 +158,7 @@ function actionsWhenMenuToggle(
     logo: {
       hide: '',
       parcial: '-translate-x-4 scale-90',
-      full: `-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-[-6rem]
+      full: `-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-0 mr-l
       [&>img]:p-xxs
       [&>img:nth-child(1)]:-translate-y-[0.1rem] [&>img:nth-child(1)]:translate-x-[0.4rem]
       [&>img:nth-child(2)]:!opacity-0
