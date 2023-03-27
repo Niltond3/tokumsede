@@ -111,7 +111,7 @@ export default function LeftBar() {
       onClick={handleShowFullMenu}
       onMouseEnter={handleShowParcialMenu}
       onMouseLeave={handleHideParcialMenu}
-      className={`container-bar  container-bar-aside w-min min-w-[13.375rem] pr-m backdrop-blur-md transition-slow ${actionsWhenMenuToggle(
+      className={`container-bar container-bar-aside w-min min-w-[13.375rem] pr-m backdrop-blur-md transition-slow ${actionsWhenMenuToggle(
         hideFullMenu,
         showParcialMenu,
         'menu'

@@ -3,7 +3,6 @@
 @tailwind utilities;
 @import '../app/components/Foundation/index.css';
 @import '../app/components/Patterns/Layout/index.css';
-@import '../app/components/Ui/Inputs/index.css';
 @import '../app/components/Ui/Navigation/index.css';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
@@ -16,13 +15,19 @@
 
 @layer components {
   .btn-menu-control {
-    @apply relative flex h-10 w-full items-center rounded-l-full bg-primary-default/0 pl-m text-secondary-contrast-df transition-faster hover:bg-primary-default/30 dark:bg-primary-dark/0 dark:before:bg-menu-corner-dark dark:after:bg-menu-corner-dark dark:hover:bg-primary-dark/50 btn-menu-control-before btn-menu-control-after
+    @apply relative flex h-10 w-full items-center rounded-l-full bg-primary-default/0 pl-m text-secondary-contrast-df transition-faster hover:bg-primary-default/30 before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
+  }
+  .btn-menu-control-dark {
+    @apply bg-primary-dark/0 before:bg-menu-corner-dark after:bg-menu-corner-dark hover:bg-primary-dark/50
   }
   .btn-menu-control-before {
-    @apply before:absolute before:top-[-1.58rem] before:right-2 before:z-50 before:-mr-2 before:h-[25px] before:w-[25px] before:rotate-90 before:scale-[1.04] before:bg-menu-corner before:bg-[length:100%] before:bg-no-repeat before:opacity-0 before:transition-faster
+    @apply top-[-1.58rem] rotate-90 btn-menu-control-pseudo
   }
   .btn-menu-control-after {
-    @apply after:absolute after:bottom-[-1.58rem] after:right-2 after:z-50 after:-mr-2 after:h-[25px] after:w-[25px] after:scale-[1.04] after:bg-menu-corner after:bg-[length:100%] after:bg-no-repeat after:opacity-0 after:content-[''] after:transition-faster
+    @apply bottom-[-1.58rem] btn-menu-control-pseudo
+  }
+  .btn-menu-control-pseudo {
+    @apply absolute pointer-events-none right-2 z-50 -mr-2 h-[25px] w-[25px] scale-[1.04] bg-menu-corner bg-[length:100%] bg-no-repeat opacity-0 content-[''] transition-faster
   }
 }
 

@@ -82,6 +82,7 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
     plugin(({ addVariant, addUtilities, theme }) => {
       addVariant('child', '&>*');
       addUtilities({

@@ -1,13 +1,14 @@
 import { NextComponentType, NextPageContext } from 'next';
 import type { AppProps } from 'next/app';
 
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-export type Icon = typeof Icons;
+import { thisIcons } from 'app/components/Ui/DataDisplay/Icons';
+
+export type TypeIcons = typeof thisIcons;
 
 export interface IContent {
   content?: IContent[];
   href?: string;
-  icon: keyof Icon;
+  icon: keyof TypeIcons;
   onClick?: () => void;
   title: string;
 }

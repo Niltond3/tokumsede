@@ -28,9 +28,9 @@ export default function Dropdown({ content = [], icon, title, shrink }: IDropdow
         {!shrink && title}
       </Button>
       <ul
-        className={`pointer-events-none max-h-0 ${
-          showDropdown && 'pointer-events-auto max-h-96'
-        } my-1 flex-col transition-faster`}
+        className={`my-1 flex flex-col flex-wrap items-end transition-faster ${
+          shrink && ''
+        } ${showDropdown ? 'max-h-96' : 'max-h-0 overflow-hidden'}`}
       >
         {content.map(({ title, href, onClick, icon }, index) => {
           enum EDelay {
@@ -42,7 +42,16 @@ export default function Dropdown({ content = [], icon, title, shrink }: IDropdow
             'animation-delay-[140ms]'
           }
           const delay = EDelay[index];
-          return renderLi({ delay, icon, index, title, href, onClick, showDropdown });
+          return renderLi({
+            delay,
+            icon,
+            index,
+            title,
+            href,
+            onClick,
+            showDropdown,
+            shrink
+          });
         })}
       </ul>
     </div>
@@ -56,7 +65,8 @@ const renderLi = ({
   title,
   href,
   onClick,
-  showDropdown
+  showDropdown,
+  shrink
 }: IRenderLi) => (
   <li key={`${title}${index}`}>
     {href && (
@@ -64,20 +74,17 @@ const renderLi = ({
         href={href}
         onClick={onClick}
         //animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-40
-        className={`ml-m flex border-l-2 p-s transition-faster ${
-          showDropdown
-            ? `border-l-primary-default/30 hover:border-l-primary-default/100`
-            : 'border-l-primary-default/0'
+        className={`flex border-l-2 border-l-primary-default/0 p-s transition-faster ${
+          showDropdown && 'border-l-primary-default/30 hover:border-l-primary-default/100'
         }`}
       >
         <div
           // eslint-disable-next-line tailwindcss/no-custom-classname
           className={`flex translate-x-[25px] items-center opacity-0 ${
-            showDropdown ? `${delay} animate-intro-menu` : ''
+            showDropdown && `${delay} animate-intro-menu`
           } fill-mode-forwards`}
         >
-          {icon && Icons[icon]({ className: 'mr-s' })}
-          <span>{title}</span>
+          {icon && <Icons icon={icon} className="mr-s"></Icons>}
         </div>
       </Link>
     )}
@@ -88,4 +95,5 @@ interface IRenderLi extends IContent {
   delay: string;
   index: number;
   showDropdown: boolean;
+  shrink: boolean;
 }
