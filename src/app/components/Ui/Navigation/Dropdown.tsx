@@ -6,31 +6,26 @@ import Link from './Link';
 
 import { IContent } from 'utils/Types';
 
-export default function Dropdown({ content = [], icon, title }: IContent) {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const handleClick = () => setShowDropdown(!showDropdown);
+interface IDropdown extends IContent {
+  shrink: boolean;
+}
 
+export default function Dropdown({ content = [], icon, title, shrink }: IDropdown) {
+  const [showDropdown, setShowDropdown] = useState(true);
+  const handleClick = () => setShowDropdown(!showDropdown);
   return (
-    <div
-      className="relative flex-col pl-s text-secondary-contrast-df transition-fast
-      "
-    >
+    <div className="relative flex flex-col pl-s text-secondary-contrast-df transition-fast">
       <Button
-        className={`
-        ${
+        className={`${shrink && `w-fit self-end px-m [&>svg:nth-child(2)]:hidden`} ${
           showDropdown &&
-          `!bg-primary-default/100 !text-primary-contrast-df transition-none
-          before:opacity-100 before:transition-none after:opacity-100 after:transition-none
-          dark:!bg-primary-dark/100 dark:!text-primary-contrast-dk
-          [&>div]:!bg-primary-default/100 [&>svg:nth-child(2)]:rotate-90
-          `
+          `!bg-primary-default/100 !text-primary-contrast-df transition-none before:opacity-100 before:transition-none after:opacity-100 after:transition-none dark:!bg-primary-dark/100 dark:!text-primary-contrast-dk first-letter:[&>div]:!bg-primary-default/100 [&>svg:nth-child(2)]:rotate-90`
         }
       `}
         onClick={handleClick}
         typeOf="MenuControl"
         icon={icon}
       >
-        {title}
+        {!shrink && title}
       </Button>
       <ul
         className={`pointer-events-none max-h-0 ${
@@ -75,15 +70,15 @@ const renderLi = ({
             : 'border-l-primary-default/0'
         }`}
       >
-        <span
+        <div
           // eslint-disable-next-line tailwindcss/no-custom-classname
           className={`flex translate-x-[25px] items-center opacity-0 ${
             showDropdown ? `${delay} animate-intro-menu` : ''
           } fill-mode-forwards`}
         >
           {icon && Icons[icon]({ className: 'mr-s' })}
-          {title}
-        </span>
+          <span>{title}</span>
+        </div>
       </Link>
     )}
   </li>

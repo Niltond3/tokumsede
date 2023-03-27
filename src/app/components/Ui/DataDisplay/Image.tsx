@@ -6,17 +6,19 @@ interface IImg {
   size?: number;
   image: keyof typeof paths;
   className?: string;
+  blur?: 'blur' | 'empty';
 }
 
-export default function Img({ image, size, className }: IImg) {
+export default function Img({ image, size, className, blur }: IImg) {
   const src = paths[image];
   return (
     <Image
+      priority
       src={src}
-      alt="Any Text"
+      alt={image}
       width={size}
       height={size}
-      placeholder="blur"
+      placeholder={blur}
       className={className}
     />
   );

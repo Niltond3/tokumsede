@@ -8,11 +8,20 @@ module.exports = {
     extend: {
       keyframes: {
         'intro-menu': {
-          '100%': { opacity: '50', transform: 'translate(0)' }
+          '100%': { opacity: '.5', transform: 'translate(0)' }
+        },
+        'hover-here': {
+          '0%, 100%': {
+            transform: 'translateX(-30%) rotate(-15deg)'
+          },
+          '50%': {
+            transform: 'translateX(0) rotate(0deg)'
+          }
         }
       },
       animation: {
-        'intro-menu': '0.4s ease-in-out 0.1s intro-menu'
+        'intro-menu': '0.4s ease-in-out 0.1s intro-menu',
+        'hover-here': 'hover-here 1.4s infinite'
       },
       spacing: {
         none: '0px',
@@ -73,7 +82,7 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-animate'),
-    plugin(({ addVariant, addUtilities }) => {
+    plugin(({ addVariant, addUtilities, theme }) => {
       addVariant('child', '&>*');
       addUtilities({
         '.transition-slow': {
