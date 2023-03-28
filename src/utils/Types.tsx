@@ -19,7 +19,6 @@ export type AppPropsWithLayout = AppProps & {
 };
 
 export interface IHMLElement {
-  children?:React.ReactNode;
-  className?:string;
-  onClick?: (event: React.MouseEvent) => void | (() => void)
+  children?: React.ReactNode;
+  className?: string;
 }

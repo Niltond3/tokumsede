@@ -26,7 +26,7 @@
     @apply bottom-[-1.55rem] btn-menu-control-pseudo
   }
   .btn-menu-control-pseudo {
-    @apply absolute pointer-events-none right-2 z-50 -mr-2 h-[25px] w-[25px] scale-[1.04] bg-menu-corner bg-[length:100%] bg-no-repeat opacity-0 content-[''] transition-faster
+    @apply absolute pointer-events-none right-2 z-[-1] -mr-2 h-[25px] w-[25px] scale-[1.04] bg-menu-corner bg-[length:100%] bg-no-repeat opacity-0 content-[''] transition-faster
   }
 
 }

@@ -1,5 +1,4 @@
-import React from 'react';
-import Container from 'app/components/Ui/Layout/Container'
+import Container from 'app/components/Ui/Layout/Container';
 import NavBar, { entry } from 'app/components/Ui/Navigation/NavBar';
 
 const entrys: entry[] = [
@@ -66,7 +65,7 @@ const entrys: entry[] = [
 ];
 export default function RightBar() {
   return (
-    <Container className="color__transparent right-0 transition-slow" type='Aside'>
+    <Container className="color__transparent right-0 transition-slow" type="Aside">
       <NavBar theme="TableOfContents" entrys={entrys}></NavBar>
     </Container>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
+import Tooltip from '../DataDisplay/Tooltip';
 import Button from '../Inputs/Button';
 import Link from './Link';
 
@@ -14,11 +15,11 @@ export default function Dropdown({ content = [], icon, title, shrink }: IDropdow
   const [showDropdown, setShowDropdown] = useState(true);
   const handleClick = () => setShowDropdown(!showDropdown);
   return (
-    <div className="relative flex flex-col pl-s text-secondary-contrast-df transition-fast">
+    <div className="flex flex-col pl-s text-secondary-contrast-df transition-fast">
       <Button
         className={`${shrink && `w-fit self-end px-m [&>svg:nth-child(2)]:hidden`} ${
           showDropdown &&
-          `!bg-primary-default/100 !text-primary-contrast-df transition-none before:opacity-100 before:transition-none after:opacity-100 after:transition-none dark:!bg-primary-dark/100 dark:!text-primary-contrast-dk first-letter:[&>div]:!bg-primary-default/100 [&>svg:nth-child(2)]:rotate-90`
+          `!bg-primary-default/100 !text-primary-contrast-df transition-none before:opacity-100 before:transition-none after:opacity-100 after:transition-none dark:!bg-primary-dark/100 dark:!text-primary-contrast-dk [&>svg:nth-child(2)]:rotate-90`
         }
       `}
         onClick={handleClick}
@@ -26,6 +27,7 @@ export default function Dropdown({ content = [], icon, title, shrink }: IDropdow
         icon={icon}
       >
         {!shrink && title}
+        <Tooltip title={title} position="right" distace="close" />
       </Button>
       <ul
         className={`my-1 flex flex-col flex-wrap items-end transition-faster ${
@@ -74,18 +76,24 @@ const renderLi = ({
         href={href}
         onClick={onClick}
         //animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-40
-        className={`flex border-l-2 border-l-primary-default/0 p-s transition-faster ${
+        className={`group flex border-l-2 border-l-primary-default/0 p-s transition-faster ${
           showDropdown && 'border-l-primary-default/30 hover:border-l-primary-default/100'
         }`}
       >
         <div
           // eslint-disable-next-line tailwindcss/no-custom-classname
-          className={`flex translate-x-[25px] items-center opacity-0 ${
+          className={`flex translate-x-[25px] items-center opacity-0 hover:opacity-100 ${
             showDropdown && `${delay} animate-intro-menu`
           } fill-mode-forwards`}
         >
           {icon && <Icons icon={icon} className="mr-s"></Icons>}
-          {!shrink  && <p className={`transition-faster text-[0.80rem] font-medium min-w-[6rem]`} >{title}</p>}
+          {!shrink ? (
+            <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
+              {title}
+            </p>
+          ) : (
+            <Tooltip title={title} position="right" distace="closer" />
+          )}
         </div>
       </Link>
     )}

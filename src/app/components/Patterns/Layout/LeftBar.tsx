@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 
 import { Mouse } from 'app/components/Ui/DataDisplay/Icons';
 import Button from 'app/components/Ui/Inputs/Button';
-import Menu from 'app/components/Ui/Navigation/Menu';
 import Container from 'app/components/Ui/Layout/Container';
+import Menu from 'app/components/Ui/Navigation/Menu';
 
 import { THEMES } from '../../../../utils/Constants';
 
@@ -109,7 +109,7 @@ export default function LeftBar() {
 
   return (
     <Container
-      type='Aside'
+      type="Aside"
       onClick={handleShowFullMenu}
       onMouseEnter={handleShowParcialMenu}
       onMouseLeave={handleHideParcialMenu}
@@ -120,7 +120,11 @@ export default function LeftBar() {
       )}
 `}
     >
-      <div className="absolute top-0 left-3 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default px-m pr-xxl transition-slow dark:border-secondary-dark">
+      <div
+        className={`${
+          showParcialMenu && hideFullMenu && '-translate-x-3'
+        } absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default px-m pr-xxl transition-slow dark:border-secondary-dark`}
+      >
         <div
           className={`absolute top-[3.5rem] h-px w-11 rounded-full bg-primary-default/0 transition-faster ${
             showParcialMenu && hideFullMenu && 'bg-primary-default/40'
