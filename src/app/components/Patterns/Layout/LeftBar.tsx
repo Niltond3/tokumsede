@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Mouse } from 'app/components/Ui/DataDisplay/Icons';
 import Button from 'app/components/Ui/Inputs/Button';
 import Menu from 'app/components/Ui/Navigation/Menu';
+import Container from 'app/components/Ui/Layout/Container';
 
 import { THEMES } from '../../../../utils/Constants';
 
@@ -107,18 +108,19 @@ export default function LeftBar() {
   ];
 
   return (
-    <aside
+    <Container
+      type='Aside'
       onClick={handleShowFullMenu}
       onMouseEnter={handleShowParcialMenu}
       onMouseLeave={handleHideParcialMenu}
-      className={`container-bar container-bar-aside w-min min-w-[13.375rem] pr-m backdrop-blur-md transition-slow ${actionsWhenMenuToggle(
+      className={`pr-m transition-slow ${actionsWhenMenuToggle(
         hideFullMenu,
         showParcialMenu,
         'menu'
       )}
 `}
     >
-      <div className="absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default px-m pr-xxl transition-slow dark:border-secondary-dark">
+      <div className="absolute top-0 left-3 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default px-m pr-xxl transition-slow dark:border-secondary-dark">
         <div
           className={`absolute top-[3.5rem] h-px w-11 rounded-full bg-primary-default/0 transition-faster ${
             showParcialMenu && hideFullMenu && 'bg-primary-default/40'
@@ -155,7 +157,7 @@ export default function LeftBar() {
         onClick={handleSetShowFullMenu}
       />
       <Menu content={content} shrink={hideFullMenu}></Menu>
-    </aside>
+    </Container>
   );
 }
 function actionsWhenMenuToggle(
@@ -163,12 +165,11 @@ function actionsWhenMenuToggle(
   showParcialMenu: boolean,
   component: 'menu' | 'logo'
 ) {
-  //[&>img]:left-1/2 [&>img]:-translate-x-1/2
   const stylesMapping = {
     menu: {
       hide: '-translate-x-full color__secondary',
       parcial:
-        '-translate-x-3/4 color__secondary [&>div:first-child]:ml-40 [&>div:first-child]:pl-0 [&>div:first-child]:pr-40',
+        '-translate-x-2/3 color__secondary [&>div:first-child]:ml-40 [&>div:first-child]:pl-0 [&>div:first-child]:pr-40',
       full: 'color__tertiary'
     },
     logo: {

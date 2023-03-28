@@ -85,6 +85,7 @@ const renderLi = ({
           } fill-mode-forwards`}
         >
           {icon && <Icons icon={icon} className="mr-s"></Icons>}
+          {!shrink  && <p className={`transition-faster text-[0.80rem] font-medium min-w-[6rem]`} >{title}</p>}
         </div>
       </Link>
     )}

@@ -118,7 +118,7 @@ function Notification(): IButtonsType {
 }
 
 function MenuControl(): IButtonsType {
-  const className = 'group btn-menu-control';
+  const className = 'group btn-menu-control -mr-0.5';
   const DefaultChildren = ({ icon }: { icon?: keyof TypeIcons }) => (
     <>
       {icon && <Icons icon={icon} className="min-w-min pr-s"></Icons>}

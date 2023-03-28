@@ -17,3 +17,9 @@ export type AppPropsWithLayout = AppProps & {
     PageLayout?: NextComponentType<NextPageContext, any, any>;
   };
 };
+
+export interface IHMLElement {
+  children?:React.ReactNode;
+  className?:string;
+  onClick?: (event: React.MouseEvent) => void | (() => void)
+}
