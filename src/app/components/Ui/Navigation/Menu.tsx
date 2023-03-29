@@ -4,10 +4,10 @@ import { IContent } from 'utils/Types';
 
 interface IMenu {
   content: IContent[];
-  shrink: boolean;
+  styles: string;
 }
 
-export default function Menu({ content, shrink }: IMenu) {
+export default function Menu({ content, styles }: IMenu) {
   return (
     <ul className={`ml-m mt-m w-full transition-fast`}>
       {content.map(({ title, content, icon, href }, index) => (
@@ -18,7 +18,7 @@ export default function Menu({ content, shrink }: IMenu) {
               icon={icon}
               title={title}
               href={href}
-              shrink={shrink}
+              styles={styles}
             />
           )}
         </li>

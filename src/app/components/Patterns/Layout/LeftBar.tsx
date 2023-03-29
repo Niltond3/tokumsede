@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 import { Mouse } from 'app/components/Ui/DataDisplay/Icons';
+import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import Container from 'app/components/Ui/Layout/Container';
 import Menu from 'app/components/Ui/Navigation/Menu';
@@ -13,7 +14,7 @@ import { IContent } from 'utils/Types';
 
 export default function LeftBar() {
   const [hideFullMenu, setShowFullMenu] = useState(true);
-  const [showParcialMenu, setShowParcialMenu] = useState(true);
+  const [showParcialMenu, setShowParcialMenu] = useState(false);
   const [colorMode, setClorMode] = useColorMode();
   const { DARK, LIGHT } = THEMES;
 
@@ -106,90 +107,104 @@ export default function LeftBar() {
       ]
     }
   ];
-
+  const { aside, config, logo, menu } = variantStyles(hideFullMenu, showParcialMenu);
   return (
     <Container
       type="Aside"
       onClick={handleShowFullMenu}
       onMouseEnter={handleShowParcialMenu}
       onMouseLeave={handleHideParcialMenu}
-      className={`pr-m transition-slow ${actionsWhenMenuToggle(
-        hideFullMenu,
-        showParcialMenu,
-        'menu'
-      )}
+      className={`pr-m ${aside}
 `}
     >
-      <div
-        className={`${
-          hideFullMenu && '-translate-x-3'
-        } absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default px-m pr-xxl transition-slow dark:border-secondary-dark`}
-      >
-        <div
-          className={`absolute top-[3.5rem] h-px w-11 rounded-full transition-faster ${
-            hideFullMenu && 'bg-primary-default/40'
-          }`}
-        />
-        <Button
-          typeOf="DarkModeToggle"
-          aria-label="Dark mode toggle"
-          onClick={handleToggleColorMode}
-        />
-        <Button
-          typeOf="Notifications"
-          aria-label="Notifications activity Toggle"
-          onClick={() => {
-            //nothing happened for now
-          }}
-        />
-        <Button
-          typeOf="Settings"
-          aria-label="Settings"
-          onClick={() => {
-            //nothing happened for now
-          }}
-        />
-      </div>
-      <Mouse
-        className={`absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow ${
-          !showParcialMenu && hideFullMenu && 'opacity-100'
-        }`}
-      />
-      <Button
-        typeOf="InteractiveLogo"
-        className={`${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'logo')}`}
-        onClick={handleSetShowFullMenu}
-      />
-      <Menu content={content} shrink={hideFullMenu} />
+      <ConfigWrapper toggleTheme={handleToggleColorMode} className={config} />
+      <Mouse className="absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow" />
+      <Button typeOf="InteractiveLogo" className={logo} onClick={handleSetShowFullMenu} />
+      <Menu content={content} styles={menu} />
     </Container>
   );
 }
-function actionsWhenMenuToggle(
-  hideFullMenu: boolean,
-  showParcialMenu: boolean,
-  component: 'menu' | 'logo'
-) {
+interface IConfigWrapper {
+  className: string;
+  toggleTheme: () => void;
+}
+const ConfigWrapper = ({ toggleTheme, className }: IConfigWrapper) => (
+  <div
+    className={`${className} absolute top-0 ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pl-m pr-xxl transition-slow dark:border-secondary-dark`}
+  >
+    <div className="absolute top-[3.5rem] h-px w-11 rounded-full transition-faster" />
+    <Button
+      typeOf="DarkModeToggle"
+      aria-label="Dark mode toggle"
+      onClick={toggleTheme}
+      className="group relative"
+    >
+      <Tooltip distace="closer" position="bottom-end" title="Mudar Tema" />{' '}
+    </Button>
+    <Button
+      typeOf="Notifications"
+      aria-label="Notifications"
+      onClick={() => {
+        //nothing happened for now
+      }}
+    />
+    <Button
+      typeOf="Settings"
+      aria-label="Settings"
+      onClick={() => {
+        //nothing happened for now
+      }}
+    />
+  </div>
+);
+
+/**
+ *
+ * [&>button:first-child>div:first-child] aparecer se parcial
+ * [&>button:first-child>p:first-child] aparecer se full
+ *
+ * [&>ul:first-child_li>a>div>svg:nth(2)] aparecer se parcial
+ * [&>ul:first-child_li>a>div>p] aparecer se full
+ */
+
+function variantStyles(hideFullMenu: boolean, showParcialMenu: boolean) {
+  const menuShrinkStyles = [
+    '[&>button:first-child]:w-1/3 [&>button:first-child]:self-end [&>button:first-child]:px-m',
+    '[&>button:first-child>svg:nth-child(2)]:hidden',
+    '[&>button:first-child>p]:hidden',
+    '[&>ul>li>a>div>p]:hidden'
+  ].join(' ');
+
   const mappingStyles = {
-    menu: {
-      hide: '-translate-x-full color__secondary',
-      full: 'color__tertiary',
-      parcial: [
-        '-translate-x-2/3 color__secondary',
-        '[&>div:first-child]:ml-40 [&>div:first-child]:pl-0 [&>div:first-child]:pr-40'
-      ].join(' ')
+    hide: {
+      aside: '-translate-x-full color__secondary [&_svg]:!opacity-100',
+      config: '',
+      logo: '',
+      menu: `[&>button:first-child]:pointer-events-none ${menuShrinkStyles}`
     },
-    logo: {
-      hide: '',
-      full: [
+    full: {
+      aside: 'color__tertiary',
+      config: '',
+      logo: [
         '-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-0 mr-l',
         '[&>img]:p-xxs',
         '[&>img:nth-child(1)]:-translate-y-[0.1rem] [&>img:nth-child(1)]:translate-x-[0.4rem]',
         '[&>img:nth-child(2)]:!opacity-0',
         '[&>img:nth-child(3)]:w-8 [&>img:nth-child(3)]:translate-y-[0.1rem] [&>img:nth-child(3)]:translate-x-[0.2rem]'
       ].join(' '),
-      parcial: '-translate-x-10 scale-90 animate-pulse'
+      menu: '[&>button:first-child>div]:hidden [&>ul>li>a>div>div]:hidden'
+    },
+    parcial: {
+      aside: [
+        '-translate-x-2/3 color__secondary',
+        '[&>div:first-child]:ml-40 [&>div:first-child]:pl-0 [&>div:first-child]:pr-40'
+      ].join(' '),
+      config: '-translate-x-3 [&>div:first-child]:bg-primary-default/40',
+      logo: '-translate-x-10 scale-90 animate-pulse',
+      menu: `${menuShrinkStyles}`
     }
   };
-  const { hide, parcial, full } = mappingStyles[component];
+
+  const { hide, parcial, full } = mappingStyles;
   return hideFullMenu && showParcialMenu ? parcial : hideFullMenu ? hide : full;
 }

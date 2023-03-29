@@ -15,7 +15,7 @@ const containersType = {
     };
   },
   Aside: function () {
-    const className = 'h-screen pt-xl flex-col w-min min-w-[13.375rem]';
+    const className = 'h-screen pt-xl flex-col w-min min-w-[13.375rem] transition-slow ';
     return {
       className
     };

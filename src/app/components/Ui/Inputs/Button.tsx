@@ -40,7 +40,7 @@ const variantStyles = {
     'group flex cursor-pointer rounded-full absolute p-xs w-16 h-16 right-[-7rem] top-0 z-[51] border-secondary-default dark:border-secondary-dark transition-slow',
     '[&>img]:opacity-100'
   ].join(' '),
-  DarkModeToggle: `${commonStyles}`,
+  DarkModeToggle: `${commonStyles} relative w-4 h-full [&>*]:absolute [&>*]:left-1/2  [&>*]:-translate-y-1/2 [&>*]:top-1/2  [&>*]:-translate-x-1/2`,
   Settings: `${commonStyles}`,
   Notifications: `${commonStyles}`,
   MenuControl: 'group btn-menu-control -mr-0.5'
@@ -68,8 +68,8 @@ const defaultChildren = {
   ),
   DarkModeToggle: () => (
     <>
-      <LightMode className="absolute top-1/2 -translate-y-1/2 opacity-100 transition-slow dark:opacity-0" />
-      <DarkMode className="absolute top-1/2 -translate-y-1/2 opacity-0 transition-slow dark:opacity-100" />
+      <LightMode className="opacity-100 dark:opacity-0" />
+      <DarkMode className="opacity-0 dark:opacity-100" />
     </>
   ),
   Settings: () => <Icons icon="Settings" />,
