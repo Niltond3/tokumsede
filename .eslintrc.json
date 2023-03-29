@@ -37,6 +37,13 @@
     "react/react-in-jsx-scope": 0,
     "react/display-name": 0,
     "react/prop-types": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": false
+      }
+    ],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-empty-interface": "off",

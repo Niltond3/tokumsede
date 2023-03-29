@@ -6,10 +6,9 @@ interface ITooltip {
 
 export default function Tooltip({ title, position, distace }: ITooltip) {
   const posStyle = stylePosition[position](distace);
-  //opacity-0 group-hover:opacity-100
   return (
     <div
-      className={`pointer-events-none absolute flex w-max rounded-md bg-black p-xs text-sm font-medium transition-faster ${posStyle}`}
+      className={`pointer-events-none absolute flex w-max rounded-md bg-tertiary-default p-xs text-sm font-medium text-primary-default opacity-0 drop-shadow-md transition-faster group-hover:opacity-100 dark:bg-tertiary-dark ${posStyle}`}
     >
       {title}
     </div>
@@ -49,7 +48,7 @@ const stylePosition = {
     return className;
   },
   right: (distance: keyof typeof styleDistance) => {
-    const className = `${styleDistance[distance].right} before:top-1/2 before:-translate-y-1/2 before:absolute before:-left-[0.95rem] before:h-0 before:w-0 before:border-8 before:border-transparent before:border-r-black before:content-['']`;
+    const className = `${styleDistance[distance].right} before:drop-shadow-md before:transition-faster before:top-1/2 before:-translate-y-1/2 before:absolute before:-left-[0.95rem] before:h-0 before:w-0 before:border-8 before:border-transparent before:border-r-tertiary-default before:dark:border-r-tertiary-dark before:content-['']`;
     return className;
   },
   'right-end': () => {

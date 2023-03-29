@@ -18,8 +18,8 @@ export default function LeftBar() {
   const { DARK, LIGHT } = THEMES;
 
   const handleSetShowFullMenu = () => setShowFullMenu(!hideFullMenu);
-  const handleShowFullMenu = (event: React.MouseEvent) => {
-    event.target === event.currentTarget && setShowFullMenu(!hideFullMenu);
+  const handleShowFullMenu = ({ target, currentTarget }: React.MouseEvent) => {
+    target === currentTarget && setShowFullMenu(!hideFullMenu);
   };
 
   const handleShowParcialMenu = () => setShowParcialMenu(true);
@@ -122,45 +122,45 @@ export default function LeftBar() {
     >
       <div
         className={`${
-          showParcialMenu && hideFullMenu && '-translate-x-3'
+          hideFullMenu && '-translate-x-3'
         } absolute top-0 z-[51] ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default px-m pr-xxl transition-slow dark:border-secondary-dark`}
       >
         <div
-          className={`absolute top-[3.5rem] h-px w-11 rounded-full bg-primary-default/0 transition-faster ${
-            showParcialMenu && hideFullMenu && 'bg-primary-default/40'
+          className={`absolute top-[3.5rem] h-px w-11 rounded-full transition-faster ${
+            hideFullMenu && 'bg-primary-default/40'
           }`}
         />
         <Button
           typeOf="DarkModeToggle"
           aria-label="Dark mode toggle"
           onClick={handleToggleColorMode}
-        ></Button>
+        />
         <Button
           typeOf="Notifications"
           aria-label="Notifications activity Toggle"
           onClick={() => {
             //nothing happened for now
           }}
-        ></Button>
+        />
         <Button
           typeOf="Settings"
           aria-label="Settings"
           onClick={() => {
             //nothing happened for now
           }}
-        ></Button>
+        />
       </div>
       <Mouse
         className={`absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow ${
           !showParcialMenu && hideFullMenu && 'opacity-100'
         }`}
-      ></Mouse>
+      />
       <Button
         typeOf="InteractiveLogo"
         className={`${actionsWhenMenuToggle(hideFullMenu, showParcialMenu, 'logo')}`}
         onClick={handleSetShowFullMenu}
       />
-      <Menu content={content} shrink={hideFullMenu}></Menu>
+      <Menu content={content} shrink={hideFullMenu} />
     </Container>
   );
 }
@@ -169,24 +169,27 @@ function actionsWhenMenuToggle(
   showParcialMenu: boolean,
   component: 'menu' | 'logo'
 ) {
-  const stylesMapping = {
+  const mappingStyles = {
     menu: {
       hide: '-translate-x-full color__secondary',
-      parcial:
-        '-translate-x-2/3 color__secondary [&>div:first-child]:ml-40 [&>div:first-child]:pl-0 [&>div:first-child]:pr-40',
-      full: 'color__tertiary'
+      full: 'color__tertiary',
+      parcial: [
+        '-translate-x-2/3 color__secondary',
+        '[&>div:first-child]:ml-40 [&>div:first-child]:pl-0 [&>div:first-child]:pr-40'
+      ].join(' ')
     },
     logo: {
       hide: '',
-      parcial: '-translate-x-10 scale-90 animate-pulse',
-      full: `-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-0 mr-l
-      [&>img]:p-xxs
-      [&>img:nth-child(1)]:-translate-y-[0.1rem] [&>img:nth-child(1)]:translate-x-[0.4rem]
-      [&>img:nth-child(2)]:!opacity-0
-      [&>img:nth-child(3)]:w-8 [&>img:nth-child(3)]:translate-y-[0.1rem] [&>img:nth-child(3)]:translate-x-[0.2rem]
-      `
+      full: [
+        '-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-0 mr-l',
+        '[&>img]:p-xxs',
+        '[&>img:nth-child(1)]:-translate-y-[0.1rem] [&>img:nth-child(1)]:translate-x-[0.4rem]',
+        '[&>img:nth-child(2)]:!opacity-0',
+        '[&>img:nth-child(3)]:w-8 [&>img:nth-child(3)]:translate-y-[0.1rem] [&>img:nth-child(3)]:translate-x-[0.2rem]'
+      ].join(' '),
+      parcial: '-translate-x-10 scale-90 animate-pulse'
     }
   };
-  const { hide, parcial, full } = stylesMapping[component];
+  const { hide, parcial, full } = mappingStyles[component];
   return hideFullMenu && showParcialMenu ? parcial : hideFullMenu ? hide : full;
 }

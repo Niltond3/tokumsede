@@ -72,18 +72,16 @@ module.exports = {
       },
       backgroundImage: {
         'menu-corner': "url('../../public/images/corner.svg')",
-        'menu-corner-dark': "url('../../public/images/corner-dark.svg')"
-      },
-      content: {
-        right: 'url("../../public/images/icons/right.svg")',
-        hashtag: 'url("../../public/images/icons/hashtag.svg")'
+        'menu-corner-dark': "url('../../public/images/corner-dark.svg')",
+        'menu-corner-secondary': "url('../../public/images/corner-secondary.svg')",
+        'menu-corner-tertiary': "url('../../public/images/corner-tertiary.svg')"
       }
     }
   },
   plugins: [
     require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
-    plugin(({ addVariant, addUtilities, theme }) => {
+    plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
       addUtilities({
         '.transition-slow': {

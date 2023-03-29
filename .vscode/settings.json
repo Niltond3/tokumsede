@@ -3,7 +3,7 @@
     "javascript": "jsx"
   },
   "workbench.startupEditor": "newUntitledFile",
-  "editor.fontSize": 14,
+  "editor.fontSize": 12,
   "javascript.suggest.autoImports": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "prettier.printWidth": 90,
@@ -110,6 +110,9 @@
     "presentation": "template",
     "dtos": "typescript",
     "http": "container",
+    "editor.quickSuggestions": {
+      "strings": true
+    },
     "providers": "include",
     "factories": "class",
     "repositories": "mappings"
@@ -138,7 +141,7 @@
   "git.enableSmartCommit": true,
   "editor.accessibilitySupport": "off",
   "explorer.confirmDragAndDrop": false,
-  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontSize": 12,
   "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
@@ -175,5 +178,11 @@
   "workbench.editor.untitled.hint": "hidden",
   "workbench.colorTheme": "Dracula",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+    "tailwindCSS.classAttributes": [
+      "class",
+      "className",
+      "ngClass",
+      ".*Styles*" // Add ".*Styles*" (or whatever matches your naming scheme)
+    ]
 }

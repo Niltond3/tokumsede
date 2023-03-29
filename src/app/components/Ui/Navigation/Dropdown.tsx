@@ -12,22 +12,24 @@ interface IDropdown extends IContent {
 }
 
 export default function Dropdown({ content = [], icon, title, shrink }: IDropdown) {
-  const [showDropdown, setShowDropdown] = useState(true);
+  const [showDropdown, setShowDropdown] = useState(false);
   const handleClick = () => setShowDropdown(!showDropdown);
   return (
     <div className="flex flex-col pl-s text-secondary-contrast-df transition-fast">
       <Button
-        className={`${shrink && `w-fit self-end px-m [&>svg:nth-child(2)]:hidden`} ${
+        className={`${
+          shrink
+            ? `pointer-events-auto w-1/3 self-end px-m [&>svg:nth-child(2)]:hidden`
+            : 'pointer-events-none'
+        } ${
           showDropdown &&
           `!bg-primary-default/100 !text-primary-contrast-df transition-none before:opacity-100 before:transition-none after:opacity-100 after:transition-none dark:!bg-primary-dark/100 dark:!text-primary-contrast-dk [&>svg:nth-child(2)]:rotate-90`
-        }
-      `}
+        }`}
         onClick={handleClick}
         typeOf="MenuControl"
         icon={icon}
       >
-        {!shrink && title}
-        <Tooltip title={title} position="right" distace="close" />
+        {!shrink ? title : <Tooltip title={title} position="right" distace="close" />}
       </Button>
       <ul
         className={`my-1 flex flex-col flex-wrap items-end transition-faster ${
@@ -82,11 +84,11 @@ const renderLi = ({
       >
         <div
           // eslint-disable-next-line tailwindcss/no-custom-classname
-          className={`flex translate-x-[25px] items-center opacity-0 hover:opacity-100 ${
-            showDropdown && `${delay} animate-intro-menu`
+          className={`flex translate-x-[25px] items-center opacity-0 transition-faster${
+            showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
           } fill-mode-forwards`}
         >
-          {icon && <Icons icon={icon} className="mr-s"></Icons>}
+          {icon && <Icons icon={icon} className="mr-s transition-faster" />}
           {!shrink ? (
             <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
               {title}
