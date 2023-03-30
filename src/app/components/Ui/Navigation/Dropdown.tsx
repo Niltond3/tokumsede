@@ -16,20 +16,22 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
   const handleClick = () => setShowDropdown(!showDropdown);
 
   return (
-    <div
-      className={`${styles} flex flex-col pl-s text-secondary-contrast-df transition-fast`}
-    >
+    <div className={`${styles} flex flex-col pl-s transition-fast`}>
       <Button
         className={`${
           showDropdown &&
-          `!bg-primary-default/100 !text-primary-contrast-df transition-none before:opacity-100 before:transition-none after:opacity-100 after:transition-none dark:!bg-primary-dark/100 dark:!text-primary-contrast-dk [&>svg:nth-child(2)]:rotate-90`
+          `${[
+            '!bg-lg-primary-base/100 text-lg-secondary transition-none dark:!bg-dk-primary-base/100 dark:text-dk-secondary-base [&>svg:nth-child(2)]:rotate-90',
+            'before:opacity-100 before:transition-none',
+            'after:opacity-100 after:transition-none'
+          ].join(' ')}`
         }`}
         onClick={handleClick}
         typeOf="MenuControl"
         icon={icon}
       >
         <p>{title}</p>
-        <Tooltip title={title} position="right" distace="close" />
+        <Tooltip title={title} position="right" distace="far" />
       </Button>
       <ul
         className={`my-1 flex flex-col flex-wrap items-end transition-faster ${
@@ -76,8 +78,8 @@ const renderLi = ({
         href={href}
         onClick={onClick}
         //animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-40
-        className={`group flex border-l-2 border-l-primary-default/0 p-s transition-faster ${
-          showDropdown && 'border-l-primary-default/30 hover:border-l-primary-default/100'
+        className={`group flex border-l-2 border-l-lg-primary-base/0 p-s transition-faster ${
+          showDropdown && 'border-l-lg-primary-base/30 hover:border-l-lg-primary-base/100'
         }`}
       >
         <div
@@ -90,7 +92,7 @@ const renderLi = ({
           <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
             {title}
           </p>
-          <Tooltip title={title} position="right" distace="closer" />
+          <Tooltip title={title} position="right" distace="close" />
         </div>
       </Link>
     )}

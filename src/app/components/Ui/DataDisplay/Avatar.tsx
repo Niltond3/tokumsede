@@ -13,7 +13,7 @@ export default function Avatar({ subtitle, src }: IAvatarProps) {
         className="mx-s flex flex-none items-center rounded-full object-cover shadow"
         width={25}
         height={25}
-      ></Image>
+      />
       <p>{subtitle}</p>
       {/* <div className="md:text-md hidden text-sm text-black dark:text-white md:block">
       </div> */}

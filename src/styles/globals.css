@@ -1,23 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '../app/components/Foundation/index.css';
 @import '../app/components/Ui/Navigation/index.css';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 
 @layer base {
   body {
-    @apply antialiased bg-primary-default dark:bg-primary-dark
+    @apply antialiased bg-lg-primary-base dark:bg-dk-primary-base
   }
 }
 
 @layer components {
   .btn-menu-control {
-    @apply relative flex h-10 w-full items-center rounded-l-full bg-primary-default/0 pl-m text-secondary-contrast-df transition-faster hover:bg-primary-default/30 before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
+    @apply relative flex h-10 w-full items-center rounded-l-full bg-lg-primary-base/0 pl-m transition-faster hover:bg-lg-primary-base/30 before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
   }
   .btn-menu-control-dark {
-    @apply bg-primary-dark/0 before:bg-menu-corner-dark after:bg-menu-corner-dark hover:bg-primary-dark/50
+    @apply bg-dk-primary-base/0 before:bg-menu-corner-dark after:bg-menu-corner-dark hover:bg-dk-primary-base/50
   }
   .btn-menu-control-before {
     @apply top-[-1.55rem] rotate-90 btn-menu-control-pseudo

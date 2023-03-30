@@ -65,7 +65,7 @@ const entrys: entry[] = [
 ];
 export default function RightBar() {
   return (
-    <Container className="color__transparent right-0 transition-slow" type="Aside">
+    <Container className="right-0 transition-slow" type="Aside">
       <NavBar theme="TableOfContents" entrys={entrys} />
     </Container>
   );

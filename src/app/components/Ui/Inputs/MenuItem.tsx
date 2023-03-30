@@ -16,32 +16,32 @@ export default function MenuItem(
   const definitions = {
     home: {
       link: '/',
-      icon: <HiOutlineHome></HiOutlineHome>,
+      icon: <HiOutlineHome />,
       name: <span>Início</span>
     },
     app: {
       link: '#aplicativo',
-      icon: <GiSmartphone></GiSmartphone>,
+      icon: <GiSmartphone />,
       name: <span>Aplicativo</span>
     },
     why: {
       link: '#porque-pedir',
-      icon: <HiOutlineQuestionMarkCircle></HiOutlineQuestionMarkCircle>,
+      icon: <HiOutlineQuestionMarkCircle />,
       name: <span>Porque Pedir?</span>
     },
     who: {
       link: '#quem-somos',
-      icon: <FaBusinessTime></FaBusinessTime>,
+      icon: <FaBusinessTime />,
       name: <span>Quem Somos?</span>
     },
     download: {
       link: '#baixe-agora',
-      icon: <HiOutlineDownload></HiOutlineDownload>,
+      icon: <HiOutlineDownload />,
       name: <span>Baixe Agora</span>
     },
     chat: {
       link: '#fale-conosco',
-      icon: <HiOutlineChatAlt></HiOutlineChatAlt>,
+      icon: <HiOutlineChatAlt />,
       name: <span>Fale Conosco</span>
     }
   };

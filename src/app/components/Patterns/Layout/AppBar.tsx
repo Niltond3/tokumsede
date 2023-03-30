@@ -16,9 +16,9 @@ const entrys: entry[] = [
 ];
 export default function AppBar() {
   return (
-    <Container type="AppBar" className="color__secondary transition-slow">
+    <Container type="AppBar" className="bg-lg-primary transition-slow dark:bg-dk-primary">
       <div></div>
-      <NavBar theme="Breadcrumbs" entrys={entrys}></NavBar>
+      <NavBar theme="Breadcrumbs" entrys={entrys} />
       <Avatar subtitle="tks" src="" />
     </Container>
   );

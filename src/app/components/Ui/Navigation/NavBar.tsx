@@ -7,7 +7,7 @@ const svg = {
   primary: (theme: keyof IThemes) => {
     const themeMapping = {
       Breadcrumbs: <Home className="mr-2 h-4 w-4" />,
-      TableOfContents: <Hashtag className="mr-2 h-4 w-4"></Hashtag>
+      TableOfContents: <Hashtag className="mr-2 h-4 w-4" />
     };
     return themeMapping[theme];
   },
@@ -40,28 +40,38 @@ const themeMapping = {
     title: false,
     Element: ({ children, className }: INav) => (
       <nav
-        className={`${className} color__tertiary m-m flex rounded-full px-m py-s opacity-50 hover:opacity-100
-      [&>*]:inline-flex [&>*]:items-center
-      [&>ul>li>a]:flex [&>ul>li>a]:items-center [&>ul>li>a]:text-sm
-      [&>ul>li>a]:font-medium [&>ul>li>a]:text-tertiary-contrast-df hover:[&>ul>li>a]:text-tertiary-select-df dark:[&>ul>li>a]:text-tertiary-contrast-dk
-      dark:hover:[&>ul>li>a]:text-tertiary-select-dk [&>ul]:relative
-      [&>ul]:z-10 [&>ul]:space-x-1
-      `}
+        className={`${[
+          className,
+          'm-m flex rounded-full bg-lg-secondary px-m  py-s opacity-50 hover:opacity-100',
+          'dark:bg-dk-secondary',
+          '[&>*]:inline-flex [&>*]:items-center',
+          '[&>ul]:relative [&>ul]:z-10 [&>ul]:space-x-1',
+          '[&>ul>li>a]:flex [&>ul>li>a]:items-center [&>ul>li>a]:text-sm [&>ul>li>a]:font-medium [&>ul>li>a]:text-lg-secondary-lighter hover:[&>ul>li>a]:text-lg-secondary-base',
+          'dark:[&>ul>li>a]:text-dk-secondary-base dark:hover:[&>ul>li>a]:text-dk-accent'
+        ].join(' ')}`}
       >
         {children}
       </nav>
     )
   },
+  /*
+        className={`${className} color__transparent
+    `}
+  */
   TableOfContents: {
     title: true,
     Element: ({ children, className }: INav) => (
       <nav
-        className={`${className} color__transparent px-s
-        [&>*]:text-xs [&>*]:leading-6 [&>*]:text-primary-contrast-df
-        [&>ul>li>a>svg]:absolute [&>ul>li>a>svg]:right-full [&>ul>li>a>svg]:top-1/2 [&>ul>li>a>svg]:-translate-y-1/2 [&>ul>li>a]:block
-        [&>ul>li>a]:py-1 [&>ul>li>a]:font-medium hover:[&>ul>li>a]:text-primary-select-df [&>ul>li>a]:dark:text-primary-contrast-dk dark:hover:[&>ul>li>a]:text-primary-select-dk [&>ul>li]:relative
-        [&_.primary>svg]:opacity-0
-    `}
+        className={`${[
+          className,
+          'px-s',
+          '[&>*]:text-xs [&>*]:leading-6',
+          '[&>ul>li]:relative',
+          '[&>ul>li>a]:block [&>ul>li>a]:py-1 [&>ul>li>a]:font-medium [&>ul>li>a]:text-lg-primary-darkest hover:[&>ul>li>a]:text-lg-primary-light',
+          'dark:[&>ul>li>a]:text-dk-secondary-base dark:hover:[&>ul>li>a]:text-dk-accent',
+          '[&>ul>li>a>svg]:absolute [&>ul>li>a>svg]:right-full [&>ul>li>a>svg]:top-1/2 [&>ul>li>a>svg]:-translate-y-1/2',
+          '[&_.primary>svg]:opacity-0'
+        ].join(' ')}`}
       >
         {children}
       </nav>
@@ -90,7 +100,7 @@ export default function NavBar({ theme, entrys }: INavBar) {
   return (
     <>
       {title && (
-        <h5 className="my-m block py-1 text-sm font-semibold leading-6 text-primary-select-df dark:text-sky-400">
+        <h5 className="my-m block py-1 text-sm font-semibold leading-6 text-lg-accent dark:text-dk-accent">
           Nesta página
         </h5>
       )}

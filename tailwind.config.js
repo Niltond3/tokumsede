@@ -39,36 +39,88 @@ module.exports = {
       },
       colors: {
         current: 'currentColor',
-        primary: {
-          default: '#B9C9DA',
-          dark: '#232D3D',
-          'contrast-df': '#1F4A6A',
-          'contrast-dk': '#D2DFEE',
-          'select-df': '#001D3D',
-          'select-dk': '#0ea5e9'
+        dk: {
+          primary: {
+            base: '#232D3D',
+            lightest: '#747ECE',
+            lighter: '#3F4CB1',
+            light: '#1A1F48',
+            DEFAULT: '#0F122A',
+            dark: '#000001',
+            darker: '#000000',
+            darkest: '#000000'
+          },
+          secondary: {
+            base: '#BFC4E8',
+            lightest: '#518FC4',
+            lighter: '#3C7AB0',
+            light: '#275073',
+            DEFAULT: '#1D3B55',
+            dark: '#0F1E2B',
+            darker: '#000101',
+            darkest: '#000000'
+          },
+          accent: '#38BDF8',
+          success: '#42be65', //Entregue
+          warning: '#f1c21b', //pendente
+          error: '#fa4d56', //Cancelado
+          info: '#4589ff', //Aceito
+          sent: '#a56eff', //enviado
+          wait: '#8d8d8d' //Agendado
         },
-        secondary: {
-          default: '#1767AC',
-          dark: '#0F122A',
-          'contrast-df': '#D2DFEE',
-          'contrast-dk': '#D2DFEE',
-          'select-df': '#FFFFFF',
-          'select-dk': '#0ea5e9'
-        },
-        tertiary: {
-          default: '#3088D4',
-          dark: '#1D3B55',
-          'contrast-df': '#D2DFEE',
-          'contrast-dk': '#D2DFEE',
-          'select-df': '#FFFFFF',
-          'select-dk': '#38BCF7'
-        },
-        warning: '', //pendente
-        accept: '', //aceito
-        sent: '', //enviado
-        success: '', //Entregue
-        danger: '', //Cancelado
-        wait: '' //Agendado
+        lg: {
+          primary: {
+            base: '#e3eefb',
+            lightest: '#c1ddf6',
+            lighter: '#8bc2ee',
+            light: '#4da3e3',
+            DEFAULT: '#1767ac',
+            dark: '#145590',
+            darker: '#154977',
+            darkest: '#173e63'
+          },
+          secondary: {
+            base: '#e4eefa',
+            lightest: '#c3dcf4',
+            lighter: '#8ebfeb',
+            light: '#519ddf',
+            DEFAULT: '#3088d4',
+            dark: '#18518c',
+            darker: '#174675',
+            darkest: '#193c61'
+          },
+          accent: '#00b5de',
+          success: '#24A148', //Entregue
+          warning: '#f1c21b', //pendente
+          error: '#DA1E28', //Cancelado
+          info: '#0043ce', //Aceito
+          sent: '#8a3ffc', //enviado
+          wait: '#6f6f6f' //Agendado
+        }
+        // primary: {
+        //   default: '#B9C9DA',
+        //   dark: '#232D3D',
+        //   'contrast-df': '#1F4A6A',
+        //   'contrast-dk': '#D2DFEE',
+        //   'select-df': '#001D3D',
+        //   'select-dk': '#0ea5e9'
+        // },
+        // secondary: {
+        //   default: '#1767AC',
+        //   dark: '#0F122A',
+        //   'contrast-df': '#D2DFEE',
+        //   'contrast-dk': '#D2DFEE',
+        //   'select-df': '#FFFFFF',
+        //   'select-dk': '#0ea5e9'
+        // },
+        // tertiary: {
+        //   default: '#3088D4',
+        //   dark: '#1D3B55',
+        //   'contrast-df': '#D2DFEE',
+        //   'contrast-dk': '#D2DFEE',
+        //   'select-df': '#FFFFFF',
+        //   'select-dk': '#38BCF7'
+        // }
       },
       backgroundImage: {
         'menu-corner': "url('../../public/images/corner.svg')",

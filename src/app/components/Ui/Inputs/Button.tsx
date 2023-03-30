@@ -33,14 +33,17 @@ export default function Button({
     </button>
   );
 }
-const commonStyles = 'transition-faster opacity-50 hover:opacity-100';
+const commonStyles = [
+  'transition-faster opacity-50 hover:opacity-100 relative w-4 h-full',
+  '[&>svg]:absolute [&>svg]:left-1/2  [&>svg]:-translate-y-1/2 [&>svg]:top-1/2 [&>svg]:-translate-x-1/2'
+].join(' ');
 
 const variantStyles = {
   InteractiveLogo: [
     'group flex cursor-pointer rounded-full absolute p-xs w-16 h-16 right-[-7rem] top-0 z-[51] border-secondary-default dark:border-secondary-dark transition-slow',
     '[&>img]:opacity-100'
   ].join(' '),
-  DarkModeToggle: `${commonStyles} relative w-4 h-full [&>*]:absolute [&>*]:left-1/2  [&>*]:-translate-y-1/2 [&>*]:top-1/2  [&>*]:-translate-x-1/2`,
+  DarkModeToggle: `${commonStyles} `,
   Settings: `${commonStyles}`,
   Notifications: `${commonStyles}`,
   MenuControl: 'group btn-menu-control -mr-0.5'

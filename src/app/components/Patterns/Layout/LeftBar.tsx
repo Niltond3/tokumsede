@@ -114,12 +114,16 @@ export default function LeftBar() {
       onClick={handleShowFullMenu}
       onMouseEnter={handleShowParcialMenu}
       onMouseLeave={handleHideParcialMenu}
-      className={`pr-m ${aside}
+      className={`pr-m text-lg-primary-lightest ${aside}
 `}
     >
       <ConfigWrapper toggleTheme={handleToggleColorMode} className={config} />
       <Mouse className="absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow" />
-      <Button typeOf="InteractiveLogo" className={logo} onClick={handleSetShowFullMenu} />
+      <Button
+        typeOf="InteractiveLogo"
+        className={`${logo} border-lg-primary dark:border-dk-primary`}
+        onClick={handleSetShowFullMenu}
+      />
       <Menu content={content} styles={menu} />
     </Container>
   );
@@ -130,7 +134,7 @@ interface IConfigWrapper {
 }
 const ConfigWrapper = ({ toggleTheme, className }: IConfigWrapper) => (
   <div
-    className={`${className} absolute top-0 ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-secondary-default pl-m pr-xxl transition-slow dark:border-secondary-dark`}
+    className={`${className} absolute top-0 ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-lg-primary pl-m pr-xxl transition-slow dark:border-dk-primary`}
   >
     <div className="absolute top-[3.5rem] h-px w-11 rounded-full transition-faster" />
     <Button
@@ -139,7 +143,7 @@ const ConfigWrapper = ({ toggleTheme, className }: IConfigWrapper) => (
       onClick={toggleTheme}
       className="group relative"
     >
-      <Tooltip distace="closer" position="bottom-end" title="Mudar Tema" />{' '}
+      <Tooltip distace="far" position="bottom-end" title="Mudar Tema" />{' '}
     </Button>
     <Button
       typeOf="Notifications"
@@ -177,16 +181,16 @@ function variantStyles(hideFullMenu: boolean, showParcialMenu: boolean) {
 
   const mappingStyles = {
     hide: {
-      aside: '-translate-x-full color__secondary [&_svg]:!opacity-100',
+      aside: '-translate-x-full bg-lg-primary dark:bg-dk-primary [&_svg]:!opacity-100',
       config: '',
       logo: '',
       menu: `[&>button:first-child]:pointer-events-none ${menuShrinkStyles}`
     },
     full: {
-      aside: 'color__tertiary',
+      aside: 'bg-lg-secondary dark:bg-dk-secondary',
       config: '',
       logo: [
-        '-translate-x-full bg-tertiary-default border-8 dark:bg-tertiary-dark right-0 mr-l',
+        '-translate-x-full bg-lg-secondary border-8 dark:bg-dk-secondary right-0 mr-l',
         '[&>img]:p-xxs',
         '[&>img:nth-child(1)]:-translate-y-[0.1rem] [&>img:nth-child(1)]:translate-x-[0.4rem]',
         '[&>img:nth-child(2)]:!opacity-0',
@@ -196,10 +200,10 @@ function variantStyles(hideFullMenu: boolean, showParcialMenu: boolean) {
     },
     parcial: {
       aside: [
-        '-translate-x-2/3 color__secondary',
+        '-translate-x-2/3 bg-lg-primary dark:bg-dk-primary',
         '[&>div:first-child]:ml-40 [&>div:first-child]:pl-0 [&>div:first-child]:pr-40'
       ].join(' '),
-      config: '-translate-x-3 [&>div:first-child]:bg-primary-default/40',
+      config: '-translate-x-3 [&>div:first-child]:bg-lg-primary-base/40',
       logo: '-translate-x-10 scale-90 animate-pulse',
       menu: `${menuShrinkStyles}`
     }
