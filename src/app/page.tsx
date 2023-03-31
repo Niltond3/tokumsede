@@ -1,7 +1,23 @@
+import Tooltip from './components/Ui/DataDisplay/Tooltip';
+
 export default function Home() {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="flex h-full w-full items-center justify-center bg-black">
+      <h1 className="relative bg-white p-[10rem]">
+        Home
+        <Tooltip title="top" position="top" />
+        <Tooltip title="top-end" position="top-end" />
+        <Tooltip title="top-start" position="top-start" />
+        <Tooltip title="bottom" position="bottom" />
+        <Tooltip title="bottom-end" position="bottom-end" />
+        <Tooltip title="bottom-start" position="bottom-start" />
+        <Tooltip title="left" position="left" />
+        <Tooltip title="left-end" position="left-end" />
+        <Tooltip title="left-start" position="left-start" />
+        <Tooltip title="right" position="right" />
+        <Tooltip title="right-end" position="right-end" />
+        <Tooltip title="right-start" position="right-start" />
+      </h1>
     </div>
   );
 }

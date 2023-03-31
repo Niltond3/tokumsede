@@ -31,7 +31,7 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
         icon={icon}
       >
         <p>{title}</p>
-        <Tooltip title={title} position="right" distace="far" />
+        <Tooltip title={title} position="right" distace="close" />
       </Button>
       <ul
         className={`my-1 flex flex-col flex-wrap items-end transition-faster ${

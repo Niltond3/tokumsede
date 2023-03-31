@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
@@ -97,30 +98,6 @@ module.exports = {
           sent: '#8a3ffc', //enviado
           wait: '#6f6f6f' //Agendado
         }
-        // primary: {
-        //   default: '#B9C9DA',
-        //   dark: '#232D3D',
-        //   'contrast-df': '#1F4A6A',
-        //   'contrast-dk': '#D2DFEE',
-        //   'select-df': '#001D3D',
-        //   'select-dk': '#0ea5e9'
-        // },
-        // secondary: {
-        //   default: '#1767AC',
-        //   dark: '#0F122A',
-        //   'contrast-df': '#D2DFEE',
-        //   'contrast-dk': '#D2DFEE',
-        //   'select-df': '#FFFFFF',
-        //   'select-dk': '#0ea5e9'
-        // },
-        // tertiary: {
-        //   default: '#3088D4',
-        //   dark: '#1D3B55',
-        //   'contrast-df': '#D2DFEE',
-        //   'contrast-dk': '#D2DFEE',
-        //   'select-df': '#FFFFFF',
-        //   'select-dk': '#38BCF7'
-        // }
       },
       backgroundImage: {
         'menu-corner': "url('../../public/images/corner.svg')",
@@ -144,6 +121,16 @@ module.exports = {
         },
         '.transition-faster': {
           transition: 'all 0.3s ease-out'
+        },
+        '.center-x': {
+          top: '50%',
+          '--tw-translate-y': '-50%',
+          transform: 'translate(var(--tw-translate-y))'
+        },
+        '.center-y': {
+          left: '50%',
+          '--tw-translate-x': '-50%',
+          transform: 'translate(var(--tw-translate-x))'
         }
       });
     }),

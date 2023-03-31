@@ -14,7 +14,7 @@ import { IContent } from 'utils/Types';
 
 export default function LeftBar() {
   const [hideFullMenu, setShowFullMenu] = useState(true);
-  const [showParcialMenu, setShowParcialMenu] = useState(false);
+  const [showParcialMenu, setShowParcialMenu] = useState(true);
   const [colorMode, setClorMode] = useColorMode();
   const { DARK, LIGHT } = THEMES;
 
@@ -143,7 +143,7 @@ const ConfigWrapper = ({ toggleTheme, className }: IConfigWrapper) => (
       onClick={toggleTheme}
       className="group relative"
     >
-      <Tooltip distace="far" position="bottom-end" title="Mudar Tema" />{' '}
+      <Tooltip distace="close" position="bottom-start" title="Mudar Tema" />{' '}
     </Button>
     <Button
       typeOf="Notifications"
