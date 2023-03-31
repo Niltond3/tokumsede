@@ -10,10 +10,11 @@ interface IMenu {
 export default function Menu({ content, styles }: IMenu) {
   return (
     <ul className={`ml-m mt-m w-full transition-fast`}>
-      {content.map(({ title, content, icon, href }, index) => (
+      {content.map(({ title, as, content, icon, href }, index) => (
         <li key={`${title}${index}`}>
           {content && icon && (
             <Dropdown
+              as={as}
               content={content}
               icon={icon}
               title={title}

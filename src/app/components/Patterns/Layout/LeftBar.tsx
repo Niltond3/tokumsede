@@ -2,21 +2,17 @@
 import React, { useState } from 'react';
 
 import { Mouse } from 'app/components/Ui/DataDisplay/Icons';
-import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import Container from 'app/components/Ui/Layout/Container';
 import Menu from 'app/components/Ui/Navigation/Menu';
 
-import { THEMES } from '../../../../utils/Constants';
+import ConfigurationsWrapper from './ConfigurationsWrapper';
 
-import useColorMode from 'hooks/useColorMode';
 import { IContent } from 'utils/Types';
 
 export default function LeftBar() {
   const [hideFullMenu, setShowFullMenu] = useState(true);
-  const [showParcialMenu, setShowParcialMenu] = useState(true);
-  const [colorMode, setClorMode] = useColorMode();
-  const { DARK, LIGHT } = THEMES;
+  const [showParcialMenu, setShowParcialMenu] = useState(false);
 
   const handleSetShowFullMenu = () => setShowFullMenu(!hideFullMenu);
   const handleShowFullMenu = ({ target, currentTarget }: React.MouseEvent) => {
@@ -25,57 +21,66 @@ export default function LeftBar() {
 
   const handleShowParcialMenu = () => setShowParcialMenu(true);
   const handleHideParcialMenu = () => setShowParcialMenu(false);
-  const handleToggleColorMode = () => setClorMode(colorMode === LIGHT ? DARK : LIGHT);
 
   const content: IContent[] = [
     {
       icon: 'Home',
       title: 'Principal',
+      as: '/Principal',
       content: [
         {
           icon: 'Homes',
           title: 'Home Page',
-          href: '/main/toKumSede'
+          as: '/Principal/ToKumSede',
+          href: '/toKumSede'
         },
         {
           icon: 'Purchase',
           title: 'Pedidos',
-          href: '/main/requests'
+          as: '/Principal/Pedidos',
+          href: '/requests'
         }
       ]
     },
     {
       icon: 'Work',
       title: 'Empresarial',
+      as: '/Principal/Empresarial',
       content: [
         {
           icon: 'Customer',
           title: 'Clientes',
+          as: '/Principal/Empresarial/Clientes',
           href: '/business/clients'
         },
         {
           icon: 'Distributor',
           title: 'Distribuidoras',
+          as: '/Principal/Empresarial/Distribuidoras',
           href: '/business/distributors'
         },
         {
           icon: 'Administrator',
           title: 'Administradores',
+          as: '/Principal/Empresarial/Administradores',
           href: '/business/administrators'
         },
         {
           icon: 'Representative',
           title: 'Representantes',
+          as: '/Principal/Empresarial/Representantes',
           href: '/business/representatives'
         },
         {
           icon: 'Deliveryman',
           title: 'Entregadores',
+          as: '/Principal/Empresarial/Entregadores',
           href: '/business/deliverymans'
         },
         {
           icon: 'Attendant',
           title: 'Atendentes',
+          as: '/Principal/Empresarial/Atendentes',
           href: '/business/attendant'
         }
       ]
@@ -83,25 +88,30 @@ export default function LeftBar() {
     {
       icon: 'Dashboard',
       title: 'Dashboard',
+      as: '/Principal/Dashboard/',
       content: [
         {
           icon: 'Purchase',
           title: 'Varejo',
+          as: '/Principal/Dashboard/Varejo',
           href: '/dashboard/retail'
         },
         {
           icon: 'Financial',
           title: 'Financeiro',
+          as: '/Principal/Dashboard/Financeiro',
           href: '/dashboard/financial'
         },
         {
           icon: 'Commercial',
           title: 'Comercial',
+          as: '/Principal/Dashboard/Comercial',
           href: '/dashboard/commercial'
         },
         {
           icon: 'logistics',
           title: 'Logístico',
+          as: '/Principal/Dashboard/Logístico',
           href: '/dashboard/logistical'
         }
       ]
@@ -117,7 +127,7 @@ export default function LeftBar() {
       className={`pr-m text-lg-primary-lightest ${aside}
 `}
     >
-      <ConfigWrapper toggleTheme={handleToggleColorMode} className={config} />
+      <ConfigurationsWrapper className={config} shrink={hideFullMenu} />
       <Mouse className="absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow" />
       <Button
         typeOf="InteractiveLogo"
@@ -128,55 +138,14 @@ export default function LeftBar() {
     </Container>
   );
 }
-interface IConfigWrapper {
-  className: string;
-  toggleTheme: () => void;
-}
-const ConfigWrapper = ({ toggleTheme, className }: IConfigWrapper) => (
-  <div
-    className={`${className} absolute top-0 ml-m flex h-xl w-full justify-between rounded-l-full border-y-8 border-l-8 border-lg-primary pl-m pr-xxl transition-slow dark:border-dk-primary`}
-  >
-    <div className="absolute top-[3.5rem] h-px w-11 rounded-full transition-faster" />
-    <Button
-      typeOf="DarkModeToggle"
-      aria-label="Dark mode toggle"
-      onClick={toggleTheme}
-      className="group relative"
-    >
-      <Tooltip distace="close" position="bottom-start" title="Mudar Tema" />{' '}
-    </Button>
-    <Button
-      typeOf="Notifications"
-      aria-label="Notifications"
-      onClick={() => {
-        //nothing happened for now
-      }}
-    />
-    <Button
-      typeOf="Settings"
-      aria-label="Settings"
-      onClick={() => {
-        //nothing happened for now
-      }}
-    />
-  </div>
-);
-
-/**
- *
- * [&>button:first-child>div:first-child] aparecer se parcial
- * [&>button:first-child>p:first-child] aparecer se full
- *
- * [&>ul:first-child_li>a>div>svg:nth(2)] aparecer se parcial
- * [&>ul:first-child_li>a>div>p] aparecer se full
- */
 
 function variantStyles(hideFullMenu: boolean, showParcialMenu: boolean) {
   const menuShrinkStyles = [
     '[&>button:first-child]:w-1/3 [&>button:first-child]:self-end [&>button:first-child]:px-m',
     '[&>button:first-child>svg:nth-child(2)]:hidden',
     '[&>button:first-child>p]:hidden',
-    '[&>ul>li>a>div>p]:hidden'
+    '[&>ul]:items-end [&>ul]:mr-[7%]',
+    '[&>ul>li>a>p]:hidden'
   ].join(' ');
 
   const mappingStyles = {
@@ -196,7 +165,7 @@ function variantStyles(hideFullMenu: boolean, showParcialMenu: boolean) {
         '[&>img:nth-child(2)]:!opacity-0',
         '[&>img:nth-child(3)]:w-8 [&>img:nth-child(3)]:translate-y-[0.1rem] [&>img:nth-child(3)]:translate-x-[0.2rem]'
       ].join(' '),
-      menu: '[&>button:first-child>div]:hidden [&>ul>li>a>div>div]:hidden'
+      menu: '[&>button:first-child>div]:hidden [&>ul>li>a>div]:hidden [&>ul]:ml-[3%]'
     },
     parcial: {
       aside: [

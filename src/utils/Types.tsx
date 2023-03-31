@@ -8,6 +8,7 @@ export type TypeIcons = typeof thisIcons;
 export interface IContent {
   content?: IContent[];
   href?: string;
+  as: string;
   icon: keyof TypeIcons;
   onClick?: () => void;
   title: string;

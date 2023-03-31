@@ -34,7 +34,7 @@ export default function Button({
   );
 }
 const commonStyles = [
-  'transition-faster opacity-50 hover:opacity-100 relative w-4 h-full',
+  'group relative transition-faster opacity-50 hover:opacity-100 relative w-4 h-full',
   '[&>svg]:absolute [&>svg]:left-1/2  [&>svg]:-translate-y-1/2 [&>svg]:top-1/2 [&>svg]:-translate-x-1/2'
 ].join(' ');
 

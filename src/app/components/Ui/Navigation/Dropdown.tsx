@@ -11,7 +11,7 @@ interface IDropdown extends IContent {
   styles: string;
 }
 
-export default function Dropdown({ content = [], icon, title, styles }: IDropdown) {
+export default function Dropdown({ content = [], icon, title, styles, as }: IDropdown) {
   const [showDropdown, setShowDropdown] = useState(false);
   const handleClick = () => setShowDropdown(!showDropdown);
 
@@ -34,7 +34,7 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
         <Tooltip title={title} position="right" distace="close" />
       </Button>
       <ul
-        className={`my-1 flex flex-col flex-wrap items-end transition-faster ${
+        className={`my-1 flex flex-col flex-wrap transition-faster ${
           showDropdown ? 'max-h-96' : 'max-h-0 overflow-hidden'
         }`}
       >
@@ -49,6 +49,7 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
           }
           const delay = EDelay[index];
           return renderLi({
+            as,
             delay,
             icon,
             index,
@@ -69,31 +70,31 @@ const renderLi = ({
   index,
   title,
   href,
+  as,
   onClick,
   showDropdown
 }: IRenderLi) => (
-  <li key={`${title}${index}`}>
+  <li
+    className={`${
+      showDropdown && 'border-l-lg-primary-base/30 hover:border-l-lg-primary-base/100'
+    } border-l-2 border-l-lg-primary-base/0`}
+    key={`${title}${index}`}
+  >
     {href && (
       <Link
         href={href}
         onClick={onClick}
+        as={as}
         //animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-40
-        className={`group flex border-l-2 border-l-lg-primary-base/0 p-s transition-faster ${
-          showDropdown && 'border-l-lg-primary-base/30 hover:border-l-lg-primary-base/100'
-        }`}
+        className={`group flex translate-x-[25px] items-center p-s opacity-0 transition-faster ${
+          showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
+        } fill-mode-forwards`}
       >
-        <div
-          // eslint-disable-next-line tailwindcss/no-custom-classname
-          className={`flex translate-x-[25px] items-center opacity-0 transition-faster ${
-            showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
-          } fill-mode-forwards`}
-        >
-          {icon && <Icons icon={icon} className="mr-s transition-faster" />}
-          <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
-            {title}
-          </p>
-          <Tooltip title={title} position="right" distace="close" />
-        </div>
+        <Icons icon={icon} className="mr-s transition-faster" />
+        <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
+          {title}
+        </p>
+        <Tooltip title={title} position="right" distace="close" />
       </Link>
     )}
   </li>
