@@ -6,9 +6,9 @@ import Button from 'app/components/Ui/Inputs/Button';
 import Container from 'app/components/Ui/Layout/Container';
 import Menu from 'app/components/Ui/Navigation/Menu';
 
-import ConfigurationsWrapper from './ConfigurationsWrapper';
+import ConfigWrapper from './ConfigButtonsWrapper';
 
-import { IContent } from 'utils/Types';
+import { NAVIGATION_LINKS } from 'utils/Constants';
 
 export default function LeftBar() {
   const [hideFullMenu, setShowFullMenu] = useState(true);
@@ -22,101 +22,6 @@ export default function LeftBar() {
   const handleShowParcialMenu = () => setShowParcialMenu(true);
   const handleHideParcialMenu = () => setShowParcialMenu(false);
 
-  const content: IContent[] = [
-    {
-      icon: 'Home',
-      title: 'Principal',
-      as: '/Principal',
-      content: [
-        {
-          icon: 'Homes',
-          title: 'Home Page',
-          as: '/Principal/ToKumSede',
-          href: '/toKumSede'
-        },
-        {
-          icon: 'Purchase',
-          title: 'Pedidos',
-          as: '/Principal/Pedidos',
-          href: '/requests'
-        }
-      ]
-    },
-    {
-      icon: 'Work',
-      title: 'Empresarial',
-      as: '/Principal/Empresarial',
-      content: [
-        {
-          icon: 'Customer',
-          title: 'Clientes',
-          as: '/Principal/Empresarial/Clientes',
-          href: '/business/clients'
-        },
-        {
-          icon: 'Distributor',
-          title: 'Distribuidoras',
-          as: '/Principal/Empresarial/Distribuidoras',
-          href: '/business/distributors'
-        },
-        {
-          icon: 'Administrator',
-          title: 'Administradores',
-          as: '/Principal/Empresarial/Administradores',
-          href: '/business/administrators'
-        },
-        {
-          icon: 'Representative',
-          title: 'Representantes',
-          as: '/Principal/Empresarial/Representantes',
-          href: '/business/representatives'
-        },
-        {
-          icon: 'Deliveryman',
-          title: 'Entregadores',
-          as: '/Principal/Empresarial/Entregadores',
-          href: '/business/deliverymans'
-        },
-        {
-          icon: 'Attendant',
-          title: 'Atendentes',
-          as: '/Principal/Empresarial/Atendentes',
-          href: '/business/attendant'
-        }
-      ]
-    },
-    {
-      icon: 'Dashboard',
-      title: 'Dashboard',
-      as: '/Principal/Dashboard/',
-      content: [
-        {
-          icon: 'Purchase',
-          title: 'Varejo',
-          as: '/Principal/Dashboard/Varejo',
-          href: '/dashboard/retail'
-        },
-        {
-          icon: 'Financial',
-          title: 'Financeiro',
-          as: '/Principal/Dashboard/Financeiro',
-          href: '/dashboard/financial'
-        },
-        {
-          icon: 'Commercial',
-          title: 'Comercial',
-          as: '/Principal/Dashboard/Comercial',
-          href: '/dashboard/commercial'
-        },
-        {
-          icon: 'logistics',
-          title: 'Logístico',
-          as: '/Principal/Dashboard/Logístico',
-          href: '/dashboard/logistical'
-        }
-      ]
-    }
-  ];
   const { aside, config, logo, menu } = variantStyles(hideFullMenu, showParcialMenu);
   return (
     <Container
@@ -127,14 +32,14 @@ export default function LeftBar() {
       className={`pr-m text-lg-primary-lightest ${aside}
 `}
     >
-      <ConfigurationsWrapper className={config} shrink={hideFullMenu} />
+      <ConfigWrapper className={config} shrink={hideFullMenu} />
       <Mouse className="absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow" />
       <Button
         typeOf="InteractiveLogo"
         className={`${logo} border-lg-primary dark:border-dk-primary`}
         onClick={handleSetShowFullMenu}
       />
-      <Menu content={content} styles={menu} />
+      <Menu content={NAVIGATION_LINKS} styles={menu} />
     </Container>
   );
 }

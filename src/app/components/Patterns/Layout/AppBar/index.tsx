@@ -6,6 +6,8 @@ import Avatar from 'app/components/Ui/DataDisplay/Avatar';
 import Container from 'app/components/Ui/Layout/Container';
 import NavBar, { entry } from 'app/components/Ui/Navigation/NavBar';
 
+import { NAVIGATION_LINKS } from 'utils/Constants';
+
 const entrys: entry[] = [
   {
     href: '#',
@@ -18,6 +20,7 @@ const entrys: entry[] = [
     level: 'secondary'
   }
 ];
+
 export default function AppBar() {
   const pathName = usePathname();
   console.log(useSelectedLayoutSegments());
@@ -25,7 +28,6 @@ export default function AppBar() {
   return (
     <Container type="AppBar" className="bg-lg-primary transition-slow dark:bg-dk-primary">
       <div>{pathName}</div>
-
       <NavBar theme="Breadcrumbs" entrys={entrys} />
       <Avatar subtitle="tks" src="" />
     </Container>

@@ -11,7 +11,7 @@ interface IDropdown extends IContent {
   styles: string;
 }
 
-export default function Dropdown({ content = [], icon, title, styles, as }: IDropdown) {
+export default function Dropdown({ content = [], icon, title, styles }: IDropdown) {
   const [showDropdown, setShowDropdown] = useState(false);
   const handleClick = () => setShowDropdown(!showDropdown);
 
@@ -49,7 +49,6 @@ export default function Dropdown({ content = [], icon, title, styles, as }: IDro
           }
           const delay = EDelay[index];
           return renderLi({
-            as,
             delay,
             icon,
             index,
@@ -70,7 +69,6 @@ const renderLi = ({
   index,
   title,
   href,
-  as,
   onClick,
   showDropdown
 }: IRenderLi) => (
@@ -84,8 +82,6 @@ const renderLi = ({
       <Link
         href={href}
         onClick={onClick}
-        as={as}
-        //animate-[0.4s_ease-in-out_0.1s_intro-menu] animate-fill-mode-forwards animate-delay-40
         className={`group flex translate-x-[25px] items-center p-s opacity-0 transition-faster ${
           showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
         } fill-mode-forwards`}

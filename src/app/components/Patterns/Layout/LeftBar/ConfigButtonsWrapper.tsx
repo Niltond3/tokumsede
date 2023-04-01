@@ -9,7 +9,7 @@ interface IConfigWrapper {
   shrink: boolean;
 }
 
-export default function ConfigurationsWrapper({ shrink, className }: IConfigWrapper) {
+export default function ConfigButtonsWrapper({ shrink, className }: IConfigWrapper) {
   const [colorMode, setClorMode] = useColorMode();
   const { DARK, LIGHT } = THEMES;
   const toggleTheme = () => setClorMode(colorMode === LIGHT ? DARK : LIGHT);
