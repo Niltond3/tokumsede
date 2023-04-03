@@ -5,12 +5,21 @@ import { thisIcons } from 'app/components/Ui/DataDisplay/Icons';
 
 export type TypeIcons = typeof thisIcons;
 
-export interface IContent {
-  content?: IContent[];
-  href?: string;
+type ContentLabel = {
   icon: keyof TypeIcons;
-  onClick?: () => void;
+  ariaLabel?: string;
   title: string;
+};
+
+export type JSXLabel = ({ ariaLabel, icon, title }: ContentLabel) => JSX.Element;
+
+export interface IContent {
+  title: string;
+  icon: keyof TypeIcons;
+  content?: IContent[];
+  page?: string;
+  href?: string;
+  onClick?: () => void;
 }
 export type AppPropsWithLayout = AppProps & {
   Component: AppProps['Component'] & {

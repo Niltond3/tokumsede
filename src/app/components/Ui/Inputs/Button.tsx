@@ -16,7 +16,8 @@ export default function Button({
   className,
   'aria-label': ariaLabel,
   typeOf,
-  icon
+  icon,
+  title
 }: IButton) {
   const styles = variantStyles[typeOf];
   const DefaultChildren = defaultChildren[typeOf];
@@ -28,7 +29,7 @@ export default function Button({
       className={`${styles} ${className}`}
       aria-label={ariaLabel}
     >
-      <DefaultChildren icon={icon} />
+      <DefaultChildren icon={icon} title={title} />
       {children}
     </button>
   );
@@ -82,20 +83,22 @@ const defaultChildren = {
       <NotificationsOff className="absolute-y-center opacity-0 transition-slow dark:opacity-100" />
     </>
   ),
-  MenuControl: ({ icon }: { icon?: keyof TypeIcons }) => (
+  MenuControl: ({ icon, title }: { icon?: keyof TypeIcons; title?: string }) => (
     <>
       {icon && <Icons icon={icon} className="min-w-min pr-s" />}
+      <p>{title}</p>
       <ArrowRight className="absolute-y-center right-0 z-[52] mr-1 transition-faster" />
     </>
   )
 };
 
 interface IButton {
+  title?: string;
+  icon?: keyof TypeIcons;
+  className?: string;
   children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onMouseEnter?: () => void;
-  className?: string;
   typeOf: keyof typeof variantStyles & keyof typeof defaultChildren;
   'aria-label'?: string;
-  icon?: keyof TypeIcons;
 }

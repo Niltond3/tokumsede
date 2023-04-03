@@ -20,6 +20,21 @@ export const thisIcons = {
       <path d="M17 13c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 1.38c.62 0 1.12.51 1.12 1.12s-.51 1.12-1.12 1.12-1.12-.51-1.12-1.12.5-1.12 1.12-1.12zm0 5.37c-.93 0-1.74-.46-2.24-1.17.05-.72 1.51-1.08 2.24-1.08s2.19.36 2.24 1.08c-.5.71-1.31 1.17-2.24 1.17z"></path>
     </svg>
   ),
+  AddUser: ({ className, 'aria-label': ariaLabel }: IProps) => (
+    <svg
+      stroke="currentColor"
+      fill="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 20 20"
+      aria-hidden="true"
+      height="1em"
+      width="1em"
+      className={className}
+      aria-label={ariaLabel}
+    >
+      <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
+    </svg>
+  ),
   ArrowRight: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"

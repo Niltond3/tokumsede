@@ -1,6 +1,6 @@
 import Dropdown from './Dropdown';
 
-import { IContent } from 'utils/Types';
+import { IContent, IDropdown } from 'utils/Types';
 
 interface IMenu {
   content: IContent[];
@@ -10,17 +10,9 @@ interface IMenu {
 export default function Menu({ content, styles }: IMenu) {
   return (
     <ul className={`ml-m mt-m w-full transition-fast`}>
-      {content.map(({ title, content, icon, href }, index) => (
-        <li key={`${title}${index}`}>
-          {content && icon && (
-            <Dropdown
-              content={content}
-              icon={icon}
-              title={title}
-              href={href}
-              styles={styles}
-            />
-          )}
+      {content.map(({ ...props }, index) => (
+        <li key={`left-menu-${index}`}>
+          {props.content && <Dropdown {...props} styles={styles} />}
         </li>
       ))}
     </ul>
