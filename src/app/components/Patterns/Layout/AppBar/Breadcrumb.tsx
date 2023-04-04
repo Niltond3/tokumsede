@@ -9,12 +9,27 @@ import Link from 'app/components/Ui/Navigation/Link';
 import { NAVIGATION_LINKS } from 'utils/Constants';
 import { IContent } from 'utils/Types';
 
-export default function Breadcrumb() {
-  const pathName = usePathname();
-  const page = useSelectedLayoutSegments()[1];
-  const index = NAVIGATION_LINKS.findIndex((nav) => nav.page === page);
+interface IPaths {
+  title: string;
+  href?: string;
+}
 
-  const paths = NAVIGATION_LINKS[index !== -1 ? index : 0].content;
+export default function Breadcrumb() {
+  const segments = useSelectedLayoutSegments();
+
+  const getPath = (content: IContent[], segmentsIndex: number): IPaths[] => {
+    const index = content.findIndex((nav) => nav.href === `/${segments[segmentsIndex]}`);
+    const { title, href, content: pathContent } = content[index !== -1 ? index : 0];
+    const path: IPaths[] = [];
+
+    segments.at(-1) && path.push({ title, href });
+
+    if (pathContent) return path.concat(getPath(pathContent, segmentsIndex + 1));
+
+    return path;
+  };
+
+  const paths = getPath(NAVIGATION_LINKS, 1);
 
   return (
     <nav
@@ -23,10 +38,10 @@ export default function Breadcrumb() {
         'flex transition-faster',
         'm-m flex rounded-full bg-lg-secondary px-m  py-s opacity-50 hover:opacity-100',
         'dark:bg-dk-secondary',
-        '[&>*]:inline-flex [&>*]:items-center'
+        '[&>*]:inline-flex [&>*]:items-center [&>*]:transition-fast'
       ].join(' ')}`}
     >
-      {RenderCrumbs(paths!, pathName)}
+      {RenderCrumbs(paths!)}
     </nav>
   );
 }
@@ -36,21 +51,21 @@ const liStyles = [
   'dark:text-dk-secondary-base dark:hover:text-dk-accent'
 ].join(' ');
 
-const RenderCrumbs = (paths: IContent[], pathName: string) => (
+const RenderCrumbs = (paths: IPaths[]) => (
   <ul className="relative space-x-1">
-    <li className={liStyles}>
-      <Link href="/">
-        <Home />
+    <li className={`${liStyles} peer`}>
+      <Link href="/" className="flex items-center justify-center">
+        <Home /> {paths[0] && <p> / {paths[0].title}: </p>}
       </Link>
     </li>
     {paths.map(({ href, title }, index) => (
       <Fragment key={index + 1}>
-        {href! === pathName && (
+        {index > 0 && (
           <li className={liStyles}>
-            <ArrowRight />
-            <Link href={href ? href : '/'} className="group transition-faster">
+            <Link href={href ? href : '/'} className="group">
               {title}
             </Link>
+            {index + 1 !== paths.length && <ArrowRight />}
           </li>
         )}
       </Fragment>

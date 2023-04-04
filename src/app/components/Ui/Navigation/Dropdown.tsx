@@ -30,7 +30,6 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
         typeOf="MenuControl"
         icon={icon}
       >
-        <p>{title}</p>
         <Tooltip title={title} position="right" distace="close" />
       </Button>
       <ul
@@ -38,7 +37,7 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
           showDropdown ? 'max-h-96' : 'max-h-0 overflow-hidden'
         }`}
       >
-        {content.map(({ title, href, onClick, icon }, index) => {
+        {content.map(({ title, href, onClick, icon, content }, index) => {
           enum EDelay {
             'animation-delay-[40ms]',
             'animation-delay-[60ms]',
@@ -55,7 +54,8 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
             title,
             href,
             onClick,
-            showDropdown
+            showDropdown,
+            content
           });
         })}
       </ul>
@@ -70,7 +70,8 @@ const renderLi = ({
   title,
   href,
   onClick,
-  showDropdown
+  showDropdown,
+  content
 }: IRenderLi) => (
   <li
     className={`${
@@ -78,20 +79,31 @@ const renderLi = ({
     } border-l-2 border-l-lg-primary-base/0`}
     key={`${title}${index}`}
   >
-    {href && (
-      <Link
+    {content ? (
+      <Dropdown
+        styles=""
+        title={title}
         href={href}
+        content={content}
         onClick={onClick}
-        className={`group flex translate-x-[25px] items-center p-s opacity-0 transition-faster ${
-          showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
-        } fill-mode-forwards`}
-      >
-        <Icons icon={icon} className="mr-s transition-faster" />
-        <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
-          {title}
-        </p>
-        <Tooltip title={title} position="right" distace="close" />
-      </Link>
+        icon={icon}
+      />
+    ) : (
+      href && (
+        <Link
+          href={href}
+          onClick={onClick}
+          className={`group flex translate-x-[25px] items-center p-s opacity-0 transition-faster ${
+            showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
+          } fill-mode-forwards`}
+        >
+          <Icons icon={icon} className="mr-s transition-faster" />
+          <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
+            {title}
+          </p>
+          <Tooltip title={title} position="right" distace="close" />
+        </Link>
+      )
     )}
   </li>
 );

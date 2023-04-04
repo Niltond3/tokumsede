@@ -12,7 +12,7 @@ export const NAVIGATION_LINKS: IContent[] = [
   {
     icon: 'Home',
     title: 'Principal',
-    page: '(main)',
+    href: '/(main)',
     content: [
       {
         icon: 'Homes',
@@ -29,7 +29,7 @@ export const NAVIGATION_LINKS: IContent[] = [
   {
     icon: 'Work',
     title: 'Empresarial',
-    page: '(business)',
+    href: '/(business)',
     content: [
       {
         icon: 'Customer',
@@ -42,14 +42,14 @@ export const NAVIGATION_LINKS: IContent[] = [
             href: '/clients/register',
             content: [
               {
-                icon: '',
+                icon: 'Personal',
                 title: 'Informações Pessoais',
                 href: '/clients/register/personalInformations',
                 content: [
                   {
-                    icon: '',
-                    title: 'Cadastro',
-                    href: '/clients/register/personalInformations/Endereços'
+                    icon: 'Address',
+                    title: 'Endereços',
+                    href: '/clients/register/personalInformations/addressInformations'
                   }
                 ]
               }
@@ -87,7 +87,7 @@ export const NAVIGATION_LINKS: IContent[] = [
   {
     icon: 'Dashboard',
     title: 'Relatórios',
-    page: '(dashboard)',
+    href: '/(dashboard)',
     content: [
       {
         icon: 'Purchase',

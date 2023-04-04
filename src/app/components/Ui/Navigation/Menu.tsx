@@ -1,6 +1,6 @@
 import Dropdown from './Dropdown';
 
-import { IContent, IDropdown } from 'utils/Types';
+import { IContent } from 'utils/Types';
 
 interface IMenu {
   content: IContent[];
