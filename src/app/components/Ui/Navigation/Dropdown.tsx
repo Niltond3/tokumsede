@@ -30,6 +30,7 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
         typeOf="MenuControl"
         icon={icon}
       >
+        {title}
         <Tooltip title={title} position="right" distace="close" />
       </Button>
       <ul
@@ -81,7 +82,9 @@ const renderLi = ({
   >
     {content ? (
       <Dropdown
-        styles=""
+        styles={['pl-0', '[&>button]:rounded-none [&>button]:m-0 [&>button]:pl-2'].join(
+          ' '
+        )}
         title={title}
         href={href}
         content={content}

@@ -1,6 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 'use client';
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation';
+import { useSelectedLayoutSegments } from 'next/navigation';
 import { Fragment } from 'react';
 
 import { ArrowRight, Home } from 'app/components/Ui/DataDisplay/Icons';
@@ -47,15 +47,30 @@ export default function Breadcrumb() {
 }
 
 const liStyles = [
-  'flex items-center text-sm font-medium text-lg-secondary-lighter hover:text-lg-secondary-base',
+  'flex items-center text-sm font-medium text-lg-secondary-lighter hover:text-lg-secondary-base px-xs',
   'dark:text-dk-secondary-base dark:hover:text-dk-accent'
 ].join(' ');
 
 const RenderCrumbs = (paths: IPaths[]) => (
   <ul className="relative space-x-1">
-    <li className={`${liStyles} peer`}>
+    <li className={`${liStyles} group peer`}>
       <Link href="/" className="flex items-center justify-center">
-        <Home /> {paths[0] && <p> / {paths[0].title}: </p>}
+        <Home />
+        {paths[0] && (
+          <>
+            <p
+              className={[
+                'relative flex min-h-[2rem] max-w-0 items-center overflow-hidden pl-4 pr-0 transition-slow group-hover:max-w-xs group-hover:pr-4',
+                "before:absolute before:right-1 before:rounded-md before:border-lg-primary before:content-[''] before:transition-faster",
+                'before:top-1/2 before:-translate-y-1/2',
+                'before:block before:h-8 before:w-8 before:rotate-[225deg]',
+                'before:border-t-0 before:border-l-2 before:border-b-2 before:border-r-0'
+              ].join(' ')}
+            >
+              {paths[0].title}
+            </p>
+          </>
+        )}
       </Link>
     </li>
     {paths.map(({ href, title }, index) => (
