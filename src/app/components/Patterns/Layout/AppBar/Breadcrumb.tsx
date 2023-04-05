@@ -3,13 +3,14 @@
 import { useSelectedLayoutSegments } from 'next/navigation';
 import { Fragment } from 'react';
 
-import { ArrowRight, Home } from 'app/components/Ui/DataDisplay/Icons';
+import Icons, { ArrowRight, Home } from 'app/components/Ui/DataDisplay/Icons';
 import Link from 'app/components/Ui/Navigation/Link';
 
 import { NAVIGATION_LINKS } from 'utils/Constants';
-import { IContent } from 'utils/Types';
+import { IContent, TypeIcons } from 'utils/Types';
 
 interface IPaths {
+  icon: keyof TypeIcons;
   title: string;
   href?: string;
 }
@@ -19,12 +20,14 @@ export default function Breadcrumb() {
 
   const getPath = (content: IContent[], segmentsIndex: number): IPaths[] => {
     const index = content.findIndex((nav) => nav.href === `/${segments[segmentsIndex]}`);
-    const { title, href, content: pathContent } = content[index !== -1 ? index : 0];
+
+    const { title, href, content: pathContent, icon } = content[index !== -1 ? index : 0];
     const path: IPaths[] = [];
 
-    segments.at(-1) && path.push({ title, href });
+    segments.at(-1) && path.push({ icon, title, href });
 
-    if (pathContent) return path.concat(getPath(pathContent, segmentsIndex + 1));
+    if (pathContent && segments[segmentsIndex + 1] !== undefined)
+      return path.concat(getPath(pathContent, segmentsIndex + 1));
 
     return path;
   };
@@ -45,42 +48,45 @@ export default function Breadcrumb() {
     </nav>
   );
 }
-
+//min-h-[2rem] max-w-0  group-hover:
 const liStyles = [
-  'flex items-center text-sm font-medium text-lg-secondary-lighter hover:text-lg-secondary-base px-xs',
-  'dark:text-dk-secondary-base dark:hover:text-dk-accent'
+  'relative group flex items-center text-sm font-medium text-lg-secondary-lighter hover:text-lg-secondary-base px-xs',
+  'dark:text-dk-secondary-base dark:hover:text-dk-accent',
+  '[&>a>p]:relative [&>a>p]:flex [&>a>p]:items-center [&>a>p]:mx-3 [&>a>p]:min-h-[2rem] [&>a>p]:max-w-0 [&>a>p]:group-hover:max-w-xs',
+  '[&>a>p]:transition-fast [&>a>p]:overflow-hidden'
 ].join(' ');
 
 const RenderCrumbs = (paths: IPaths[]) => (
   <ul className="relative space-x-1">
-    <li className={`${liStyles} group peer`}>
+    <li
+      className={`${[
+        liStyles,
+        "before:absolute before:right-2 before:rounded-md before:border-lg-primary before:content-['']",
+        'before:top-1/2 before:-translate-y-1/2',
+        'before:block before:h-8 before:w-8 before:rotate-[225deg]',
+        'before:border-t-0 before:border-l-2 before:border-b-2 before:border-r-0'
+      ].join(' ')}`}
+    >
       <Link href="/" className="flex items-center justify-center">
         <Home />
         {paths[0] && (
           <>
-            <p
-              className={[
-                'relative flex min-h-[2rem] max-w-0 items-center overflow-hidden pl-4 pr-0 transition-slow group-hover:max-w-xs group-hover:pr-4',
-                "before:absolute before:right-1 before:rounded-md before:border-lg-primary before:content-[''] before:transition-faster",
-                'before:top-1/2 before:-translate-y-1/2',
-                'before:block before:h-8 before:w-8 before:rotate-[225deg]',
-                'before:border-t-0 before:border-l-2 before:border-b-2 before:border-r-0'
-              ].join(' ')}
-            >
-              {paths[0].title}
-            </p>
+            <p className={[''].join(' ')}>{paths[0].title}</p>
           </>
         )}
       </Link>
     </li>
-    {paths.map(({ href, title }, index) => (
+    {paths.map(({ icon, href, title }, index) => (
       <Fragment key={index + 1}>
         {index > 0 && (
-          <li className={liStyles}>
-            <Link href={href ? href : '/'} className="group">
-              {title}
+          <li className={`${liStyles}`}>
+            <Link href={href ? href : '/'} className="group flex items-center">
+              <>
+                <Icons icon={icon} />
+                <p className="">{title}</p>
+                {index + 1 !== paths.length && <ArrowRight />}
+              </>
             </Link>
-            {index + 1 !== paths.length && <ArrowRight />}
           </li>
         )}
       </Fragment>

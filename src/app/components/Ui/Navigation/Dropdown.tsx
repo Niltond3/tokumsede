@@ -30,7 +30,9 @@ export default function Dropdown({ content = [], icon, title, styles }: IDropdow
         typeOf="MenuControl"
         icon={icon}
       >
-        {title}
+        <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
+          {title}
+        </p>
         <Tooltip title={title} position="right" distace="close" />
       </Button>
       <ul
@@ -71,8 +73,7 @@ const renderLi = ({
   title,
   href,
   onClick,
-  showDropdown,
-  content
+  showDropdown
 }: IRenderLi) => (
   <li
     className={`${
@@ -80,34 +81,19 @@ const renderLi = ({
     } border-l-2 border-l-lg-primary-base/0`}
     key={`${title}${index}`}
   >
-    {content ? (
-      <Dropdown
-        styles={['pl-0', '[&>button]:rounded-none [&>button]:m-0 [&>button]:pl-2'].join(
-          ' '
-        )}
-        title={title}
-        href={href}
-        content={content}
-        onClick={onClick}
-        icon={icon}
-      />
-    ) : (
-      href && (
-        <Link
-          href={href}
-          onClick={onClick}
-          className={`group flex translate-x-[25px] items-center p-s opacity-0 transition-faster ${
-            showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
-          } fill-mode-forwards`}
-        >
-          <Icons icon={icon} className="mr-s transition-faster" />
-          <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
-            {title}
-          </p>
-          <Tooltip title={title} position="right" distace="close" />
-        </Link>
-      )
-    )}
+    <Link
+      href={href}
+      onClick={onClick}
+      className={`group flex translate-x-[25px] items-center p-s opacity-0 transition-faster ${
+        showDropdown && `${delay} animate-intro-menu group-hover:!opacity-100`
+      } fill-mode-forwards`}
+    >
+      <Icons icon={icon} className="mr-s transition-faster" />
+      <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
+        {title}
+      </p>
+      <Tooltip title={title} position="right" distace="close" />
+    </Link>
   </li>
 );
 

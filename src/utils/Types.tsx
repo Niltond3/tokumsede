@@ -17,8 +17,7 @@ export interface IContent {
   title: string;
   icon: keyof TypeIcons;
   content?: IContent[];
-  page?: string;
-  href?: string;
+  href: string;
   onClick?: () => void;
 }
 export type AppPropsWithLayout = AppProps & {
