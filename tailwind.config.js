@@ -95,7 +95,7 @@ module.exports = {
           warning: '#f1c21b', //pendente
           error: '#DA1E28', //Cancelado
           info: '#0043ce', //Aceito
-          sent: '#8a3ffc', //enviado
+          sent: '#8a3ffc', //Despachado
           wait: '#6f6f6f' //Agendado
         }
       },

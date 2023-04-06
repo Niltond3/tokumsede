@@ -50,46 +50,53 @@ export default function Breadcrumb() {
 }
 //min-h-[2rem] max-w-0  group-hover:
 const liStyles = [
-  'relative group flex items-center text-sm font-medium text-lg-secondary-lighter hover:text-lg-secondary-base px-xs',
+  'relative group flex items-center text-sm font-medium text-lg-secondary-lighter hover:text-lg-secondary-base px-xs transition-slow',
   'dark:text-dk-secondary-base dark:hover:text-dk-accent',
-  '[&>a>p]:relative [&>a>p]:flex [&>a>p]:items-center [&>a>p]:mx-3 [&>a>p]:min-h-[2rem] [&>a>p]:max-w-0 [&>a>p]:group-hover:max-w-xs',
-  '[&>a>p]:transition-fast [&>a>p]:overflow-hidden'
+  '[&>a>p]:relative [&>a>p]:flex [&>a>p]:items-center [&>a>p]:mx-3 [&>a>p]:min-h-[2rem] [&>a>p]:max-w-0 [&>a>p]:whitespace-nowrap',
+  '[&>a>p]:transition-slow [&>a>p]:overflow-hidden'
 ].join(' ');
 
-const RenderCrumbs = (paths: IPaths[]) => (
-  <ul className="relative space-x-1">
-    <li
-      className={`${[
-        liStyles,
-        "before:absolute before:right-2 before:rounded-md before:border-lg-primary before:content-['']",
-        'before:top-1/2 before:-translate-y-1/2',
-        'before:block before:h-8 before:w-8 before:rotate-[225deg]',
-        'before:border-t-0 before:border-l-2 before:border-b-2 before:border-r-0'
-      ].join(' ')}`}
-    >
-      <Link href="/" className="flex items-center justify-center">
-        <Home />
-        {paths[0] && (
-          <>
-            <p className={[''].join(' ')}>{paths[0].title}</p>
-          </>
-        )}
-      </Link>
-    </li>
-    {paths.map(({ icon, href, title }, index) => (
-      <Fragment key={index + 1}>
-        {index > 0 && (
-          <li className={`${liStyles}`}>
-            <Link href={href ? href : '/'} className="group flex items-center">
-              <>
-                <Icons icon={icon} />
-                <p className="">{title}</p>
-                {index + 1 !== paths.length && <ArrowRight />}
-              </>
-            </Link>
-          </li>
-        )}
-      </Fragment>
-    ))}
-  </ul>
-);
+const RenderCrumbs = (paths: IPaths[]) => {
+  const initialPath = paths[0];
+
+  return (
+    <ul className="relative space-x-1 transition-slow">
+      <li
+        className={`${[
+          liStyles,
+          `${!initialPath && 'before:hidden'}`,
+          'before:absolute before:right-2 before:rounded-md before:border-lg-primary',
+          'before:top-1/2 before:-translate-y-1/2',
+          'before:block before:h-8 before:w-8 before:rotate-[225deg]',
+          'before:border-t-0 before:border-l-2 before:border-b-2 before:border-r-0'
+        ].join(' ')}`}
+      >
+        <Link href="/" className="flex items-center justify-center">
+          <Home />
+          {initialPath && <p className="group-hover:max-w-xs">{initialPath.title}</p>}
+        </Link>
+      </li>
+      {paths.map(({ icon, href, title }, index) => {
+        const nextIndex = index + 1;
+        const lastIndex = nextIndex === paths.length;
+        return (
+          <Fragment key={nextIndex}>
+            {index > 0 && (
+              <li className={`${liStyles}`}>
+                <Link href={href ? href : '/'} className="group flex items-center">
+                  <>
+                    <Icons icon={icon} />
+                    <p className={`group-hover:max-w-xs ${lastIndex && '!mr-0'}`}>
+                      {title}
+                    </p>
+                    {!lastIndex && <ArrowRight />}
+                  </>
+                </Link>
+              </li>
+            )}
+          </Fragment>
+        );
+      })}
+    </ul>
+  );
+};
