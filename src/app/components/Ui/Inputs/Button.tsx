@@ -3,7 +3,8 @@ import Icons, {
   DarkMode,
   NotificationsOn,
   NotificationsOff,
-  ArrowRight
+  ArrowRight,
+  Add
 } from '../DataDisplay/Icons';
 import Img from '../DataDisplay/Image';
 
@@ -13,7 +14,7 @@ export default function Button({
   onClick,
   onMouseEnter,
   children,
-  className,
+  className = '',
   'aria-label': ariaLabel,
   typeOf,
   icon,
@@ -47,7 +48,8 @@ const variantStyles = {
   DarkModeToggle: `${commonStyles} `,
   Settings: `${commonStyles}`,
   Notifications: `${commonStyles}`,
-  MenuControl: 'group btn-menu-control -mr-0.5'
+  MenuControl: 'group btn-menu-control -mr-0.5',
+  Add: ''
 };
 
 const defaultChildren = {
@@ -89,6 +91,12 @@ const defaultChildren = {
       <p>{title}</p>
       <ArrowRight className="absolute-y-center right-0 z-[52] mr-1 transition-faster" />
     </>
+  ),
+  Add: ({ title }: { title?: string }) => (
+    <div className="flex items-center text-sm font-medium">
+      <Add className="h-auto w-5" />{' '}
+      <span className="ml-s whitespace-nowrap">{title}</span>
+    </div>
   )
 };
 

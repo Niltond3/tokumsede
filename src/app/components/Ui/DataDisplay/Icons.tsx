@@ -4,23 +4,21 @@ interface IProps {
 }
 
 export const thisIcons = {
-  Administrator: ({ className, 'aria-label': ariaLabel }: IProps) => (
+  Add: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
       fill="currentColor"
       strokeWidth="0"
-      viewBox="0 0 24 24"
+      viewBox="0 0 16 16"
       height="1em"
       width="1em"
       className={className}
       aria-label={ariaLabel}
     >
-      <path fill="none" d="M0 0h24v24H0z"></path>
-      <path d="M17 11c.34 0 .67.04 1 .09V6.27L10.5 3 3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55-.69-.98-1.1-2.17-1.1-3.45 0-3.31 2.69-6 6-6z"></path>
-      <path d="M17 13c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 1.38c.62 0 1.12.51 1.12 1.12s-.51 1.12-1.12 1.12-1.12-.51-1.12-1.12.5-1.12 1.12-1.12zm0 5.37c-.93 0-1.74-.46-2.24-1.17.05-.72 1.51-1.08 2.24-1.08s2.19.36 2.24 1.08c-.5.71-1.31 1.17-2.24 1.17z"></path>
+      <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
     </svg>
   ),
-  Address: ({ className, 'aria-label': ariaLabel }: IProps) => (
+  AddAress: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
       fill="currentColor"
@@ -49,18 +47,20 @@ export const thisIcons = {
       <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
     </svg>
   ),
-  ArrowRight: ({ className, 'aria-label': ariaLabel }: IProps) => (
+  Administrator: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
       fill="currentColor"
       strokeWidth="0"
-      viewBox="0 0 256 512"
+      viewBox="0 0 24 24"
       height="1em"
       width="1em"
       className={className}
       aria-label={ariaLabel}
     >
-      <path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path>
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path d="M17 11c.34 0 .67.04 1 .09V6.27L10.5 3 3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55-.69-.98-1.1-2.17-1.1-3.45 0-3.31 2.69-6 6-6z"></path>
+      <path d="M17 13c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 1.38c.62 0 1.12.51 1.12 1.12s-.51 1.12-1.12 1.12-1.12-.51-1.12-1.12.5-1.12 1.12-1.12zm0 5.37c-.93 0-1.74-.46-2.24-1.17.05-.72 1.51-1.08 2.24-1.08s2.19.36 2.24 1.08c-.5.71-1.31 1.17-2.24 1.17z"></path>
     </svg>
   ),
   ArrowLeft: ({ className, 'aria-label': ariaLabel }: IProps) => (
@@ -75,6 +75,20 @@ export const thisIcons = {
       aria-label={ariaLabel}
     >
       <path fillRule="evenodd" d="M6 2L0 8l6 6V2z"></path>
+    </svg>
+  ),
+  ArrowRight: ({ className, 'aria-label': ariaLabel }: IProps) => (
+    <svg
+      stroke="currentColor"
+      fill="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 256 512"
+      height="1em"
+      width="1em"
+      className={className}
+      aria-label={ariaLabel}
+    >
+      <path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path>
     </svg>
   ),
   Attendant: ({ className, 'aria-label': ariaLabel }: IProps) => (
@@ -182,21 +196,6 @@ export const thisIcons = {
       <path d="M504 352H136.4c-4.4 0-8 3.6-8 8l-.1 48c0 4.4 3.6 8 8 8H504c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm0 96H136.1c-4.4 0-8 3.6-8 8l-.1 48c0 4.4 3.6 8 8 8h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm0-192H136.6c-4.4 0-8 3.6-8 8l-.1 48c0 4.4 3.6 8 8 8H504c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm106.5-139L338.4 3.7a48.15 48.15 0 0 0-36.9 0L29.5 117C11.7 124.5 0 141.9 0 161.3V504c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8V256c0-17.6 14.6-32 32.6-32h382.8c18 0 32.6 14.4 32.6 32v248c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8V161.3c0-19.4-11.7-36.8-29.5-44.3z"></path>
     </svg>
   ),
-  Mouse: ({ className, 'aria-label': ariaLabel }: IProps) => (
-    <svg
-      stroke="currentColor"
-      fill="currentColor"
-      strokeWidth="0"
-      viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
-      className={className}
-      aria-label={ariaLabel}
-    >
-      <path fill="none" d="M0 0h24v24H0z"></path>
-      <path d="M13 1.07V9h7c0-4.08-3.05-7.44-7-7.93zM4 15c0 4.42 3.58 8 8 8s8-3.58 8-8v-4H4v4zm7-13.93C7.05 1.56 4 4.92 4 9h7V1.07z"></path>
-    </svg>
-  ),
   Financial: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
@@ -290,6 +289,21 @@ export const thisIcons = {
       <path d="M3 9l4 0"></path>
     </svg>
   ),
+  Mouse: ({ className, 'aria-label': ariaLabel }: IProps) => (
+    <svg
+      stroke="currentColor"
+      fill="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 24 24"
+      height="1em"
+      width="1em"
+      className={className}
+      aria-label={ariaLabel}
+    >
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path d="M13 1.07V9h7c0-4.08-3.05-7.44-7-7.93zM4 15c0 4.42 3.58 8 8 8s8-3.58 8-8v-4H4v4zm7-13.93C7.05 1.56 4 4.92 4 9h7V1.07z"></path>
+    </svg>
+  ),
   NotificationsOff: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
@@ -377,7 +391,7 @@ export const thisIcons = {
       <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"></path>
     </svg>
   ),
-  sortDown: ({ className, 'aria-label': ariaLabel }: IProps) => (
+  SortDown: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
       fill="currentColor"
@@ -391,7 +405,7 @@ export const thisIcons = {
       <path d="M304 416h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-128-64h-48V48a16 16 0 0 0-16-16H80a16 16 0 0 0-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0 0 22.62 0l80-96C197.35 369.26 190.22 352 176 352zm256-192H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-64 128H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM496 32H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>
     </svg>
   ),
-  sortUp: ({ className, 'aria-label': ariaLabel }: IProps) => (
+  SortUp: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
       fill="currentColor"
@@ -423,6 +437,9 @@ export const thisIcons = {
 };
 
 export const {
+  Add,
+  AddAress,
+  AddUser,
   Administrator,
   ArrowLeft,
   ArrowRight,
@@ -438,14 +455,17 @@ export const {
   Home,
   Homes,
   LightMode,
+  logistics,
   Mouse,
   NotificationsOff,
   NotificationsOn,
+  Personal,
   Purchase,
   Representative,
   Settings,
-  Work,
-  logistics
+  SortDown,
+  SortUp,
+  Work
 } = thisIcons;
 
 const Icons = ({
