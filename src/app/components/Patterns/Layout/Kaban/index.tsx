@@ -1,14 +1,25 @@
+'use client'
 import Column from './Column';
+import {useContext} from 'react'
+import {AppContext} from './context'
+import {Types} from './reducer'
 
 export default function Kaban() {
+  const {state, dispatch} = useContext(AppContext)
+  const {columns:{ACCEPTED:{id:acceptedId,requestsIds:acceptedRequests},CANCELED:{id:canceledId,requestsIds:canceledRequests},DELIVERED:{id:deliveredId,requestsIds:deliveredRequests},DISPATCHED:{id:dispatchedId,requestsIds:dispatchedRequests},PENDING:{id:pendingId,requestsIds:pendingRequests},SCHEDULED:{id:scheduledId,requestsIds:scheduledRequests},}} = state
+
   return (
     <div className="flex">
-      <Column id="PENDING" requestsIds={[]} />
-      <Column id="ACCEPTED" requestsIds={[]} />
-      <Column id="DISPATCHED" requestsIds={[]} />
-      <Column id="DELIVERED" requestsIds={[]} />
-      <Column id="SCHEDULED" requestsIds={[]} />
-      <Column id="CANCELED" requestsIds={[]} />
+      <Column id={pendingId} requestsIds={pendingRequests} onClick={() => {
+        dispatch({
+          type: Types.create,
+        })
+      }}/>
+      <Column id={acceptedId} requestsIds={acceptedRequests}/>
+      <Column id={dispatchedId} requestsIds={dispatchedRequests}/>
+      <Column id={deliveredId} requestsIds={deliveredRequests}/>
+      <Column id={scheduledId} requestsIds={scheduledRequests}/>
+      <Column id={canceledId} requestsIds={canceledRequests}/>
     </div>
   );
 }

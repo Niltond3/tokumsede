@@ -1,9 +1,12 @@
 import AppBar from 'app/components/Patterns/Layout/AppBar';
 import LeftBar from 'app/components/Patterns/Layout/LeftBar';
 import RightBar from 'app/components/Patterns/Layout/RightBar';
+import {AppProvider} from './Kaban/context'
+
 
 export default function IndexLayout({ children }: { children: React.ReactNode }) {
   return (
+    <AppProvider>
     <main className="">
       {/* HEADER */}
       <AppBar />
@@ -16,5 +19,7 @@ export default function IndexLayout({ children }: { children: React.ReactNode })
         {children}
       </div>
     </main>
+    </AppProvider>
+
   );
 }

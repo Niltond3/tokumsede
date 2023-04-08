@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Button from 'app/components/Ui/Inputs/Button';
 import Toggle from 'app/components/Ui/Inputs/Toggle';
@@ -7,24 +5,19 @@ import Toggle from 'app/components/Ui/Inputs/Toggle';
 import Card from './Card';
 
 import { TypeIcons } from 'utils/Types';
+import { ColumnType } from './context';
 
-type ColumnId =
-  | 'PENDING'
-  | 'ACCEPTED'
-  | 'DISPATCHED'
-  | 'DELIVERED'
-  | 'CANCELED'
-  | 'SCHEDULED';
+
 
 type Styles = {
   [key: string]: { title: string; styles: string; icon: keyof TypeIcons };
 };
 
-interface IColumn {
-  id: ColumnId;
+interface IColumn extends ColumnType{
+  onClick: () => void
 }
 
-export default function Column({ id }: IColumn) {
+export default function Column({ id,requestsIds, onClick }: IColumn) {
   const mappingStyles: Styles = {
     PENDING: {
       title: 'Pendentes',
@@ -58,7 +51,6 @@ export default function Column({ id }: IColumn) {
     }
   };
   const { title, styles, icon } = mappingStyles[id];
-  const requestsIds = [];
 
   return (
     <div className={`${styles} m-s h-min rounded-sm px-s py-xs`} key={id}>
