@@ -49,7 +49,7 @@ const variantStyles = {
   Settings: `${commonStyles}`,
   Notifications: `${commonStyles}`,
   MenuControl: 'group btn-menu-control -mr-0.5',
-  Add: ''
+  Add: 'opacity-30 hover:opacity-100 transition-faster'
 };
 
 const defaultChildren = {
