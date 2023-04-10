@@ -9,32 +9,22 @@ import { PURCHASE_ACTION_TYPES, ColumnsType, PurchaseActionsType } from 'utils/T
 export default function Kaban() {
   const { state, dispatch } = useContext(AppContext);
   const { columns } = state;
+
   return <div className="flex">{renderColumns(columns, dispatch)}</div>;
 }
 
 const renderColumns = (columns: ColumnsType, dispatch: Dispatch<PurchaseActionsType>) => {
   const myColumns: JSX.Element[] = [];
   let key: keyof typeof columns;
-  const { prepare } = PURCHASE_ACTION_TYPES;
-
-  const handleClick = {
-    ACCEPTED: () => dispatch({ type: prepare, payload: {} }),
-    CANCELED: () => dispatch({ type: prepare, payload: {} }),
-    DELIVERED: () => dispatch({ type: prepare, payload: {} }),
-    DISPATCHED: () => dispatch({ type: prepare, payload: {} }),
-    PENDING: () => dispatch({ type: prepare, payload: {} }),
-    SCHEDULED: () => dispatch({ type: prepare, payload: {} })
-  };
-
-  const hc = (id: keyof ColumnsType) =>
-    dispatch({ type: prepare, payload: { columnId: id } });
 
   for (key in columns) {
-    const { id, purchasesIds } = columns[key];
+    const { id, purchasesIds, countLabel } = columns[key];
+    const { prepare } = PURCHASE_ACTION_TYPES;
     myColumns.push(
       <Column
         id={id}
         purchasesIds={purchasesIds}
+        countLabel={countLabel}
         onClick={() => dispatch({ type: prepare, payload: { columnId: id } })}
       />
     );

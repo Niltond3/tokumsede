@@ -1,8 +1,13 @@
-import Icons from 'app/components/Ui/DataDisplay/Icons';
+import Icons, {
+  Accepted,
+  Cancel,
+  Delivered,
+  Hashtag,
+  Pending,
+  Schedule
+} from 'app/components/Ui/DataDisplay/Icons';
 import Button from 'app/components/Ui/Inputs/Button';
 import Toggle from 'app/components/Ui/Inputs/Toggle';
-
-import Card from './Card';
 
 import { TypeIcons, ColumnType } from 'utils/Types';
 
@@ -14,7 +19,7 @@ interface IColumn extends ColumnType {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function Column({ id, purchasesIds, onClick }: IColumn) {
+export default function Column({ id, purchasesIds, countLabel, onClick }: IColumn) {
   const mappingStyles: Styles = {
     PENDING: {
       title: 'Pendentes',
@@ -48,7 +53,6 @@ export default function Column({ id, purchasesIds, onClick }: IColumn) {
     }
   };
   const { title, styles, icon } = mappingStyles[id];
-
   return (
     <div className={`${styles} m-s h-min rounded-sm px-s py-xs`} key={id}>
       <div className="flex w-full justify-between text-sm">
@@ -57,13 +61,45 @@ export default function Column({ id, purchasesIds, onClick }: IColumn) {
           {title}
         </div>
         <div className="flex w-min justify-between">
-          <span>{purchasesIds.length}</span>
+          <span>{countLabel}</span>
           <Toggle typeOf="Sort" id={id} className="ml-xs" />
         </div>
       </div>
       <ul className="max-h-72 min-h-[2rem] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300">
-        {purchasesIds.map((value) => (
-          <div>tralala</div>
+        {purchasesIds.map((value, index) => (
+          <div key={`${index}-card`}>
+            <div>
+              <span>
+                <Hashtag />
+                000
+              </span>
+              {/* <select>
+                <option value="Dinheiro">
+                  <Cash />
+                </option>
+                <option value="Cartão">
+                  <CreditCard />
+                </option>
+                <option value="Pix">
+                  <Pix />
+                </option>
+                <option value="IFood">
+                  <IFood />
+                </option>
+              </select> */}
+              <span>value</span>
+              <span>troco</span>
+              <span>Distribuidora</span>
+              <div>
+                <Pending />
+                <Accepted />
+                <Icons icon="logistics" />
+                <Delivered />
+                <Cancel />
+                <Schedule />
+              </div>
+            </div>
+          </div>
         ))}
       </ul>
       <Button typeOf="Add" title="Fazer novo pedido" onClick={onClick} />
@@ -71,4 +107,35 @@ export default function Column({ id, purchasesIds, onClick }: IColumn) {
   );
 }
 
-// onClick = add a new request and add this request.id in list a list of respective column
+/*
+  {
+        id: '1',
+        priority: '',
+        note: '',
+        origin: '',
+        client: {
+          id: '',
+          name: 'test',
+          contact: '',
+          address: {
+            street: '',
+            neighborhood: '',
+            city: '',
+            state: '',
+            complement: '',
+            note: ''
+          }
+        },
+        distributorName: '',
+        payment: '',
+        lifeCircle: {
+          register: { responsible: '', date: '' },
+          accepted: { responsible: '', date: '' },
+          dispatched: { responsible: '', date: '' },
+          delivered: { responsible: '', date: '' },
+          canceled: { responsible: '', date: '' },
+          scheduled: { responsible: '', date: '' }
+        },
+        products: [{ id: '', name: '', quantity: '', price: '' }]
+      }
+*/

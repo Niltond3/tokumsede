@@ -1,9 +1,4 @@
-import {
-  ColumnsType,
-  ColumnType,
-  InitialPurchaseStateType,
-  PurchaseActionsType
-} from 'utils/Types';
+import { ColumnsType, InitialPurchaseStateType, PurchaseActionsType } from 'utils/Types';
 
 export const purchaseReducer = (
   state: InitialPurchaseStateType,
@@ -14,20 +9,13 @@ export const purchaseReducer = (
       const { columnId } = action.payload;
       const newColumns = state.columns;
 
-      const { ACCEPTED, DELIVERED, PENDING, DISPATCHED } = newColumns;
-
-      function getCount() {
-        let key: keyof ColumnsType;
-
-        for (key in newColumns) {
-          newColumns[key].purchasesIds.length;
-        }
-      }
-
-      newColumns.DELIVERED.countLabel = ACCEPTED.purchasesIds.length;
-
       newColumns[columnId].purchasesIds = [...newColumns[columnId].purchasesIds, ''];
 
+      newColumns[columnId].countLabel = getCount(columnId, newColumns);
+
+      newColumns.DELIVERED.countLabel = getCount('DELIVERED', newColumns);
+
+      console.log(newColumns);
       return {
         ...state,
         columns: {
@@ -46,7 +34,18 @@ export const purchaseReducer = (
     }
   }
 };
-
+function getCount(id: keyof ColumnsType, columns: ColumnsType) {
+  const { DELIVERED } = columns;
+  if (id === 'DELIVERED') {
+    let key: keyof ColumnsType;
+    let count = 0;
+    for (key in columns)
+      if (key !== 'DELIVERED' && key !== 'CANCELED')
+        count = count + columns[key].purchasesIds.length;
+    return `${count}/${DELIVERED.purchasesIds.length}`;
+  }
+  return columns[id].purchasesIds.length;
+}
 /**
  * When create a request: Add a new request in array of requests, and a new id inside array of column
  */
