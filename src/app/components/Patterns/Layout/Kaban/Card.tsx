@@ -13,7 +13,7 @@ type Client = {
   id: string;
   name: string;
   contact: string;
-  address: Address[];
+  address: Address;
 };
 
 type Product = {
@@ -22,6 +22,7 @@ type Product = {
   quantity: number;
   price: number;
 };
+
 type LifeCircle = {
   responsible: string;
   date: Date;

@@ -4,20 +4,17 @@ import Toggle from 'app/components/Ui/Inputs/Toggle';
 
 import Card from './Card';
 
-import { TypeIcons } from 'utils/Types';
-import { ColumnType } from './context';
-
-
+import { TypeIcons, ColumnType } from 'utils/Types';
 
 type Styles = {
   [key: string]: { title: string; styles: string; icon: keyof TypeIcons };
 };
 
-interface IColumn extends ColumnType{
-  onClick: () => void
+interface IColumn extends ColumnType {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function Column({ id,requestsIds, onClick }: IColumn) {
+export default function Column({ id, purchasesIds, onClick }: IColumn) {
   const mappingStyles: Styles = {
     PENDING: {
       title: 'Pendentes',
@@ -60,16 +57,16 @@ export default function Column({ id,requestsIds, onClick }: IColumn) {
           {title}
         </div>
         <div className="flex w-min justify-between">
-          <span>{requestsIds.length}</span>
+          <span>{purchasesIds.length}</span>
           <Toggle typeOf="Sort" id={id} className="ml-xs" />
         </div>
       </div>
       <ul className="max-h-72 min-h-[2rem] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300">
-        {requestsIds.map((value) => (
-          <Card />
+        {purchasesIds.map((value) => (
+          <div>tralala</div>
         ))}
       </ul>
-      <Button typeOf="Add" title="Fazer novo pedido" />
+      <Button typeOf="Add" title="Fazer novo pedido" onClick={onClick} />
     </div>
   );
 }

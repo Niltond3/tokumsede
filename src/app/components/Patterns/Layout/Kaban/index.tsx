@@ -1,28 +1,79 @@
-'use client'
+'use client';
+import { useContext, Dispatch } from 'react';
+
 import Column from './Column';
-import {useContext} from 'react'
-import {AppContext} from './context'
-import {Types} from './reducer'
+
+import { AppContext } from 'hooks/usePurchase';
+import { PURCHASE_ACTION_TYPES, ColumnsType, PurchaseActionsType } from 'utils/Types';
 
 export default function Kaban() {
-  const {state, dispatch} = useContext(AppContext)
-  const {columns:{ACCEPTED:{id:acceptedId,requestsIds:acceptedRequests},CANCELED:{id:canceledId,requestsIds:canceledRequests},DELIVERED:{id:deliveredId,requestsIds:deliveredRequests},DISPATCHED:{id:dispatchedId,requestsIds:dispatchedRequests},PENDING:{id:pendingId,requestsIds:pendingRequests},SCHEDULED:{id:scheduledId,requestsIds:scheduledRequests},}} = state
-
-  return (
-    <div className="flex">
-      <Column id={pendingId} requestsIds={pendingRequests} onClick={() => {
-        dispatch({
-          type: Types.create,
-        })
-      }}/>
-      <Column id={acceptedId} requestsIds={acceptedRequests}/>
-      <Column id={dispatchedId} requestsIds={dispatchedRequests}/>
-      <Column id={deliveredId} requestsIds={deliveredRequests}/>
-      <Column id={scheduledId} requestsIds={scheduledRequests}/>
-      <Column id={canceledId} requestsIds={canceledRequests}/>
-    </div>
-  );
+  const { state, dispatch } = useContext(AppContext);
+  const { columns } = state;
+  return <div className="flex">{renderColumns(columns, dispatch)}</div>;
 }
+
+const renderColumns = (columns: ColumnsType, dispatch: Dispatch<PurchaseActionsType>) => {
+  const myColumns: JSX.Element[] = [];
+  let key: keyof typeof columns;
+  const { prepare } = PURCHASE_ACTION_TYPES;
+
+  const handleClick = {
+    ACCEPTED: () => dispatch({ type: prepare, payload: {} }),
+    CANCELED: () => dispatch({ type: prepare, payload: {} }),
+    DELIVERED: () => dispatch({ type: prepare, payload: {} }),
+    DISPATCHED: () => dispatch({ type: prepare, payload: {} }),
+    PENDING: () => dispatch({ type: prepare, payload: {} }),
+    SCHEDULED: () => dispatch({ type: prepare, payload: {} })
+  };
+
+  const hc = (id: keyof ColumnsType) =>
+    dispatch({ type: prepare, payload: { columnId: id } });
+
+  for (key in columns) {
+    const { id, purchasesIds } = columns[key];
+    myColumns.push(
+      <Column
+        id={id}
+        purchasesIds={purchasesIds}
+        onClick={() => dispatch({ type: prepare, payload: { columnId: id } })}
+      />
+    );
+  }
+  return myColumns;
+};
+
+/*
+<Column
+        id={pendingId}
+        purchasesIds={pendingRequests}
+        onClick={handleClick.PENDING}
+      />
+      <Column
+        id={acceptedId}
+        purchasesIds={acceptedRequests}
+        onClick={handleClick.ACCEPTED}
+      />
+      <Column
+        id={dispatchedId}
+        purchasesIds={dispatchedRequests}
+        onClick={handleClick.DISPATCHED}
+      />
+      <Column
+        id={deliveredId}
+        purchasesIds={deliveredRequests}
+        onClick={handleClick.DELIVERED}
+      />
+      <Column
+        id={scheduledId}
+        purchasesIds={scheduledRequests}
+        onClick={handleClick.SCHEDULED}
+      />
+      <Column
+        id={canceledId}
+        purchasesIds={canceledRequests}
+        onClick={handleClick.CANCELED}
+      />
+*/
 
 /*
   const initialData = {

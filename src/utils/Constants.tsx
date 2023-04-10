@@ -22,7 +22,7 @@ export const NAVIGATION_LINKS: IContent[] = [
       {
         icon: 'Purchase',
         title: 'Pedidos',
-        href: '/requests'
+        href: '/purchase'
       }
     ]
   },
