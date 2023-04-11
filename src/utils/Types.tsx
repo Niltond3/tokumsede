@@ -59,7 +59,8 @@ interface IProduct {
   price: number;
 }
 
-type PaymentType = 'Dinheiro' | 'Cartão' | 'Pix' | 'IFood';
+export type PaymentType = 'Cash' | 'CreditCard' | 'Pix' | 'IFood';
+
 type OriginType = 'Telefone' | 'Site' | 'App';
 
 interface IPurchase {
