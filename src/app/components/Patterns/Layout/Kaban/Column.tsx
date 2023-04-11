@@ -1,11 +1,13 @@
 import Icons, {
   Accepted,
+  ArrowRight,
   Cancel,
   Delivered,
   Hashtag,
   Pending,
   Schedule
 } from 'app/components/Ui/DataDisplay/Icons';
+import {useState} from 'react'
 import Button from 'app/components/Ui/Inputs/Button';
 import Toggle from 'app/components/Ui/Inputs/Toggle';
 
@@ -20,6 +22,7 @@ interface IColumn extends ColumnType {
 }
 
 export default function Column({ id, purchasesIds, countLabel, onClick }: IColumn) {
+  
   const mappingStyles: Styles = {
     PENDING: {
       title: 'Pendentes',
@@ -68,29 +71,32 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
       <ul className="max-h-72 min-h-[2rem] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300">
         {purchasesIds.map((value, index) => (
           <div key={`${index}-card`}>
-            <div>
-              <span>
+            <div className="flex">
+              <span className="flex items-center">
                 <Hashtag />
                 000
               </span>
-              {/* <select>
-                <option value="Dinheiro">
-                  <Cash />
-                </option>
-                <option value="Cartão">
-                  <CreditCard />
-                </option>
-                <option value="Pix">
-                  <Pix />
-                </option>
-                <option value="IFood">
-                  <IFood />
-                </option>
-              </select> */}
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id={`${title}-dropDownControl-${index}`}
+                  className="group peer hidden"
+                ></input>
+                <label htmlFor={`${title}-dropDownControl-${index}`} className="">
+                  {/* <Icons icon="" /> */}
+                </label>
+                <div className="peer-checked:[&>ul]:max-h-[10rem]">
+                  <ArrowRight className="" />
+                  <ul className="max-h-0 overflow-hidden transition-fast">
+                    {renderPaymentLi(title)}
+                  </ul>
+                </div>
+              </div>
+
               <span>value</span>
               <span>troco</span>
               <span>Distribuidora</span>
-              <div>
+              <div className="flex">
                 <Pending />
                 <Accepted />
                 <Icons icon="logistics" />
@@ -106,6 +112,97 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
     </div>
   );
 }
+
+function renderPaymentLi(title: string) {
+  const paymentForms: (keyof TypeIcons)[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
+  return paymentForms.map((value, index) => {
+    const key = `${title}-${value}-${index}`;
+    return (
+      <li className="hover:bg-lg-accent-base" key={key}>
+        <input className="hidden" type="checkbox" id={key}></input>
+        <label htmlFor={key}>
+          <Icons icon={value} />
+        </label>
+      </li>
+    );
+  });
+}
+/*
+                  <li className="hover:bg-lg-accent-base">
+                    <input
+                      className="hidden"
+                      type="checkbox"
+                      id={`${title}-cash-${index}`}
+                    ></input>
+                    <label htmlFor={`${title}-cash-${index}`}>
+                      <Cash />
+                    </label>
+                  </li>
+                  <li className="hover:bg-lg-accent-base">
+                    <input
+                      className="hidden"
+                      type="checkbox"
+                      id={`${title}-credit-${index}`}
+                    ></input>
+                    <label htmlFor={`${title}-credit-${index}`}>
+                      <CreditCard />
+                    </label>
+                  </li>
+                  <li className="hover:bg-lg-accent-base">
+                    <input
+                      className="hidden"
+                      type="checkbox"
+                      id={`${title}-pix-${index}`}
+                    ></input>
+                    <label htmlFor={`${title}-pix-${index}`}>
+                      <Pix />
+                    </label>
+                  </li>
+                  <li className="hover:bg-lg-accent-base">
+                    <input
+                      className="hidden"
+                      type="checkbox"
+                      id={`${title}-ifood-${index}`}
+                    ></input>
+                    <label htmlFor={`${title}-ifood-${index}`}>
+                      <IFood />
+                    </label>
+                  </li>
+*/
+
+/*
+       <div>
+              <span>
+                <Hashtag />
+                000
+              </span>
+              <select>
+                <option value="Dinheiro">
+                  <Cash />
+                </option>
+                <option value="Cartão">
+                  <CreditCard />
+                </option>
+                <option value="Pix">
+                  <Pix />
+                </option>
+                <option value="IFood">
+                  <IFood />
+                </option>
+              </select>
+              <span>value</span>
+              <span>troco</span>
+              <span>Distribuidora</span>
+              <div>
+                <Pending />
+                <Accepted />
+                <Icons icon="Logistics" />
+                <Delivered />
+                <Cancel />
+                <Schedule />
+              </div>
+            </div>
+*/
 
 /*
   {

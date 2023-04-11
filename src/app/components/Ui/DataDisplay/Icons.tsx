@@ -312,7 +312,7 @@ export const thisIcons = {
       <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"></path>
     </svg>
   ),
-  Logistics: ({ className, 'aria-label': ariaLabel }: IProps) => (
+  logistics: ({ className, 'aria-label': ariaLabel }: IProps) => (
     <svg
       stroke="currentColor"
       fill="none"
@@ -533,13 +533,19 @@ export const thisIcons = {
       stroke="currentColor"
       fill="currentColor"
       strokeWidth="0"
-      viewBox="0 0 16 16"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
       height="1em"
       width="1em"
       className={className}
       aria-label={ariaLabel}
     >
-      <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
+      <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z"></path>
+      <path
+        fillRule="evenodd"
+        d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
+        clipRule="evenodd"
+      ></path>
     </svg>
   ),
   Pix: ({ className, 'aria-label': ariaLabel }: IProps) => (
@@ -586,7 +592,9 @@ export const {
   ArrowRight,
   Attendant,
   Cancel,
+  Cash,
   Commercial,
+  CreditCard,
   Customer,
   DarkMode,
   Dashboard,
@@ -597,24 +605,22 @@ export const {
   Hashtag,
   Home,
   Homes,
+  IFood,
   LightMode,
-  Logistics,
+  logistics,
   Mouse,
   NotificationsOff,
   NotificationsOn,
   Pending,
   Personal,
+  Pix,
   Purchase,
   Representative,
   Schedule,
   Settings,
   SortDown,
   SortUp,
-  Work,
-  Cash,
-  CreditCard,
-  IFood,
-  Pix
+  Work
 } = thisIcons;
 
 const Icons = ({
