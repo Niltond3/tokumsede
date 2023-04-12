@@ -6,6 +6,9 @@
 
 
 @layer base {
+  :root {
+    @apply text-[62,5%]
+  }
   body {
     @apply antialiased bg-lg-primary-base dark:bg-dk-primary-base
   }

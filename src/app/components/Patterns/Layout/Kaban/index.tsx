@@ -33,39 +33,6 @@ const renderColumns = (columns: ColumnsType, dispatch: Dispatch<PurchaseActionsT
 };
 
 /*
-<Column
-        id={pendingId}
-        purchasesIds={pendingRequests}
-        onClick={handleClick.PENDING}
-      />
-      <Column
-        id={acceptedId}
-        purchasesIds={acceptedRequests}
-        onClick={handleClick.ACCEPTED}
-      />
-      <Column
-        id={dispatchedId}
-        purchasesIds={dispatchedRequests}
-        onClick={handleClick.DISPATCHED}
-      />
-      <Column
-        id={deliveredId}
-        purchasesIds={deliveredRequests}
-        onClick={handleClick.DELIVERED}
-      />
-      <Column
-        id={scheduledId}
-        purchasesIds={scheduledRequests}
-        onClick={handleClick.SCHEDULED}
-      />
-      <Column
-        id={canceledId}
-        purchasesIds={canceledRequests}
-        onClick={handleClick.CANCELED}
-      />
-*/
-
-/*
   const initialData = {
     requests: {
       '1': {

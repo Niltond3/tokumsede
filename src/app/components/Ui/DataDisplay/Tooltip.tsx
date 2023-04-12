@@ -1,15 +1,13 @@
 interface ITooltip {
   title: string;
   position: keyof typeof positionStyles;
-  distace?: 'close' | 'far';
+  close?: boolean;
 }
 
-export default function Tooltip({ title, position, distace = 'far' }: ITooltip) {
-  // const posStyle = stylePosition[position](distace);
-
+export default function Tooltip({ title, position, close = false }: ITooltip) {
   return (
     <div
-      className={`${positionStyles[position][distace]} ${[
+      className={`${positionStyles[position][close ? 'close' : 'far']} ${[
         'pointer-events-none absolute flex w-max rounded-md bg-lg-accent p-xs text-sm font-medium text-lg-primary-base opacity-0 transition-faster group-hover:opacity-100 dark:bg-dk-accent',
         "before:absolute before:h-0 before:w-0 before:border-8 before:border-transparent before:content-[''] before:transition-faster "
       ].join(' ')} `}
@@ -26,7 +24,7 @@ const defaultStyles = {
   yStart: `-left-1`,
   yMiddle: 'center-y before:center-y',
   yEnd: '-right-2 before:right-[7%]',
-  top: 'bottom-[calc(100%+9px)] before:top-[1.8rem] before:border-t-lg-accent before:dark:border-t-dk-accent',
+  top: 'bottom-[calc(100%+9px)] before:top-[1.7rem] before:border-t-lg-accent before:dark:border-t-dk-accent',
   bottom:
     'before:top-[-0.94rem] before:border-b-lg-accent before:dark:border-b-dk-accent top-[calc(100%+9px)]',
   right:
