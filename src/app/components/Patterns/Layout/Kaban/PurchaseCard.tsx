@@ -3,11 +3,13 @@ import { useState } from 'react';
 
 import Icons, {
   Accepted,
+  Address,
   ArrowRight,
   Cancel,
   Delivered,
-  Hashtag,
+  Number,
   Pending,
+  Phone,
   Schedule
 } from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
@@ -48,21 +50,21 @@ export default function PurchaseCard({ index, title }: ICard) {
       key={`${index}-card`}
       className="mt-2 min-h-[10rem] rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base"
     >
-      {/* Head row */}
-      <div className="flex justify-between text-xs font-medium opacity-30 ">
+      {/*HEAD --> ID NUMBER && DISTRIBUTOR NAME */}
+      <div className="flex justify-between text-xs font-medium [&>*]:opacity-30 ">
         <button
-          className="group relative flex items-center"
+          className="group relative flex items-center transition-faster hover:opacity-100"
           data-id={'000'}
           onClick={handleClickToClipboard}
         >
-          <Hashtag />
+          <Number />
           000
           <Tooltip close position="right" title="Copiar pedido" />
         </button>
         <span>Distribuidora</span>
       </div>
-      {/* Currency and status row */}
-      <div className="mt-1 flex">
+      {/* CURRENCY --> PAYMENT TOTAL && PURCHASE COST PAYBACK VALUE */}
+      <div className="mt-2 flex justify-between">
         <div className="group relative flex items-center">
           <input type="checkbox" id={checkId} className="group peer hidden"></input>
           <label htmlFor={checkId} className="flex cursor-pointer items-center">
@@ -93,15 +95,33 @@ export default function PurchaseCard({ index, title }: ICard) {
           <Tooltip close position="top" title="Total a pagar" />
         </div>
         <TextField type="currence" />
-
-        <div className="flex">
-          <Pending />
-          <Accepted />
-          <Icons icon="logistics" />
-          <Delivered />
-          <Cancel />
-          <Schedule />
+      </div>
+      {/* PERSONAL --> CLIENT NAME &&  CLIENT PHONE NUMBER */}
+      <div className="mt-2 flex">
+        <div className="group relative">
+          <TextField type="text" maxLength={15} placeholder="Nome do cliente" />
+          <Tooltip title="Cliente" close position="top" />
         </div>
+        <label className="group relative ml-2 flex items-center">
+          <Phone /> <TextField type="phoneNumber" />
+          <Tooltip title="Telefone" close position="top" />
+        </label>
+      </div>
+      {/* ADDRESS --> STREET && NEIGHBORHOOD && NUMBER && REFERENCE*/}
+      <div className="mt-2">
+        <span className="flex">
+          <Address />
+          {'rua do cliente, nº ## ● bairro do cliente. | complemento ● referência'}
+        </span>
+      </div>
+      {/* STATUS --> STATUS TIME AND RESPONSE TRACKER */}
+      <div className="flex">
+        <Pending />
+        <Accepted />
+        <Icons icon="logistics" />
+        <Delivered />
+        <Cancel />
+        <Schedule />
       </div>
     </div>
   );
