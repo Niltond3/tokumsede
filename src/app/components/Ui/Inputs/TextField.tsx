@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-import Tooltip from '../DataDisplay/Tooltip';
-
 const mapTextFieldType = {
   currence: ({ onChange, value }: InputProps) => {
     const currencyMask = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,21 +15,17 @@ const mapTextFieldType = {
       input.value = formatter.format(parseInt(input.value) / 100);
     };
     return (
-      <div className="group relative flex">
-        R$
-        <input
-          className="w-10 bg-transparent pl-1 focus:outline-none"
-          type="text"
-          inputMode="numeric"
-          onInput={currencyMask}
-          maxLength={7}
-          data-max-digits="5"
-          value={value}
-          onChange={onChange}
-          placeholder="00,00"
-        />
-        <Tooltip title="Troco" close position="top" />
-      </div>
+      <input
+        className="w-10 bg-transparent pl-1 focus:outline-none"
+        type="text"
+        inputMode="numeric"
+        onInput={currencyMask}
+        maxLength={7}
+        data-max-digits="5"
+        value={value}
+        onChange={onChange}
+        placeholder="00,00"
+      />
     );
   },
   phoneNumber: ({ onChange, value }: InputProps) => {
@@ -73,7 +66,7 @@ const mapTextFieldType = {
     };
     return (
       <input
-        className="w-[6.8rem] bg-transparent pl-1 font-medium focus:outline-none"
+        className="w-28 bg-transparent pl-1 font-medium focus:outline-none"
         type="text"
         onInput={textMask}
         maxLength={15}

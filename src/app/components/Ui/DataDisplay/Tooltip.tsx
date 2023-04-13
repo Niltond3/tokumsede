@@ -1,15 +1,26 @@
 interface ITooltip {
-  title: string;
+  title: React.ReactNode;
   position: keyof typeof positionStyles;
   close?: boolean;
+  noArrow?: boolean;
+  className?: string;
 }
 
-export default function Tooltip({ title, position, close = false }: ITooltip) {
+export default function Tooltip({
+  title,
+  position,
+  close = false,
+  noArrow = false,
+  className = ''
+}: ITooltip) {
   return (
     <div
       className={`${positionStyles[position][close ? 'close' : 'far']} ${[
         'pointer-events-none absolute flex w-max rounded-md bg-lg-accent p-xs text-sm font-medium text-lg-primary-base opacity-0 transition-faster group-hover:opacity-100 dark:bg-dk-accent',
-        "before:absolute before:h-0 before:w-0 before:border-8 before:border-transparent before:content-[''] before:transition-faster "
+        `${
+          !noArrow &&
+          "before:absolute before:h-0 before:w-0 before:border-8 before:border-transparent before:content-[''] before:transition-faster "
+        } ${className}`
       ].join(' ')} `}
     >
       {title}

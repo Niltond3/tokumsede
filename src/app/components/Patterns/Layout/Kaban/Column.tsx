@@ -62,7 +62,12 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
       </div>
       <ul className="max-h-72 min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300">
         {purchasesIds.map((value, index) => (
-          <PurchaseCard key={`${index}-${value}`} index={index} title={`${value}`} />
+          <PurchaseCard
+            key={`${index}-${value}-${id}`}
+            index={index}
+            purchaseId={`${value}`}
+            currentStatus={`${id}`}
+          />
         ))}
       </ul>
       <Button typeOf="Add" title="Fazer novo pedido" onClick={onClick} />
