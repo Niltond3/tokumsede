@@ -107,12 +107,15 @@ export default function PurchaseCard({ index, title }: ICard) {
           <Tooltip title="Telefone" close position="top" />
         </label>
       </div>
-      {/* ADDRESS --> STREET && NEIGHBORHOOD && NUMBER && REFERENCE*/}
-      <div className="mt-2">
-        <span className="flex">
+      {/* ADDRESS --> STREET && NEIGHBORHOOD && NUMBER && COMPLEMENT && REFERENCE*/}
+      <div className="mt-2 text-left">
+        <button className="group relative float-left mr-1 h-min">
           <Address />
-          {'rua do cliente, nº ## ● bairro do cliente. | complemento ● referência'}
-        </span>
+          <Tooltip position="top-start" title="Mudar endereço" close />
+        </button>
+        <p className="text-justify">
+          rua do cliente, nº ## ● bairro do cliente. | complemento ● referência
+        </p>
       </div>
       {/* STATUS --> STATUS TIME AND RESPONSE TRACKER */}
       <div className="flex">
