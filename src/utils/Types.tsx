@@ -1,9 +1,9 @@
 import { NextComponentType, NextPageContext } from 'next';
 import type { AppProps } from 'next/app';
 
-import { thisIcons } from 'app/components/Ui/DataDisplay/Icons';
+import { icons } from 'app/components/Ui/DataDisplay/Icons';
 
-export type TypeIcons = typeof thisIcons;
+export type TypeIcons = typeof icons;
 
 type ContentLabel = {
   icon: keyof TypeIcons;

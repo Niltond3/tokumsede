@@ -3,7 +3,7 @@
 import { useSelectedLayoutSegments } from 'next/navigation';
 import { Fragment } from 'react';
 
-import Icons, { ArrowRight, Home } from 'app/components/Ui/DataDisplay/Icons';
+import Icons, { Arrow, Home } from 'app/components/Ui/DataDisplay/Icons';
 import Link from 'app/components/Ui/Navigation/Link';
 
 import { NAVIGATION_LINKS } from 'utils/Constants';
@@ -89,7 +89,7 @@ const RenderCrumbs = (paths: IPaths[]) => {
                     <p className={`group-hover:max-w-xs ${lastIndex && '!mr-0'}`}>
                       {title}
                     </p>
-                    {!lastIndex && <ArrowRight />}
+                    {!lastIndex && <Arrow />}
                   </>
                 </Link>
               </li>

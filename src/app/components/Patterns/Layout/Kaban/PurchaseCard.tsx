@@ -7,15 +7,16 @@ import Icons, {
   ArrowRight,
   Cancel,
   Copy,
+  CurrencyReal,
   Delivered,
   Exchange,
   Number,
   Pending,
   Phone,
   Purchase,
-  Schedule
+  Schedule,
+  PuraLeve
 } from 'app/components/Ui/DataDisplay/Icons';
-import Img from 'app/components/Ui/DataDisplay/Image';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import TextField from 'app/components/Ui/Inputs/TextField';
 
@@ -108,9 +109,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
           onClick={handleClickToClipboard}
           data-clipboard="Total a pagar: R$ 00,00"
         >
-          <p className="pointer-events-none px-1">
-            <span className="text-xs font-medium">R$ </span>00,00
-          </p>
+          <CurrencyReal /> <p className="ml-1">00,00</p>
           <Tooltip
             close
             position="top"
@@ -158,40 +157,13 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
           <ArrowRight className="rotate-90 transition-faster" />
         </label>
         <div className="max-h-0 overflow-hidden p-1 transition-faster peer-checked:max-h-40">
-          <div>
-            <div>
-              <Img size={12} image="logo" />
-              <p>productName</p>
-            </div>
-            <div className="group relative flex items-center">
-              <p className="px-1">
-                <span className="text-xs font-medium">R$ </span>
-                <TextField type="currence" />
-              </p>
-              <Tooltip close position="top" title="Troco" />
-            </div>
-            <div>
-              qtd <input type="number"></input>
-            </div>
-            <button
-              className="group relative flex items-center"
-              onClick={handleClickToClipboard}
-              data-clipboard="Subtotal: R$ 00,00"
-            >
-              <p className="pointer-events-none px-1">
-                <span className="text-xs font-medium">R$ </span>00,00
-              </p>
-              <Tooltip
-                close
-                position="top"
-                title={
-                  <div className="flex items-center">
-                    <Copy /> <p className="ml-1">Subtotal</p>
-                  </div>
-                }
-              />
-            </button>
+          <div className="flex [&>*]:w-4 ">
+            <p>produto</p>
+            <p>un</p>
+            <p>qtd</p>
+            <p>total</p>
           </div>
+          <ul>{renderProducts(products)}</ul>
         </div>
       </div>
       {/* STATUS --> STATUS TIME AND RESPONSE TRACKER */}
@@ -206,6 +178,116 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
     </div>
   );
 }
+const renderProducts = (products: Product[]) => {
+  return products.map(({ id, Icon, measure, name, shortName, value }, index) => (
+    <li key={`${id}-${name}`} className="flex">
+      <div className="flex">
+        <Icon className="text-red-500" />
+        <p>{`${name} ${measure}`}</p>
+      </div>
+      <div className="group relative flex items-center">
+        <CurrencyReal />
+        <p className="ml-2">{value}</p>
+      </div>
+      <div className="flex">
+        qtd <input type="number"></input>
+      </div>
+      <button
+        className="group relative flex items-center"
+        onClick={console.log}
+        data-clipboard="Subtotal: R$ 00,00"
+      >
+        <p className="pointer-events-none px-1">
+          <span className="text-xs font-medium">R$ </span>00,00
+        </p>
+        <Tooltip
+          close
+          position="top"
+          title={
+            <div className="flex items-center">
+              <Copy /> <p className="ml-1">Subtotal</p>
+            </div>
+          }
+        />
+      </button>
+    </li>
+  ));
+};
+type Product = {
+  id: number;
+  Icon: React.ReactNode;
+  name: string;
+  shortName: string;
+  value: number;
+  measure: string;
+};
+
+const products: Product[] = [
+  {
+    id: 1,
+    Icon: <PuraLeve />,
+    name: 'Água Pura & Leve',
+    shortName: 'Leve',
+    value: 8.0,
+    measure: '20L'
+  },
+  {
+    id: 2,
+    Icon: <PuraLeve />,
+    name: 'Água Rica',
+    shortName: 'Leve',
+    value: 11.0,
+    measure: '20L'
+  },
+  {
+    id: 3,
+    Icon: <PuraLeve />,
+    name: 'Água Tope',
+    shortName: 'Leve',
+    value: 10.0,
+    measure: '5L'
+  },
+  {
+    id: 4,
+    Icon: <PuraLeve />,
+    name: 'Água Especial',
+    shortName: 'Leve',
+    value: 8.0,
+    measure: '20L'
+  },
+  {
+    id: 5,
+    Icon: <PuraLeve />,
+    name: 'Garrafão Polipropileno',
+    shortName: 'PP',
+    value: 17.0,
+    measure: '20L'
+  },
+  {
+    id: 6,
+    Icon: <PuraLeve />,
+    name: 'Garrafão Polietileno ',
+    shortName: 'PE',
+    value: 22.0,
+    measure: '20L'
+  },
+  {
+    id: 7,
+    Icon: <PuraLeve />,
+    name: 'Garrafão policarbonato ',
+    shortName: 'PC',
+    value: 29.0,
+    measure: '20L'
+  },
+  {
+    id: 8,
+    Icon: <PuraLeve />,
+    name: 'Garrafão Polipropileno',
+    shortName: 'PP',
+    value: 11.0,
+    measure: '10L'
+  }
+];
 
 type InitialState = {
   paymentType: PaymentType;
