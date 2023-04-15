@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { ArrowRight, Home, Hashtag } from '../DataDisplay/Icons';
+import { Arrow, Home, Hashtag } from '../DataDisplay/Icons';
 import Link from './Link';
 
 const svg = {
@@ -11,7 +11,7 @@ const svg = {
     };
     return themeMapping[theme];
   },
-  secondary: () => <ArrowRight className="h-4 w-4" />
+  secondary: () => <Arrow className="h-4 w-4" />
 } as const;
 
 interface IThemes {

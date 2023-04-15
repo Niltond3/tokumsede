@@ -3,7 +3,7 @@ import Icons, {
   DarkMode,
   NotificationsOn,
   NotificationsOff,
-  ArrowRight,
+  Arrow,
   Add
 } from '../DataDisplay/Icons';
 import Img from '../DataDisplay/Image';
@@ -89,7 +89,7 @@ const defaultChildren = {
     <>
       {icon && <Icons icon={icon} className="min-w-min pr-s" />}
       <p>{title}</p>
-      <ArrowRight className="absolute-y-center right-0 z-[52] mr-1 transition-faster" />
+      <Arrow className="absolute-y-center right-0 z-[52] mr-1 transition-faster" />
     </>
   ),
   Add: ({ title }: { title?: string }) => (

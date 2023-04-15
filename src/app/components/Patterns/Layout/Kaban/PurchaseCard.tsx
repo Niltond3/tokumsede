@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Icons, {
   Accepted,
   Address,
-  ArrowRight,
+  Arrow,
   Cancel,
   Copy,
   CurrencyReal,
@@ -83,7 +83,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
           <input type="checkbox" id={dropDownId} className="group peer hidden"></input>
           <label htmlFor={dropDownId} className="flex cursor-pointer items-center">
             <Icons icon={paymentType as keyof TypeIcons} />
-            <ArrowRight />
+            <Arrow />
           </label>
           <ul className="absolute top-full z-10 flex max-h-0 w-full flex-col items-center overflow-hidden rounded-md border-[0.1rem] border-lg-primary-base/0 bg-lg-primary-lighter/0 pt-1 backdrop-blur-sm transition-faster peer-checked:max-h-[10rem] peer-checked:border-lg-primary-base/30 peer-checked:bg-lg-primary-lighter/20">
             {paymentForms.map((value, index) => {
@@ -154,7 +154,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
           className="relative flex cursor-pointer items-center justify-between transition-faster peer-checked:mt-2 peer-checked:[&>svg:nth-child(2)]:-rotate-90"
         >
           <Purchase />
-          <ArrowRight className="rotate-90 transition-faster" />
+          <Arrow className="rotate-90 transition-faster" />
         </label>
         <div className="max-h-0 overflow-hidden p-1 transition-faster peer-checked:max-h-40">
           <div className="flex [&>*]:w-4 ">
@@ -179,10 +179,10 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
   );
 }
 const renderProducts = (products: Product[]) => {
-  return products.map(({ id, Icon, measure, name, shortName, value }, index) => (
+  return products.map(({ id, icon, measure, name, shortName, value }, index) => (
     <li key={`${id}-${name}`} className="flex">
       <div className="flex">
-        <Icon className="text-red-500" />
+        <Icons icon={icon} />
         <p>{`${name} ${measure}`}</p>
       </div>
       <div className="group relative flex items-center">
@@ -215,7 +215,7 @@ const renderProducts = (products: Product[]) => {
 };
 type Product = {
   id: number;
-  Icon: React.ReactNode;
+  icon: keyof TypeIcons;
   name: string;
   shortName: string;
   value: number;
@@ -225,7 +225,7 @@ type Product = {
 const products: Product[] = [
   {
     id: 1,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Água Pura & Leve',
     shortName: 'Leve',
     value: 8.0,
@@ -233,7 +233,7 @@ const products: Product[] = [
   },
   {
     id: 2,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Água Rica',
     shortName: 'Leve',
     value: 11.0,
@@ -241,7 +241,7 @@ const products: Product[] = [
   },
   {
     id: 3,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Água Tope',
     shortName: 'Leve',
     value: 10.0,
@@ -249,7 +249,7 @@ const products: Product[] = [
   },
   {
     id: 4,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Água Especial',
     shortName: 'Leve',
     value: 8.0,
@@ -257,7 +257,7 @@ const products: Product[] = [
   },
   {
     id: 5,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Garrafão Polipropileno',
     shortName: 'PP',
     value: 17.0,
@@ -265,7 +265,7 @@ const products: Product[] = [
   },
   {
     id: 6,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Garrafão Polietileno ',
     shortName: 'PE',
     value: 22.0,
@@ -273,7 +273,7 @@ const products: Product[] = [
   },
   {
     id: 7,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Garrafão policarbonato ',
     shortName: 'PC',
     value: 29.0,
@@ -281,7 +281,7 @@ const products: Product[] = [
   },
   {
     id: 8,
-    Icon: <PuraLeve />,
+    icon: 'PuraLeve',
     name: 'Garrafão Polipropileno',
     shortName: 'PP',
     value: 11.0,
