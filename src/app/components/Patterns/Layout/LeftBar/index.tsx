@@ -51,64 +51,66 @@ export default function LeftBar() {
   );
 
   const Return = (
-    <aside className="h-screen w-52 flex-col bg-lg-primary pt-xl transition-slow dark:bg-dk-primary">
-      <div className="ml-m flex h-xl justify-between rounded-l-full border-y-8 border-l-8 border-lg-primary pl-m pr-xxl transition-slow dark:border-dk-primary">
-        <Button
-          typeOf="DarkModeToggle"
-          aria-label="Dark mode toggle"
-          onClick={toggleTheme}
-        >
-          <Tooltip close position="bottom-start" title="Mudar Tema" />
-        </Button>
-        <Button
-          typeOf="Notifications"
-          aria-label="Notifications"
-          onClick={() => {
-            //nothing happened for now
-          }}
-        >
-          <Tooltip close position="bottom" title="Silênciar" />;
-        </Button>
-        <Button
-          typeOf="Settings"
-          aria-label="Settings"
-          onClick={() => {
-            //nothing happened for now
-          }}
-        >
-          <Tooltip close position={'bottom-start'} title="Configurações" />
-        </Button>
-        <div className="absolute top-[3.5rem] h-px w-11 rounded-full transition-faster" />
-        <Mouse className="absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow" />
-        <Button
-          typeOf="InteractiveLogo"
-          className={`${logo} border-lg-primary dark:border-dk-primary`}
-          onClick={handleSetShowFullMenu}
-        />
-        <input type="checkbox" className="hidden" id="interactive_logo"></input>
-        <label
-          className={[
-            'border-secondary-default dark:border-secondary-dark group relative flex h-16 w-16 cursor-pointer rounded-full p-xs transition-slow',
-            ''
-          ].join(' ')}
-          htmlFor="interactive_logo"
-        >
-          <Img
-            size={24}
-            image="logo"
-            className="absolute w-6 transition-slow group-hover:opacity-100"
-          />
-          <Img
-            size={26}
-            image="name"
-            className="absolute top-5 right-3 transition-slow group-hover:opacity-100"
-          />
-          <Img
-            size={48}
-            image="waves"
-            className="absolute bottom-1 transition-slow group-hover:opacity-100"
-          />
-        </label>
+    <aside className="h-full  w-14 flex-col bg-lg-primary pt-xl text-lg-primary-base transition-slow dark:bg-dk-primary [&:has(input:checked)]:w-52 [&:has(input:checked)]:bg-lg-secondary">
+      <div className="relative -top-32 w-full bg-lg-primary transition-slow [&:has(input:checked)]:bg-lg-secondary">
+        <div className="relative h-xl rounded-l-full border-y-8 border-l-8 border-lg-primary transition-slow dark:border-dk-primary [&:has(input:checked)]:pr-xl [&:has(input:checked)]:pl-m">
+          <div className="mr-2 flex h-[calc(100%+8px)] justify-between border-b-[0.1rem] border-lg-primary-base/40 ">
+            {/* TOGGLE THEME MODE*/}
+            <Button
+              typeOf="DarkModeToggle"
+              aria-label="Dark mode toggle"
+              onClick={toggleTheme}
+            >
+              <Tooltip close position="bottom-start" title="Mudar Tema" />
+            </Button>
+            {/* TOGGLE NOTIGICATIONS*/}
+            <Button
+              typeOf="Notifications"
+              aria-label="Notifications"
+              onClick={() => {
+                //nothing happened for now
+              }}
+            >
+              <Tooltip close position="bottom" title="Silênciar" />;
+            </Button>
+            {/* SETTINGS*/}
+            <Button
+              typeOf="Settings"
+              aria-label="Settings"
+              onClick={() => {
+                //nothing happened for now
+              }}
+            >
+              <Tooltip close position={'bottom-start'} title="Configurações" />
+            </Button>
+          </div>
+          <Mouse className="absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow" />
+          <label
+            className={[
+              'border-secondary-default dark:border-secondary-dark group flex h-16 w-16 cursor-pointer rounded-full border-8 border-lg-primary p-xs transition-slow dark:border-dk-primary',
+              'absolute -right-16 bg-lg-primary center-x ',
+              '[&:has(input:checked)>*]:p-xxs [&:has(input:checked)]:-right-3 [&:has(input:checked)]:bg-lg-secondary'
+            ].join(' ')}
+            htmlFor="interactive_logo"
+          >
+            <input type="checkbox" className="peer hidden" id="interactive_logo" />
+            <Img
+              size={24}
+              image="logo"
+              className="absolute w-5 transition-slow group-hover:opacity-100 peer-checked:translate-y-[-0.1rem] peer-checked:translate-x-[0.4rem]"
+            />
+            <Img
+              size={26}
+              image="name"
+              className="absolute top-5 right-2 w-5 transition-slow group-hover:opacity-100 peer-checked:!opacity-0 peer-checked:center-y"
+            />
+            <Img
+              size={48}
+              image="waves"
+              className="absolute -bottom-1 w-9 transition-slow group-hover:opacity-100 peer-checked:bottom-1 peer-checked:w-8 peer-checked:translate-y-[0.15rem] peer-checked:translate-x-[0.25rem]"
+            />
+          </label>
+        </div>
       </div>
       <nav></nav>
     </aside>
