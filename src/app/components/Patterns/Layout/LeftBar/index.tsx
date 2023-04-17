@@ -2,17 +2,23 @@
 import React, { useState } from 'react';
 
 import { Mouse } from 'app/components/Ui/DataDisplay/Icons';
+import Img from 'app/components/Ui/DataDisplay/Image';
+import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import Container from 'app/components/Ui/Layout/Container';
 import Menu from 'app/components/Ui/Navigation/Menu';
 
 import ConfigWrapper from './ConfigButtonsWrapper';
 
-import { NAVIGATION_LINKS } from 'utils/Constants';
+import useColorMode from 'hooks/useColorMode';
+import { NAVIGATION_LINKS, THEMES } from 'utils/Constants';
 
 export default function LeftBar() {
   const [hideFullMenu, setShowFullMenu] = useState(true);
   const [showParcialMenu, setShowParcialMenu] = useState(false);
+  const [colorMode, setClorMode] = useColorMode();
+  const { DARK, LIGHT } = THEMES;
+  const toggleTheme = () => setClorMode(colorMode === LIGHT ? DARK : LIGHT);
 
   const handleSetShowFullMenu = () => setShowFullMenu(!hideFullMenu);
   const handleShowFullMenu = ({ target, currentTarget }: React.MouseEvent) => {
@@ -23,7 +29,8 @@ export default function LeftBar() {
   const handleHideParcialMenu = () => setShowParcialMenu(false);
 
   const { aside, config, logo, menu } = variantStyles(hideFullMenu, showParcialMenu);
-  return (
+
+  const ret = (
     <Container
       type="Aside"
       onClick={handleShowFullMenu}
@@ -42,6 +49,72 @@ export default function LeftBar() {
       <Menu content={NAVIGATION_LINKS} styles={menu} />
     </Container>
   );
+
+  const Return = (
+    <aside className="h-screen w-52 flex-col bg-lg-primary pt-xl transition-slow dark:bg-dk-primary">
+      <div className="ml-m flex h-xl justify-between rounded-l-full border-y-8 border-l-8 border-lg-primary pl-m pr-xxl transition-slow dark:border-dk-primary">
+        <Button
+          typeOf="DarkModeToggle"
+          aria-label="Dark mode toggle"
+          onClick={toggleTheme}
+        >
+          <Tooltip close position="bottom-start" title="Mudar Tema" />
+        </Button>
+        <Button
+          typeOf="Notifications"
+          aria-label="Notifications"
+          onClick={() => {
+            //nothing happened for now
+          }}
+        >
+          <Tooltip close position="bottom" title="Silênciar" />;
+        </Button>
+        <Button
+          typeOf="Settings"
+          aria-label="Settings"
+          onClick={() => {
+            //nothing happened for now
+          }}
+        >
+          <Tooltip close position={'bottom-start'} title="Configurações" />
+        </Button>
+        <div className="absolute top-[3.5rem] h-px w-11 rounded-full transition-faster" />
+        <Mouse className="absolute -right-6 top-6 animate-hover-here opacity-0 transition-slow" />
+        <Button
+          typeOf="InteractiveLogo"
+          className={`${logo} border-lg-primary dark:border-dk-primary`}
+          onClick={handleSetShowFullMenu}
+        />
+        <input type="checkbox" className="hidden" id="interactive_logo"></input>
+        <label
+          className={[
+            'border-secondary-default dark:border-secondary-dark group relative flex h-16 w-16 cursor-pointer rounded-full p-xs transition-slow',
+            ''
+          ].join(' ')}
+          htmlFor="interactive_logo"
+        >
+          <Img
+            size={24}
+            image="logo"
+            className="absolute w-6 transition-slow group-hover:opacity-100"
+          />
+          <Img
+            size={26}
+            image="name"
+            className="absolute top-5 right-3 transition-slow group-hover:opacity-100"
+          />
+          <Img
+            size={48}
+            image="waves"
+            className="absolute bottom-1 transition-slow group-hover:opacity-100"
+          />
+        </label>
+      </div>
+      <nav></nav>
+    </aside>
+  );
+
+  return Return;
 }
 
 function variantStyles(hideFullMenu: boolean, showParcialMenu: boolean) {

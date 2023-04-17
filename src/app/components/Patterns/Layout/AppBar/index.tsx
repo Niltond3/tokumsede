@@ -5,7 +5,10 @@ import Breadcrumb from './Breadcrumb';
 
 export default function AppBar() {
   return (
-    <Container type="AppBar" className="bg-lg-primary transition-slow dark:bg-dk-primary">
+    <Container
+      type="AppBar"
+      className="relative bg-lg-primary transition-slow dark:bg-dk-primary"
+    >
       <div></div>
       {/* <NavBar theme="Breadcrumbs" entrys={entrys} /> */}
       <Breadcrumb />

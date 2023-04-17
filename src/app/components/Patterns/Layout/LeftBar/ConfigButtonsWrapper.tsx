@@ -20,7 +20,7 @@ export default function ConfigButtonsWrapper({ shrink, className }: IConfigWrapp
     >
       <div className="absolute top-[3.5rem] h-px w-11 rounded-full transition-faster" />
       <Button typeOf="DarkModeToggle" aria-label="Dark mode toggle" onClick={toggleTheme}>
-        <Tooltip distace="close" position="bottom-start" title="Mudar Tema" />
+        <Tooltip close position="bottom-start" title="Mudar Tema" />
       </Button>
       <Button
         typeOf="Notifications"
@@ -29,7 +29,7 @@ export default function ConfigButtonsWrapper({ shrink, className }: IConfigWrapp
           //nothing happened for now
         }}
       >
-        <Tooltip distace="close" position="bottom" title="Silênciar" />;
+        <Tooltip close position="bottom" title="Silênciar" />;
       </Button>
       <Button
         typeOf="Settings"
@@ -39,7 +39,7 @@ export default function ConfigButtonsWrapper({ shrink, className }: IConfigWrapp
         }}
       >
         <Tooltip
-          distace="close"
+          close
           position={shrink ? 'bottom-start' : 'bottom-end'}
           title="Configurações"
         />
