@@ -10,13 +10,13 @@
     @apply text-[62,5%]
   }
   body {
-    @apply antialiased bg-lg-primary-base dark:bg-dk-primary-base
+    @apply antialiased bg-lg-primary-base dark:bg-dk-primary-base text-[62,5%]
   }
 }
 
 @layer components {
   .btn-menu-control {
-    @apply relative flex h-10 w-full items-center rounded-l-full bg-lg-primary-base/0 pl-m transition-faster hover:bg-lg-primary-base/30 before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
+    @apply relative flex h-10 items-center rounded-l-full bg-lg-primary-base/0 pl-m transition-faster hover:bg-lg-primary-base/30 before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
   }
   .btn-menu-control-dark {
     @apply bg-dk-primary-base/0 before:bg-menu-corner-dark after:bg-menu-corner-dark hover:bg-dk-primary-base/50

@@ -57,13 +57,13 @@ export default function LeftBar() {
   const Return = (
     <aside
       className={[
-        'h-full  w-14 flex-col bg-lg-primary text-lg-primary-base transition-slow',
-        'child:transition-slow has-chacked:w-52 has-chacked:bg-lg-secondary dark:bg-dk-primary'
+        'flex h-full w-fit flex-col bg-lg-primary text-lg-primary-base @container transition-slow',
+        'child:transition-slow has-checked:bg-lg-secondary dark:bg-dk-primary'
       ].join(' ')}
     >
-      <div className="relative -top-32 w-full bg-lg-primary transition-slow has-chacked:bg-lg-secondary">
-        <div className="relative h-xl rounded-l-full border-y-8 border-l-8 border-lg-primary transition-slow has-chacked:pr-xl has-chacked:pl-m dark:border-dk-primary">
-          <div className="mr-2 flex h-[calc(100%+8px)] items-center justify-between border-b-[0.1rem] border-lg-primary-base/40 transition-slow child:transition-slow has-chacked:border-lg-primary-base/0">
+      <div className="relative -top-16 w-14 bg-lg-primary transition-slow has-checked:w-44 has-checked:bg-lg-secondary">
+        <div className="relative h-xl rounded-l-full border-y-8 border-l-8 border-lg-primary transition-slow has-checked:pr-xl has-checked:pl-m dark:border-dk-primary">
+          <div className="mr-2 flex h-[calc(100%+8px)] items-center justify-between border-b-[0.1rem] border-lg-primary-base/40 transition-slow child:transition-slow has-checked:border-lg-primary-base/0">
             {/* TOGGLE THEME MODE*/}
             <Button
               typeOf="DarkModeToggle"
@@ -97,7 +97,7 @@ export default function LeftBar() {
               className={[
                 'border-secondary-default dark:border-secondary-dark group flex h-16 w-16 cursor-pointer rounded-full border-8 border-lg-primary p-xs dark:border-dk-primary',
                 'absolute -right-16 bg-lg-primary center-x',
-                'child:transition-slow has-chacked:-right-3 has-chacked:bg-lg-secondary [&:has(input:checked)>*]:p-xxs'
+                'child:transition-slow has-checked:-right-3 has-checked:bg-lg-secondary [&:has(input:checked)>*]:p-xxs'
               ].join(' ')}
               htmlFor="interactive_logo"
             >
@@ -121,8 +121,8 @@ export default function LeftBar() {
           </div>
         </div>
       </div>
-      <nav>
-        <ul className={`ml-m mt-m w-full transition-fast`}>
+      <nav className="relative -top-16">
+        <ul className={`w-full pt-4 transition-fast `}>
           {NAVIGATION_LINKS.map(({ content, icon, title, href, onClick }, index) => (
             <li key={`left-menu-${index}`}>
               {content && (
@@ -135,38 +135,35 @@ export default function LeftBar() {
                   <label
                     htmlFor={`${title}-control-dropdown`}
                     className={[
-                      'btn-menu-control group -mr-0.5',
+                      'btn-menu-control group @container @[100px]:gap-2',
                       'peer-checked:bg-lg-primary-base/100 peer-checked:text-lg-secondary peer-checked:transition-none peer-checked:dark:!bg-dk-primary-base/100 peer-checked:dark:text-dk-secondary-base peer-checked:[&>svg:nth-child(2)]:rotate-90',
                       'peer-checked:before:opacity-100 peer-checked:before:transition-none',
                       'peer-checked:after:opacity-100 peer-checked:after:transition-none'
                     ].join(' ')}
                   >
-                    <Icons icon={icon} className="min-w-min pr-s" />
+                    <Icons icon={icon} className="min-w-min" />
                     <p
-                      className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}
+                      className={`invisible min-w-0 text-[0.80rem] font-medium opacity-0 transition-faster @[100px]:visible @[100px]:min-w-[6rem] @[100px]:opacity-100`}
                     >
                       {title}
                     </p>
-                    <Arrow className="absolute-y-center right-0 z-[52] mr-1 transition-faster" />
+                    <Arrow className="z-[52] transition-faster" />
                     <Tooltip title={title} position="right" close />
                   </label>
                   <ul
                     className={[
                       'invisible my-1 flex max-h-0 flex-col flex-nowrap overflow-hidden opacity-0 transition-faster',
                       'peer-checked:visible peer-checked:max-h-96 peer-checked:opacity-100',
-                      'peer-checked:[&>li>a>p]:animate-intro-menu'
+                      'peer-checked:[&>li>a>p]:animate-intro-menu',
+                      'peer-checked:[&>*:nth-child(1)>a>p]:animation-delay-75',
+                      'peer-checked:[&>*:nth-child(2)>a>p]:animation-delay-100',
+                      'peer-checked:[&>*:nth-child(3)>a>p]:animation-delay-150',
+                      'peer-checked:[&>*:nth-child(4)>a>p]:animation-delay-200',
+                      'peer-checked:[&>*:nth-child(5)>a>p]:animation-delay-300',
+                      'peer-checked:[&>*:nth-child(6)>a>p]:animation-delay-500'
                     ].join(' ')}
                   >
                     {content.map(({ href, icon, title, content, onClick }, index) => {
-                      enum EDelay {
-                        'animation-delay-[40ms]!',
-                        'animation-delay-[60ms]!',
-                        'animation-delay-[80ms]!',
-                        'animation-delay-[100ms]!',
-                        'animation-delay-[120ms]!',
-                        'animation-delay-[140ms]!'
-                      }
-                      const delay = EDelay[index];
                       const Return = (
                         <li
                           className={`border-l-2 border-l-lg-primary-base/30 transition-faster hover:border-l-lg-primary-base/100`}
@@ -176,10 +173,20 @@ export default function LeftBar() {
                             className={`group flex items-center justify-start gap-2 p-s fill-mode-forwards transition-faster`}
                           >
                             <Icons icon={icon} />
-                            <p className={`${delay} opacity-0`}>{title}</p>
+                            <p className={`opacity-0 `}>{title}</p>
                           </Link>
                         </li>
                       );
+
+                      enum EDelay {
+                        'animation-delay-[40ms]!',
+                        'animation-delay-[60ms]!',
+                        'animation-delay-[80ms]!',
+                        'animation-delay-[100ms]!',
+                        'animation-delay-[120ms]!',
+                        'animation-delay-[140ms]!'
+                      }
+                      const delay = EDelay[index];
                       const Ret = (
                         <li
                           className="border-l-2 border-l-lg-primary-base/0"

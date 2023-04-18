@@ -176,9 +176,10 @@ module.exports = {
     require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
     require('tailwind-scrollbar'),
+    require('@tailwindcss/container-queries'),
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
-      addVariant('has-chacked', '&:has(input:checked)');
+      addVariant('has-checked', '&:has(input:checked)');
       addUtilities({
         '.transition-slow': {
           transition: 'all 1s ease-out'
