@@ -1,15 +1,15 @@
 import NextLink from 'next/link';
-import { MouseEventHandler, ReactNode } from 'react';
 
 interface Props {
   href: string;
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
-  onClick?: MouseEventHandler<HTMLAnchorElement>;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  style?: React.CSSProperties;
 }
-export default function Link({ href, children, className, onClick }: Props) {
+export default function Link({ href, children, className, onClick, style }: Props) {
   return (
-    <NextLink href={href} passHref className={className} onClick={onClick}>
+    <NextLink href={href} passHref className={className} onClick={onClick} style={style}>
       {children}
     </NextLink>
   );

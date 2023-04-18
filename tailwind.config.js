@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       keyframes: {
         'intro-menu': {
-          '100%': { opacity: '.5', transform: 'translate(0)' }
+          '0%': { opacity: 0, transform: 'translateX(100%)' },
+          '100%': { opacity: '.5', transform: 'translateX(0)' }
         },
         'hover-here': {
           '0%, 100%': {
@@ -21,7 +22,8 @@ module.exports = {
         }
       },
       animation: {
-        'intro-menu': '0.4s ease-in-out 0.1s intro-menu',
+        // slideIn: 'slideIn .25s ease-in-out forwards var(--delay, 0)',
+        'intro-menu': 'intro-menu .40s ease-in-out forwards 0.1s',
         'hover-here': 'hover-here 1.4s infinite'
       },
       spacing: {
@@ -176,6 +178,7 @@ module.exports = {
     require('tailwind-scrollbar'),
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
+      addVariant('has-chacked', '&:has(input:checked)');
       addUtilities({
         '.transition-slow': {
           transition: 'all 1s ease-out'
