@@ -40,6 +40,9 @@ module.exports = {
       fontFamily: {
         title: ['Josefin Sans', 'sans-serif']
       },
+      fontSize: {
+        'base-10': '62,5%'
+      },
       colors: {
         current: 'currentColor',
         dk: {
@@ -179,6 +182,7 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
+      addVariant('has-open', '&:has(input#open-menu:checked)');
       addVariant('has-checked', '&:has(input:checked)');
       addUtilities({
         '.transition-slow': {

@@ -92,7 +92,7 @@ const renderLi = ({
       <p className={`min-w-[6rem] text-[0.80rem] font-medium transition-faster`}>
         {title}
       </p>
-      <Tooltip title={title} position="right" distace="close" />
+      <Tooltip title={title} position="right" close />
     </Link>
   </li>
 );

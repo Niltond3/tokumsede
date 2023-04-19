@@ -4,13 +4,13 @@
 @import '../app/components/Ui/Navigation/index.css';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
+html {
+  font-size: 62,5%;
+}
 
 @layer base {
-  :root {
-    @apply text-[62,5%]
-  }
   body {
-    @apply antialiased bg-lg-primary-base dark:bg-dk-primary-base text-[62,5%]
+    @apply antialiased bg-lg-primary-base dark:bg-dk-primary-base
   }
 }
 
