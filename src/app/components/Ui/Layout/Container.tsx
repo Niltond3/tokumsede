@@ -8,8 +8,7 @@ export default function Container({ type, className, children, ...rest }: IConta
 }
 
 const mapStyles = {
-  AppBar: 'w-full h-xl px-l place-content-between',
-  Aside: 'h-screen pt-xl flex-col w-52 transition-slow '
+  AppBar: 'w-full h-xl px-l place-content-between'
 };
 
 interface IContainer

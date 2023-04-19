@@ -15,7 +15,6 @@ export const purchaseReducer = (
 
       newColumns.DELIVERED.countLabel = getCount('DELIVERED', newColumns);
 
-      console.log(newColumns);
       return {
         ...state,
         columns: {

@@ -47,7 +47,7 @@ export const NAVIGATION_LINKS: IContent[] = [
                 href: '/clients/register/personalInformations',
                 content: [
                   {
-                    icon: 'AddAress',
+                    icon: 'AddAddress',
                     title: 'Endereços',
                     href: '/clients/register/personalInformations/addressInformations'
                   }

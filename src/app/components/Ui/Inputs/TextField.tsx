@@ -1,4 +1,21 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+
+type TextFieldProps = InputProps & {
+  type: keyof typeof mapTextFieldType;
+  maxLength?: number;
+  placeholder?: string;
+};
+
+export default function TextField({
+  value,
+  onChange,
+  type,
+  maxLength = 10,
+  placeholder = 'digite'
+}: TextFieldProps) {
+  return mapTextFieldType[type]({ onChange, value, maxLength, placeholder });
+}
+
 const mapTextFieldType = {
   currence: ({ onChange, value }: InputProps) => {
     const currencyMask = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,22 +95,6 @@ const mapTextFieldType = {
     );
   }
 };
-
-export default function TextField({
-  value,
-  onChange,
-  type,
-  maxLength = 10,
-  placeholder = 'digite'
-}: ITextField) {
-  return mapTextFieldType[type]({ onChange, value, maxLength, placeholder });
-}
-
-interface ITextField extends InputProps {
-  type: keyof typeof mapTextFieldType;
-  maxLength?: number;
-  placeholder?: string;
-}
 
 type InputProps = {
   value?: number;
