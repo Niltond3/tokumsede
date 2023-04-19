@@ -65,7 +65,8 @@ const RenderCrumbs = (paths: IPaths[]) => {
         className={`${[
           liStyles,
           `${!initialPath && 'before:hidden'}`,
-          'before:absolute before:right-2 before:rounded-md before:border-lg-primary',
+          'before:transition-slow',
+          'before:absolute before:right-2 before:rounded-md before:border-lg-primary dark:before:border-dk-primary',
           'before:top-1/2 before:-translate-y-1/2',
           'before:block before:h-8 before:w-8 before:rotate-[225deg]',
           'before:border-t-0 before:border-l-2 before:border-b-2 before:border-r-0'

@@ -17,6 +17,7 @@ import { default as CurrencyReal } from './svg/currency_real.svg';
 import { default as Customer } from './svg/customer.svg';
 import { default as DarkMode } from './svg/dark_mode.svg';
 import { default as Dashboard } from './svg/dashboard.svg';
+import { default as Default } from './svg/default.svg';
 import { default as Delivered } from './svg/delivered.svg';
 import { default as Deliveryman } from './svg/deliveryman.svg';
 import { default as Distributor } from './svg/distributor.svg';
@@ -67,6 +68,7 @@ export {
   Customer,
   DarkMode,
   Dashboard,
+  Default,
   Delivered,
   Deliveryman,
   Distributor,
