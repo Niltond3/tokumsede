@@ -1,5 +1,5 @@
+import RadixTooltip from 'app/components/Ui/DataDisplay/_Tooltip';
 import Icons from 'app/components/Ui/DataDisplay/Icons';
-import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Checkbox from 'app/components/Ui/Inputs/Checkbox';
 import Link from 'app/components/Ui/Navigation/Link';
 
@@ -29,28 +29,34 @@ const NavMenuItem = ({ content = [], icon, title, index }: NavMenuItemType) => (
           'peer-checked:[&>*:nth-child(6)>a>p]:animation-delay-500'
         ].join(' ')}
       >
-        {content.map(({ href, icon, title }, itemIndex) => (
-          <li
-            key={`nav-item-${index}.${itemIndex}`}
-            className={`border-l-2 border-l-lg-primary-base/30 transition-faster hover:border-l-lg-primary-base/100`}
-          >
-            <Link
-              href={href}
-              className={`group flex items-center justify-start gap-2 p-s fill-mode-forwards transition-faster`}
-            >
-              <Icons icon={icon} className="min-w-min" />
-              <p
-                className={`hidden overflow-hidden whitespace-nowrap text-xs opacity-0 transition-fast @[161px]:flex`}
-              >
-                {title}
-              </p>
-              <Tooltip close title={title} position="right" className="@[70px]:hidden" />
-            </Link>
-          </li>
+        {content.map((value, itemIndex) => (
+          <RenderLi key={`nav-item-${index}.${itemIndex}`} {...value} />
         ))}
       </ul>
     </div>
   </li>
 );
+
+const RenderLi = ({ href, icon, title }: IContent) => {
+  return (
+    <li
+      className={`border-l-2 border-l-lg-primary-base/30 transition-faster hover:border-l-lg-primary-base/100`}
+    >
+      <RadixTooltip side="right" content={title}>
+        <Link
+          href={href}
+          className={`group flex items-center justify-start gap-2 p-s fill-mode-forwards transition-faster`}
+        >
+          <Icons icon={icon} className="min-w-min" />
+          <p
+            className={`hidden overflow-hidden whitespace-nowrap text-xs opacity-0 transition-fast @[161px]:flex`}
+          >
+            {title}
+          </p>
+        </Link>
+      </RadixTooltip>
+    </li>
+  );
+};
 
 export default NavMenuItem;

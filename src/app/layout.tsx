@@ -1,6 +1,7 @@
 import 'styles/globals.css';
 import { Metadata } from 'next';
 
+import { TooltipProvider } from './components/Ui/DataDisplay/_Tooltip';
 import IndexLaytout from 'app/components/Patterns/Layout';
 
 export const metadata: Metadata = {
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <IndexLaytout>{children}</IndexLaytout>
+        <TooltipProvider>
+          <IndexLaytout>{children}</IndexLaytout>
+        </TooltipProvider>
       </body>
     </html>
   );

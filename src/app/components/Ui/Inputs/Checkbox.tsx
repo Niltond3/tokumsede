@@ -92,7 +92,7 @@ const mappingStyles: MappingStylesProps = {
       ].join(' '),
       children: (
         <>
-          <Mouse className="absolute right-16 top-6 animate-hover-here transition-faster group-hover/aside:opacity-0 group-peer-checked:opacity-0" />
+          <Mouse className="pointer-events-none absolute right-16 top-6 animate-hover-here transition-faster group-hover/aside:opacity-0 group-peer-checked:opacity-0" />
           <Img
             size={24}
             image="logo"

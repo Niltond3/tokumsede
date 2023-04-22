@@ -1,8 +1,10 @@
 'use client';
-import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
+import Tooltip from 'app/components/Ui/DataDisplay/_Tooltip';
+import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Button from 'app/components/Ui/Inputs/Button';
 import Checkbox from 'app/components/Ui/Inputs/Checkbox';
 
+import clsx from 'clsx';
 import useColorMode from 'hooks/useColorMode';
 import { THEMES } from 'utils/Constants';
 
@@ -10,39 +12,60 @@ export default function WrapperSettings() {
   const [colorMode, setClorMode] = useColorMode();
   const { DARK, LIGHT } = THEMES;
   const toggleTheme = () => setClorMode(colorMode === LIGHT ? DARK : LIGHT);
+  const emptyFunc = () => {
+    // Clean
+  };
 
   return (
     <div className="relative -top-16 z-10 w-full bg-lg-primary transition-slow has-open:bg-lg-secondary dark:bg-dk-primary dark:has-open:bg-dk-secondary">
       <div className="relative h-xl rounded-l-full border-y-8 border-l-8 border-lg-primary transition-slow has-open:pr-xl has-open:pl-m dark:border-dk-primary">
-        <div className="mr-2 flex h-[calc(100%+8px)] items-center justify-between border-b-[0.1rem] border-lg-primary-base/40 transition-slow child:transition-slow has-open:border-lg-primary-base/0">
+        <div className="mr-2 flex h-[calc(100%+8px)] items-center justify-between border-b-[0.1rem] border-lg-primary-base/40 transition-slow child:transition-slow has-open:border-lg-primary-base/0 [&:has(#open-menu:checked)]:mr-0">
           {/* TOGGLE THEME MODE*/}
-          <Button
-            typeOf="DarkModeToggle"
-            aria-label="Dark mode toggle"
-            onClick={toggleTheme}
-          >
-            <Tooltip close position="bottom-start" title="Mudar Tema" />
-          </Button>
-          {/* TOGGLE NOTIGICATIONS*/}
-          <Button
-            typeOf="Notifications"
-            aria-label="Notifications"
-            onClick={() => {
-              //nothing happened for now
-            }}
-          >
-            <Tooltip close position="bottom" title="Silênciar" />;
-          </Button>
-          {/* SETTINGS*/}
-          <Button
-            typeOf="Settings"
-            aria-label="Settings"
-            onClick={() => {
-              //nothing happened for now
-            }}
-          >
-            <Tooltip close position={'bottom-start'} title="Configurações" />
-          </Button>
+          <div className="flex h-full w-full items-center gap-2">
+            <Tooltip content="Mudar Tema" align="center" side="bottom">
+              {/* <Button is="DarkModeToggle" onClick={toggleTheme} /> */}
+              <button
+                className={clsx(
+                  'group relative flex h-1/2 w-1/3 items-center opacity-50 transition-faster hover:opacity-100',
+                  '[&>*]:absolute [&>*]:left-1/2  [&>*]:top-1/2 [&>*]:-translate-y-1/2 [&>*]:-translate-x-1/2'
+                )}
+              >
+                <Icons icon="LightMode" className="opacity-100 dark:opacity-0" />
+                <Icons icon="DarkMode" className="opacity-0 dark:opacity-100" />
+              </button>
+            </Tooltip>
+            {/* TOGGLE NOTIGICATIONS*/}
+            <Tooltip content="Silênciar" align="center" side="bottom">
+              {/* <Button is="Notifications" onClick={emptyFunc} /> */}
+              <button
+                className={clsx(
+                  'group relative flex h-1/2 w-1/3 items-center opacity-50 transition-faster hover:opacity-100',
+                  '[&>*]:absolute [&>*]:left-1/2  [&>*]:top-1/2 [&>*]:-translate-y-1/2 [&>*]:-translate-x-1/2'
+                )}
+              >
+                <Icons
+                  icon="NotificationsOn"
+                  className="opacity-100 transition-slow dark:opacity-0"
+                />
+                <Icons
+                  icon="NotificationsOff"
+                  className="opacity-0 transition-slow dark:opacity-100"
+                />
+              </button>
+            </Tooltip>
+            {/* SETTINGS*/}
+            <Tooltip content="Configurações" align="center" side="bottom">
+              {/* <Button is="Settings" onClick={emptyFunc} /> */}
+              <button
+                className={clsx(
+                  'group relative flex h-1/2 w-1/3 items-center opacity-50 transition-faster hover:opacity-100',
+                  '[&>*]:absolute [&>*]:left-1/2  [&>*]:top-1/2 [&>*]:-translate-y-1/2 [&>*]:-translate-x-1/2'
+                )}
+              >
+                <Icons icon="Settings" />
+              </button>
+            </Tooltip>
+          </div>
           <Checkbox type="LeftAsideControl" />
         </div>
       </div>
