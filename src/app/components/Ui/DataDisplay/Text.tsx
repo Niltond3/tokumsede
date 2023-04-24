@@ -1,7 +1,7 @@
 import React from 'react';
 
 /* eslint-disable @typescript-eslint/ban-types */
-type AsProps<C extends React.ElementType> = {
+type AsProp<C extends React.ElementType> = {
   as?: C;
 };
 
@@ -26,9 +26,9 @@ type TextComponent = <C extends React.ElementType = 'span'>(
   props: TextProps<C>
 ) => React.ReactElement | null;
 
-type Props<C extends React.ElementType> = React.PropsWithChildren<TextProps<C>> &
-  Omit<React.ComponentPropsWithoutRef<C>, keyof TextProps<C>>;
-type AsProp<C extends React.ElementType> = { as?: C };
+// type Props<C extends React.ElementType> = React.PropsWithChildren<TextProps<C>> &
+//   Omit<React.ComponentPropsWithoutRef<C>, keyof TextProps<C>>;
+// type AsProp<C extends React.ElementType> = { as?: C };
 
 export const Text: TextComponent = React.forwardRef(
   <C extends React.ElementType = 'span'>(

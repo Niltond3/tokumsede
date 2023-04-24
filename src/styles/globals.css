@@ -16,7 +16,7 @@ html {
 
 @layer components {
   .btn-menu-control {
-    @apply relative flex h-10 items-center rounded-l-full bg-lg-primary-base/0 pl-m transition-faster hover:bg-lg-primary-base/30 before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
+    @apply before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
   }
   .btn-menu-control-dark {
     @apply bg-dk-primary-base/0 before:bg-menu-corner-dark after:bg-menu-corner-dark hover:bg-dk-primary-base/50

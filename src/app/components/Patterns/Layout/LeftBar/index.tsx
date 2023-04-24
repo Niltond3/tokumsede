@@ -1,4 +1,4 @@
-import NavMenuItem from './NavMenuItem';
+import DropdownMenu from './DropdownMenu';
 import WrapperSettings from './WrapperButtonsSettings';
 
 import { NAVIGATION_LINKS } from 'utils/Constants';
@@ -17,7 +17,7 @@ export default function LeftBar() {
       <nav className="relative -top-16">
         <ul className={`w-full pt-4 transition-fast`}>
           {NAVIGATION_LINKS.map(({ content, icon, title }, menuIndex) => (
-            <NavMenuItem
+            <DropdownMenu
               key={`nav-menu-${menuIndex}`}
               icon={icon}
               index={menuIndex}

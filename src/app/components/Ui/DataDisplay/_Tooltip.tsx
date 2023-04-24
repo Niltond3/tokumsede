@@ -25,7 +25,7 @@ export default function Tooltip({
 }: TooltipProps) {
   React.useLayoutEffect = React.useEffect;
   return (
-    <TooltipPrimitive.Root open={true} delayDuration={0}>
+    <TooltipPrimitive.Root delayDuration={0}>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
@@ -33,9 +33,8 @@ export default function Tooltip({
           align={align}
           alignOffset={alignOffset}
           sideOffset={sideOffset}
-          avoidCollisions={false}
           className={clsx(
-            'z-10 inline-flex items-center rounded px-2 py-1',
+            'z-10 inline-flex animate-opacity items-center rounded px-2 py-1 opacity-0',
             'bg-lg-accent text-lg-primary-base dark:bg-gray-800'
           )}
         >

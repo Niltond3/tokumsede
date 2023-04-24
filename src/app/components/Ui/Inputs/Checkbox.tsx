@@ -1,7 +1,7 @@
 import Icons, { Arrow, Mouse, SortDown, SortUp } from '../DataDisplay/Icons';
 import Img from '../DataDisplay/Image';
-import Tooltip from '../DataDisplay/Tooltip';
 
+import { clsx } from 'clsx';
 import { TypeIcons } from 'utils/Types';
 
 type CheckboxProps = StylesProps & {
@@ -40,14 +40,14 @@ type MappingStylesProps = { [key in string]: CheckboxStylesProps };
 
 const defaultStyles = {
   inputHidden: 'peer hidden',
-  labelToggle: [
-    `group relative h-auto w-4 cursor-pointer`,
+  labelToggle: clsx(
+    `group h-auto cursor-pointer`,
     '[&>*]:absolute [&>*]:transition-faster [&>svg]:center-x',
     '[&>svg:nth-child(2)]:opacity-0',
     'peer-checked:[&>svg:nth-child(1)]:opacity-0 peer-checked:[&>svg:nth-child(2)]:opacity-100',
-    'transition-faster opacity-50 hover:opacity-100 w-4 h-full',
-    '[&>svg]:absolute [&>svg]:left-1/2  [&>svg]:-translate-y-1/2 [&>svg]:top-1/2 [&>svg]:-translate-x-1/2'
-  ].join(' ')
+    'opacity-50 transition-faster hover:opacity-100',
+    '[&>svg]:absolute [&>svg]:left-1/2  [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:-translate-x-1/2'
+  )
 };
 const { inputHidden, labelToggle } = defaultStyles;
 
@@ -57,7 +57,7 @@ const mappingStyles: MappingStylesProps = {
       id: `${title.toLowerCase()}-control-dropdown`,
       inputStyles: inputHidden,
       labelStyles: [
-        'btn-menu-control group relative',
+        'btn-menu-control group',
         '@[70px]:gap-2.5',
         'peer-checked:bg-lg-primary-base/100 peer-checked:text-lg-secondary peer-checked:transition-none peer-checked:dark:!bg-dk-primary-base/100 peer-checked:dark:text-dk-secondary-base',
         'dark:peer-checked:bg-dk-primary-base/100 dark:peer-checked:text-dk-secondary-base',
@@ -75,7 +75,6 @@ const mappingStyles: MappingStylesProps = {
             {title}
           </p>
           <Arrow className="absolute right-1 min-w-min @[161px]:right-2.5" />
-          <Tooltip title={title} position="right" close className="@[70px]:hidden" />
         </>
       )
     };

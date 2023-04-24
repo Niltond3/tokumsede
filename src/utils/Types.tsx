@@ -5,14 +5,6 @@ import * as icons from 'app/components/Ui/DataDisplay/Icons';
 
 export type TypeIcons = typeof icons;
 
-type ContentLabel = {
-  icon: keyof TypeIcons;
-  ariaLabel?: string;
-  title: string;
-};
-
-export type JSXLabel = ({ ariaLabel, icon, title }: ContentLabel) => JSX.Element;
-
 export interface IContent {
   title: string;
   icon: keyof TypeIcons;
@@ -25,11 +17,6 @@ export type AppPropsWithLayout = AppProps & {
     PageLayout?: NextComponentType<NextPageContext, any, any>;
   };
 };
-
-// export interface IHMLElement {
-//   children?: React.ReactNode;
-//   className?: string;
-// }
 
 type AddressType = {
   street: string;

@@ -1,10 +1,8 @@
 'use client';
 import Tooltip from 'app/components/Ui/DataDisplay/_Tooltip';
-import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Button from 'app/components/Ui/Inputs/Button';
 import Checkbox from 'app/components/Ui/Inputs/Checkbox';
 
-import clsx from 'clsx';
 import useColorMode from 'hooks/useColorMode';
 import { THEMES } from 'utils/Constants';
 
@@ -23,47 +21,15 @@ export default function WrapperSettings() {
           {/* TOGGLE THEME MODE*/}
           <div className="flex h-full w-full items-center gap-2">
             <Tooltip content="Mudar Tema" align="center" side="bottom">
-              {/* <Button is="DarkModeToggle" onClick={toggleTheme} /> */}
-              <button
-                className={clsx(
-                  'group relative flex h-1/2 w-1/3 items-center opacity-50 transition-faster hover:opacity-100',
-                  '[&>*]:absolute [&>*]:left-1/2  [&>*]:top-1/2 [&>*]:-translate-y-1/2 [&>*]:-translate-x-1/2'
-                )}
-              >
-                <Icons icon="LightMode" className="opacity-100 dark:opacity-0" />
-                <Icons icon="DarkMode" className="opacity-0 dark:opacity-100" />
-              </button>
+              <Button is="DarkModeToggle" onClick={toggleTheme} />
             </Tooltip>
             {/* TOGGLE NOTIGICATIONS*/}
             <Tooltip content="Silênciar" align="center" side="bottom">
-              {/* <Button is="Notifications" onClick={emptyFunc} /> */}
-              <button
-                className={clsx(
-                  'group relative flex h-1/2 w-1/3 items-center opacity-50 transition-faster hover:opacity-100',
-                  '[&>*]:absolute [&>*]:left-1/2  [&>*]:top-1/2 [&>*]:-translate-y-1/2 [&>*]:-translate-x-1/2'
-                )}
-              >
-                <Icons
-                  icon="NotificationsOn"
-                  className="opacity-100 transition-slow dark:opacity-0"
-                />
-                <Icons
-                  icon="NotificationsOff"
-                  className="opacity-0 transition-slow dark:opacity-100"
-                />
-              </button>
+              <Button is="Notifications" onClick={emptyFunc} />
             </Tooltip>
             {/* SETTINGS*/}
             <Tooltip content="Configurações" align="center" side="bottom">
-              {/* <Button is="Settings" onClick={emptyFunc} /> */}
-              <button
-                className={clsx(
-                  'group relative flex h-1/2 w-1/3 items-center opacity-50 transition-faster hover:opacity-100',
-                  '[&>*]:absolute [&>*]:left-1/2  [&>*]:top-1/2 [&>*]:-translate-y-1/2 [&>*]:-translate-x-1/2'
-                )}
-              >
-                <Icons icon="Settings" />
-              </button>
+              <Button is="Settings" onClick={emptyFunc} />
             </Tooltip>
           </div>
           <Checkbox type="LeftAsideControl" />

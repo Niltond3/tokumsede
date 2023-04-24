@@ -8,6 +8,10 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
+        opacity: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 }
+        },
         'intro-menu': {
           '0%': { opacity: 0, transform: 'translateX(100%)' },
           '100%': { opacity: '.5', transform: 'translateX(0)' }
@@ -23,6 +27,7 @@ module.exports = {
       },
       animation: {
         // slideIn: 'slideIn .25s ease-in-out forwards var(--delay, 0)',
+        opacity: 'opacity .15s ease-in-out forwards 0.1s',
         'intro-menu': 'intro-menu .40s ease-in-out forwards 0.1s',
         'hover-here': 'hover-here 1.4s infinite'
       },
@@ -220,12 +225,64 @@ module.exports = {
         }
       );
     }),
-    plugin(function groupPeer({ addVariant }) {
+    plugin(function groupPeer({ addVariant, matchVariant,theme }) {
       let pseudoVariants = [
         // ... Any other pseudo variants you want to support.
         // See https://github.com/tailwindlabs/tailwindcss/blob/6729524185b48c9e25af62fc2372911d66e7d1f0/src/corePlugins.js#L78
         'checked'
       ].map((variant) => (Array.isArray(variant) ? variant : [variant, `&:${variant}`]));
+
+    let normalize = (value, isRoot = true) => {
+      const placeholder = '--tw-placeholder'
+const placeholderRe = new RegExp(placeholder, 'g')
+  if (value.startsWith('--')) {
+    return `var(${value})`
+  }
+
+  // Keep raw strings if it starts with `url(`
+  if (value.includes('url(')) {
+    return value
+      .split(/(url\(.*?\))/g)
+      .filter(Boolean)
+      .map((part) => {
+        if (/^url\(.*?\)$/.test(part)) {
+          return part
+        }
+
+        return normalize(part, false)
+      })
+      .join('')
+  }
+
+  // Convert `_` to ` `, except for escaped underscores `\_`
+  value = value
+    .replace(
+      /([^\\])_+/g,
+      (fullMatch, characterBefore) => characterBefore + ' '.repeat(fullMatch.length - 1)
+    )
+    .replace(/^_/g, ' ')
+    .replace(/\\_/g, '_')
+
+  // Remove leftover whitespace
+  if (isRoot) {
+    value = value.trim()
+  }
+
+  // Add spaces around operators inside math functions like calc() that do not follow an operator
+  // or '('.
+  value = value.replace(/(calc|min|max|clamp)\(.+\)/g, (match) => {
+    let vars = []
+    return match
+      .replace(/var\((--.+?)[,)]/g, (match, g1) => {
+        vars.push(g1)
+        return match.replace(g1, placeholder)
+      })
+      .replace(/(-?\d*\.?\d(?!\b-\d.+[,)](?![^+\-/*])\D)(?:%|[a-z]+)?|\))([+\-/*])/g, '$1 $2 ')
+      .replace(placeholderRe, () => vars.shift())
+  })
+
+  return value
+}
 
       for (let [variantName, state] of pseudoVariants) {
         addVariant(`group-peer-${variantName}`, (ctx) => {
@@ -233,6 +290,15 @@ module.exports = {
           return result.replace(/&(\S+)/, ':merge(.peer)$1 ~ .group &');
         });
       }
+      matchVariant(
+        'group-peer-data',
+        (value, { modifier }) =>
+          modifier
+            ? `:merge(.peer\\/${modifier})[data-${normalize(value)}] ~ .group &`
+            : `:merge(.peer)[data-${normalize(value)}] ~ .group &`,
+        { values: theme('data') ?? {} }
+      )
     })
   ]
 };
+//
