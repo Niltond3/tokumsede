@@ -14,8 +14,7 @@ import Icons, {
   Pending,
   Phone,
   Purchase,
-  Schedule,
-  PuraLeve
+  Schedule
 } from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import TextField from 'app/components/Ui/Inputs/TextField';
@@ -56,7 +55,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
   return (
     <div
       key={`${index}-card`}
-      className="mt-2 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base"
+      className="mt-2 flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base"
     >
       {/*HEAD --> ID NUMBER -> DISTRIBUTOR NAME */}
       <div className="flex justify-between text-xs font-medium [&>*]:opacity-30 ">

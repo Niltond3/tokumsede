@@ -49,15 +49,23 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
   };
   const { title, styles, icon } = mappingStyles[id];
   return (
-    <div className={`${styles} m-s h-min rounded-sm px-s py-xs`} key={id}>
-      <div className="flex w-full justify-between text-sm">
-        <div className="flex items-center">
+    <div
+      className={`${styles} h-min max-w-[16%] flex-1 rounded-sm px-s  py-xs `}
+      key={id}
+    >
+      <div className="flex w-full text-sm">
+        <div className="flex flex-1 items-center">
           <Icons icon={icon} className="mr-xs" />
           {title}
         </div>
-        <div className="flex w-min justify-between">
-          <span>{countLabel}</span>
-          <Toggle typeOf="Sort" id={id} className="ml-xs" />
+        <div className="flex flex-[25%] gap-2">
+          <span className="flex flex-1 justify-center">{countLabel}</span>
+          <Toggle type="between" className="flex-1">
+            <Button>
+              <Icons icon={'SortUp'} />
+              <Icons icon={'SortDown'} />
+            </Button>
+          </Toggle>
         </div>
       </div>
       <ul className="max-h-72 min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300">
@@ -70,7 +78,7 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
           />
         ))}
       </ul>
-      <Button typeOf="Add" title="Fazer novo pedido" onClick={onClick} />
+      <Button is="Add" title="Fazer novo pedido" onClick={onClick} />
     </div>
   );
 }

@@ -10,7 +10,11 @@ export default function Kaban() {
   const { state, dispatch } = useContext(AppContext);
   const { columns } = state;
 
-  return <div className="flex">{renderColumns(columns, dispatch)}</div>;
+  return (
+    <div className="relative flex flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm">
+      {renderColumns(columns, dispatch)}
+    </div>
+  );
 }
 
 const renderColumns = (columns: ColumnsType, dispatch: Dispatch<PurchaseActionsType>) => {

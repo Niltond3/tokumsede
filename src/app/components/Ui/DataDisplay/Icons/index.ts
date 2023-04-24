@@ -98,11 +98,11 @@ export {
 };
 
 const Icons = ({
-  icon,
+  icon = 'default',
   className,
   ariaLabel
 }: {
-  icon: keyof TypeIcons;
+  icon?: keyof TypeIcons;
   className?: string;
   ariaLabel?: string;
 }) => icons[icon]({ className, 'aria-label': ariaLabel });

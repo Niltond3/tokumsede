@@ -7,6 +7,11 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      flex: {
+        2: '2 2 0%',
+        3: '3 3 0%',
+        4: '4 4 0%'
+      },
       keyframes: {
         opacity: {
           '0%': { opacity: 0 },
@@ -27,7 +32,7 @@ module.exports = {
       },
       animation: {
         // slideIn: 'slideIn .25s ease-in-out forwards var(--delay, 0)',
-        opacity: 'opacity .15s ease-in-out forwards 0.1s',
+        opacity: 'opacity .35s ease-in-out forwards 0.1s',
         'intro-menu': 'intro-menu .40s ease-in-out forwards 0.1s',
         'hover-here': 'hover-here 1.4s infinite'
       },
@@ -187,6 +192,7 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
+      addVariant('second', '&:nth-child(2)');
       addVariant('has-open', '&:has(input#open-menu:checked)');
       addVariant('has-checked', '&:has(input:checked)');
       addUtilities({
@@ -208,6 +214,13 @@ module.exports = {
           left: '50%',
           '--tw-translate-x': '-50%',
           transform: 'translateX(var(--tw-translate-x))'
+        },
+        '.center': {
+          top: '50%',
+          left: '50%',
+          '--tw-translate-y': '-50%',
+          '--tw-translate-x': '-50%',
+          transform: 'translate(var(--tw-translate-x),var(--tw-translate-y))'
         }
       });
     }),
@@ -225,64 +238,68 @@ module.exports = {
         }
       );
     }),
-    plugin(function groupPeer({ addVariant, matchVariant,theme }) {
+    plugin(function groupPeer({ addVariant, matchVariant, theme }) {
       let pseudoVariants = [
         // ... Any other pseudo variants you want to support.
         // See https://github.com/tailwindlabs/tailwindcss/blob/6729524185b48c9e25af62fc2372911d66e7d1f0/src/corePlugins.js#L78
         'checked'
       ].map((variant) => (Array.isArray(variant) ? variant : [variant, `&:${variant}`]));
 
-    let normalize = (value, isRoot = true) => {
-      const placeholder = '--tw-placeholder'
-const placeholderRe = new RegExp(placeholder, 'g')
-  if (value.startsWith('--')) {
-    return `var(${value})`
-  }
-
-  // Keep raw strings if it starts with `url(`
-  if (value.includes('url(')) {
-    return value
-      .split(/(url\(.*?\))/g)
-      .filter(Boolean)
-      .map((part) => {
-        if (/^url\(.*?\)$/.test(part)) {
-          return part
+      let normalize = (value, isRoot = true) => {
+        const placeholder = '--tw-placeholder';
+        const placeholderRe = new RegExp(placeholder, 'g');
+        if (value.startsWith('--')) {
+          return `var(${value})`;
         }
 
-        return normalize(part, false)
-      })
-      .join('')
-  }
+        // Keep raw strings if it starts with `url(`
+        if (value.includes('url(')) {
+          return value
+            .split(/(url\(.*?\))/g)
+            .filter(Boolean)
+            .map((part) => {
+              if (/^url\(.*?\)$/.test(part)) {
+                return part;
+              }
 
-  // Convert `_` to ` `, except for escaped underscores `\_`
-  value = value
-    .replace(
-      /([^\\])_+/g,
-      (fullMatch, characterBefore) => characterBefore + ' '.repeat(fullMatch.length - 1)
-    )
-    .replace(/^_/g, ' ')
-    .replace(/\\_/g, '_')
+              return normalize(part, false);
+            })
+            .join('');
+        }
 
-  // Remove leftover whitespace
-  if (isRoot) {
-    value = value.trim()
-  }
+        // Convert `_` to ` `, except for escaped underscores `\_`
+        value = value
+          .replace(
+            /([^\\])_+/g,
+            (fullMatch, characterBefore) =>
+              characterBefore + ' '.repeat(fullMatch.length - 1)
+          )
+          .replace(/^_/g, ' ')
+          .replace(/\\_/g, '_');
 
-  // Add spaces around operators inside math functions like calc() that do not follow an operator
-  // or '('.
-  value = value.replace(/(calc|min|max|clamp)\(.+\)/g, (match) => {
-    let vars = []
-    return match
-      .replace(/var\((--.+?)[,)]/g, (match, g1) => {
-        vars.push(g1)
-        return match.replace(g1, placeholder)
-      })
-      .replace(/(-?\d*\.?\d(?!\b-\d.+[,)](?![^+\-/*])\D)(?:%|[a-z]+)?|\))([+\-/*])/g, '$1 $2 ')
-      .replace(placeholderRe, () => vars.shift())
-  })
+        // Remove leftover whitespace
+        if (isRoot) {
+          value = value.trim();
+        }
 
-  return value
-}
+        // Add spaces around operators inside math functions like calc() that do not follow an operator
+        // or '('.
+        value = value.replace(/(calc|min|max|clamp)\(.+\)/g, (match) => {
+          let vars = [];
+          return match
+            .replace(/var\((--.+?)[,)]/g, (match, g1) => {
+              vars.push(g1);
+              return match.replace(g1, placeholder);
+            })
+            .replace(
+              /(-?\d*\.?\d(?!\b-\d.+[,)](?![^+\-/*])\D)(?:%|[a-z]+)?|\))([+\-/*])/g,
+              '$1 $2 '
+            )
+            .replace(placeholderRe, () => vars.shift());
+        });
+
+        return value;
+      };
 
       for (let [variantName, state] of pseudoVariants) {
         addVariant(`group-peer-${variantName}`, (ctx) => {
@@ -297,8 +314,48 @@ const placeholderRe = new RegExp(placeholder, 'g')
             ? `:merge(.peer\\/${modifier})[data-${normalize(value)}] ~ .group &`
             : `:merge(.peer)[data-${normalize(value)}] ~ .group &`,
         { values: theme('data') ?? {} }
-      )
+      );
+    }),
+    plugin(function (helpers) {
+      // variants that help styling Radix-UI components
+      dataStateVariant('open', helpers);
+      dataStateVariant('closed', helpers);
+      dataStateVariant('on', helpers);
+      dataStateVariant('off', helpers);
+      dataStateVariant('checked', helpers);
+      dataStateVariant('unchecked', helpers);
     })
   ]
 };
 //
+function dataStateVariant(
+  state,
+  {
+    addVariant, // for registering custom variants
+    e // for manually escaping strings meant to be used in class names
+  }
+) {
+  addVariant(`data-state-${state}`, ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.${e(
+        `data-state-${state}${separator}${className}`
+      )}[data-state='${state}']`;
+    });
+  });
+
+  addVariant(`group-data-state-${state}`, ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.group[data-state='${state}'] .${e(
+        `group-data-state-${state}${separator}${className}`
+      )}`;
+    });
+  });
+
+  addVariant(`peer-data-state-${state}`, ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.peer[data-state='${state}'] ~ .${e(
+        `peer-data-state-${state}${separator}${className}`
+      )}`;
+    });
+  });
+}
