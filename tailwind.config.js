@@ -190,6 +190,7 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('tailwind-scrollbar'),
     require('@tailwindcss/container-queries'),
+    require('@headlessui/tailwindcss')({ prefix: 'ui' }),
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
       addVariant('second', '&:nth-child(2)');

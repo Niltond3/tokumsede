@@ -34,6 +34,7 @@ import { default as NotificationsOff } from './svg/notifications_off.svg';
 import { default as NotificationsOn } from './svg/notifications_on.svg';
 import { default as Number } from './svg/number.svg';
 import { default as Pending } from './svg/pending.svg';
+import { default as Person } from './svg/person.svg';
 import { default as Personal } from './svg/personal.svg';
 import { default as Phone } from './svg/phone.svg';
 import { default as Pix } from './svg/pix.svg';
@@ -85,6 +86,7 @@ export {
   NotificationsOn,
   Number,
   Pending,
+  Person,
   Personal,
   Phone,
   Pix,

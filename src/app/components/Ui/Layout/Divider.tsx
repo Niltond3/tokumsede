@@ -12,7 +12,7 @@ export default function ({ className = '', orientation = 'horizontal' }: Separat
     <Separator.Root
       orientation={orientation}
       className={clsx(
-        'bg-white',
+        'bg-white/30',
         `data-orientation-horizontal:h-px data-orientation-horizontal:w-full`,
         'data-orientation-vertical:h-full data-orientation-vertical:w-px',
         `${className}`
