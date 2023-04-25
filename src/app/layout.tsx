@@ -1,7 +1,7 @@
 import 'styles/globals.css';
 import { Metadata } from 'next';
 
-import { TooltipProvider } from './components/Ui/DataDisplay/_Tooltip';
+import { TooltipProvider } from './components/Ui/DataDisplay/Tooltip';
 import IndexLaytout from 'app/components/Patterns/Layout';
 
 export const metadata: Metadata = {

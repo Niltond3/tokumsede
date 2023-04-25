@@ -18,6 +18,7 @@ import Icons, {
 } from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import TextField from 'app/components/Ui/Inputs/TextField';
+import Divider from 'app/components/Ui/Layout/Divider';
 
 import $ from 'jquery';
 import { TypeIcons, PaymentType } from 'utils/Types';
@@ -52,95 +53,109 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase();
   const accordionId = `${currentStatus}-accordion-control-${index}`.toLocaleLowerCase();
 
+  // const smReturn = ();
+
+  // const mdReturn = ();
+
+  // const lgReturn = ();
+
   return (
     <div
       key={`${index}-card`}
-      className="mt-2 flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base"
+      className="mt-2 flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base @container"
     >
       {/*HEAD --> ID NUMBER -> DISTRIBUTOR NAME */}
-      <div className="flex justify-between text-xs font-medium [&>*]:opacity-30 ">
-        <button
-          className="group relative flex items-center transition-faster hover:opacity-100"
-          data-clipboard={'000'}
-          onClick={handleClickToClipboard}
-        >
-          <Number />
-          000
-          <Tooltip
-            close
-            noArrow
-            position="right"
-            title={<Copy />}
-            className="bg-lg-primary-base/30 backdrop-blur-sm"
-          />
-        </button>
-        <span>Distribuidora</span>
+      <div className="">
+        <div className="flex justify-between text-xs font-medium [&>*]:opacity-30">
+          {/* UPDATE THIS BUTTON */}
+          <Tooltip content={<Copy />} side="right">
+            <button
+              className="group relative flex items-center transition-faster hover:opacity-100"
+              data-clipboard={'000'}
+              onClick={handleClickToClipboard}
+            >
+              <Number />
+              000
+              {/* className="bg-lg-primary-base/30 backdrop-blur-sm" */}
+            </button>
+          </Tooltip>
+          {/* UPDATE THIS BUTTON */}
+          <span>Distribuidora</span>
+        </div>
+        <Divider className="my-s" />
       </div>
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}
       <div className="mt-2 flex justify-between">
-        <div className="group relative flex items-center">
-          <input type="checkbox" id={dropDownId} className="group peer hidden"></input>
-          <label htmlFor={dropDownId} className="flex cursor-pointer items-center">
-            <Icons icon={paymentType as keyof TypeIcons} />
-            <Arrow />
-          </label>
-          <ul className="absolute top-full z-10 flex max-h-0 w-full flex-col items-center overflow-hidden rounded-md border-[0.1rem] border-lg-primary-base/0 bg-lg-primary-lighter/0 pt-1 backdrop-blur-sm transition-faster peer-checked:max-h-[10rem] peer-checked:border-lg-primary-base/30 peer-checked:bg-lg-primary-lighter/20">
-            {paymentForms.map((value, index) => {
-              const key = `${purchaseId}-${value}-${index}`;
-              return (
-                <RenderPaymentLi
-                  handleClick={handleClickChangePayment}
-                  key={key}
-                  value={value}
-                  dropDownId={dropDownId}
-                />
-              );
-            })}
-          </ul>
-          <Tooltip
-            close
-            title={`Forma de pagamento: ${paymentType}`}
-            position="top-start"
-          />
-        </div>
-        <button
-          className="group relative flex items-center"
-          onClick={handleClickToClipboard}
-          data-clipboard="Total a pagar: R$ 00,00"
+        {/* UPDATE THIS BLOCK */}
+        <Tooltip side="top" content={`Forma de pagamento: ${paymentType}`}>
+          <div className="group relative flex items-center">
+            <input type="checkbox" id={dropDownId} className="group peer hidden"></input>
+            <label htmlFor={dropDownId} className="flex cursor-pointer items-center">
+              <Icons icon={paymentType as keyof TypeIcons} />
+              <Arrow />
+            </label>
+            <ul className="absolute top-full z-10 flex max-h-0 w-full flex-col items-center overflow-hidden rounded-md border-[0.1rem] border-lg-primary-base/0 bg-lg-primary-lighter/0 pt-1 backdrop-blur-sm transition-faster peer-checked:max-h-[10rem] peer-checked:border-lg-primary-base/30 peer-checked:bg-lg-primary-lighter/20">
+              {paymentForms.map((value, index) => {
+                const key = `${purchaseId}-${value}-${index}`;
+                return (
+                  <RenderPaymentLi
+                    handleClick={handleClickChangePayment}
+                    key={key}
+                    value={value}
+                    dropDownId={dropDownId}
+                  />
+                );
+              })}
+            </ul>
+          </div>
+        </Tooltip>
+        {/* UPDATE THIS BLOCK */}
+        {/* UPDATE THIS BUTTON */}
+        <Tooltip
+          content={
+            <div className="flex items-center">
+              <Copy /> <p className="ml-1">Total a pagar</p>
+            </div>
+          }
+          side="top"
         >
-          <CurrencyReal /> <p className="ml-1">00,00</p>
-          <Tooltip
-            close
-            position="top"
-            title={
-              <div className="flex items-center">
-                <Copy /> <p className="ml-1">Total a pagar</p>
-              </div>
-            }
-          />
-        </button>
-        <div className="group relative flex items-center">
-          <Exchange /> <TextField type="currence" />
-          <Tooltip close position="top" title="Troco" />
-        </div>
+          <button
+            className="group relative flex items-center"
+            onClick={handleClickToClipboard}
+            data-clipboard="Total a pagar: R$ 00,00"
+          >
+            <CurrencyReal /> <p className="ml-1">00,00</p>
+          </button>
+        </Tooltip>
+        {/* UPDATE THIS BUTTON */}
+        <Tooltip side="top" content="Troco">
+          <div className="group relative flex items-center">
+            <Exchange /> <TextField type="currence" />
+          </div>
+        </Tooltip>
       </div>
       {/* PERSONAL --> CLIENT NAME ->  CLIENT PHONE NUMBER */}
       <div className="mt-2 flex">
-        <div className="group relative">
-          <TextField type="text" maxLength={15} placeholder="Nome do cliente" />
-          <Tooltip title="Cliente" close position="top" />
-        </div>
-        <label className="group relative ml-2 flex items-center">
-          <Phone /> <TextField type="phoneNumber" />
-          <Tooltip title="Telefone" close position="top" />
-        </label>
+        <Tooltip side="top" content="Cliente">
+          <div className="group relative">
+            <TextField type="text" maxLength={15} placeholder="Nome do cliente" />
+          </div>
+        </Tooltip>
+        <Tooltip side="top" content="Telefone">
+          <div className="group relative ml-2 flex items-center">
+            <Phone /> <TextField type="phoneNumber" />
+          </div>
+        </Tooltip>
       </div>
       {/* ADDRESS --> STREET -> NEIGHBORHOOD -> NUMBER -> COMPLEMENT -> REFERENCE*/}
       <div className="mt-2 text-left">
-        <button className="group relative float-left mr-1 h-min">
-          <Address />
-          <Tooltip position="top-start" title="Mudar endereço" close />
-        </button>
+        {/* UPDATE THIS BUTTON*/}
+        <Tooltip side="top" content="Mudat Endereço">
+          <button className="group relative float-left mr-1 h-min">
+            <Address />
+          </button>
+        </Tooltip>
+        {/* UPDATE THIS BUTTON*/}
         <p className="text-justify">
           rua do cliente, nº ## ● bairro do cliente. | complemento ● referência
         </p>
@@ -177,6 +192,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
     </div>
   );
 }
+
 const renderProducts = (products: Product[]) => {
   return products.map(({ id, icon, measure, name, shortName, value }, index) => (
     <li key={`${id}-${name}`} className="flex">
@@ -191,24 +207,26 @@ const renderProducts = (products: Product[]) => {
       <div className="flex">
         qtd <input type="number"></input>
       </div>
-      <button
-        className="group relative flex items-center"
-        onClick={console.log}
-        data-clipboard="Subtotal: R$ 00,00"
+      {/* UPDATE THIS BUTTON */}
+      <Tooltip
+        side="top"
+        content={
+          <div className="flex items-center">
+            <Copy /> <p className="ml-1">Subtotal</p>
+          </div>
+        }
       >
-        <p className="pointer-events-none px-1">
-          <span className="text-xs font-medium">R$ </span>00,00
-        </p>
-        <Tooltip
-          close
-          position="top"
-          title={
-            <div className="flex items-center">
-              <Copy /> <p className="ml-1">Subtotal</p>
-            </div>
-          }
-        />
-      </button>
+        <button
+          className="group relative flex items-center"
+          onClick={console.log}
+          data-clipboard="Subtotal: R$ 00,00"
+        >
+          <p className="pointer-events-none px-1">
+            <span className="text-xs font-medium">R$ </span>00,00
+          </p>
+        </button>
+      </Tooltip>
+      {/* UPDATE THIS BUTTON */}
     </li>
   ));
 };

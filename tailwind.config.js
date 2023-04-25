@@ -324,10 +324,26 @@ module.exports = {
       dataStateVariant('off', helpers);
       dataStateVariant('checked', helpers);
       dataStateVariant('unchecked', helpers);
+      dataOrientationVariant('horizontal', helpers);
+      dataOrientationVariant('vertical', helpers);
     })
   ]
 };
-//
+function dataOrientationVariant(
+  state,
+  {
+    addVariant, // for registering custom variants
+    e // for manually escaping strings meant to be used in class names
+  }
+) {
+  addVariant(`data-orientation-${state}`, ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.${e(
+        `data-orientation-${state}${separator}${className}`
+      )}[data-orientation='${state}']`;
+    });
+  });
+}
 function dataStateVariant(
   state,
   {

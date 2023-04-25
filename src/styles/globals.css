@@ -14,25 +14,6 @@ html {
   }
 }
 
-@layer components {
-  .btn-menu-control {
-    @apply before:btn-menu-control-before after:btn-menu-control-after dark:btn-menu-control-dark
-  }
-  .btn-menu-control-dark {
-    @apply bg-dk-primary-base/0 before:bg-menu-corner-dark after:bg-menu-corner-dark hover:bg-dk-primary-base/50
-  }
-  .btn-menu-control-before {
-    @apply top-[-1.55rem] rotate-90 btn-menu-control-pseudo
-  }
-  .btn-menu-control-after {
-    @apply bottom-[-1.55rem] btn-menu-control-pseudo
-  }
-  .btn-menu-control-pseudo {
-    @apply absolute pointer-events-none right-2 z-[-1] -mr-2 h-[25px] w-[25px] scale-[1.04] bg-menu-corner bg-[length:100%] bg-no-repeat opacity-0 content-[''] transition-faster
-  }
-
-}
-
 @layer utilities {
   .absolute-center {
     @apply absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2

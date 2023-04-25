@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Niltond3/tokumsede#readme",
   "dependencies": {
+    "@radix-ui/react-separator": "^1.0.2",
     "@radix-ui/react-slot": "^1.0.1",
     "@radix-ui/react-toggle": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.5",

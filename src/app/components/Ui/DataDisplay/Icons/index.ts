@@ -99,12 +99,10 @@ export {
 
 const Icons = ({
   icon = 'default',
-  className,
-  ariaLabel
+  className
 }: {
   icon?: keyof TypeIcons;
   className?: string;
-  ariaLabel?: string;
-}) => icons[icon]({ className, 'aria-label': ariaLabel });
+}) => icons[icon]({ className });
 
 export default Icons;

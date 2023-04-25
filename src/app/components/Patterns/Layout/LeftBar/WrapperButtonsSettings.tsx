@@ -1,5 +1,5 @@
 'use client';
-import Tooltip from 'app/components/Ui/DataDisplay/_Tooltip';
+import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import Checkbox from 'app/components/Ui/Inputs/Checkbox';
 

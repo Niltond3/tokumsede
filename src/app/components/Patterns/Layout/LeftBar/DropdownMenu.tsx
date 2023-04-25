@@ -1,5 +1,5 @@
-import Tooltip from 'app/components/Ui/DataDisplay/_Tooltip';
 import Icons from 'app/components/Ui/DataDisplay/Icons';
+import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import Toggle from 'app/components/Ui/Inputs/Toggle';
 import Link from 'app/components/Ui/Navigation/Link';
