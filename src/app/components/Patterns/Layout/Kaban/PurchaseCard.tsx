@@ -13,9 +13,11 @@ import Icons, {
   Schedule
 } from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
+import Button from 'app/components/Ui/Inputs/Button';
 import Select, { SelectableProps } from 'app/components/Ui/Inputs/Select';
 import TextField from 'app/components/Ui/Inputs/TextField';
 import Divider from 'app/components/Ui/Layout/Divider';
+import Popover from 'app/components/Ui/Layout/Popover';
 
 import $ from 'jquery';
 import { TypeIcons, PaymentType } from 'utils/Types';
@@ -172,10 +174,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
           <i className="flex flex-[10%]">
             <Icons icon="Address" />
           </i>
-          <i className="flex flex-[90%]">
-            <Icons icon="Purchase" />
-            <Select list={products} />
-          </i>
+          <Popover list={products} className="flex-[90%]" />
         </div>
       </SessionWrapper>
       {/* STATUS --> STATUS TIME AND RESPONSE TRACKER */}
@@ -228,87 +227,35 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
 //     </li>
 //   ));
 // };
-type Product = SelectableProps & {
-  id: number;
-  label: keyof TypeIcons;
-  name: string;
-  shortName: string;
-  value: number;
-  measure: string;
-};
+type Product = SelectableProps;
 
 const products: Product[] = [
   {
     id: 1,
-    label: 'PuraLeve',
-    name: 'Água Pura & Leve',
-    shortName: 'Leve',
+    label: 'Leve',
+    name: 'Leve',
+    shortName: 'L',
     value: 8.0,
     measure: '20L',
-    unavailable: true
+    unavailable: false
   },
   {
     id: 2,
-    label: 'PuraLeve',
-    name: 'Água Rica',
-    shortName: 'Leve',
+    label: 'Rica',
+    name: 'Rica',
+    shortName: 'R',
     value: 11.0,
     measure: '20L',
-    unavailable: true
+    unavailable: false
   },
   {
     id: 3,
-    label: 'PuraLeve',
-    name: 'Água Tope',
-    shortName: 'Leve',
+    label: 'Sport',
+    name: 'Sport',
+    shortName: 'S',
     value: 10.0,
-    measure: '5L',
-    unavailable: true
-  },
-  {
-    id: 4,
-    label: 'PuraLeve',
-    name: 'Água Especial',
-    shortName: 'Leve',
-    value: 8.0,
     measure: '20L',
-    unavailable: true
-  },
-  {
-    id: 5,
-    label: 'PuraLeve',
-    name: 'Garrafão Polipropileno',
-    shortName: 'PP',
-    value: 17.0,
-    measure: '20L',
-    unavailable: true
-  },
-  {
-    id: 6,
-    label: 'PuraLeve',
-    name: 'Garrafão Polietileno ',
-    shortName: 'PE',
-    value: 22.0,
-    measure: '20L',
-    unavailable: true
-  },
-  {
-    id: 7,
-    label: 'PuraLeve',
-    name: 'Garrafão policarbonato ',
-    shortName: 'PC',
-    value: 29.0,
-    measure: '20L',
-    unavailable: true
-  },
-  {
-    id: 8,
-    label: 'PuraLeve',
-    name: 'Garrafão Polipropileno',
-    shortName: 'PP',
-    value: 11.0,
-    measure: '10L',
-    unavailable: true
+    unavailable: false
   }
 ];
 

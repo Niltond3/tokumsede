@@ -5,6 +5,9 @@ import { default as AddUser } from './svg/add_user.svg';
 import { default as Add } from './svg/add.svg';
 import { default as Address } from './svg/address.svg';
 import { default as Administrator } from './svg/administrator.svg';
+import { default as Leve } from './svg/alkalina-leve.svg';
+import { default as Rica } from './svg/alkalina-rica.svg';
+import { default as Sport } from './svg/alkalina-sport.svg';
 import { default as Arrow } from './svg/arrow.svg';
 import { default as Attendant } from './svg/attendant.svg';
 import { default as Cancel } from './svg/cancel.svg';
@@ -38,7 +41,6 @@ import { default as Person } from './svg/person.svg';
 import { default as Personal } from './svg/personal.svg';
 import { default as Phone } from './svg/phone.svg';
 import { default as Pix } from './svg/pix.svg';
-import { default as PuraLeve } from './svg/pura_leve.svg';
 import { default as Purchase } from './svg/purchase.svg';
 import { default as Representative } from './svg/representative.svg';
 import { default as Schedule } from './svg/schedule.svg';
@@ -50,7 +52,9 @@ import { default as Work } from './svg/work.svg';
 import { TypeIcons } from 'utils/Types';
 
 export {
-  PuraLeve,
+  Leve,
+  Rica,
+  Sport,
   Accepted,
   AddAddress,
   AddUser,

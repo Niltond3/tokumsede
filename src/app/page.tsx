@@ -1,6 +1,50 @@
+'use client';
+import Select, { SelectableProps } from './components/Ui/Inputs/Select';
+
+import { TypeIcons } from 'utils/Types';
+
 export default function Home() {
   return <div>Home</div>;
 }
+type Product = SelectableProps & {
+  id: number;
+  label: keyof TypeIcons;
+  name: string;
+  shortName: string;
+  value: number;
+  measure: string;
+};
+
+const products: Product[] = [
+  {
+    id: 1,
+    label: 'Leve',
+    name: 'Alkalina Leve',
+    shortName: 'L',
+    value: 8.0,
+    measure: '20L',
+    unavailable: true
+  },
+  {
+    id: 2,
+    label: 'Rica',
+    name: 'Alkalina Rica',
+    shortName: 'Rica',
+    value: 11.0,
+    measure: '20L',
+    unavailable: true
+  },
+  {
+    id: 3,
+    label: 'Sport',
+    name: 'Alkalina Sport',
+    shortName: 'Sport',
+    value: 10.0,
+    measure: '5L',
+    unavailable: true
+  }
+];
+
 {
   /* <div className="content transform ease-in-out duration-500 pt-20 px-2 md:px-5 pb-4 h-screen ml-xl mr-xxxl">
           <div className="my-5 -mx-2 flex flex-wrap">
