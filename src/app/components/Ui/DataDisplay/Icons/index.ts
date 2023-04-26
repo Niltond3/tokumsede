@@ -26,6 +26,7 @@ import { default as Deliveryman } from './svg/deliveryman.svg';
 import { default as Distributor } from './svg/distributor.svg';
 import { default as Exchange } from './svg/exchange.svg';
 import { default as Financial } from './svg/financial.svg';
+import { default as Gallon } from './svg/gallon.svg';
 import { default as Hashtag } from './svg/hashtag.svg';
 import { default as Home } from './svg/home.svg';
 import { default as Homes } from './svg/homes.svg';
@@ -42,6 +43,7 @@ import { default as Personal } from './svg/personal.svg';
 import { default as Phone } from './svg/phone.svg';
 import { default as Pix } from './svg/pix.svg';
 import { default as Purchase } from './svg/purchase.svg';
+import { default as Quantity } from './svg/quantity.svg';
 import { default as Representative } from './svg/representative.svg';
 import { default as Schedule } from './svg/schedule.svg';
 import { default as Settings } from './svg/settings.svg';
@@ -52,6 +54,8 @@ import { default as Work } from './svg/work.svg';
 import { TypeIcons } from 'utils/Types';
 
 export {
+  Quantity,
+  Gallon,
   Leve,
   Rica,
   Sport,

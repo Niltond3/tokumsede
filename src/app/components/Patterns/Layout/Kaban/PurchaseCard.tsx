@@ -6,15 +6,13 @@ import Icons, {
   Arrow,
   Cancel,
   Copy,
-  CurrencyReal,
   Delivered,
   Number,
   Pending,
   Schedule
 } from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
-import Button from 'app/components/Ui/Inputs/Button';
-import Select, { SelectableProps } from 'app/components/Ui/Inputs/Select';
+import { SelectableProps } from 'app/components/Ui/Inputs/Select';
 import TextField from 'app/components/Ui/Inputs/TextField';
 import Divider from 'app/components/Ui/Layout/Divider';
 import Popover from 'app/components/Ui/Layout/Popover';
@@ -50,7 +48,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
 
   const paymentForms: (keyof TypeIcons)[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase();
-  const accordionId = `${currentStatus}-accordion-control-${index}`.toLocaleLowerCase();
+  // const accordionId = `${currentStatus}-accordion-control-${index}`.toLocaleLowerCase();
 
   // const smReturn = ();
 
@@ -190,45 +188,12 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
   );
 }
 
-// const renderProducts = (products: Product[]) => {
-//   return products.map(({ id, icon, measure, name, shortName, value }, index) => (
-//     <li key={`${id}-${name}`} className="flex">
-//       <div className="flex">
-//         <Icons icon={icon} />
-//         <p>{`${name} ${measure}`}</p>
-//       </div>
-//       <div className="group relative flex items-center">
-//         <CurrencyReal />
-//         <p className="ml-2">{value}</p>
-//       </div>
-//       <div className="flex">
-//         qtd <input type="number"></input>
-//       </div>
-//       {/* UPDATE THIS BUTTON */}
-//       <Tooltip
-//         side="top"
-//         content={
-//           <div className="flex items-center">
-//             <Copy /> <p className="ml-1">Subtotal</p>
-//           </div>
-//         }
-//       >
-//         <button
-//           className="group relative flex items-center"
-//           onClick={console.log}
-//           data-clipboard="Subtotal: R$ 00,00"
-//         >
-//           <p className="pointer-events-none px-1">
-//             <span className="text-xs font-medium">R$ </span>00,00
-//           </p>
-//         </button>
-//       </Tooltip>
-//       {/* UPDATE THIS BUTTON */}
-//     </li>
-//   ));
-// };
 type Product = SelectableProps;
-
+/**
+[16:05, 26/04/2023] Claudizon: Alcalina Rica: 10 e 20 litros
+[16:06, 26/04/2023] Claudizon: Alcalina Sport: 5 e 20 litros
+[16:06, 26/04/2023] Claudizon: Alcalina Leve: 20 litros
+ */
 const products: Product[] = [
   {
     id: 1,

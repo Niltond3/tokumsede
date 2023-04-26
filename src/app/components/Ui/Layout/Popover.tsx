@@ -1,9 +1,12 @@
 import React, { Fragment, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
+import TextField from '../Inputs/TextField';
+import Divider from './Divider';
 
 import { Listbox, Transition } from '@headlessui/react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
+import { Input } from 'postcss';
 import { TypeIcons } from 'utils/Types';
 
 export type SelectableProps = {
@@ -31,18 +34,20 @@ const Popover = ({ list, multiple = true, className = '' }: SelectProps) => {
   return (
     <Listbox value={selected} onChange={setSelected} multiple={multiple}>
       <PopoverPrimitive.Root>
-        <PopoverPrimitive.Trigger asChild>
-          <Listbox.Button className={`flex gap-1 ${className}`}>
-            <>
-              <Listbox.Label className="cursor-pointer">
-                <Icons icon="Purchase" className="pointer-events-none" />
-              </Listbox.Label>
-              {selected.map((item) => (
-                <span key={item.id + item.name + item.value}>{item.shortName}</span>
-              ))}
-            </>
-          </Listbox.Button>
-        </PopoverPrimitive.Trigger>
+        <div className={`flex items-center gap-1 ${className}`}>
+          <PopoverPrimitive.Trigger asChild>
+            <Listbox.Button className="rounded bg-white/30 p-0.5 shadow-md backdrop-blur-sm transition-faster focus-visible:outline-none data-state-open:shadow-lg">
+              <>
+                <Listbox.Label className="cursor-pointer">
+                  <Icons icon="Purchase" className="pointer-events-none" />
+                </Listbox.Label>
+              </>
+            </Listbox.Button>
+          </PopoverPrimitive.Trigger>
+          {selected.map((item) => (
+            <span key={item.id + item.name + item.value}>{item.shortName}</span>
+          ))}
+        </div>
         <PopoverPrimitive.Portal>
           <PopoverPrimitive.Content
             className="rounded bg-transparent shadow-2xl focus:shadow-violet-700"
@@ -72,31 +77,48 @@ export const ListboxOptions = React.forwardRef<HTMLUListElement, OptionsProps>(
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <Listbox.Options className="flex h-min w-full flex-col gap-2 overflow-auto rounded-md bg-white/30 py-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-[1px] focus:outline-none sm:text-sm">
-          {list.map((item) => (
-            <Listbox.Option
-              key={item.id}
-              value={item}
-              className={({ active }) =>
-                `relative cursor-pointer select-none transition-faster  ${
-                  active ? 'opacity-60' : 'opacity-30'
-                }`
-              }
-            >
-              {({ selected }) => (
-                <>
-                  <span className={`flex truncate ${selected ? '!opacity-100' : ''} `}>
-                    <Icons icon={item.label} className="h-auto w-28" />
-                  </span>
-                  {selected ? (
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                      <Icons icon="Accepted" aria-hidden="true" />
-                    </span>
-                  ) : null}
-                </>
-              )}
-            </Listbox.Option>
-          ))}
+        <Listbox.Options className="flex h-min max-w-[16rem] flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 p-m py-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm focus:outline-none sm:text-sm">
+          <>
+            {list.map((item) => (
+              <Listbox.Option
+                key={item.id}
+                value={item}
+                className={({ active, selected }) =>
+                  `relative cursor-pointer select-none transition-faster  ${
+                    (active && selected) || selected
+                      ? 'opacity-100'
+                      : active && !selected
+                      ? 'opacity-70'
+                      : 'opacity-30'
+                  }`
+                }
+              >
+                {({ selected }) => (
+                  <>
+                    <div className="flex items-center">
+                      <span className="flex flex-[40%] items-center">
+                        <Icons icon={item.label} className="h-auto w-full" />
+                      </span>
+                      <span className="flex flex-[30%] items-center gap-1">
+                        <label>
+                          <Icons icon="CurrencyReal" />
+                        </label>
+                        <TextField type="currence" value={9.0} />
+                      </span>
+                      <span className="flex flex-[30%] items-center">
+                        <TextField type="number" maxLength={3} placeholder="quantidade" />
+                      </span>
+                    </div>
+                    {selected ? (
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                        <Icons icon="Accepted" aria-hidden="true" />
+                      </span>
+                    ) : null}
+                  </>
+                )}
+              </Listbox.Option>
+            ))}
+          </>
         </Listbox.Options>
       </Transition>
     );
