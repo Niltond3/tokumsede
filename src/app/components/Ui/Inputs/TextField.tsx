@@ -14,7 +14,8 @@ export default function TextField({
   type,
   maxLength = 30,
   placeholder = 'digite',
-  value
+  value,
+  className
 }: TextFieldProps) {
   const {
     dataMaxDigits,
@@ -30,7 +31,7 @@ export default function TextField({
       value={value}
       onInput={onInput}
       onChange={onChange}
-      className="flex w-full truncate bg-transparent font-medium focus:outline-none"
+      className={`flex w-full truncate bg-transparent font-medium focus:outline-none ${className}`}
       maxLength={ml}
       placeholder={ph}
       data-max-digits={dataMaxDigits}

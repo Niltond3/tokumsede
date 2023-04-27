@@ -3,14 +3,12 @@ import React, { Fragment, useState } from 'react';
 import Icons from '../DataDisplay/Icons';
 
 import { Listbox, Transition } from '@headlessui/react';
-import { TypeIcons } from 'utils/Types';
 
 export type SelectableProps = {
   id: number;
   name: string;
   shortName: string;
   unavailable: boolean;
-  label: keyof TypeIcons;
   value: number;
   measure: string;
 };

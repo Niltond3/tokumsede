@@ -2,6 +2,9 @@ import contactMap from '../../public/images/contact-map.webp';
 import downloadBg from '../../public/images/download-bg.webp';
 import headerBg2 from '../../public/images/header-bg2.webp';
 import mobileMockupHand from '../../public/images/header-mobile-mockup-hand.webp';
+import leve from '../../public/images/icons/gallon_leve.png';
+import rica from '../../public/images/icons/gallon_rica.png';
+import sport from '../../public/images/icons/gallon_sport.png';
 import armazempb from '../../public/images/logo/armazempb.webp';
 import bb from '../../public/images/logo/bb.webp';
 import caixa from '../../public/images/logo/caixa.webp';
@@ -35,6 +38,9 @@ const Images = {
   downloadBg,
   headerBg2,
   mobileMockupHand,
+  leve,
+  rica,
+  sport,
   logo,
   name,
   waves,

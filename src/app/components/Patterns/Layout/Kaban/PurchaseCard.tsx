@@ -197,8 +197,7 @@ type Product = SelectableProps;
 const products: Product[] = [
   {
     id: 1,
-    label: 'Leve',
-    name: 'Leve',
+    name: 'leve',
     shortName: 'L',
     value: 8.0,
     measure: '20L',
@@ -206,8 +205,7 @@ const products: Product[] = [
   },
   {
     id: 2,
-    label: 'Rica',
-    name: 'Rica',
+    name: 'rica',
     shortName: 'R',
     value: 11.0,
     measure: '20L',
@@ -215,8 +213,7 @@ const products: Product[] = [
   },
   {
     id: 3,
-    label: 'Sport',
-    name: 'Sport',
+    name: 'sport',
     shortName: 'S',
     value: 10.0,
     measure: '20L',

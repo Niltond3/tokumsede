@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
+import Img, { ImagePath } from '../DataDisplay/Image';
 import TextField from '../Inputs/TextField';
 import Divider from './Divider';
 
 import { Listbox, Transition } from '@headlessui/react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
+import clsx from 'clsx';
 import { Input } from 'postcss';
 import { TypeIcons } from 'utils/Types';
 
@@ -14,7 +16,6 @@ export type SelectableProps = {
   name: string;
   shortName: string;
   unavailable: boolean;
-  label: keyof TypeIcons;
   value: number;
   measure: string;
 };
@@ -77,7 +78,7 @@ export const ListboxOptions = React.forwardRef<HTMLUListElement, OptionsProps>(
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <Listbox.Options className="flex h-min max-w-[16rem] flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 p-m py-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm focus:outline-none sm:text-sm">
+        <Listbox.Options className="flex h-min max-h-4 max-w-[16rem] flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm">
           <>
             {list.map((item) => (
               <Listbox.Option
@@ -93,29 +94,64 @@ export const ListboxOptions = React.forwardRef<HTMLUListElement, OptionsProps>(
                   }`
                 }
               >
-                {({ selected }) => (
-                  <>
-                    <div className="flex items-center">
-                      <span className="flex flex-[40%] items-center">
-                        <Icons icon={item.label} className="h-auto w-full" />
-                      </span>
-                      <span className="flex flex-[30%] items-center gap-1">
-                        <label>
-                          <Icons icon="CurrencyReal" />
-                        </label>
-                        <TextField type="currence" value={9.0} />
-                      </span>
-                      <span className="flex flex-[30%] items-center">
-                        <TextField type="number" maxLength={3} placeholder="quantidade" />
-                      </span>
-                    </div>
-                    {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                        <Icons icon="Accepted" aria-hidden="true" />
-                      </span>
-                    ) : null}
-                  </>
-                )}
+                {({ selected }) => {
+                  const { name, measure, value } = item;
+
+                  const currencyValue = value.toLocaleString('pt-br', {
+                    minimumFractionDigits: 2
+                  });
+                  const mappingStyles = {
+                    leve: '',
+                    rica: '',
+                    sport: ''
+                  } as const;
+                  return (
+                    <>
+                      <div className="flex ">
+                        <div className="relative flex flex-[60%] justify-between">
+                          <Icons
+                            icon="Info"
+                            className="absolute top-0 left-2 h-auto w-5 text-lg-primary"
+                          />
+                          <div className="relative">
+                            <Img image={name as ImagePath} blur="blur" />
+                            <div
+                              className={clsx(
+                                'absolute bottom-0 flex h-1/3 w-1/3 border-spacing-1 items-center justify-center rounded-br-xl rounded-tl-xl border-[1px] border-white bg-lg-success p-2 outline outline-1 outline-lg-accent-darker',
+                                mappingStyles[name as keyof typeof mappingStyles]
+                              )}
+                            >
+                              <span className="text-[11px] font-medium text-lg-primary-base">
+                                {currencyValue}
+                              </span>
+                            </div>
+                          </div>
+                          <Icons
+                            icon="AddShopping"
+                            className="absolute top-0 right-2 h-auto w-5 text-lg-primary"
+                          />
+                          <Divider orientation="vertical" className="!bg-black/30" />
+                        </div>
+                        <div className="flex flex-[40%] flex-col items-center justify-center">
+                          <div className="flex">
+                            <Icons icon="Drop" className="text-lg-primary" />
+                            <Icons icon="Drop" className="text-lg-primary" />
+                            <Icons icon="Drop" className="text-lg-primary" />
+                          </div>
+                          <span>{measure}</span>
+                          <Divider className="!bg-black/30" />
+                          <input type="number" className="w-full"></input>
+                        </div>
+                      </div>
+                      <Divider />
+                      {selected ? (
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                          <Icons icon="Accepted" aria-hidden="true" />
+                        </span>
+                      ) : null}
+                    </>
+                  );
+                }}
               </Listbox.Option>
             ))}
           </>
