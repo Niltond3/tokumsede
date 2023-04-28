@@ -60,7 +60,7 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
         </div>
         <div className="flex flex-[25%] gap-2">
           <span className="flex flex-1 justify-center">{countLabel}</span>
-          <Toggle type="between" className="flex-1">
+          <Toggle type="between">
             <Button>
               <Icons icon={'SortUp'} />
               <Icons icon={'SortDown'} />
@@ -78,7 +78,15 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
           />
         ))}
       </ul>
-      <Button is="Add" title="Fazer novo pedido" onClick={onClick} />
+      <Button
+        onClick={onClick}
+        iconL="Add"
+        iconR="Default"
+        is="toggle"
+        variant="dropdown"
+      >
+        Fazer novo pedido
+      </Button>
     </div>
   );
 }

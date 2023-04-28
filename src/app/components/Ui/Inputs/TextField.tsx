@@ -144,8 +144,3 @@ const mapTextFieldType = {
     };
   }
 };
-
-type InputProps = {
-  value?: number;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-};
