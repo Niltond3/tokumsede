@@ -78,7 +78,7 @@ export const ListboxOptions = React.forwardRef<HTMLUListElement, OptionsProps>(
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <Listbox.Options className="flex h-min max-h-4 max-w-[16rem] flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm">
+        <Listbox.Options className="flex max-h-48 min-h-[11rem] max-w-[16rem] flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm">
           <>
             {list.map((item) => (
               <Listbox.Option
@@ -140,7 +140,9 @@ export const ListboxOptions = React.forwardRef<HTMLUListElement, OptionsProps>(
                           </div>
                           <span>{measure}</span>
                           <Divider className="!bg-black/30" />
-                          <input type="number" className="w-full"></input>
+                          {/* CREATE A INPUT TYPE NUMBER */}
+                          <TextField type="number" />
+                          {/* <input type="number" className="w-full"></input> */}
                         </div>
                       </div>
                       <Divider />

@@ -1,7 +1,9 @@
 'use client';
+import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import Checkbox from 'app/components/Ui/Inputs/Checkbox';
+import Toggle from 'app/components/Ui/Inputs/Toggle';
 
 import useColorMode from 'hooks/useColorMode';
 import { THEMES } from 'utils/Constants';
@@ -19,17 +21,47 @@ export default function WrapperSettings() {
       <div className="relative h-xl rounded-l-full border-y-8 border-l-8 border-lg-primary transition-slow has-open:pr-xl has-open:pl-m dark:border-dk-primary">
         <div className="mr-2 flex h-[calc(100%+8px)] items-center justify-between border-b-[0.1rem] border-lg-primary-base/40 transition-slow child:transition-slow has-open:border-lg-primary-base/0 [&:has(#open-menu:checked)]:mr-0">
           {/* TOGGLE THEME MODE*/}
-          <div className="flex h-full w-full items-center gap-2">
-            <Tooltip content="Mudar Tema" align="center" side="bottom">
-              <Button is="DarkModeToggle" onClick={toggleTheme} />
+          <div className="flex h-full w-full items-center">
+            <Tooltip
+              content="Mudar Tema"
+              align="center"
+              side="bottom"
+              asChild={false}
+              triggerStyles="max-h-[50%]"
+            >
+              <Toggle type="between">
+                <Button onClick={toggleTheme}>
+                  <>
+                    <Icons icon="LightMode" />
+                    <Icons icon="DarkMode" />
+                  </>
+                </Button>
+              </Toggle>
             </Tooltip>
             {/* TOGGLE NOTIGICATIONS*/}
-            <Tooltip content="Silênciar" align="center" side="bottom">
-              <Button is="Notifications" onClick={emptyFunc} />
+            <Tooltip
+              content="Silênciar"
+              align="center"
+              side="bottom"
+              asChild={false}
+              triggerStyles="max-h-[50%]"
+            >
+              <Toggle type="between">
+                <Button onClick={emptyFunc}>
+                  <>
+                    <Icons icon="NotificationsOn" />
+                    <Icons icon="NotificationsOff" />
+                  </>
+                </Button>
+              </Toggle>
             </Tooltip>
             {/* SETTINGS*/}
             <Tooltip content="Configurações" align="center" side="bottom">
-              <Button is="Settings" onClick={emptyFunc} />
+              <Button onClick={emptyFunc}>
+                <>
+                  <Icons icon="Settings" />
+                </>
+              </Button>
             </Tooltip>
           </div>
           <Checkbox type="LeftAsideControl" />

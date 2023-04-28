@@ -50,19 +50,22 @@ const DropdownMenu = ({ content = [], icon, title, index }: DropdownMenuProps) =
 const DropdownController = ({ title, icon }: DropdownControllerProps) => (
   <Toggle type="dropdown">
     <Button>
-      <Tooltip content={title} side="right">
-        <span className="flex h-full flex-1 items-center @[70px]:gap-2.5 child:transition-faster">
-          <Icons icon={icon} className="min-w-min" />
-          <p
-            className={`invisible flex w-0 items-start text-sm font-medium opacity-0 @[160px]:w-min @[161px]:visible @[161px]:opacity-100`}
-          >
-            {title}
-          </p>
-          <Icons
-            icon="Arrow"
-            className="absolute right-1 min-w-min group-data-[state=on]:rotate-90 @[161px]:right-2.5"
-          />
-        </span>
+      <Tooltip
+        content={title}
+        side="right"
+        triggerStyles="@[70px]:gap-2.5 child:transition-faster"
+        asChild={false}
+      >
+        <Icons icon={icon} className="min-w-min" />
+        <p
+          className={`invisible flex w-0 items-start text-sm font-medium opacity-0 @[160px]:w-min @[161px]:visible @[161px]:opacity-100`}
+        >
+          {title}
+        </p>
+        <Icons
+          icon="Arrow"
+          className="absolute right-1 min-w-min group-data-[state=on]:rotate-90 @[161px]:right-2.5"
+        />
       </Tooltip>
     </Button>
   </Toggle>

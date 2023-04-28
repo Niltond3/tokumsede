@@ -12,6 +12,8 @@ type TooltipProps = {
   align?: 'center' | 'start' | 'end';
   alignOffset?: number;
   sideOffset?: number;
+  asChild?: boolean;
+  triggerStyles?: string;
 };
 
 export default function Tooltip({
@@ -21,12 +23,22 @@ export default function Tooltip({
   side = 'top',
   align = 'center',
   alignOffset = 0,
-  sideOffset = 4
+  sideOffset = 4,
+  asChild = true,
+  triggerStyles = ''
 }: TooltipProps) {
   React.useLayoutEffect = React.useEffect;
   return (
     <TooltipPrimitive.Root delayDuration={0}>
-      <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Trigger asChild>
+        {asChild ? (
+          children
+        ) : (
+          <span className={`relative flex h-full flex-1 items-center ${triggerStyles}`}>
+            {children}
+          </span>
+        )}
+      </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
           side={side}

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
+import Icons from '../DataDisplay/Icons';
+
 type TextFieldProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -25,7 +27,7 @@ export default function TextField({
     type: inputType
   } = mapTextFieldType[type]({ placeholder, maxLength });
 
-  return (
+  const Input = (
     <input
       type={inputType}
       value={value}
@@ -38,6 +40,20 @@ export default function TextField({
       min="0"
     />
   );
+
+  const Number = (
+    <div className="flex w-full">
+      <button className="">
+        <Icons icon="Arrow" />
+      </button>
+      <input className="w-full"></input>
+      <button className="">
+        <Icons icon="Arrow" />
+      </button>
+    </div>
+  );
+
+  return type === 'number' ? Number : Input;
 }
 
 const mapTextFieldType = {
@@ -55,12 +71,14 @@ const mapTextFieldType = {
         (input.value = input.value.substring(0, maxDigits)); //if input lengh bigger than prefix catch fist digits
       input.value = formatter.format(parseInt(input.value) / 100);
     };
+    const styles = '';
     return {
       onInput: mask,
       maxLength: 7,
       dataMaxDigits: 5,
       placeholder: '00,00',
-      type: 'text' as React.HTMLInputTypeAttribute
+      type: 'text' as React.HTMLInputTypeAttribute,
+      styles: styles
     };
   },
   phoneNumber: () => {
@@ -74,13 +92,15 @@ const mapTextFieldType = {
       input.value.length > maxDigits &&
         (input.value = input.value.substring(0, maxDigits)); //if input lengh bigger than prefix catch fist digits
     };
+    const styles = '';
 
     return {
       onInput: mask,
       maxLength: 15,
       dataMaxDigits: 15,
       placeholder: '(••) •••••-••••',
-      type: 'text' as React.HTMLInputTypeAttribute
+      type: 'text' as React.HTMLInputTypeAttribute,
+      styles: styles
     };
   },
   text: ({ placeholder, maxLength }: { maxLength?: number; placeholder: string }) => {
@@ -91,8 +111,10 @@ const mapTextFieldType = {
       input.value.length > maxDigits &&
         (input.value = input.value.substring(0, maxDigits)); //if input lengh bigger than prefix catch fist digits
     };
+    const styles = '';
 
     return {
+      styles: styles,
       onInput: mask,
       maxLength: maxLength,
       dataMaxDigits: maxLength,
@@ -110,7 +132,10 @@ const mapTextFieldType = {
         (input.value = input.value.substring(0, maxDigits)); //if input lengh bigger than prefix catch fist digits
     };
 
+    const styles = '';
+
     return {
+      styles: styles,
       onInput: mask,
       maxLength: maxLength,
       dataMaxDigits: maxLength,

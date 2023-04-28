@@ -24,8 +24,8 @@ const Toggle = ({ children, type, className = '' }: ToggleProps) => {
 const mappingStyles = {
   root: clsx(''),
   between: clsx(
-    'relative flex child:absolute child:transition-faster child:center',
-    '[&>*:nth-child(1)]:data-state-off:opacity-0 [&>*:nth-child(2)]:data-state-on:opacity-0'
+    'relative flex min-h-[50%] flex-1 child:absolute child:transition-faster child:center',
+    '[&>svg:nth-child(1)]:data-state-on:opacity-0 [&>svg:nth-child(2)]:data-state-off:opacity-0'
   ),
   dropdown: clsx(
     'group relative h-8 rounded-l-full bg-lg-primary-base/0 pl-m transition-faster',
