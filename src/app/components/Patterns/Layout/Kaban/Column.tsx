@@ -59,7 +59,12 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
         </div>
         <div className="flex flex-[25%] gap-2">
           <span className="flex flex-1 justify-center">{countLabel}</span>
-          <Button typeOf="toggle" variant="between" iconL="SortUp" iconR="SortDown" />
+          <Button
+            typeOf="toggle"
+            toggleVariant="between"
+            iconL="SortUp"
+            iconR="SortDown"
+          />
         </div>
       </div>
       <ul className="max-h-72 min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300">

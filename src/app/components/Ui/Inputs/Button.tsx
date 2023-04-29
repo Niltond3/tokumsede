@@ -12,7 +12,6 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   iconL?: keyof TypeIcons;
   iconR?: keyof TypeIcons;
   typeOf?: keyof typeof mappingStyles;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 type ConditionalProps =
@@ -20,19 +19,16 @@ type ConditionalProps =
       typeOf?: 'primary' | undefined | null;
       toggleVariant?: never;
       children?: React.ReactNode;
-      onClick?: React.MouseEventHandler<HTMLButtonElement>;
     }
   | {
       typeOf?: 'toggle';
       toggleVariant?: keyof typeof toggleVariantStypes;
       children?: React.ReactNode;
-      onClick?: React.MouseEventHandler<HTMLButtonElement>;
     }
   | {
       typeOf?: 'toggle';
       toggleVariant?: 'between';
       children?: never;
-      onClick?: React.MouseEventHandler<HTMLButtonElement>;
     };
 
 type Props = ButtonProps & ConditionalProps;

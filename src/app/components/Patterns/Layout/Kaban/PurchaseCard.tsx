@@ -142,7 +142,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
             <div className="group relative flex flex-2 items-center gap-2">
               <label>
                 <Icons icon="Exchange" />
-              </label>{' '}
+              </label>
               <TextField type="currence" />
             </div>
           </Tooltip>
