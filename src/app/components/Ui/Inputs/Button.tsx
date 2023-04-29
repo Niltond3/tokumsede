@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+'use client';
 import React from 'react';
 
 import Icons from '../DataDisplay/Icons';
 
-import { Slot } from '@radix-ui/react-slot';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import clsx from 'clsx';
 import { TypeIcons } from 'utils/Types';
@@ -12,26 +11,48 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   asChild?: boolean;
   iconL?: keyof TypeIcons;
   iconR?: keyof TypeIcons;
+  typeOf?: keyof typeof mappingStyles;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 type ConditionalProps =
   | {
-      is?: 'primary' | undefined | null;
-      variant?: never;
+      typeOf?: 'primary' | undefined | null;
+      toggleVariant?: never;
+      children?: React.ReactNode;
+      onClick?: React.MouseEventHandler<HTMLButtonElement>;
     }
   | {
-      is?: 'toggle';
-      variant?: keyof typeof toggleVariantStypes;
+      typeOf?: 'toggle';
+      toggleVariant?: keyof typeof toggleVariantStypes;
+      children?: React.ReactNode;
+      onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    }
+  | {
+      typeOf?: 'toggle';
+      toggleVariant?: 'between';
+      children?: never;
+      onClick?: React.MouseEventHandler<HTMLButtonElement>;
     };
 
 type Props = ButtonProps & ConditionalProps;
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(
-  ({ children, is = 'primary', iconL, iconR, variant, ...props }: Props, ref) => {
-    const Component = is === 'toggle' ? TogglePrimitive.Root : 'button';
+  (
+    {
+      children,
+      typeOf = 'primary',
+      iconL,
+      iconR,
+      toggleVariant = 'default',
+      ...props
+    }: Props,
+    ref
+  ) => {
+    const Component = typeOf === 'toggle' ? TogglePrimitive.Root : 'button';
 
-    const styles = `${mappingStyles[is]} ${
-      is === 'toggle' && toggleVariantStypes[variant!]
+    const styles = `${mappingStyles[typeOf]} ${
+      typeOf === 'toggle' && toggleVariantStypes[toggleVariant]
     }`;
 
     const Childrens = () => (
@@ -53,7 +74,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 export default Button;
 
 const defaultStyle =
-  'flex-1 justify-center min-h-[50%] whitespace-nowrap gap-1 text-sm font-medium flex items-center opacity-40 hover:opacity-80 rounded py-1 px-2';
+  'transition-faster flex-1 justify-center min-h-[50%] whitespace-nowrap gap-1 text-sm font-medium flex items-center opacity-50 hover:opacity-100 rounded';
 
 const mappingStyles = {
   primary: defaultStyle,
@@ -61,7 +82,7 @@ const mappingStyles = {
 };
 
 const toggleVariantStypes = {
-  root: clsx(''),
+  default: '',
   between: clsx(
     'relative flex min-h-[50%] flex-1 child:absolute child:transition-faster child:center',
     '[&>*:nth-child(1)]:data-state-on:opacity-0 [&>*:nth-child(2)]:data-state-off:opacity-0'

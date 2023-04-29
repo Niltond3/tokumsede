@@ -1,6 +1,5 @@
 import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Button from 'app/components/Ui/Inputs/Button';
-import Toggle from 'app/components/Ui/Inputs/Toggle';
 
 import PurchaseCard from './PurchaseCard';
 
@@ -60,12 +59,7 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
         </div>
         <div className="flex flex-[25%] gap-2">
           <span className="flex flex-1 justify-center">{countLabel}</span>
-          <Toggle type="between">
-            <Button>
-              <Icons icon={'SortUp'} />
-              <Icons icon={'SortDown'} />
-            </Button>
-          </Toggle>
+          <Button typeOf="toggle" variant="between" iconL="SortUp" iconR="SortDown" />
         </div>
       </div>
       <ul className="max-h-72 min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300">
@@ -78,13 +72,7 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
           />
         ))}
       </ul>
-      <Button
-        onClick={onClick}
-        iconL="Add"
-        iconR="Default"
-        is="toggle"
-        variant="dropdown"
-      >
+      <Button onClick={onClick} iconL="Add" iconR="Default">
         Fazer novo pedido
       </Button>
     </div>

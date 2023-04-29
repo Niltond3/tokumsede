@@ -3,7 +3,6 @@ import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import Checkbox from 'app/components/Ui/Inputs/Checkbox';
-import Toggle from 'app/components/Ui/Inputs/Toggle';
 
 import useColorMode from 'hooks/useColorMode';
 import { THEMES } from 'utils/Constants';
@@ -29,14 +28,13 @@ export default function WrapperSettings() {
               asChild={false}
               triggerStyles="max-h-[50%]"
             >
-              <Toggle type="between">
-                <Button onClick={toggleTheme}>
-                  <>
-                    <Icons icon="LightMode" />
-                    <Icons icon="DarkMode" />
-                  </>
-                </Button>
-              </Toggle>
+              <Button
+                onClick={toggleTheme}
+                typeOf="toggle"
+                toggleVariant="between"
+                iconL="LightMode"
+                iconR="DarkMode"
+              />
             </Tooltip>
             {/* TOGGLE NOTIGICATIONS*/}
             <Tooltip
@@ -46,21 +44,18 @@ export default function WrapperSettings() {
               asChild={false}
               triggerStyles="max-h-[50%]"
             >
-              <Toggle type="between">
-                <Button onClick={emptyFunc}>
-                  <>
-                    <Icons icon="NotificationsOn" />
-                    <Icons icon="NotificationsOff" />
-                  </>
-                </Button>
-              </Toggle>
+              <Button
+                onClick={emptyFunc}
+                typeOf="toggle"
+                toggleVariant="between"
+                iconL="NotificationsOn"
+                iconR="NotificationsOff"
+              />
             </Tooltip>
             {/* SETTINGS*/}
             <Tooltip content="Configurações" align="center" side="bottom">
               <Button onClick={emptyFunc}>
-                <>
-                  <Icons icon="Settings" />
-                </>
+                <Icons icon="Settings" />
               </Button>
             </Tooltip>
           </div>
