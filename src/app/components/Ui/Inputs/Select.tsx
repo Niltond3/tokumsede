@@ -3,6 +3,7 @@ import React, { Fragment, useState } from 'react';
 import Icons from '../DataDisplay/Icons';
 
 import { Listbox, Transition } from '@headlessui/react';
+import * as Popover from '@radix-ui/react-popover';
 
 export type SelectableProps = {
   id: number;
@@ -10,40 +11,66 @@ export type SelectableProps = {
   shortName: string;
   unavailable: boolean;
   value: number;
-  measure: string;
 };
 
 type OptionsProps = {
   list: SelectableProps[];
+  option: React.ReactNode;
 };
 
 type SelectProps = OptionsProps & {
   multiple?: boolean;
-  ListboxOptions: React.ForwardRefExoticComponent<
-    OptionsProps & React.RefAttributes<HTMLUListElement>
-  >;
+  arrow?: boolean;
 };
 
-export default function Select({ list, multiple = true, ListboxOptions }: SelectProps) {
-  const [selected, setSelected] = useState<SelectableProps[]>([list[0]]);
+const SelectRoot = ({ arrow = true, list, multiple = false, option }: SelectProps) => {
+  const [selected, setSelected] = useState<SelectableProps[] | SelectableProps>([]);
+
+  const SelectedValue = () => {
+    if (Array.isArray(selected))
+      return selected.map((item) => (
+        <span key={item.id + item.name + item.value}>{item.shortName}</span>
+      ));
+    else
+      <span key={selected.id + selected.name + selected.value}>
+        {selected.shortName}
+      </span>;
+  };
 
   return (
     <Listbox value={selected} onChange={setSelected} multiple={multiple}>
-      <Listbox.Label>
-        <Icons icon="Purchase" />
-      </Listbox.Label>
-      <Listbox.Button>
-        {selected.map((item) => (
-          <span key={item.id + item.name + item.value}>{item.shortName}</span>
-        ))}
-      </Listbox.Button>
-      <ListboxOptions list={list} />
+      <Popover.Root>
+        <div>
+          <Popover.Trigger asChild>
+            <Listbox.Button className="rounded bg-white/30 p-0.5 shadow-md backdrop-blur-sm transition-faster focus-visible:outline-none data-state-open:shadow-lg">
+              <>
+                <Listbox.Label className="cursor-pointer">
+                  <Icons icon="Purchase" className="pointer-events-none" />
+                </Listbox.Label>
+              </>
+            </Listbox.Button>
+          </Popover.Trigger>
+          {SelectedValue()}
+          {arrow && <Icons icon="Arrow" />}
+        </div>
+        <Popover.Portal>
+          <Popover.Content>
+            <ListboxOptions list={list} option={option} />
+            <Popover.Close
+              className="absolute top-1 right-1 inline-flex h-5 w-5 items-center justify-center rounded-full text-violet-900 focus:shadow-sm focus:shadow-violet-700 hover:bg-violet-400"
+              aria-label="Close"
+            >
+              x
+            </Popover.Close>
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
     </Listbox>
   );
-}
+};
 
-export const Options = React.forwardRef<HTMLUListElement, OptionsProps>(
-  ({ list }: OptionsProps, ref) => {
+const ListboxOptions = React.forwardRef<HTMLUListElement, OptionsProps>(
+  ({ list, option }: OptionsProps, ref) => {
     return (
       <Transition
         ref={ref}
@@ -52,37 +79,30 @@ export const Options = React.forwardRef<HTMLUListElement, OptionsProps>(
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <Listbox.Options className="fixed top-0 mt-1 flex max-h-8 w-full flex-row overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-          {list.map((item) => (
-            <Listbox.Option
-              key={item.id}
-              value={item}
-              className={({ active }) =>
-                `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                  active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
-                }`
-              }
-            >
-              {({ selected }) => (
-                <>
-                  <span
-                    className={`block truncate ${
-                      selected ? 'font-medium' : 'font-normal'
-                    }`}
-                  >
-                    {item.name}
-                  </span>
-                  {selected ? (
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                      <Icons icon="Accepted" aria-hidden="true" />
-                    </span>
-                  ) : null}
-                </>
-              )}
-            </Listbox.Option>
-          ))}
+        <Listbox.Options className="flex max-h-48 min-h-[11rem] max-w-[16rem] flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm">
+          <>
+            {list.map((item) => (
+              <Listbox.Option
+                key={item.id}
+                value={item}
+                className={({ active, selected }) =>
+                  `relative cursor-pointer select-none transition-faster  ${
+                    (active && selected) || selected
+                      ? 'opacity-100'
+                      : active && !selected
+                      ? 'opacity-70'
+                      : 'opacity-30'
+                  }`
+                }
+              >
+                {option}
+              </Listbox.Option>
+            ))}
+          </>
         </Listbox.Options>
       </Transition>
     );
   }
 );
+
+export default SelectRoot;

@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState } from 'react';
-
 import Icons, {
   Accepted,
-  Arrow,
   Cancel,
-  Copy,
   Delivered,
   Pending,
   Schedule
 } from 'app/components/Ui/DataDisplay/Icons';
-import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import { SelectableProps } from 'app/components/Ui/Inputs/Select';
 import TextField from 'app/components/Ui/Inputs/TextField';
 import Divider from 'app/components/Ui/Layout/Divider';
@@ -19,9 +14,6 @@ import Popover from 'app/components/Ui/Layout/Popover';
 import Currency from './Currency';
 import Head from './Head';
 
-import $ from 'jquery';
-import { TypeIcons, PaymentType } from 'utils/Types';
-
 interface ICard {
   index: number;
   purchaseId: string;
@@ -29,20 +21,6 @@ interface ICard {
 }
 
 export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard) {
-  const initialState: InitialState = {
-    paymentType: 'Cash'
-  };
-  const [state, setState] = useState(initialState);
-  const { paymentType } = state;
-
-  const handleClickChangePayment = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const { currentTarget } = event;
-    const { value, dataset } = currentTarget;
-    $(`#${dataset.check}`).prop('checked', false);
-    setState({ ...state, paymentType: value as PaymentType });
-  };
-
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase();
   // const accordionId = `${currentStatus}-accordion-control-${index}`.toLocaleLowerCase();
 
@@ -60,7 +38,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
       {/*ID NUMBER -> DISTRIBUTOR NAME */}
       <Head />
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}
-      <Currency dropDownId={dropDownId} />
+      <Currency dropDownId={dropDownId} purchaseId={purchaseId} />
       {/* PERSONAL --> CLIENT NAME ->  CLIENT PHONE NUMBER */}
       <SessionWrapper>
         <div className="flex flex-col">
@@ -134,27 +112,6 @@ const products: Product[] = [
   }
 ];
 
-type InitialState = {
-  paymentType: PaymentType;
-};
-
-type PaymentLiType = {
-  dropDownId: string;
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  key: string;
-  value: keyof TypeIcons;
-};
-
-function RenderPaymentLi({ dropDownId, handleClick, key, value }: PaymentLiType) {
-  return (
-    <li className="opacity-50 transition-faster hover:opacity-100" key={key}>
-      <button onClick={handleClick} value={value} data-check={dropDownId}>
-        <Icons icon={value} />
-      </button>
-    </li>
-  );
-}
-
 type SessionProps = {
   children: React.ReactNode;
   className?: string;
@@ -166,9 +123,11 @@ const ToClipboard = (event: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 const SessionWrapper = ({ children, className = '' }: SessionProps) => (
-  <section className={`${className}`}>
-    {children}
-    <Divider className="my-s" />
+  <section>
+    <>
+      <div className={`${className} flex text-xs font-medium`}>{children}</div>
+      <Divider className="my-s" />
+    </>
   </section>
 );
 

@@ -2,10 +2,21 @@
 import Select, { SelectableProps } from './components/Ui/Inputs/Select';
 
 import { TypeIcons } from 'utils/Types';
-
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div className="flex">
+      <div>
+        <h2>ListBox Single selection</h2>
+        <Select list={products} ListboxOptions={} />
+      </div>
+      <div>
+        <h2>ListBox multiple selection</h2>
+        <Select list={products} ListboxOptions={} />
+      </div>
+    </div>
+  );
 }
+
 type Product = SelectableProps & {
   id: number;
   label: keyof TypeIcons;

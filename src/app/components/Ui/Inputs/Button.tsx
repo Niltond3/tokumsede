@@ -12,6 +12,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   iconL?: keyof TypeIcons;
   iconR?: keyof TypeIcons;
   typeOf?: keyof typeof mappingStyles;
+  className?: string;
 };
 
 type ConditionalProps =
@@ -41,6 +42,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       iconL,
       iconR,
       toggleVariant = 'default',
+      className,
       ...props
     }: Props,
     ref
@@ -49,7 +51,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 
     const styles = `${mappingStyles[typeOf]} ${
       typeOf === 'toggle' && toggleVariantStypes[toggleVariant]
-    }`;
+    } ${className}`;
 
     const Childrens = () => (
       <>
@@ -70,7 +72,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 export default Button;
 
 const defaultStyle =
-  'transition-faster flex-1 justify-center min-h-[50%] whitespace-nowrap gap-1 text-sm font-medium flex items-center opacity-50 hover:opacity-100 rounded';
+  'transition-faster flex-1 justify-center whitespace-nowrap gap-1 text-sm font-medium flex items-center opacity-50 hover:opacity-100 rounded';
 
 const mappingStyles = {
   primary: defaultStyle,
@@ -80,7 +82,7 @@ const mappingStyles = {
 const toggleVariantStypes = {
   default: '',
   between: clsx(
-    'relative flex min-h-[50%] flex-1 child:absolute child:transition-faster child:center',
+    'relative child:absolute child:transition-faster child:center',
     '[&>*:nth-child(1)]:data-state-on:opacity-0 [&>*:nth-child(2)]:data-state-off:opacity-0'
   ),
   dropdown: clsx(

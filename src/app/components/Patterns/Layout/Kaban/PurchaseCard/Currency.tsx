@@ -1,17 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
+import Button from 'app/components/Ui/Inputs/Button';
+import TextField from 'app/components/Ui/Inputs/TextField';
 
-import { SessionWrapper } from '.';
+import { SessionWrapper, ToClipboard } from '.';
 
-import { TypeIcons } from 'utils/Types';
+import $ from 'jquery';
+import { TypeIcons, PaymentType } from 'utils/Types';
+
+type InitialState = {
+  paymentType: PaymentType;
+};
+
+type PaymentLiType = {
+  dropDownId: string;
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  key: string;
+  value: keyof TypeIcons;
+};
 
 type CurrencyProps = {
   dropDownId: string;
+  purchaseId: string;
 };
 
-export default function Currency({ dropDownId }: CurrencyProps) {
+export default function Currency({ dropDownId, purchaseId }: CurrencyProps) {
   const paymentForms: (keyof TypeIcons)[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
+  const initialState: InitialState = {
+    paymentType: 'Cash'
+  };
+  const [state, setState] = useState(initialState);
+  const { paymentType } = state;
+
+  const handleClickChangePayment = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { currentTarget } = event;
+    const { value, dataset } = currentTarget;
+    $(`#${dataset.check}`).prop('checked', false);
+    setState({ ...state, paymentType: value as PaymentType });
+  };
 
   return (
     <SessionWrapper>
@@ -22,7 +51,7 @@ export default function Currency({ dropDownId }: CurrencyProps) {
             <input type="checkbox" id={dropDownId} className="group peer hidden"></input>
             <label htmlFor={dropDownId} className="flex cursor-pointer items-center">
               <Icons icon={paymentType as keyof TypeIcons} />
-              <Arrow />
+              <Icons icon="Arrow" />
             </label>
             <ul className="absolute top-full z-10 flex max-h-0 w-full flex-col items-center overflow-hidden rounded-md border-[0.1rem] border-lg-primary-base/0 bg-lg-primary-lighter/0 pt-1 backdrop-blur-sm transition-faster peer-checked:max-h-[10rem] peer-checked:border-lg-primary-base/30 peer-checked:bg-lg-primary-lighter/20">
               {paymentForms.map((value, index) => {
@@ -40,27 +69,22 @@ export default function Currency({ dropDownId }: CurrencyProps) {
           </div>
         </Tooltip>
         {/* UPDATE THIS BLOCK */}
-        {/* UPDATE THIS BUTTON */}
         <Tooltip
           content={
             <label className="flex items-center gap-2">
-              <Copy /> <span>Total a pagar</span>
+              <Icons icon="Copy" /> <span>Total a pagar</span>
             </label>
           }
           side="top"
         >
-          <button
-            className="group relative flex flex-1 items-center gap-2"
+          <Button
             onClick={ToClipboard}
             data-clipboard="Total a pagar: R$ 00,00"
+            iconL="CurrencyReal"
           >
-            <label>
-              <Icons icon="CurrencyReal" />
-            </label>
-            <p>00,00</p>
-          </button>
+            00,00
+          </Button>
         </Tooltip>
-        {/* UPDATE THIS BUTTON */}
         <Tooltip side="top" content="Troco">
           <div className="group relative flex flex-2 items-center gap-2">
             <label>
@@ -73,3 +97,13 @@ export default function Currency({ dropDownId }: CurrencyProps) {
     </SessionWrapper>
   );
 }
+
+const RenderPaymentLi = ({ dropDownId, handleClick, key, value }: PaymentLiType) => {
+  return (
+    <li className="opacity-50 transition-faster hover:opacity-100" key={key}>
+      <button onClick={handleClick} value={value} data-check={dropDownId}>
+        <Icons icon={value} />
+      </button>
+    </li>
+  );
+};
