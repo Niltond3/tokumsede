@@ -4,29 +4,56 @@ import Select, { SelectableProps } from './components/Ui/Inputs/Select';
 import { TypeIcons } from 'utils/Types';
 export default function Home() {
   return (
-    <div className="flex">
+    <div className="flex gap-3">
       <div>
         <h2>ListBox Single selection</h2>
-        <Select list={products} ListboxOptions={} />
+        <Select
+          list={products}
+          renderItem={({
+            id,
+            label,
+            measure,
+            name,
+            shortName,
+            unavailable,
+            value
+          }: ProductProps) => <>{name}</>}
+          renderSelectValue={(prop) => {
+            const prop;
+          }}
+        />
       </div>
       <div>
         <h2>ListBox multiple selection</h2>
-        <Select list={products} ListboxOptions={} />
+        <Select
+          multiple
+          list={products}
+          renderItem={({
+            id,
+            label,
+            measure,
+            name,
+            shortName,
+            unavailable,
+            value
+          }: ProductProps) => <>{name}</>}
+          renderSelectValue={({ shortName }: ProductProps) => <>{shortName}</>}
+        />
       </div>
     </div>
   );
 }
 
-type Product = SelectableProps & {
-  id: number;
+type ProductType = {
   label: keyof TypeIcons;
-  name: string;
   shortName: string;
   value: number;
   measure: string;
 };
 
-const products: Product[] = [
+type ProductProps = SelectableProps<ProductType>;
+
+const products: ProductProps[] = [
   {
     id: 1,
     label: 'Leve',
