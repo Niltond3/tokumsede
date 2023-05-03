@@ -1,28 +1,37 @@
-import React, { Fragment, useState } from 'react';
+'use client';
+import React, { ElementType, Fragment, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
 
-import { Listbox, Transition } from '@headlessui/react';
+import { Listbox, Transition, ListboxProps } from '@headlessui/react';
 import * as Popover from '@radix-ui/react-popover';
 
-export type SelectableProps<T> = T & {
+export type ObjectDefaultProps<T> = T & {
   id: number;
   name: string;
   unavailable: boolean;
 };
 
 type OptionsProps<T> = {
-  list: SelectableProps<T>[];
-  renderItem: (Item: SelectableProps<T>) => React.ReactNode;
+  list: ObjectDefaultProps<T>[];
+  renderItem: (Item: ObjectDefaultProps<T>) => React.ReactNode;
 };
 
-type SelectProps<T> = OptionsProps<T> & {
-  multiple?: boolean;
-  arrow?: boolean;
-  renderSelectValue: (
-    Item: SelectableProps<T> | SelectableProps<T>[]
-  ) => JSX.Element | JSX.Element[];
-};
+type ConditionalProps<T> =
+  | {
+      multiple?: false;
+      renderSelectValue: (item: ObjectDefaultProps<T>) => React.ReactNode;
+    }
+  | {
+      multiple?: true;
+      renderSelectValue: (items: ObjectDefaultProps<T>[]) => React.ReactNode;
+    };
+
+type SelectProps<T> = OptionsProps<T> &
+  ConditionalProps<T> & {
+    multiple?: boolean;
+    arrow?: boolean;
+  };
 
 const SelectRoot = <T,>({
   arrow = true,
@@ -31,11 +40,17 @@ const SelectRoot = <T,>({
   renderItem,
   renderSelectValue
 }: SelectProps<T>) => {
-  const [selected, setSelected] = useState<SelectableProps<T>[] | SelectableProps<T>>([]);
+  const [selected, setSelected] = useState<ObjectDefaultProps<T> | ObjectDefaultProps<T>>(
+    [] as ObjectDefaultProps<T>[] | object as ObjectDefaultProps<T>
+  );
 
-  const SelectedValue = () => {
-    if (Array.isArray(selected))
-      return selected.map((item) => <span key={item.id + item.name}>{item.name}</span>);
+  type Selcreturn<T> = {
+    item: ObjectDefaultProps<T>;
+    children: React.ReactNode;
+  };
+
+  const SelectedValue = (): Selcreturn | Selcreturn[] => {
+    if (Array.isArray(selected)) return selected.map((item) => {});
     return <span>{selected.name}</span>;
   };
 
@@ -68,7 +83,7 @@ const SelectRoot = <T,>({
             <Popover.Content>
               <ListboxOptions
                 list={list}
-                renderItem={(item) => renderItem(item as SelectableProps<T>)}
+                renderItem={(item) => renderItem(item as ObjectDefaultProps<T>)}
               />
               <Popover.Close
                 className="absolute top-1 right-1 inline-flex h-5 w-5 items-center justify-center rounded-full text-violet-900 focus:shadow-sm focus:shadow-violet-700 hover:bg-violet-400"

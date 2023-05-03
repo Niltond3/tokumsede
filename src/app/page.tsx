@@ -1,4 +1,3 @@
-'use client';
 import Select, { SelectableProps } from './components/Ui/Inputs/Select';
 
 import { TypeIcons } from 'utils/Types';
@@ -18,9 +17,7 @@ export default function Home() {
             unavailable,
             value
           }: ProductProps) => <>{name}</>}
-          renderSelectValue={(prop) => {
-            const prop;
-          }}
+          renderSelectValue={(prop: SelectableProps<ProductProps>) => <>{prop}</>}
         />
       </div>
       <div>
@@ -37,7 +34,9 @@ export default function Home() {
             unavailable,
             value
           }: ProductProps) => <>{name}</>}
-          renderSelectValue={({ shortName }: ProductProps) => <>{shortName}</>}
+          renderSelectValue={(prop: SelectableProps<ProductProps>[]) => {
+            return prop.map(({ name }) => <>{name}</>);
+          }}
         />
       </div>
     </div>
