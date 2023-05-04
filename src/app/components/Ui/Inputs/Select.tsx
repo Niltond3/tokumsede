@@ -16,6 +16,7 @@ type OptionsProps<T> = {
   list: ObjectDefaultProps<T>[];
   renderItem: (Item: ObjectDefaultProps<T>) => React.ReactNode;
 };
+type CallbackType<T> = (Item: T) => React.ReactNode;
 
 type ConditionalProps<T> =
   | {
@@ -27,18 +28,18 @@ type ConditionalProps<T> =
       renderSelectValue: (items: ObjectDefaultProps<T>[]) => React.ReactNode;
     };
 
-type SelectProps<T> = OptionsProps<T> &
-  ConditionalProps<T> & {
-    multiple?: boolean;
-    arrow?: boolean;
-  };
+type SelectProps<T> = OptionsProps<T> & {
+  multiple?: boolean;
+  arrow?: boolean;
+  callback: CallbackType<ObjectDefaultProps<T>>;
+};
 
 const SelectRoot = <T,>({
   arrow = true,
   list,
   multiple = false,
   renderItem,
-  renderSelectValue
+  callback
 }: SelectProps<T>) => {
   const [selected, setSelected] = useState<ObjectDefaultProps<T> | ObjectDefaultProps<T>>(
     [] as ObjectDefaultProps<T>[] | object as ObjectDefaultProps<T>
@@ -49,9 +50,13 @@ const SelectRoot = <T,>({
     children: React.ReactNode;
   };
 
-  const SelectedValue = (): Selcreturn | Selcreturn[] => {
-    if (Array.isArray(selected)) return selected.map((item) => {});
-    return <span>{selected.name}</span>;
+  const SelectedValue = ({
+    callback
+  }: {
+    callback: CallbackType<ObjectDefaultProps<T>>;
+  }) => {
+    if (Array.isArray(selected)) return selected.map((item) => callback(item));
+    return callback(selected);
   };
 
   return (
@@ -68,7 +73,7 @@ const SelectRoot = <T,>({
             </Listbox.Button>
           </Popover.Trigger>
           {arrow && <Icons icon="Arrow" />}
-          {renderSelectValue(selected)}
+          {SelectedValue({ callback })}
         </div>
         <Popover.Portal>
           <Transition
