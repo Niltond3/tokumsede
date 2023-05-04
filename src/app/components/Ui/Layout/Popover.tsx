@@ -8,8 +8,6 @@ import Divider from './Divider';
 import { Listbox, Transition } from '@headlessui/react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import clsx from 'clsx';
-import { Input } from 'postcss';
-import { TypeIcons } from 'utils/Types';
 
 export type SelectableProps = {
   id: number;

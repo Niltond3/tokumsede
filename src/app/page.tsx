@@ -9,7 +9,7 @@ export default function Home() {
         <h2>ListBox Single selection</h2>
         <Select
           list={products}
-          renderItem={({
+          renderOptions={({
             id,
             label,
             measure,
@@ -18,7 +18,7 @@ export default function Home() {
             unavailable,
             value
           }: ProductProps) => <>{name}</>}
-          callback={({ shortName }) => <>{shortName}</>}
+          renderSelected={({ shortName }) => <span>{shortName}</span>}
         />
       </div>
       <div>
@@ -26,7 +26,7 @@ export default function Home() {
         <Select
           multiple
           list={products}
-          renderItem={({
+          renderOptions={({
             id,
             label,
             measure,
@@ -35,7 +35,7 @@ export default function Home() {
             unavailable,
             value
           }: ProductProps) => <>{name}</>}
-          callback={({ shortName }) => <>{shortName}</>}
+          renderSelected={({ shortName }) => <span>{shortName}</span>}
         />
       </div>
     </div>

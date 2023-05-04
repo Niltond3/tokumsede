@@ -21,6 +21,14 @@ module.exports = {
           '0%': { opacity: 0, transform: 'translateX(100%)' },
           '100%': { opacity: '.5', transform: 'translateX(0)' }
         },
+        'list-open': {
+          '0%': { opacity: 0, maxHeight: '0px' },
+          '100%': { opacity: 1, maxHeight: '11rem' }
+        },
+        'list-close': {
+          '0%': { opacity: 1, maxHeight: '11rem' },
+          '100%': { opacity: 0, maxHeight: '0px' }
+        },
         'hover-here': {
           '0%, 100%': {
             transform: 'translateX(-30%) rotate(-15deg)'
@@ -34,6 +42,8 @@ module.exports = {
         // slideIn: 'slideIn .25s ease-in-out forwards var(--delay, 0)',
         opacity: 'opacity .35s ease-in-out forwards 0.1s',
         'intro-menu': 'intro-menu .40s ease-in-out forwards 0.1s',
+        'list-open': 'list-open .8s ease-in-out forwards 0.1s',
+        'list-close': 'list-close .8s ease-in-out forwards 0.1s',
         'hover-here': 'hover-here 1.4s infinite'
       },
       spacing: {
