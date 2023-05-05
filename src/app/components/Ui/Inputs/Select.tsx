@@ -5,6 +5,7 @@ import Icons from '../DataDisplay/Icons';
 
 import { Listbox, Transition } from '@headlessui/react';
 import * as Popover from '@radix-ui/react-popover';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export type ObjectDefaultProps<T> = T & {
   id: number;
@@ -24,7 +25,6 @@ type RenderOptionsProps<T> = {
 
 type OptionsProps<T> = RenderOptionsProps<T> & {
   list: ObjectDefaultProps<T>[];
-  open: boolean;
 };
 
 type OptionProps<T> = RenderOptionsProps<T> & {
@@ -84,42 +84,28 @@ const Button = <T,>({ arrow, renderSelected, selected }: ButtonProps<T>) => {
 
 const ListOptions = React.forwardRef(
   <T,>(
-    { list, renderOptions, open }: OptionsProps<T>,
+    { list, renderOptions }: OptionsProps<T>,
     ref: React.ForwardedRef<HTMLUListElement>
   ) => (
-    <Transition
-      show={open}
-      as={Fragment}
-      enter="transform transition duration-[400ms]"
-      enterFrom="opacity-0 rotate-[-120deg] scale-50"
-      enterTo="opacity-100 rotate-0 scale-100"
-      leave="transform duration-200 transition ease-in-out"
-      leaveFrom="opacity-100 rotate-0 scale-100 "
-      leaveTo="opacity-0 scale-95 "
-    >
-      <Popover.Content asChild={true}>
-        <Listbox.Options
+    <Popover.Content asChild>
+      <Listbox.Options as={Fragment}>
+        <motion.ul
+          initial={{ opacity: 0, scale: '90%' }}
+          animate={{ opacity: 1, scale: '100%' }}
+          exit={{ opacity: 0, scale: '90%' }}
           ref={ref}
-          className="flex max-h-0 w-64 flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base opacity-0 shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none ui-open:animate-list-open ui-not-open:animate-list-close sm:text-sm"
+          className="flex w-64 flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg backdrop-blur-sm transition-all scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm"
         >
-          <>
-            {list.map((item) => (
-              <Option
-                key={`${item.id}${item.name}`}
-                renderOptions={renderOptions}
-                option={item}
-              />
-            ))}
-            <Popover.Close
-              className="absolute top-1 right-1 inline-flex h-5 w-5 items-center justify-center rounded-full text-violet-900 focus:shadow-sm focus:shadow-violet-700 hover:bg-violet-400"
-              aria-label="Close"
-            >
-              x
-            </Popover.Close>
-          </>
-        </Listbox.Options>
-      </Popover.Content>
-    </Transition>
+          {list.map((item) => (
+            <Option
+              key={`${item.id}${item.name}`}
+              renderOptions={renderOptions}
+              option={item}
+            />
+          ))}
+        </motion.ul>
+      </Listbox.Options>
+    </Popover.Content>
   )
 );
 
@@ -135,20 +121,19 @@ const SelectRoot = <T,>({
   );
 
   return (
-    <Listbox value={selected} onChange={setSelected} multiple={multiple}>
+    <Listbox as="div" value={selected} onChange={setSelected} multiple={multiple}>
       {({ open }) => (
-        <>
-          <Popover.Root>
-            <Button arrow={arrow} renderSelected={renderSelected} selected={selected} />
+        <Popover.Root open={open}>
+          <Button arrow={arrow} renderSelected={renderSelected} selected={selected} />
+          <AnimatePresence>
             <Popover.Portal>
               <ListOptions
                 list={list}
-                open={open}
                 renderOptions={(item) => renderOptions(item as ObjectDefaultProps<T>)}
               />
             </Popover.Portal>
-          </Popover.Root>
-        </>
+          </AnimatePresence>
+        </Popover.Root>
       )}
     </Listbox>
   );
