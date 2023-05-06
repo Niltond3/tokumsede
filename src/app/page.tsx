@@ -1,5 +1,6 @@
 'use client';
 import Select, { ObjectDefaultProps } from './components/Ui/Inputs/Select';
+import DropdownMenu from './components/Ui/Navigation/DropdownMenu';
 
 import { TypeIcons } from 'utils/Types';
 export default function Home() {
@@ -23,8 +24,7 @@ export default function Home() {
       </div>
       <div>
         <h2>ListBox multiple selection</h2>
-        <Select
-          multiple
+        <DropdownMenu
           list={products}
           renderOptions={({
             id,
