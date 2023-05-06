@@ -26,16 +26,8 @@ export default function Home() {
         <h2>ListBox multiple selection</h2>
         <DropdownMenu
           list={products}
-          renderOptions={({
-            id,
-            label,
-            measure,
-            name,
-            shortName,
-            unavailable,
-            value
-          }: ProductProps) => <>{name}</>}
-          renderSelected={({ shortName }) => <span>{shortName}</span>}
+          renderOptions={({}) => <div>{}</div>}
+          renderSelect={({}) => <div>{}</div>}
         />
       </div>
     </div>

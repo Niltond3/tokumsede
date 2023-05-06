@@ -5,7 +5,6 @@ import Icons from '../DataDisplay/Icons';
 import Button from '../Inputs/Button';
 
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
-import * as Popover from '@radix-ui/react-popover';
 import {
   AnimatePresence,
   AnimationControls,
@@ -13,50 +12,60 @@ import {
   useAnimationControls
 } from 'framer-motion';
 
-export type ObjectDefaultProps<T> = T & {
-  id: number;
-  name: string;
-  unavailable: boolean;
+type ItemsProps<T> = {
+  onSelect?: () => void;
+  closeMenu?: () => void;
+  setSelect?: React.Dispatch<React.SetStateAction<ItemStateType<T>>>;
 };
+
+export type ObjectDefaultProps<T> = T &
+  Omit<ItemsProps<T>, 'onSelect'> & {
+    id: number;
+    name: string;
+    unavailable: boolean;
+  };
 
 type CallbackType<T> = (Item: T) => React.ReactNode;
 
+type ItemStateType<T> = ObjectDefaultProps<T>[] | ObjectDefaultProps<T>;
+
+type RenderSelectType<T> = Omit<ObjectDefaultProps<T>, 'closeMenu' | 'setSelect'>;
+
 type RenderSelectProps<T> = {
-  renderItem: CallbackType<ObjectDefaultProps<T>>;
+  renderSelect: CallbackType<RenderSelectType<T>>;
 };
 
 type RenderOptionsProps<T> = {
   renderOptions: CallbackType<ObjectDefaultProps<T>>;
 };
 
-type OptionsProps<T> = RenderOptionsProps<T> & {
-  list: ObjectDefaultProps<T>[];
-  controls: AnimationControls;
-};
+type ListOptionsProps<T> = RenderOptionsProps<T> &
+  ItemsProps<T> & {
+    list: ObjectDefaultProps<T>[];
+    controls: AnimationControls;
+  };
 
-type OptionProps<T> = RenderOptionsProps<T> & {
-  option: ObjectDefaultProps<T>;
-  onSelect?: () => void;
-  closeMenu: () => void;
-};
-
-type SelectProps<T> = OptionsProps<T> &
-  RenderSelectProps<T> & {
-    arrow?: boolean;
+type OptionProps<T> = RenderOptionsProps<T> &
+  Omit<ListOptionsProps<T>, 'list'> & {
+    option: ObjectDefaultProps<T>;
   };
 
 type TriggerProps<T> = RenderSelectProps<T> & {
-  item: ObjectDefaultProps<T>;
+  item: ItemStateType<T>;
   arrow: boolean;
 };
 
-type ItemStateType<T> = ObjectDefaultProps<T>[] | ObjectDefaultProps<T>;
+type SelectProps<T> = RenderSelectProps<T> &
+  Omit<ListOptionsProps<T>, 'closeMenu' | 'controls'> & {
+    arrow?: boolean;
+  };
 
 export default function DropdownMenu<T>({
   arrow = true,
   list,
-  renderOptions,
-  renderItem
+  onSelect,
+  renderSelect,
+  renderOptions
 }: SelectProps<T>) {
   const [item, setItem] = useState<ItemStateType<T>>(
     [] as ObjectDefaultProps<T>[] | object as ObjectDefaultProps<T>
@@ -75,11 +84,18 @@ export default function DropdownMenu<T>({
 
   return (
     <Dropdown.Root open={open} onOpenChange={setOpen}>
-      <Trigger arrow={arrow} renderItem={renderItem} item={item} />
+      <Trigger arrow={arrow} renderSelect={renderSelect} item={item} />
       <AnimatePresence>
         {open && (
           <Dropdown.Portal forceMount>
-            <ListOptions list={list} renderOptions={renderOptions} controls={controls} />
+            <ListOptions
+              setSelect={setItem}
+              closeMenu={closeMenu}
+              list={list}
+              onSelect={onSelect}
+              renderOptions={renderOptions}
+              controls={controls}
+            />
           </Dropdown.Portal>
         )}
       </AnimatePresence>
@@ -87,9 +103,18 @@ export default function DropdownMenu<T>({
   );
 }
 
-const Trigger = <T,>({ arrow, renderItem, item }: TriggerProps<T>) => {
-  const renderSelect = ({ renderItem }: RenderSelectProps<T>) =>
-    Array.isArray(item) ? item.map((item) => renderItem(item)) : renderItem(item);
+const Trigger = <T,>({ arrow, renderSelect, item }: TriggerProps<T>) => {
+  const selected = (object: ObjectDefaultProps<T>) => {
+    delete object.closeMenu;
+    delete object.setSelect;
+    const obj: RenderSelectType<T> = object as RenderSelectType<T>;
+    return obj;
+  };
+
+  const renderSelectItem = () =>
+    Array.isArray(item)
+      ? item.map((item) => renderSelect(selected(item)))
+      : renderSelect(selected(item));
 
   return (
     <div className="flex gap-2 ">
@@ -99,12 +124,19 @@ const Trigger = <T,>({ arrow, renderItem, item }: TriggerProps<T>) => {
         </Button>
       </Dropdown.Trigger>
       {arrow && <Icons icon="Arrow" />}
-      {renderSelect({ renderItem })}
+      {renderSelectItem()}
     </div>
   );
 };
 
-const ListOptions = <T,>({ list, renderOptions, controls }: OptionsProps<T>) => (
+const ListOptions = <T,>({
+  list,
+  renderOptions,
+  closeMenu,
+  onSelect,
+  controls,
+  setSelect
+}: ListOptionsProps<T>) => (
   <Dropdown.Content asChild align="start">
     <motion.div
       initial="close"
@@ -117,9 +149,13 @@ const ListOptions = <T,>({ list, renderOptions, controls }: OptionsProps<T>) => 
     >
       {list.map((item) => (
         <Option
+          setSelect={setSelect}
           key={`${item.id}${item.name}`}
           renderOptions={renderOptions}
           option={item}
+          closeMenu={closeMenu}
+          onSelect={onSelect}
+          controls={controls}
         />
       ))}
     </motion.div>
@@ -127,14 +163,16 @@ const ListOptions = <T,>({ list, renderOptions, controls }: OptionsProps<T>) => 
 );
 
 const Option = <T,>({
+  setSelect,
   option,
   renderOptions,
   closeMenu,
+  controls,
   onSelect = () => {
     // empty
   }
 }: OptionProps<T>) => {
-  const controls = useAnimationControls();
+  // const controls = useAnimationControls();
 
   return (
     <Dropdown.Item
@@ -148,9 +186,9 @@ const Option = <T,>({
       className="select-none rounded text-gray-700 opacity-50 outline-none transition-faster data-[highlighted]:opacity-100"
       asChild
     >
-      <motion.div animate={controls}>{renderOptions(option)}</motion.div>
+      <motion.div animate={controls}>
+        {renderOptions({ ...option, closeMenu: closeMenu, setSelect: setSelect })}
+      </motion.div>
     </Dropdown.Item>
   );
 };
-
-const sleep = (s: number) => new Promise((resolve) => setTimeout(resolve, s * 1000));
