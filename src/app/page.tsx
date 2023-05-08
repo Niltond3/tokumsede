@@ -28,11 +28,17 @@ export default function Home() {
           list={products}
           renderOptions={({}) => <div>{}</div>}
           renderSelect={({}) => <div>{}</div>}
+          styles={Styles}
         />
       </div>
     </div>
   );
 }
+
+const Styles = () => {
+  const styles = { trigger: '', dropdownContent: 'string' };
+  return styles;
+};
 
 type ProductType = {
   label: keyof TypeIcons;

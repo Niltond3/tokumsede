@@ -6,13 +6,12 @@ import Icons, {
   Pending,
   Schedule
 } from 'app/components/Ui/DataDisplay/Icons';
-import { SelectableProps } from 'app/components/Ui/Inputs/Select';
 import TextField from 'app/components/Ui/Inputs/TextField';
 import Divider from 'app/components/Ui/Layout/Divider';
-import Popover from 'app/components/Ui/Layout/Popover';
 
 import Currency from './Currency';
 import Head from './Head';
+import Marketplace from './Marketplace';
 
 interface ICard {
   index: number;
@@ -63,7 +62,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
           <i className="flex flex-[10%]">
             <Icons icon="Address" />
           </i>
-          <Popover list={products} className="flex-[90%]" />
+          <Marketplace />
         </div>
       </SessionWrapper>
       {/* STATUS --> STATUS TIME AND RESPONSE TRACKER */}
@@ -78,39 +77,6 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
     </div>
   );
 }
-
-type Product = SelectableProps;
-/**
-[16:05, 26/04/2023] Claudizon: Alcalina Rica: 10 e 20 litros
-[16:06, 26/04/2023] Claudizon: Alcalina Sport: 5 e 20 litros
-[16:06, 26/04/2023] Claudizon: Alcalina Leve: 20 litros
- */
-const products: Product[] = [
-  {
-    id: 1,
-    name: 'leve',
-    shortName: 'L',
-    value: 8.0,
-    measure: '20L',
-    unavailable: false
-  },
-  {
-    id: 2,
-    name: 'rica',
-    shortName: 'R',
-    value: 11.0,
-    measure: '20L',
-    unavailable: false
-  },
-  {
-    id: 3,
-    name: 'sport',
-    shortName: 'S',
-    value: 10.0,
-    measure: '20L',
-    unavailable: false
-  }
-];
 
 type SessionProps = {
   children: React.ReactNode;

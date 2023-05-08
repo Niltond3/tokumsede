@@ -36,6 +36,7 @@ export default function Img({
       height={height || size}
       sizes={sizes ? `${sizes}vw` : undefined}
       placeholder={blur}
+      blurDataURL={`${src}`}
       className={className}
     />
   );

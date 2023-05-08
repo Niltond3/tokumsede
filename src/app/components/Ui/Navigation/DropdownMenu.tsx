@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
@@ -43,21 +42,35 @@ type ListOptionsProps<T> = RenderOptionsProps<T> &
   ItemsProps<T> & {
     list: ObjectDefaultProps<T>[];
     controls: AnimationControls;
+    className: string;
   };
 
 type OptionProps<T> = RenderOptionsProps<T> &
-  Omit<ListOptionsProps<T>, 'list'> & {
+  Omit<ListOptionsProps<T>, 'list' | 'className'> & {
     option: ObjectDefaultProps<T>;
   };
 
 type TriggerProps<T> = RenderSelectProps<T> & {
   item: ItemStateType<T>;
   arrow: boolean;
+  className: {
+    wrapper: string;
+    button: string;
+    icon: string;
+  };
 };
 
 type SelectProps<T> = RenderSelectProps<T> &
-  Omit<ListOptionsProps<T>, 'closeMenu' | 'controls'> & {
+  Omit<ListOptionsProps<T>, 'closeMenu' | 'controls' | 'className'> & {
     arrow?: boolean;
+    styles: () => {
+      trigger: {
+        wrapper: string;
+        button: string;
+        icon: string;
+      };
+      dropdownContent: string;
+    };
   };
 
 export default function DropdownMenu<T>({
@@ -65,7 +78,8 @@ export default function DropdownMenu<T>({
   list,
   onSelect,
   renderSelect,
-  renderOptions
+  renderOptions,
+  styles
 }: SelectProps<T>) {
   const [item, setItem] = useState<ItemStateType<T>>(
     [] as ObjectDefaultProps<T>[] | object as ObjectDefaultProps<T>
@@ -77,24 +91,30 @@ export default function DropdownMenu<T>({
     await controls.start('close');
     setOpen(false);
   };
-
   useEffect(() => {
     if (open) controls.start('open');
   }, [controls, open]);
+  const { dropdownContent, trigger } = styles();
 
   return (
     <Dropdown.Root open={open} onOpenChange={setOpen}>
-      <Trigger arrow={arrow} renderSelect={renderSelect} item={item} />
+      <Trigger
+        arrow={arrow}
+        renderSelect={renderSelect}
+        item={item}
+        className={trigger}
+      />
       <AnimatePresence>
         {open && (
           <Dropdown.Portal forceMount>
             <ListOptions
-              setSelect={setItem}
+              className={dropdownContent}
               closeMenu={closeMenu}
+              controls={controls}
               list={list}
               onSelect={onSelect}
               renderOptions={renderOptions}
-              controls={controls}
+              setSelect={setItem}
             />
           </Dropdown.Portal>
         )}
@@ -103,24 +123,23 @@ export default function DropdownMenu<T>({
   );
 }
 
-const Trigger = <T,>({ arrow, renderSelect, item }: TriggerProps<T>) => {
+const Trigger = <T,>({ arrow, renderSelect, item, className }: TriggerProps<T>) => {
   const selected = (object: ObjectDefaultProps<T>) => {
-    delete object.closeMenu;
-    delete object.setSelect;
-    const obj: RenderSelectType<T> = object as RenderSelectType<T>;
-    return obj;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { closeMenu: _, setSelect: __, ...selected } = object;
+    return selected;
   };
-
+  const { wrapper, button, icon } = className;
   const renderSelectItem = () =>
     Array.isArray(item)
       ? item.map((item) => renderSelect(selected(item)))
       : renderSelect(selected(item));
 
   return (
-    <div className="flex gap-2 ">
+    <div className={`flex ${wrapper}`}>
       <Dropdown.Trigger asChild>
-        <Button aria-label="Customise options">
-          <Icons icon="Purchase" className="pointer-events-none" />
+        <Button aria-label="Customise options" className={button}>
+          <Icons icon="Purchase" className={`pointer-events-none ${icon}`} />
         </Button>
       </Dropdown.Trigger>
       {arrow && <Icons icon="Arrow" />}
@@ -135,10 +154,12 @@ const ListOptions = <T,>({
   closeMenu,
   onSelect,
   controls,
-  setSelect
+  setSelect,
+  className
 }: ListOptionsProps<T>) => (
   <Dropdown.Content asChild align="start">
     <motion.div
+      className={className}
       initial="close"
       animate={controls}
       exit="close"
