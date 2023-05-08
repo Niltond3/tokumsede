@@ -72,7 +72,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 export default Button;
 
 const defaultStyle =
-  'transition-faster flex-1 justify-center whitespace-nowrap gap-1 text-sm font-medium flex items-center opacity-50 hover:opacity-100 rounded';
+  'transition-faster justify-center whitespace-nowrap text-sm font-medium flex items-center opacity-50 hover:opacity-100 rounded';
 
 const mappingStyles = {
   primary: defaultStyle,

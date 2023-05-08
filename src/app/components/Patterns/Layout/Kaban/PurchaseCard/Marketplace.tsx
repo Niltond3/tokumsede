@@ -3,6 +3,10 @@ import React from 'react';
 import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Img, { ImagePath } from 'app/components/Ui/DataDisplay/Image';
 import Button from 'app/components/Ui/Inputs/Button';
+import RadioGroup, {
+  GroupType,
+  RadioGroupStyleProp
+} from 'app/components/Ui/Inputs/RadioGroup';
 import TextField from 'app/components/Ui/Inputs/TextField';
 import Divider from 'app/components/Ui/Layout/Divider';
 import DropdownMenu, {
@@ -47,11 +51,17 @@ export default function Marketplace() {
           <>
             <div className="flex ">
               <div className="relative flex flex-[60%] justify-between">
-                <Button
-                  iconL="Info"
-                  className="absolute top-0 left-2 h-auto w-5 text-lg-primary"
-                />
                 <div className="relative">
+                  <div className="absolute top-0 flex w-full flex-wrap justify-between">
+                    <Button
+                      iconL="Info"
+                      className="h-5 w-8 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
+                    />
+                    <Button
+                      iconL="AddShopping"
+                      className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
+                    />
+                  </div>
                   <Img image={lowName as ImagePath} blur="blur" />
                   <div
                     className={clsx(
@@ -64,19 +74,20 @@ export default function Marketplace() {
                     </span>
                   </div>
                 </div>
-                <Button
-                  iconL="AddShopping"
-                  className="absolute top-0 right-2 h-auto w-5 text-lg-primary"
-                />
                 <Divider orientation="vertical" className="!bg-black/30" />
               </div>
               <div className="flex flex-[40%] flex-col items-center justify-center">
-                <div className="flex">
+                {/* <div className="flex">
                   <Icons icon="Drop" className="text-lg-primary" />
                   <Icons icon="Drop" className="text-lg-primary" />
                   <Icons icon="Drop" className="text-lg-primary" />
                 </div>
-                <span>{measure}</span>
+                <span>{measure}</span> */}
+                <RadioGroup
+                  group={MesureGroup}
+                  styles={MesureStyles}
+                  Item={<Icons icon="Drop" className="" />}
+                />
                 <Divider className="!bg-black/30" />
                 {/* CREATE A INPUT TYPE NUMBER */}
                 <TextField type="number" />
@@ -91,20 +102,50 @@ export default function Marketplace() {
   );
 }
 
+type MesureType = GroupType[];
+
+const MesureStyles: RadioGroupStyleProp = () => {
+  const Styles = {
+    RadioGroupRoot: 'flex justify-center items-center ',
+    RadioGroupItemWrapper: '',
+    RadioGroupItem: '',
+    RadioGroupIndicator: '',
+    RadioGroupLabel: ''
+  };
+
+  return Styles;
+};
+
+const MesureGroup: MesureType = [
+  {
+    id: '20',
+    value: '20L',
+    default: true
+  },
+  {
+    id: '10',
+    value: '10L'
+  },
+  {
+    id: '5',
+    value: '5L'
+  }
+];
+
+type ProductType = {
+  label: keyof TypeIcons;
+  shortName: string;
+  value: number;
+  measure: string[];
+};
+
+type ProductProps = ObjectDefaultProps<ProductType>;
+
 /**
 [16:05, 26/04/2023] Claudizon: Alcalina Rica: 10 e 20 litros
 [16:06, 26/04/2023] Claudizon: Alcalina Sport: 5 e 20 litros
 [16:06, 26/04/2023] Claudizon: Alcalina Leve: 20 litros
  */
-type ProductType = {
-  label: keyof TypeIcons;
-  shortName: string;
-  value: number;
-  measure: string;
-};
-
-type ProductProps = ObjectDefaultProps<ProductType>;
-
 const products: ProductProps[] = [
   {
     id: 1,
@@ -112,7 +153,7 @@ const products: ProductProps[] = [
     name: 'Alkalina Leve',
     shortName: 'L',
     value: 8.0,
-    measure: '20L',
+    measure: ['20'],
     unavailable: true
   },
   {
@@ -121,7 +162,7 @@ const products: ProductProps[] = [
     name: 'Alkalina Rica',
     shortName: 'Rica',
     value: 11.0,
-    measure: '20L',
+    measure: ['10', '20'],
     unavailable: true
   },
   {
@@ -130,7 +171,7 @@ const products: ProductProps[] = [
     name: 'Alkalina Sport',
     shortName: 'Sport',
     value: 10.0,
-    measure: '5L',
+    measure: ['5', '20'],
     unavailable: true
   }
 ];

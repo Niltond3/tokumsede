@@ -33,10 +33,6 @@ import screen6 from '../../public/images/screenshots/screen6.webp';
 import screen7 from '../../public/images/screenshots/screen7.webp';
 import truck from '../../public/images/truck.webp';
 
-leve.blurDataURL = '../../public/images/icons/gallon_leve.png';
-rica.blurDataURL = '../../public/images/icons/gallon_rica.png';
-sport.blurDataURL = '../../public/images/icons/gallon_sport.png';
-
 const Images = {
   contactMap,
   downloadBg,
