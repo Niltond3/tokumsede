@@ -42,9 +42,9 @@ export default function Marketplace() {
           minimumFractionDigits: 2
         });
         const mappingStyles = {
-          leve: '',
-          rica: '',
-          sport: ''
+          leve: 'bg-lg-primary',
+          rica: 'bg-lg-success',
+          sport: 'bg-lg-sent'
         } as const;
 
         const MesureGroupFiltered = MesureGroup.map((item) => {
@@ -72,12 +72,12 @@ export default function Marketplace() {
                   <Img image={lowName as ImagePath} blur="blur" />
                   <div
                     className={clsx(
-                      'absolute bottom-0 flex h-1/3 w-1/3 border-spacing-1 items-center justify-center rounded-br-xl rounded-tl-xl border-[1px] border-white bg-lg-success p-2 outline outline-1 outline-lg-accent-darker',
+                      'absolute bottom-0 flex h-1/3 w-1/3 border-spacing-1 items-center justify-center rounded-br-xl rounded-tl-xl border-[1px] border-white p-2 outline outline-1 outline-lg-accent-darker',
                       mappingStyles[lowName as keyof typeof mappingStyles]
                     )}
                   >
-                    <span className="text-[11px] font-medium text-lg-primary-base">
-                      {currencyValue}
+                    <span className="flex items-center justify-center gap-0.5 p-0.5 text-[10px] font-medium text-lg-primary-base">
+                      <Icons icon="CurrencyReal" /> {currencyValue}
                     </span>
                   </div>
                 </div>
