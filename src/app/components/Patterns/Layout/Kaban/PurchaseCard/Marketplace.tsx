@@ -106,9 +106,11 @@ type MesureType = GroupType[];
 
 const MesureStyles: RadioGroupStyleProp = () => {
   const Styles = {
-    RadioGroupRoot: 'flex justify-center items-center ',
+    RadioGroupRoot:
+      'flex justify-center items-center [&:has(button[data-state=checked])>button]:text-lg-primary',
     RadioGroupItemWrapper: '',
-    RadioGroupItem: '',
+    RadioGroupItem:
+      'data-state-checked:text-lg-primary peer peer-data-state-checked:!text-lg-wait transition-faster',
     RadioGroupIndicator: '',
     RadioGroupLabel: ''
   };
@@ -118,17 +120,17 @@ const MesureStyles: RadioGroupStyleProp = () => {
 
 const MesureGroup: MesureType = [
   {
-    id: '20',
-    value: '20L',
-    default: true
+    id: '5',
+    value: '5L'
   },
   {
     id: '10',
     value: '10L'
   },
   {
-    id: '5',
-    value: '5L'
+    id: '20',
+    value: '20L',
+    default: true
   }
 ];
 

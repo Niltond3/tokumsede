@@ -42,29 +42,69 @@ export default function RadioGroup({
     RadioGroupIndicator,
     RadioGroupLabel
   } = styles();
-  let defaultValue = undefined;
+  const defaultValue = group.find((val) => val.default)?.value;
   return (
     <RadioPrimitive.Root className={RadioGroupRoot} defaultValue={defaultValue}>
-      {group.map(({ id, value, label, default: newDefault }) => {
-        defaultValue = newDefault;
+      {group.map(({ id, value, label }) => {
         return (
-          <div key={id} className={RadioGroupItemWrapper}>
-            <RadioPrimitive.Item value={value} id={id} className={RadioGroupItem}>
-              {indicator && (
-                <RadioPrimitive.Indicator className={RadioGroupIndicator}>
-                  {icon && <Icons icon={icon} />}
-                </RadioPrimitive.Indicator>
-              )}
-              {Item && Item}
-            </RadioPrimitive.Item>
-            {label && (
-              <label htmlFor={id} className={RadioGroupLabel}>
-                {label}
-              </label>
+          <>
+            {label ? (
+              <div key={id} className={RadioGroupItemWrapper}>
+                <RadioItem
+                  RadioGroupIndicator={RadioGroupIndicator}
+                  RadioGroupItem={RadioGroupItem}
+                  id={id}
+                  value={value}
+                  Item={Item}
+                  icon={icon}
+                  indicator={indicator}
+                  key={id}
+                  label={label}
+                />
+                <label htmlFor={id} className={RadioGroupLabel}>
+                  {label}
+                </label>
+              </div>
+            ) : (
+              <RadioItem
+                RadioGroupIndicator={RadioGroupIndicator}
+                RadioGroupItem={RadioGroupItem}
+                id={id}
+                value={value}
+                Item={Item}
+                icon={icon}
+                indicator={indicator}
+                key={id}
+              />
             )}
-          </div>
+          </>
         );
       })}
     </RadioPrimitive.Root>
   );
 }
+
+const RadioItem = ({
+  value,
+  id,
+  RadioGroupIndicator,
+  RadioGroupItem,
+  Item,
+  icon,
+  indicator
+}: GroupType & {
+  RadioGroupItem: string;
+  RadioGroupIndicator: string;
+  indicator?: boolean;
+  icon?: keyof TypeIcons;
+  Item?: React.ReactNode;
+}) => (
+  <RadioPrimitive.Item value={value} id={id} className={RadioGroupItem}>
+    {indicator && (
+      <RadioPrimitive.Indicator className={RadioGroupIndicator}>
+        {icon && <Icons icon={icon} />}
+      </RadioPrimitive.Indicator>
+    )}
+    {Item && Item}
+  </RadioPrimitive.Item>
+);

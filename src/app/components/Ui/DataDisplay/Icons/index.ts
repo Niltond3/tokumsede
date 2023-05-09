@@ -25,7 +25,6 @@ import { default as Distributor } from './svg/distributor.svg';
 import { default as Drop } from './svg/drop.svg';
 import { default as Exchange } from './svg/exchange.svg';
 import { default as Financial } from './svg/financial.svg';
-import { default as Gallon } from './svg/gallon.svg';
 import { default as Hashtag } from './svg/hashtag.svg';
 import { default as Home } from './svg/home.svg';
 import { default as Homes } from './svg/homes.svg';
@@ -86,7 +85,6 @@ export {
   Drop,
   Exchange,
   Financial,
-  Gallon,
   Hashtag,
   Home,
   Homes,
