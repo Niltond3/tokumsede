@@ -77,7 +77,7 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
           />
         ))}
       </ul>
-      <Button onClick={onClick} iconL="Add" iconR="Default">
+      <Button typeOf="secondary" onClick={onClick} iconL="Add" className="gap-2">
         Fazer novo pedido
       </Button>
     </div>

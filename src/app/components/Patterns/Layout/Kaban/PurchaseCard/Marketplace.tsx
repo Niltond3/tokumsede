@@ -47,6 +47,11 @@ export default function Marketplace() {
           sport: ''
         } as const;
 
+        const MesureGroupFiltered = MesureGroup.map((item) => {
+          const find = measure.find((value) => value === item.id);
+          const newItem = { ...item, disabled: !find ? true : false };
+          return newItem;
+        });
         return (
           <>
             <div className="flex ">
@@ -54,10 +59,12 @@ export default function Marketplace() {
                 <div className="relative">
                   <div className="absolute top-0 flex w-full flex-wrap justify-between">
                     <Button
+                      typeOf="secondary"
                       iconL="Info"
-                      className="h-5 w-8 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
+                      className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
                     />
                     <Button
+                      typeOf="secondary"
                       iconL="AddShopping"
                       className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
                     />
@@ -77,16 +84,10 @@ export default function Marketplace() {
                 <Divider orientation="vertical" className="!bg-black/30" />
               </div>
               <div className="flex flex-[40%] flex-col items-center justify-center">
-                {/* <div className="flex">
-                  <Icons icon="Drop" className="text-lg-primary" />
-                  <Icons icon="Drop" className="text-lg-primary" />
-                  <Icons icon="Drop" className="text-lg-primary" />
-                </div>
-                <span>{measure}</span> */}
                 <RadioGroup
-                  group={MesureGroup}
+                  group={MesureGroupFiltered}
                   styles={MesureStyles}
-                  Item={<Icons icon="Drop" className="" />}
+                  item={<Icons icon="Drop" className="" />}
                 />
                 <Divider className="!bg-black/30" />
                 {/* CREATE A INPUT TYPE NUMBER */}
@@ -107,12 +108,12 @@ type MesureType = GroupType[];
 const MesureStyles: RadioGroupStyleProp = () => {
   const Styles = {
     RadioGroupRoot:
-      'flex justify-center items-center [&:has(button[data-state=checked])>button]:text-lg-primary',
-    RadioGroupItemWrapper: '',
+      'flex justify-center items-start [&:has(button[data-state=checked])>button]:text-lg-primary relative h-1/4 ',
     RadioGroupItem:
-      'data-state-checked:text-lg-primary peer peer-data-state-checked:!text-lg-wait transition-faster',
+      'data-state-checked:text-lg-primary peer peer-data-state-checked:!text-lg-wait transition-faster data-[disabled]:opacity-30',
     RadioGroupIndicator: '',
-    RadioGroupLabel: ''
+    RadioGroupLabel:
+      'absolute bottom-0 text-xs font-semibold text-lg-primary opacity-0 [&:has(+[data-state=checked])]:opacity-100 transition-faster'
   };
 
   return Styles;
@@ -121,15 +122,21 @@ const MesureStyles: RadioGroupStyleProp = () => {
 const MesureGroup: MesureType = [
   {
     id: '5',
-    value: '5L'
+    value: '5L',
+    label: '5L',
+    position: 'R'
   },
   {
     id: '10',
-    value: '10L'
+    value: '10L',
+    label: '10L',
+    position: 'R'
   },
   {
     id: '20',
     value: '20L',
+    label: '20L',
+    position: 'R',
     default: true
   }
 ];

@@ -17,7 +17,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 type ConditionalProps =
   | {
-      typeOf?: 'primary' | undefined | null;
+      typeOf?: 'primary' | 'secondary' | undefined | null;
       toggleVariant?: never;
       children?: React.ReactNode;
     }
@@ -76,6 +76,7 @@ const defaultStyle =
 
 const mappingStyles = {
   primary: defaultStyle,
+  secondary: `${defaultStyle} bg-white/30 p-0.5 shadow-md backdrop-blur-sm focus-visible:outline-none data-state-open:shadow-lg`,
   toggle: `${defaultStyle} group peer`
 };
 
