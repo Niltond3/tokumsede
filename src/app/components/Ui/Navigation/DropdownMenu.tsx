@@ -35,7 +35,7 @@ type RenderSelectProps<T> = {
 };
 
 type RenderOptionsProps<T> = {
-  renderOptions: CallbackType<ObjectDefaultProps<T>>;
+  renderOptions: CallbackType<ObjectDefaultProps<T> & { controls: AnimationControls }>;
 };
 
 type ListOptionsProps<T> = RenderOptionsProps<T> &
@@ -192,24 +192,23 @@ const Option = <T,>({
   onSelect = () => {
     // empty
   }
-}: OptionProps<T>) => {
-  // const controls = useAnimationControls();
-
-  return (
-    <Dropdown.Item
-      onSelect={async (e) => {
-        e.preventDefault();
-        /**
-         *
-         */
-        onSelect();
-      }}
-      className="select-none rounded text-gray-700 opacity-50 outline-none transition-faster data-[highlighted]:opacity-100"
-      asChild
-    >
-      <motion.div animate={controls}>
-        {renderOptions({ ...option, closeMenu: closeMenu, setSelect: setSelect })}
-      </motion.div>
-    </Dropdown.Item>
-  );
-};
+}: OptionProps<T>) => (
+  <Dropdown.Item
+    onSelect={async (e) => {
+      e.preventDefault();
+      /**
+       *
+       */
+      onSelect();
+    }}
+    className="select-none outline-none transition-faster"
+    asChild
+  >
+    {renderOptions({
+      ...option,
+      closeMenu: closeMenu,
+      setSelect: setSelect,
+      controls
+    })}
+  </Dropdown.Item>
+);

@@ -14,6 +14,7 @@ import DropdownMenu, {
 } from 'app/components/Ui/Navigation/DropdownMenu';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { TypeIcons } from 'utils/Types';
 
 const Styles = () => {
@@ -25,7 +26,7 @@ const Styles = () => {
       icon: ''
     },
     dropdownContent:
-      'flex max-h-48 min-h-[11rem] max-w-[16rem] flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm'
+      'flex max-h-48 min-h-[11rem] max-w-[16rem] flex-col gap-2 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm'
   };
   return styles;
 };
@@ -36,7 +37,7 @@ export default function Marketplace() {
       styles={Styles}
       list={products}
       renderSelect={({ shortName }) => <div>{shortName}</div>}
-      renderOptions={({ value, measure, label, setSelect }) => {
+      renderOptions={({ value, measure, label, setSelect, controls, shortName }) => {
         const lowName = label.toLowerCase();
         const currencyValue = value.toLocaleString('pt-br', {
           minimumFractionDigits: 2
@@ -52,50 +53,78 @@ export default function Marketplace() {
           const newItem = { ...item, disabled: !find ? true : false };
           return newItem;
         });
-        return (
-          <>
-            <div className="flex ">
-              <div className="relative flex flex-[70%] justify-between">
-                <div className="relative">
+
+        const Return_A = (
+          <motion.div animate={controls} key={shortName} className="flex">
+            <div className="relative flex flex-[70%] justify-between">
+              <div className="relative">
+                <Button
+                  typeOf="secondary"
+                  iconL="AddShopping"
+                  className="absolute right-0 h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
+                />
+                <Img
+                  className="relative left-6 h-auto w-10/12"
+                  image={lowName as ImagePath}
+                  blur="blur"
+                />
+                <div
+                  className={`absolute -left-4 -top-4 z-[-1] flex h-[calc(100%+1.3rem)] w-1/2 flex-col items-center justify-start gap-10 px-2 py-4 text-sm font-bold ${
+                    mappingStyles[lowName as keyof typeof mappingStyles]
+                  }`}
+                >
                   <Button
                     typeOf="secondary"
-                    iconL="AddShopping"
-                    className="absolute right-0 h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
+                    iconL="Info"
+                    className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
                   />
-                  <Img
-                    className="relative left-6 h-auto w-10/12"
-                    image={lowName as ImagePath}
-                    blur="blur"
-                  />
-                  <div
-                    className={`absolute -left-4 -top-4 z-[-1] flex h-[calc(100%+1.3rem)] w-1/2 flex-col items-center justify-start gap-10 px-2 py-4 text-sm font-bold ${
-                      mappingStyles[lowName as keyof typeof mappingStyles]
-                    }`}
-                  >
-                    <Button
-                      typeOf="secondary"
-                      iconL="Info"
-                      className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
-                    />
-                    <span className="text-lg-primary-base">R$ {currencyValue}</span>
-                  </div>
+                  <span className="text-lg-primary-base">R$ {currencyValue}</span>
                 </div>
-                <Divider orientation="vertical" className="!bg-black/30" />
               </div>
-              <div className="flex flex-[25%] flex-col items-center justify-center">
-                <RadioGroup
-                  group={MesureGroupFiltered}
-                  styles={MesureStyles}
-                  item={<Icons icon="Drop" className="" />}
-                />
-                <Divider className="!bg-black/30" />
-                {/* CREATE A INPUT TYPE NUMBER */}
-                <TextField type="number" />
-                {/* <input type="number" className="w-full"></input> */}
+              <Divider orientation="vertical" className="!bg-black/30" />
+            </div>
+            <div className="flex flex-[25%] flex-col items-center justify-center">
+              <RadioGroup
+                group={MesureGroupFiltered}
+                styles={MesureStyles}
+                item={<Icons icon="Drop" className="" />}
+              />
+              <Divider className="!bg-black/30" />
+              {/* CREATE A INPUT TYPE NUMBER */}
+              <TextField type="number" />
+              {/* <input type="number" className="w-full"></input> */}
+            </div>
+          </motion.div>
+        );
+        const Header = () => (
+          <div>
+            <div className="flex">
+              <div className="relative flex h-10 w-10 flex-col items-center justify-center rounded-full border-[3px] border-lg-primary bg-lg-primary-base">
+                <span className="absolute left-0 top-[1px] text-[0.5rem] font-bold">
+                  R$
+                </span>
+                <span className="text-lg font-bold">{value}</span>
+                <span className="absolute -bottom-1 font-mono text-[0.5rem] font-bold">
+                  /un
+                </span>
               </div>
             </div>
-          </>
+          </div>
         );
+        const Return_B = (
+          <motion.div
+            animate={controls}
+            key={shortName}
+            className={clsx(
+              mappingStyles[lowName as keyof typeof mappingStyles],
+              'min-h-[9rem] w-24 rounded-tl-[6.5rem] rounded-tr-lg'
+            )}
+          >
+            <Header />
+          </motion.div>
+        );
+
+        return Return_B;
       }}
     />
   );

@@ -2,11 +2,12 @@
 const nextConfig = {
   //reactStrictMode: true,
   //swcMinify: true,
-  experimental: { appDir: true },
+  // experimental: { appDir: true },
   webpack(config) {
+    // Grab the existing rule that handles SVG imports
+
     config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
+      test: /\.svg$/,
       use: ['@svgr/webpack']
     });
 
