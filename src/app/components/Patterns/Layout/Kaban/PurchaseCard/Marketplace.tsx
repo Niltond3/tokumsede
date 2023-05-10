@@ -55,35 +55,34 @@ export default function Marketplace() {
         return (
           <>
             <div className="flex ">
-              <div className="relative flex flex-[60%] justify-between">
+              <div className="relative flex flex-[70%] justify-between">
                 <div className="relative">
-                  <div className="absolute top-0 flex w-full flex-wrap justify-between">
+                  <Button
+                    typeOf="secondary"
+                    iconL="AddShopping"
+                    className="absolute right-0 h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
+                  />
+                  <Img
+                    className="relative left-6 h-auto w-10/12"
+                    image={lowName as ImagePath}
+                    blur="blur"
+                  />
+                  <div
+                    className={`absolute -left-4 -top-4 z-[-1] flex h-[calc(100%+1.3rem)] w-1/2 flex-col items-center justify-start gap-10 px-2 py-4 text-sm font-bold ${
+                      mappingStyles[lowName as keyof typeof mappingStyles]
+                    }`}
+                  >
                     <Button
                       typeOf="secondary"
                       iconL="Info"
                       className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
                     />
-                    <Button
-                      typeOf="secondary"
-                      iconL="AddShopping"
-                      className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
-                    />
-                  </div>
-                  <Img image={lowName as ImagePath} blur="blur" />
-                  <div
-                    className={clsx(
-                      'absolute bottom-0 flex h-1/3 w-1/3 border-spacing-1 items-center justify-center rounded-br-xl rounded-tl-xl border-[1px] border-white p-2 outline outline-1 outline-lg-accent-darker',
-                      mappingStyles[lowName as keyof typeof mappingStyles]
-                    )}
-                  >
-                    <span className="flex items-center justify-center gap-0.5 p-0.5 text-[10px] font-medium text-lg-primary-base">
-                      <Icons icon="CurrencyReal" /> {currencyValue}
-                    </span>
+                    <span className="text-lg-primary-base">R$ {currencyValue}</span>
                   </div>
                 </div>
                 <Divider orientation="vertical" className="!bg-black/30" />
               </div>
-              <div className="flex flex-[40%] flex-col items-center justify-center">
+              <div className="flex flex-[25%] flex-col items-center justify-center">
                 <RadioGroup
                   group={MesureGroupFiltered}
                   styles={MesureStyles}
@@ -95,7 +94,6 @@ export default function Marketplace() {
                 {/* <input type="number" className="w-full"></input> */}
               </div>
             </div>
-            <Divider />
           </>
         );
       }}
