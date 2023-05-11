@@ -37,16 +37,38 @@ export default function Marketplace() {
       styles={Styles}
       list={products}
       renderSelect={({ shortName }) => <div>{shortName}</div>}
-      renderOptions={({ value, measure, label, setSelect, controls, shortName }) => {
+      renderOptions={({
+        value,
+        measure,
+        label,
+        name,
+        setSelect,
+        controls,
+        shortName
+      }) => {
         const lowName = label.toLowerCase();
         const currencyValue = value.toLocaleString('pt-br', {
           minimumFractionDigits: 2
         });
         const mappingStyles = {
-          leve: 'bg-lg-primary',
-          rica: 'bg-lg-success',
-          sport: 'bg-lg-sent'
+          leve: {
+            wrapper: 'bg-lg-primary',
+            header: 'border-lg-primary text-lg-primary',
+            footer: 'hover:text-lg-primary'
+          },
+          rica: {
+            wrapper: 'bg-lg-success',
+            header: 'border-lg-success text-lg-success',
+            footer: 'hover:text-lg-success'
+          },
+          sport: {
+            wrapper: 'bg-lg-sent',
+            header: 'border-lg-sent text-lg-sent',
+            footer: 'hover:text-lg-sent'
+          }
         } as const;
+
+        const styleKey = lowName as keyof typeof mappingStyles;
 
         const MesureGroupFiltered = MesureGroup.map((item) => {
           const find = measure.find((value) => value === item.id);
@@ -96,19 +118,68 @@ export default function Marketplace() {
             </div>
           </motion.div>
         );
+
         const Header = () => (
-          <div>
-            <div className="flex">
-              <div className="relative flex h-10 w-10 flex-col items-center justify-center rounded-full border-[3px] border-lg-primary bg-lg-primary-base">
-                <span className="absolute left-0 top-[1px] text-[0.5rem] font-bold">
-                  R$
-                </span>
-                <span className="text-lg font-bold">{value}</span>
-                <span className="absolute -bottom-1 font-mono text-[0.5rem] font-bold">
-                  /un
-                </span>
+          <div className="relative flex">
+            <div
+              className={clsx(
+                mappingStyles[styleKey].header,
+                'relative z-10 flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px]  bg-lg-primary-base'
+              )}
+            >
+              <span className="absolute left-1.5 top-[1px] text-[0.45rem] font-bold opacity-60">
+                R$
+              </span>
+              <span className="text-lg font-bold">{value}</span>
+              <span className="absolute -bottom-0.5 font-mono text-[0.5rem] font-bold opacity-60">
+                /un
+              </span>
+            </div>
+            <span className="absolute z-[0] flex w-full justify-end bg-white/20 pr-1 font-bold text-white center-x">
+              {label}
+            </span>
+          </div>
+        );
+
+        const Body = () => (
+          <div className="flex">
+            <div className="flex flex-1 items-center justify-center">
+              <Img
+                className="relative h-5/6 w-fit"
+                image={lowName as ImagePath}
+                blur="blur"
+              />
+            </div>
+            <div className="flex flex-1">
+              <Divider orientation="vertical" className="!bg-white/30" />
+              <div>
+                <RadioGroup
+                  group={MesureGroupFiltered}
+                  styles={MesureStyles}
+                  item={<Icons icon="Drop" className="text-white" />}
+                />
+                <Divider className="!bg-white/30" />
+                {/* CREATE A INPUT TYPE NUMBER */}
+                <TextField type="number" />
+                {/* <input type="number" className="w-full"></input> */}
               </div>
             </div>
+          </div>
+        );
+
+        const Footer = () => (
+          <div className="flex gap-3">
+            <span className="flex items-center justify-center rounded-tr-3xl bg-white/20 px-3 py-xs font-bold text-white">
+              {label[0]}
+            </span>
+            <Button
+              className={clsx(
+                mappingStyles[styleKey].footer,
+                'w-full rounded-none rounded-tl-3xl bg-white/20 text-white hover:bg-white/40'
+              )}
+            >
+              <Icons icon="AddShopping" />
+            </Button>
           </div>
         );
         const Return_B = (
@@ -116,11 +187,13 @@ export default function Marketplace() {
             animate={controls}
             key={shortName}
             className={clsx(
-              mappingStyles[lowName as keyof typeof mappingStyles],
-              'min-h-[9rem] w-24 rounded-tl-[6.5rem] rounded-tr-lg'
+              mappingStyles[styleKey].wrapper,
+              'flex min-h-[9rem] w-24 flex-col justify-between rounded-tl-[6.5rem] rounded-tr-lg'
             )}
           >
             <Header />
+            <Body />
+            <Footer />
           </motion.div>
         );
 

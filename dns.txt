@@ -1,0 +1,10 @@
+May 11 06:54:15 pop-os systemd[1]: Starting Network Name Resolution...
+May 11 06:54:15 pop-os systemd-resolved[747]: Positive Trust Anchors:
+May 11 06:54:15 pop-os systemd-resolved[747]: . IN DS 20326 8 2 e06d44b80b8f1d39a95c0b0d7c65d08458e880409bbc683457104237c7f8ec8d
+May 11 06:54:15 pop-os systemd-resolved[747]: Negative trust anchors: home.arpa 10.in-addr.arpa 16.172.in-addr.arpa 17.172.in-addr.arpa 18.172.in-addr.arpa 19.172.in-addr.arpa 20.172.in-addr.arpa 21.172.in-addr.arpa 22.172.in-addr.arpa 23.172.in-addr.arpa 24.172.in-addr.arpa 25.172.in-addr.arpa 26.172.in-addr.arpa 27.172.in-addr.arpa 28.172.in-addr.arpa 29.172.in-addr.arpa 30.172.in-addr.arpa 31.172.in-addr.arpa 168.192.in-addr.arpa d.f.ip6.arpa corp home internal intranet lan local private test
+May 11 06:54:15 pop-os systemd-resolved[747]: Using system hostname 'pop-os'.
+May 11 06:54:15 pop-os systemd[1]: Started Network Name Resolution.
+May 11 06:54:20 pop-os systemd-resolved[747]: wlp3s0: Bus client set default route setting: yes
+May 11 06:54:20 pop-os systemd-resolved[747]: wlp3s0: Bus client set DNS server list to: 8.8.8.8, 192.168.100.1
+May 11 07:09:13 pop-os systemd-resolved[747]: Flushed all caches.
+May 11 07:15:48 pop-os systemd-resolved[747]: Flushed all caches.
