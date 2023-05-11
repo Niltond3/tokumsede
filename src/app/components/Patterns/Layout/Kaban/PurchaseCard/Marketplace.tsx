@@ -54,17 +54,20 @@ export default function Marketplace() {
           leve: {
             wrapper: 'bg-lg-primary',
             header: 'border-lg-primary text-lg-primary',
-            footer: 'hover:text-lg-primary'
+            footer: 'hover:text-lg-primary',
+            body: 'text-lg-primary'
           },
           rica: {
             wrapper: 'bg-lg-success',
             header: 'border-lg-success text-lg-success',
-            footer: 'hover:text-lg-success'
+            footer: 'hover:text-lg-success',
+            body: 'text-lg-success'
           },
           sport: {
             wrapper: 'bg-lg-sent',
             header: 'border-lg-sent text-lg-sent',
-            footer: 'hover:text-lg-sent'
+            footer: 'hover:text-lg-sent',
+            body: 'text-lg-sent'
           }
         } as const;
 
@@ -76,66 +79,25 @@ export default function Marketplace() {
           return newItem;
         });
 
-        const Return_A = (
-          <motion.div animate={controls} key={shortName} className="flex">
-            <div className="relative flex flex-[70%] justify-between">
-              <div className="relative">
-                <Button
-                  typeOf="secondary"
-                  iconL="AddShopping"
-                  className="absolute right-0 h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
-                />
-                <Img
-                  className="relative left-6 h-auto w-10/12"
-                  image={lowName as ImagePath}
-                  blur="blur"
-                />
-                <div
-                  className={`absolute -left-4 -top-4 z-[-1] flex h-[calc(100%+1.3rem)] w-1/2 flex-col items-center justify-start gap-10 px-2 py-4 text-sm font-bold ${
-                    mappingStyles[lowName as keyof typeof mappingStyles]
-                  }`}
-                >
-                  <Button
-                    typeOf="secondary"
-                    iconL="Info"
-                    className="h-5 w-5 text-lg-primary [&>svg]:h-full [&>svg]:w-full"
-                  />
-                  <span className="text-lg-primary-base">R$ {currencyValue}</span>
-                </div>
-              </div>
-              <Divider orientation="vertical" className="!bg-black/30" />
-            </div>
-            <div className="flex flex-[25%] flex-col items-center justify-center">
-              <RadioGroup
-                group={MesureGroupFiltered}
-                styles={MesureStyles}
-                item={<Icons icon="Drop" className="" />}
-              />
-              <Divider className="!bg-black/30" />
-              {/* CREATE A INPUT TYPE NUMBER */}
-              <TextField type="number" />
-              {/* <input type="number" className="w-full"></input> */}
-            </div>
-          </motion.div>
-        );
+        const { wrapper, header, body, footer } = mappingStyles[styleKey];
 
         const Header = () => (
-          <div className="relative flex">
+          <div className="relative flex w-11/12 self-end">
             <div
               className={clsx(
-                mappingStyles[styleKey].header,
+                header,
                 'relative z-10 flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px]  bg-lg-primary-base'
               )}
             >
-              <span className="absolute left-1.5 top-[1px] text-[0.45rem] font-bold opacity-60">
+              <span className="absolute left-1.5 top-[1px] text-[0.45rem] font-extrabold opacity-60">
                 R$
               </span>
               <span className="text-lg font-bold">{value}</span>
-              <span className="absolute -bottom-0.5 font-mono text-[0.5rem] font-bold opacity-60">
+              <span className="absolute -bottom-0.5 font-mono text-[0.5rem] font-extrabold opacity-60">
                 /un
               </span>
             </div>
-            <span className="absolute z-[0] flex w-full justify-end bg-white/20 pr-1 font-bold text-white center-x">
+            <span className="absolute right-0 z-[0] flex w-11/12 justify-end bg-white/20 pr-1 font-bold text-white center-x">
               {label}
             </span>
           </div>
@@ -150,17 +112,22 @@ export default function Marketplace() {
                 blur="blur"
               />
             </div>
-            <div className="flex flex-1">
-              <Divider orientation="vertical" className="!bg-white/30" />
-              <div>
+            <div className="flex flex-1 items-center justify-center">
+              <Divider orientation="vertical" className="!h-5/6 !bg-white/30" />
+              <div className="h-5/6">
                 <RadioGroup
                   group={MesureGroupFiltered}
                   styles={MesureStyles}
-                  item={<Icons icon="Drop" className="text-white" />}
+                  item={<Icons icon="Drop" className="" />}
                 />
                 <Divider className="!bg-white/30" />
                 {/* CREATE A INPUT TYPE NUMBER */}
-                <TextField type="number" />
+                <TextField
+                  type="number"
+                  placeholder="0"
+                  maxLength={3}
+                  buttonStyles={{ wrapper: 'py-s px-xs h-[45%]', button: '', icon: body }}
+                />
                 {/* <input type="number" className="w-full"></input> */}
               </div>
             </div>
@@ -174,7 +141,7 @@ export default function Marketplace() {
             </span>
             <Button
               className={clsx(
-                mappingStyles[styleKey].footer,
+                footer,
                 'w-full rounded-none rounded-tl-3xl bg-white/20 text-white hover:bg-white/40'
               )}
             >
@@ -182,13 +149,14 @@ export default function Marketplace() {
             </Button>
           </div>
         );
+
         const Return_B = (
           <motion.div
             animate={controls}
             key={shortName}
             className={clsx(
-              mappingStyles[styleKey].wrapper,
-              'flex min-h-[9rem] w-24 flex-col justify-between rounded-tl-[6.5rem] rounded-tr-lg'
+              wrapper,
+              'flex w-28 flex-col justify-between rounded-tl-[6.5rem] rounded-tr-lg'
             )}
           >
             <Header />
@@ -205,18 +173,14 @@ export default function Marketplace() {
 
 type MesureType = GroupType[];
 
-const MesureStyles: RadioGroupStyleProp = () => {
-  const Styles = {
-    RadioGroupRoot:
-      'flex justify-center items-start [&:has(button[data-state=checked])>button]:text-lg-primary relative h-1/4 ',
-    RadioGroupItem:
-      'data-state-checked:text-lg-primary peer peer-data-state-checked:!text-lg-wait transition-faster data-[disabled]:opacity-30',
-    RadioGroupIndicator: '',
-    RadioGroupLabel:
-      'absolute bottom-0 text-xs font-semibold text-lg-primary opacity-0 [&:has(+[data-state=checked])]:opacity-100 transition-faster'
-  };
-
-  return Styles;
+const MesureStyles: RadioGroupStyleProp = {
+  RadioGroupRoot:
+    'flex justify-center items-start [&:has(button[data-state=checked])>button]:text-white relative h-[45%] ',
+  RadioGroupItem:
+    'data-state-checked:text-white peer peer-data-state-checked:opacity-60 transition-faster data-[disabled]:!opacity-20',
+  RadioGroupIndicator: '',
+  RadioGroupLabel:
+    'absolute bottom-0 text-xs font-semibold text-white opacity-0 [&:has(+[data-state=checked])]:opacity-100 transition-faster'
 };
 
 const MesureGroup: MesureType = [

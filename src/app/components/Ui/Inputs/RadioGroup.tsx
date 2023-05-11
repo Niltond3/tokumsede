@@ -12,7 +12,7 @@ export type GroupType = {
   disabled?: boolean;
 };
 
-export type RadioGroupStyleProp = () => {
+export type RadioGroupStyleProp = {
   RadioGroupRoot: string;
   RadioGroupItem: string;
   RadioGroupIndicator: string;
@@ -26,8 +26,7 @@ type RadioGroupProps = {
 };
 
 export default function RadioGroup({ group, styles, item }: RadioGroupProps) {
-  const { RadioGroupRoot, RadioGroupItem, RadioGroupIndicator, RadioGroupLabel } =
-    styles();
+  const { RadioGroupRoot, RadioGroupItem, RadioGroupIndicator, RadioGroupLabel } = styles;
   const defaultValue = group.find((val) => val.default)?.value;
   return (
     <RadioPrimitive.Root className={RadioGroupRoot} defaultValue={defaultValue}>

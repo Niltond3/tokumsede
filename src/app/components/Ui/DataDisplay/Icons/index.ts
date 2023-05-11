@@ -9,6 +9,7 @@ import { default as Administrator } from './svg/administrator.svg';
 import { default as Arrow } from './svg/arrow.svg';
 import { default as Attendant } from './svg/attendant.svg';
 import { default as Cancel } from './svg/cancel.svg';
+import { default as Caret } from './svg/caret.svg';
 import { default as Cash } from './svg/cash.svg';
 import { default as Commercial } from './svg/commercial.svg';
 import { default as Contact } from './svg/contact.svg';
@@ -69,6 +70,7 @@ export {
   Arrow,
   Attendant,
   Cancel,
+  Caret,
   Cash,
   Commercial,
   Contact,
