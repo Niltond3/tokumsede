@@ -23,7 +23,7 @@ type ConditionalProps =
     }
   | {
       typeOf?: 'toggle';
-      toggleVariant?: keyof typeof toggleVariantStypes;
+      toggleVariant?: keyof typeof toggleVariantStyles;
       children?: React.ReactNode;
     }
   | {
@@ -50,7 +50,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
     const Component = typeOf === 'toggle' ? TogglePrimitive.Root : 'button';
 
     const styles = `${mappingStyles[typeOf]} ${
-      typeOf === 'toggle' && toggleVariantStypes[toggleVariant]
+      typeOf === 'toggle' && toggleVariantStyles[toggleVariant]
     } ${className}`;
 
     const Childrens = () => (
@@ -80,8 +80,13 @@ const mappingStyles = {
   toggle: `${defaultStyle} group peer`
 };
 
-const toggleVariantStypes = {
+const toggleVariantStyles = {
   default: '',
+  text: clsx(
+    'select-none overflow-hidden backface-hidden transition-faster',
+    'before:absolute before:left-0 before:inline-block before:h-full before:w-full before:text-center before:text-[0.5rem] before:font-bold before:content-[attr(data-tg-off)] before:transition-faster before:[text-shadow:0_4px_8px_rgba(0,0,0,0.12)] active:before:-left-1/4 data-state-on:before:-left-full',
+    'after:absolute after:left-full after:inline-block after:h-full after:w-full after:text-center after:text-[0.5rem] after:font-bold after:content-[attr(data-tg-on)] after:transition-faster after:[text-shadow:0_4px_8px_rgba(0,0,0,0.12)] active:after:left-1/4 data-state-on:after:left-0'
+  ),
   between: clsx(
     'relative child:absolute child:transition-faster child:center',
     '[&>*:nth-child(1)]:data-state-on:opacity-0 [&>*:nth-child(2)]:data-state-off:opacity-0'

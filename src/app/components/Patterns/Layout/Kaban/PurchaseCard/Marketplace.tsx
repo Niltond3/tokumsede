@@ -105,12 +105,21 @@ export default function Marketplace() {
 
         const Body = () => (
           <div className="flex">
-            <div className="flex flex-1 items-center justify-center">
+            <div className="relative flex flex-1 items-center justify-center">
               <Img
                 className="relative h-5/6 w-fit"
                 image={lowName as ImagePath}
                 blur="blur"
               />
+              <div className="absolute -left-1 bottom-3 flex h-6 items-end overflow-hidden">
+                <Button
+                  typeOf="toggle"
+                  toggleVariant="text"
+                  data-tg-on="COMPLETO"
+                  data-tg-off="REFIL"
+                  className="h-4 w-12 rounded-none bg-white !opacity-100"
+                />
+              </div>
             </div>
             <div className="flex flex-1 items-center justify-center">
               <Divider orientation="vertical" className="!h-5/6 !bg-white/30" />

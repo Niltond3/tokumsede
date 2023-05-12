@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+const postcss = require('postcss');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
@@ -200,12 +201,28 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('tailwind-scrollbar'),
     require('@tailwindcss/container-queries'),
+    require('tailwindcss-elevation'),
     require('@headlessui/tailwindcss')({ prefix: 'ui' }),
-    plugin(({ addVariant, addUtilities }) => {
+    plugin(({ addVariant, e, addUtilities }) => {
       addVariant('child', '&>*');
       addVariant('second', '&:nth-child(2)');
       addVariant('has-open', '&:has(input#open-menu:checked)');
       addVariant('has-checked', '&:has(input:checked)');
+      addVariant('pseudos', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`after${separator}${className}`)}::after .${e(
+            `before${separator}${className}`
+          )}::before`;
+        });
+      });
+      addUtilities({
+        '.backface-visible': {
+          'backface-visibility': 'visible'
+        },
+        '.backface-hidden': {
+          'backface-visibility': 'hidden'
+        }
+      });
       addUtilities({
         '.transition-slow': {
           transition: 'all 1s ease-out'

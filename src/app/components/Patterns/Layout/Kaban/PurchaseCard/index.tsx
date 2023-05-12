@@ -30,10 +30,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
   // const lgReturn = ();
 
   return (
-    <div
-      key={`${index}-card`}
-      className="mt-2 flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base @container"
-    >
+    <li className="mt-2 flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base @container">
       {/*ID NUMBER -> DISTRIBUTOR NAME */}
       <Head />
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}
@@ -74,7 +71,7 @@ export default function PurchaseCard({ index, purchaseId, currentStatus }: ICard
         <Cancel />
         <Schedule />
       </div>
-    </div>
+    </li>
   );
 }
 
