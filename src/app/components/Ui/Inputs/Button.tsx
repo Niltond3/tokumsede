@@ -84,8 +84,9 @@ const toggleVariantStyles = {
   default: '',
   text: clsx(
     'select-none overflow-hidden backface-hidden transition-faster',
-    'before:absolute before:left-0 before:inline-block before:h-full before:w-full before:text-center before:text-[0.5rem] before:font-bold before:content-[attr(data-tg-off)] before:transition-faster before:[text-shadow:0_4px_8px_rgba(0,0,0,0.12)] active:before:-left-1/4 data-state-on:before:-left-full',
-    'after:absolute after:left-full after:inline-block after:h-full after:w-full after:text-center after:text-[0.5rem] after:font-bold after:content-[attr(data-tg-on)] after:transition-faster after:[text-shadow:0_4px_8px_rgba(0,0,0,0.12)] active:after:left-1/4 data-state-on:after:left-0'
+    'pseudos:absolute pseudos:flex pseudos:h-full pseudos:w-full pseudos:select-none pseudos:items-center pseudos:justify-center pseudos:text-center pseudos:text-[0.5rem] pseudos:font-extrabold pseudos:transition-faster pseudos:[text-shadow:0_4px_8px_rgba(0,0,0,0.12)]',
+    'before:left-0 before:content-[attr(data-tg-off)] active:before:left-[-25%] data-state-on:before:-left-full data-state-on:active:before:left-[-25%]',
+    'after:left-full after:content-[attr(data-tg-on)] active:after:left-[50%] data-state-on:after:left-0 data-state-on:active:after:left-[50%]'
   ),
   between: clsx(
     'relative child:absolute child:transition-faster child:center',

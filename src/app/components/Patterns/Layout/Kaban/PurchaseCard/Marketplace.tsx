@@ -113,7 +113,7 @@ export default function Marketplace() {
               />
               <div
                 className={clsx(
-                  '',
+                  'before:absolute before:top-1 before:h-0 before:w-0 before:rotate-45 before:border-4 before:border-transparent before:!border-l-gray-700',
                   'absolute -left-1 bottom-3 flex h-6 items-end overflow-hidden'
                 )}
               >
@@ -122,7 +122,7 @@ export default function Marketplace() {
                   toggleVariant="text"
                   data-tg-on="COMPLETO"
                   data-tg-off="REFIL"
-                  className="h-4 w-12 rounded-none bg-white !opacity-100"
+                  className={`h-4 w-12 rounded-none bg-white !opacity-100 ${body}`}
                 />
               </div>
             </div>
