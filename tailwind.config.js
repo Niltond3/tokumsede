@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-const postcss = require('postcss');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
@@ -203,18 +202,12 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     require('tailwindcss-elevation'),
     require('@headlessui/tailwindcss')({ prefix: 'ui' }),
-    plugin(({ addVariant, e, addUtilities }) => {
+    plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
       addVariant('second', '&:nth-child(2)');
       addVariant('has-open', '&:has(input#open-menu:checked)');
       addVariant('has-checked', '&:has(input:checked)');
-      addVariant('pseudos', ({ modifySelectors, separator }) => {
-        modifySelectors(({ className }) => {
-          return `.${e(`after${separator}${className}`)}::after .${e(
-            `before${separator}${className}`
-          )}::before`;
-        });
-      });
+      addVariant('pseudos', ':merge(&::before,)&::after');
       addUtilities({
         '.backface-visible': {
           'backface-visibility': 'visible'

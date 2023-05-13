@@ -111,7 +111,12 @@ export default function Marketplace() {
                 image={lowName as ImagePath}
                 blur="blur"
               />
-              <div className="absolute -left-1 bottom-3 flex h-6 items-end overflow-hidden">
+              <div
+                className={clsx(
+                  '',
+                  'absolute -left-1 bottom-3 flex h-6 items-end overflow-hidden'
+                )}
+              >
                 <Button
                   typeOf="toggle"
                   toggleVariant="text"
