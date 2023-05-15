@@ -7,6 +7,12 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      backgroundImage: {
+        'menu-corner': "url('../../public/images/corner.svg')",
+        'menu-corner-dark': "url('../../public/images/corner-dark.svg')",
+        'menu-corner-secondary': "url('../../public/images/corner-secondary.svg')",
+        'menu-corner-tertiary': "url('../../public/images/corner-tertiary.svg')"
+      },
       flex: {
         2: '2 2 0%',
         3: '3 3 0%',
@@ -186,12 +192,6 @@ module.exports = {
             darkest: '#2B2B2B'
           } //Agendado
         }
-      },
-      backgroundImage: {
-        'menu-corner': "url('../../public/images/corner.svg')",
-        'menu-corner-dark': "url('../../public/images/corner-dark.svg')",
-        'menu-corner-secondary': "url('../../public/images/corner-secondary.svg')",
-        'menu-corner-tertiary': "url('../../public/images/corner-tertiary.svg')"
       }
     }
   },

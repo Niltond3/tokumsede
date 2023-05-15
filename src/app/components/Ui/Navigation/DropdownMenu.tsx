@@ -24,6 +24,10 @@ export type ObjectDefaultProps<T> = T &
     unavailable: boolean;
   };
 
+export type CallbackRenderOptionsProps<T> = ObjectDefaultProps<T> & {
+  controls: AnimationControls;
+};
+
 type CallbackType<T> = (Item: T) => React.ReactNode;
 
 type ItemStateType<T> = ObjectDefaultProps<T>[] | ObjectDefaultProps<T>;
@@ -35,7 +39,7 @@ type RenderSelectProps<T> = {
 };
 
 type RenderOptionsProps<T> = {
-  renderOptions: CallbackType<ObjectDefaultProps<T> & { controls: AnimationControls }>;
+  renderOptions: CallbackType<CallbackRenderOptionsProps<T>>;
 };
 
 type ListOptionsProps<T> = RenderOptionsProps<T> &
