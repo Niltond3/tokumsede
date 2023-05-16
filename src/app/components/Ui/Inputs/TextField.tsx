@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
+import Script from 'next/script';
+import React, { MouseEventHandler } from 'react';
+
 import Icons from '../DataDisplay/Icons';
 import Button from './Button';
 
@@ -66,7 +69,32 @@ export default function TextField({
   );
   const { wrapper, button, icon } = buttonStyles!;
 
-  const CaretButton = ({ diretion }: { diretion: 'L' | 'R' }) => {
+  function modifyValye(e: React.MouseEvent<HTMLButtonElement>, mod: 'sum' | 'sub') {
+    const target = e.target as HTMLButtonElement;
+
+    const modify = {
+      sum: () => {
+        const input = target.previousSibling as HTMLInputElement;
+        let value = parseInt(input.value);
+        value < 99 ? value++ : value;
+        input.value = `${value}`;
+      },
+      sub: () => {
+        const input = target.nextSibling as HTMLInputElement;
+        let value = parseInt(input.value);
+        value > 0 ? value-- : value;
+        input.value = `${value}`;
+      }
+    };
+
+    modify[mod as keyof typeof modify]();
+  }
+
+  type CaretButonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    diretion: 'L' | 'R';
+  };
+
+  const CaretButton = ({ diretion, ...props }: CaretButonProps) => {
     const diretionStyles = {
       L: {
         bt: 'rounded-l-full',
@@ -78,16 +106,24 @@ export default function TextField({
       }
     };
     const dirKey = diretion as keyof typeof diretionStyles;
+    const { bt, ic } = diretionStyles[dirKey];
     return (
-      <Button className={clsx(diretionStyles[dirKey].bt, button, 'bg-white ')}>
-        <Icons icon="Caret" className={clsx(diretionStyles[dirKey].ic, icon)} />
+      <Button className={clsx(bt, button, 'w-1/4 bg-white')} {...props}>
+        <Icons
+          icon="Caret"
+          className={clsx(ic, icon, 'pointer-events-none select-none')}
+        />
       </Button>
     );
   };
 
   const Number = (
     <div className={`flex w-full ${wrapper}`}>
-      <CaretButton diretion="L" />
+      <CaretButton
+        diretion="L"
+        onClick={(event) => modifyValye(event, 'sub')}
+        data-action="decrement"
+      />
       <input
         type={inputType}
         value={value}
@@ -99,7 +135,11 @@ export default function TextField({
         data-max-digits={dataMaxDigits}
         min="0"
       ></input>
-      <CaretButton diretion="R" />
+      <CaretButton
+        diretion="R"
+        onClick={(event) => modifyValye(event, 'sum')}
+        data-action="increment"
+      />
     </div>
   );
 

@@ -31,7 +31,6 @@ export default function RadioGroup({ group, styles, item }: RadioGroupProps) {
   return (
     <RadioPrimitive.Root className={RadioGroupRoot} defaultValue={defaultValue}>
       {group.map(({ id, value, label, position, indicator, disabled }) => {
-        console.log(label);
         console.log(disabled);
         return (
           <Fragment key={id}>

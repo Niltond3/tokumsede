@@ -48,7 +48,7 @@ const ItemForSale = ({
   controls,
   shortName
 }: CallbackRenderOptionsProps<ProductType>) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, initialState);
 
   const lowName = label.toLowerCase();
 
@@ -85,7 +85,7 @@ const ItemForSale = ({
   const { wrapper, header, body, footer } = mappingStyles[styleKey];
 
   const Valuation = () => {
-    return $(`#${lowName}_bt_tg_text_gallons`)[0].dataset;
+    return $(`#${lowName}_bt_tg_text_gallons`);
   };
 
   console.log(Valuation());
@@ -99,7 +99,7 @@ const ItemForSale = ({
         'flex w-28 flex-col justify-between rounded-tl-[6.5rem] rounded-tr-lg'
       )}
     >
-      <Header style={header} label={label} value={} />
+      <Header style={header} label={label} value={refill} />
       <Body style={body} gallonSrc={gallonSrc} measure={measure} />
       <Footer style={footer} label={label} />
     </motion.div>
@@ -214,6 +214,8 @@ const Body = ({ style, measure, gallonSrc }: BodyProps) => {
             placeholder="0"
             maxLength={3}
             buttonStyles={{ wrapper: 'py-s px-xs h-[45%]', button: '', icon: style }}
+            className="text-white"
+            value={0}
           />
         </div>
       </div>
