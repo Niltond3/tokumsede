@@ -4,12 +4,14 @@ import Icons from '../DataDisplay/Icons';
 import Button from '../Inputs/Button';
 
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import {
   AnimatePresence,
   AnimationControls,
   motion,
   useAnimationControls
 } from 'framer-motion';
+import { Slot } from '@radix-ui/react-slot';
 
 type ItemsProps<T> = {
   onSelect?: () => void;
@@ -162,28 +164,32 @@ const ListOptions = <T,>({
   className
 }: ListOptionsProps<T>) => (
   <Dropdown.Content asChild align="start">
-    <motion.div
-      className={className}
-      initial="close"
-      animate={controls}
-      exit="close"
-      variants={{
-        open: { opacity: 1, scale: '100%' },
-        close: { opacity: 0, scale: '90%' }
-      }}
-    >
-      {list.map((item) => (
-        <Option
-          setSelect={setSelect}
-          key={`${item.id}${item.name}`}
-          renderOptions={renderOptions}
-          option={item}
-          closeMenu={closeMenu}
-          onSelect={onSelect}
-          controls={controls}
-        />
-      ))}
-    </motion.div>
+    <ScrollAreaPrimitive.Root asChild>
+      <ScrollAreaPrimitive.Viewport asChild>
+        <motion.div
+          className={className}
+          initial="close"
+          animate={controls}
+          exit="close"
+          variants={{
+            open: { opacity: 1, scale: '100%' },
+            close: { opacity: 0, scale: '90%' }
+          }}
+        >
+          {list.map((item) => (
+            <Option
+              setSelect={setSelect}
+              key={`${item.id}${item.name}`}
+              renderOptions={renderOptions}
+              option={item}
+              closeMenu={closeMenu}
+              onSelect={onSelect}
+              controls={controls}
+            />
+          ))}
+        </motion.div>
+      </ScrollAreaPrimitive.Viewport>
+    </ScrollAreaPrimitive.Root>
   </Dropdown.Content>
 );
 
@@ -197,7 +203,7 @@ const Option = <T,>({
     // empty
   }
 }: OptionProps<T>) => (
-  <Dropdown.Item
+  <Slot
     onSelect={async (e) => {
       e.preventDefault();
       /**
@@ -206,7 +212,6 @@ const Option = <T,>({
       onSelect();
     }}
     className="select-none outline-none transition-faster"
-    asChild
   >
     {renderOptions({
       ...option,
@@ -214,5 +219,5 @@ const Option = <T,>({
       setSelect: setSelect,
       controls
     })}
-  </Dropdown.Item>
+  </Slot>
 );

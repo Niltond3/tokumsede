@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import Script from 'next/script';
-import React, { MouseEventHandler } from 'react';
-
 import Icons from '../DataDisplay/Icons';
 import Button from './Button';
 
@@ -23,19 +20,31 @@ type TextFieldConditionalProps =
   | {
       type: 'number';
       buttonStyles: buttonStyles;
+      handleIncrement: () => void;
+      handleDecrement: () => void;
     }
   | {
       type: 'currence';
       buttonStyles?: never;
+      handleIncrement?: never;
+      handleDecrement?: never;
     }
   | {
       type: 'phoneNumber';
       buttonStyles?: never;
+      handleIncrement?: never;
+      handleDecrement?: never;
     }
   | {
       type: 'text';
       buttonStyles?: never;
+      handleIncrement?: never;
+      handleDecrement?: never;
     };
+
+type CaretButonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  diretion: 'L' | 'R';
+};
 
 export default function TextField({
   onChange,
@@ -44,7 +53,10 @@ export default function TextField({
   placeholder = 'digite',
   value,
   className,
-  buttonStyles = { wrapper: '', button: '', icon: '' }
+  buttonStyles = { wrapper: '', button: '', icon: '' },
+  handleDecrement,
+  handleIncrement,
+  id
 }: TextFieldProps) {
   const {
     dataMaxDigits,
@@ -69,31 +81,6 @@ export default function TextField({
   );
   const { wrapper, button, icon } = buttonStyles!;
 
-  function modifyValye(e: React.MouseEvent<HTMLButtonElement>, mod: 'sum' | 'sub') {
-    const target = e.target as HTMLButtonElement;
-
-    const modify = {
-      sum: () => {
-        const input = target.previousSibling as HTMLInputElement;
-        let value = parseInt(input.value);
-        value < 99 ? value++ : value;
-        input.value = `${value}`;
-      },
-      sub: () => {
-        const input = target.nextSibling as HTMLInputElement;
-        let value = parseInt(input.value);
-        value > 0 ? value-- : value;
-        input.value = `${value}`;
-      }
-    };
-
-    modify[mod as keyof typeof modify]();
-  }
-
-  type CaretButonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    diretion: 'L' | 'R';
-  };
-
   const CaretButton = ({ diretion, ...props }: CaretButonProps) => {
     const diretionStyles = {
       L: {
@@ -117,30 +104,26 @@ export default function TextField({
     );
   };
 
+  // const handleDecrement = (event: EventButton) => modifyValue(event, 'sub');
+  // const handleIncrement = (event: EventButton) => modifyValue(event, 'sum');
+
   const Number = (
-    <div className={`flex w-full ${wrapper}`}>
-      <CaretButton
-        diretion="L"
-        onClick={(event) => modifyValye(event, 'sub')}
-        data-action="decrement"
-      />
+    <label className={`flex w-full ${wrapper}`} htmlFor={`input-type-${inputType}-${id}`}>
+      <CaretButton diretion="L" onClick={handleDecrement} data-action="decrement" />
       <input
+        id={`input-type-${inputType}-${id}`}
         type={inputType}
         value={value}
         onInput={onInput}
         onChange={onChange}
-        className={`flex w-full truncate bg-transparent text-center font-medium focus:outline-none ${className}`}
+        className={`block w-full truncate bg-transparent text-center font-medium focus:outline-none ${className}`}
         maxLength={ml}
         placeholder={ph}
         data-max-digits={dataMaxDigits}
         min="0"
       ></input>
-      <CaretButton
-        diretion="R"
-        onClick={(event) => modifyValye(event, 'sum')}
-        data-action="increment"
-      />
-    </div>
+      <CaretButton diretion="R" onClick={handleIncrement} data-action="increment" />
+    </label>
   );
 
   return type === 'number' ? Number : Input;

@@ -46,13 +46,14 @@ const products: ProductProps[] = [
     label: 'Leve',
     name: 'Alkalina Leve',
     shortName: 'L',
-    value: {
+    prices: {
       freight: 0,
       gallon: {
-        '10L': 11,
         '20L': 19
       },
-      refill: 9
+      refill: {
+        '20L': 10
+      }
     },
     measure: ['20'],
     unavailable: true
@@ -62,7 +63,7 @@ const products: ProductProps[] = [
     label: 'Rica',
     name: 'Alkalina Rica',
     shortName: 'Rica',
-    value: {
+    prices: {
       freight: 0,
       gallon: {
         '10L': 11,
@@ -78,7 +79,7 @@ const products: ProductProps[] = [
     label: 'Sport',
     name: 'Alkalina Sport',
     shortName: 'Sport',
-    value: {
+    prices: {
       freight: 0,
       gallon: {
         '10L': 11,

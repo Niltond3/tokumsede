@@ -1,6 +1,6 @@
-import { useReducer } from 'react';
+import { Fragment, useReducer, useState } from 'react';
 
-import Icons from 'app/components/Ui/DataDisplay/Icons';
+import Icons, { Quantity } from 'app/components/Ui/DataDisplay/Icons';
 import Img, { ImagePath } from 'app/components/Ui/DataDisplay/Image';
 import Button from 'app/components/Ui/Inputs/Button';
 import RadioGroup, {
@@ -22,10 +22,15 @@ import $ from 'jquery';
 import { TypeIcons } from 'utils/Types';
 
 type pricesType = {
-  refill: number;
+  refill: {
+    '5L'?: number;
+    '10L'?: number;
+    '20L'?: number;
+  };
   gallon: {
-    '10L': number;
-    '20L': number;
+    '5L'?: number;
+    '10L'?: number;
+    '20L'?: number;
   };
   freight: number;
 };
@@ -33,15 +38,33 @@ type pricesType = {
 export type ProductType = {
   label: keyof TypeIcons;
   shortName: string;
-  value: pricesType;
-  measure: string[];
+  prices: pricesType;
 };
 
 type MesureType = GroupType[];
 
+type ComponentsProps = { style: string };
+
+type HeaderProps = ComponentsProps & {
+  value: number;
+  label: keyof TypeIcons;
+};
+type BodyProps = ComponentsProps & {
+  measure: string[];
+  gallonSrc: ImagePath;
+  quantity: number;
+  handleQuantity: {
+    handleDecrement: () => void;
+    handleIncrement: () => void;
+    handleKeyboardChange: React.ChangeEventHandler<HTMLInputElement>;
+  };
+};
+type FooterProps = ComponentsProps & {
+  label: keyof TypeIcons;
+};
+
 const ItemForSale = ({
-  value,
-  measure,
+  prices,
   label,
   name,
   setSelect,
@@ -49,9 +72,22 @@ const ItemForSale = ({
   shortName
 }: CallbackRenderOptionsProps<ProductType>) => {
   // const [state, dispatch] = useReducer(reducer, initialState);
+  const [quantity, setQuantity] = useState(0);
+  const [value, setValue] = useState();
 
   const lowName = label.toLowerCase();
 
+  const handleQuantity = {
+    handleDecrement: () => {
+      quantity > 0 ? setQuantity(quantity - 1) : quantity;
+    },
+    handleIncrement: () => {
+      quantity < 100 ? setQuantity(quantity + 1) : quantity;
+    },
+    handleKeyboardChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+      setQuantity(parseInt(event.target.value, 10));
+    }
+  };
   const mappingStyles = {
     leve: {
       wrapper: 'bg-lg-primary',
@@ -75,20 +111,19 @@ const ItemForSale = ({
 
   const styleKey = lowName as keyof typeof mappingStyles;
   const gallonSrc = lowName as ImagePath;
-
+  /**
+   * value
+   * refill | completo
+   * quantity
+   * vol : 5L 10L 20L
+   */
   const {
     refill,
     gallon: { '10L': TenL, '20L': twentyL },
     freight
-  } = value;
-
+  } = prices;
+  const measure = Object.keys(refill)
   const { wrapper, header, body, footer } = mappingStyles[styleKey];
-
-  const Valuation = () => {
-    return $(`#${lowName}_bt_tg_text_gallons`);
-  };
-
-  console.log(Valuation());
 
   return (
     <motion.div
@@ -99,25 +134,19 @@ const ItemForSale = ({
         'flex w-28 flex-col justify-between rounded-tl-[6.5rem] rounded-tr-lg'
       )}
     >
-      <Header style={header} label={label} value={refill} />
-      <Body style={body} gallonSrc={gallonSrc} measure={measure} />
+      <Header style={header} label={label} value={refill['20L']!} />
+      <Body
+        style={body}
+        gallonSrc={gallonSrc}
+        quantity={quantity}
+        handleQuantity={handleQuantity}
+        measure={measure}
+      />
       <Footer style={footer} label={label} />
     </motion.div>
   );
 };
-type ComponentsProps = { style: string };
 
-type HeaderProps = ComponentsProps & {
-  value: number;
-  label: keyof TypeIcons;
-};
-type BodyProps = ComponentsProps & {
-  measure: string[];
-  gallonSrc: ImagePath;
-};
-type FooterProps = ComponentsProps & {
-  label: keyof TypeIcons;
-};
 const Header = ({ style, value, label }: HeaderProps) => (
   <div className="relative flex w-11/12 self-end">
     <div
@@ -140,7 +169,7 @@ const Header = ({ style, value, label }: HeaderProps) => (
   </div>
 );
 
-const Body = ({ style, measure, gallonSrc }: BodyProps) => {
+const Body = ({ style, gallonSrc, measure,quantity, handleQuantity }: BodyProps) => {
   const MesureGroup: MesureType = [
     {
       id: '5',
@@ -164,7 +193,13 @@ const Body = ({ style, measure, gallonSrc }: BodyProps) => {
   ];
 
   const MesureGroupFiltered = MesureGroup.map((item) => {
-    const find = measure.find((value) => value === item.id);
+    const find = measure.find((value) => {
+      console.log(value);
+      console.log( value.replace('L',''));
+      console.log(item.id);
+      console.log(value.replace('L','') === item.id);
+      return value.replace('L','') === item.id
+    });
     const newItem = { ...item, disabled: !find ? true : false };
     return newItem;
   });
@@ -179,9 +214,11 @@ const Body = ({ style, measure, gallonSrc }: BodyProps) => {
       'absolute bottom-0 text-xs font-semibold text-white opacity-0 [&:has(+[data-state=checked])]:opacity-100 transition-faster'
   };
 
+  const { handleDecrement, handleIncrement, handleKeyboardChange } = handleQuantity;
+
   return (
-    <div className="flex">
-      <div className="relative flex flex-1 items-center justify-center">
+    <div className='flex'>
+     <div className="relative flex flex-1 items-center justify-center">
         <Img className="relative h-5/6 w-fit" image={gallonSrc} blur="blur" />
         <div
           className={clsx(
@@ -210,16 +247,21 @@ const Body = ({ style, measure, gallonSrc }: BodyProps) => {
           <Divider className="!bg-white/30" />
           {/* CREATE A INPUT TYPE NUMBER */}
           <TextField
+            id={`quantity-${gallonSrc}`}
             type="number"
             placeholder="0"
-            maxLength={3}
+            maxLength={2}
             buttonStyles={{ wrapper: 'py-s px-xs h-[45%]', button: '', icon: style }}
             className="text-white"
-            value={0}
+            value={quantity}
+            handleDecrement={handleDecrement}
+            handleIncrement={handleIncrement}
+            onChange={handleKeyboardChange}
           />
         </div>
       </div>
     </div>
+
   );
 };
 
