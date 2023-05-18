@@ -1,5 +1,6 @@
 import 'styles/globals.css';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 import { TooltipProvider } from './components/Ui/DataDisplay/Tooltip';
 import IndexLaytout from 'app/components/Patterns/Layout';
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <IndexLaytout>{children}</IndexLaytout>
         </TooltipProvider>
       </body>
+      <Script src="http://localhost:8097" />
     </html>
   );
 }

@@ -1,12 +1,10 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
 import DropdownMenu, {
   ObjectDefaultProps
 } from 'app/components/Ui/Navigation/DropdownMenu';
 
 import ItemForSale, { ProductType } from './ItemForSale';
-
-import { ActionMap } from 'utils/Types';
 
 const Styles = () => {
   const styles = {
@@ -40,6 +38,11 @@ type ProductProps = ObjectDefaultProps<ProductType>;
 [16:06, 26/04/2023] Claudizon: Alcalina Sport: 5 e 20 litros
 [16:06, 26/04/2023] Claudizon: Alcalina Leve: 20 litros
  */
+const gallonPrices = {
+  '5L': 0,
+  '10L': 11,
+  '20L': 19
+};
 const products: ProductProps[] = [
   {
     id: 1,
@@ -48,14 +51,11 @@ const products: ProductProps[] = [
     shortName: 'L',
     prices: {
       freight: 0,
-      gallon: {
-        '20L': 19
-      },
+      gallon: gallonPrices,
       refill: {
         '20L': 10
       }
     },
-    measure: ['20'],
     unavailable: true
   },
   {
@@ -65,13 +65,12 @@ const products: ProductProps[] = [
     shortName: 'Rica',
     prices: {
       freight: 0,
-      gallon: {
-        '10L': 11,
-        '20L': 19
-      },
-      refill: 11
+      gallon: gallonPrices,
+      refill: {
+        '10L': 8,
+        '20L': 11
+      }
     },
-    measure: ['10', '20'],
     unavailable: true
   },
   {
@@ -81,13 +80,12 @@ const products: ProductProps[] = [
     shortName: 'Sport',
     prices: {
       freight: 0,
-      gallon: {
-        '10L': 11,
-        '20L': 19
-      },
-      refill: 13
+      gallon: gallonPrices,
+      refill: {
+        '5L': 10,
+        '20L': 13
+      }
     },
-    measure: ['5', '20'],
     unavailable: true
   }
 ];
