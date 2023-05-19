@@ -41,7 +41,7 @@ export type ProductType = {
   prices: pricesType;
 };
 
-type MesureType = GroupType[];
+type MeasureType = GroupType[];
 
 type ComponentsProps = { style: string };
 
@@ -50,7 +50,7 @@ type HeaderProps = ComponentsProps & {
   label: keyof TypeIcons;
 };
 type BodyProps = ComponentsProps & {
-  measure: MesureType[];
+  measure: MeasureType;
   gallonSrc: ImagePath;
   quantity: number;
   handleQuantity: {
@@ -64,7 +64,7 @@ type FooterProps = ComponentsProps & {
 };
 
 const ItemForSale = ({
-  prices,
+  prices: { refill, freight, gallon },
   label,
   name,
   setSelect,
@@ -93,42 +93,43 @@ const ItemForSale = ({
       default: true
     }
   */
- type X = {
-  refill: {
+  type A = {
+    refill: {
       selected: boolean;
       value: number | undefined;
-  };
-  full: {
+    };
+    full: {
       selected: boolean;
       value: number | undefined;
+    };
   };
-}
-/*
-          measure: {
+  type X = {
+    [x: string]: A | GroupType;
+    measure: GroupType;
+  }[];
+  const [values, setvalues] = useState<X>(
+    Object.keys(gallon).map((value) => {
+      const id = value.replace('L', '');
+      return {
+        [value]: {
+          refill: {
+            selected: true,
+            value: refill[value as keyof typeof refill]
+          },
+          full: {
+            selected: false,
+            value: gallon[value as keyof typeof gallon]
+          }
+        },
+        measure: {
           id: value,
           value: value,
           label: value,
           position: 'R',
           default: id === '20' ? true : false,
-          disabled: !prices.refill[value as keyof typeof prices.refill] ? true : false
-        }
-*/
-  const [values, setvalues] = (
-    Object.keys(prices.gallon).map((value) => {
-      const id = value.replace('L', '');
-      const A:X = {
-        [value]: {
-          refill: {
-            selected: true,
-            value: prices.refill[value as keyof typeof prices.refill]
-          },
-          full: {
-            selected: false,
-            value: prices.gallon[value as keyof typeof prices.gallon]
-          }
+          disabled: !refill[value as keyof typeof refill] ? true : false
         }
       };
-      return A
     })
   );
   const [quantity, setQuantity] = useState(0);
@@ -180,7 +181,7 @@ const ItemForSale = ({
     gallon: { '10L': TenL, '20L': twentyL },
     freight
   } = prices;
-  const measure: MesureType = [values[0].measure, values[1].measure, values[2].measure];
+  const measure = [values[0].measure, values[1].measure, values[2].measure];
   const { wrapper, header, body, footer } = mappingStyles[styleKey];
 
   return (
@@ -204,6 +205,114 @@ const ItemForSale = ({
     </motion.div>
   );
 };
+
+const Header = ({ style, value, label }: HeaderProps) => (
+  <div className="relative flex w-11/12 self-end">
+    <div
+      className={clsx(
+        style,
+        'relative z-10 flex h-12 w-12 flex-col items-center justify-center rounded-full border-[3px]  bg-lg-primary-base'
+      )}
+    >
+      <span className="absolute left-1.5 top-[1px] text-[0.45rem] font-extrabold opacity-60">
+        R$
+      </span>
+      <span className="text-lg font-bold">{value}</span>
+      <span className="absolute -bottom-0.5 font-mono text-[0.5rem] font-extrabold opacity-60">
+        /un
+      </span>
+    </div>
+    <span className="absolute right-0 z-[0] flex w-11/12 justify-end bg-white/20 pr-1 font-bold text-white center-x">
+      {label}
+    </span>
+  </div>
+);
+
+const Body = ({ style, gallonSrc, measure, quantity, handleQuantity }: BodyProps) => {
+  // const MesureGroup: MeasureType = [
+  //   {
+  //     id: '5',
+  //     value: '5L',
+  //     label: '5L',
+  //     position: 'R'
+  //   },
+  //   {
+  //     id: '10',
+  //     value: '10L',
+  //     label: '10L',
+  //     position: 'R'
+  //   },
+  //   {
+  //     id: '20',
+  //     value: '20L',
+  //     label: '20L',
+  //     position: 'R',
+  //     default: true
+  //   }
+  // ];
+
+  // const MesureGroupFiltered = MesureGroup.map((item) => {
+  //   const find = measure.find((value) => value.replace('L', '') === item.id);
+  //   const newItem = { ...item, disabled: !find ? true : false };
+  //   return newItem;
+  // });
+
+  const MesureStyles: RadioGroupStyleProp = {
+    RadioGroupRoot:
+      'flex justify-center items-start [&:has(button[data-state=checked])>button]:text-white relative h-[45%] ',
+    RadioGroupItem:
+      'data-state-checked:text-white peer peer-data-state-checked:opacity-60 transition-faster data-[disabled]:!opacity-20',
+    RadioGroupIndicator: '',
+    RadioGroupLabel:
+      'absolute bottom-0 text-xs font-semibold text-white opacity-0 [&:has(+[data-state=checked])]:opacity-100 transition-faster'
+  };
+
+  const { handleDecrement, handleIncrement, handleKeyboardChange } = handleQuantity;
+
+  return (
+    <div className="flex">
+      <div className="relative flex flex-1 items-center justify-center">
+        <Img className="relative h-5/6 w-fit" image={gallonSrc} blur="blur" />
+        <div
+          className={clsx(
+            'before:absolute before:top-1 before:h-0 before:w-0 before:rotate-45 before:border-4 before:border-transparent before:!border-l-gray-700',
+            'absolute -left-1 bottom-3 flex h-6 items-end overflow-hidden'
+          )}
+        >
+          <Button
+            id={`${gallonSrc}_bt_tg_text_gallons`}
+            typeOf="toggle"
+            toggleVariant="text"
+            data-tg-on="COMPLETO"
+            data-tg-off="REFIL"
+            className={`h-4 w-12 rounded-none bg-white !opacity-100 ${style}`}
+          />
+        </div>
+      </div>
+      <div className="flex flex-1 items-center justify-center">
+        <Divider orientation="vertical" className="!h-5/6 !bg-white/30" />
+        <div className="h-5/6">
+          <RadioGroup
+            group={measure}
+            styles={MesureStyles}
+            item={<Icons icon="Drop" className="" />}
+          />
+          <Divider className="!bg-white/30" />
+          {/* CREATE A INPUT TYPE NUMBER */}
+          <TextField
+            id={`quantity-${gallonSrc}`}
+            type="number"
+            placeholder="0"
+            maxLength={2}
+            buttonStyles={{ wrapper: 'py-s px-xs h-[45%]', button: '', icon: style }}
+            className="text-white"
+            value={quantity}
+            handleDecrement={handleDecrement}
+            handleIncrement={handleIncrement}
+            onChange={handleKeyboardChange}
+          />
+        </div>
+      </div>
     </div>
   );
 };
