@@ -1,6 +1,6 @@
-import { Fragment, useReducer, useState } from 'react';
+import { useState } from 'react';
 
-import Icons, { Quantity } from 'app/components/Ui/DataDisplay/Icons';
+import Icons from 'app/components/Ui/DataDisplay/Icons';
 import Img, { ImagePath } from 'app/components/Ui/DataDisplay/Image';
 import Button from 'app/components/Ui/Inputs/Button';
 import RadioGroup, {
@@ -9,16 +9,10 @@ import RadioGroup, {
 } from 'app/components/Ui/Inputs/RadioGroup';
 import TextField from 'app/components/Ui/Inputs/TextField';
 import Divider from 'app/components/Ui/Layout/Divider';
-import {
-  CallbackRenderOptionsProps,
-  ObjectDefaultProps
-} from 'app/components/Ui/Navigation/DropdownMenu';
-
-import reducer from './ItemForSaleReducer';
+import { CallbackRenderOptionsProps } from 'app/components/Ui/Navigation/DropdownMenu';
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import $ from 'jquery';
 import { TypeIcons } from 'utils/Types';
 
 type pricesType = {
@@ -41,7 +35,13 @@ export type ProductType = {
   prices: pricesType;
 };
 
-type MeasureType = GroupType[];
+type MeasureType = {
+  itemIndex: number;
+  id: string;
+  value: string;
+  label?: string;
+  position?: 'L' | 'R';
+}[];
 
 type ComponentsProps = { style: string };
 
@@ -53,6 +53,9 @@ type BodyProps = ComponentsProps & {
   measure: MeasureType;
   gallonSrc: ImagePath;
   quantity: number;
+  handleValue: {
+    handleToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  };
   handleQuantity: {
     handleDecrement: () => void;
     handleIncrement: () => void;
@@ -71,54 +74,36 @@ const ItemForSale = ({
   controls,
   shortName
 }: CallbackRenderOptionsProps<ProductType>) => {
-  // const [state, dispatch] = useReducer(reducer, initialState);
-  /*
-{
-      id: '5',
-      value: '5L',
-      label: '5L',
-      position: 'R'
-    },
-    {
-      id: '10',
-      value: '10L',
-      label: '10L',
-      position: 'R'
-    },
-    {
-      id: '20',
-      value: '20L',
-      label: '20L',
-      position: 'R',
-      default: true
-    }
-  */
-  type A = {
+  type GallonValueControlProps = {
     refill: {
       selected: boolean;
-      value: number | undefined;
+      value?: number;
     };
     full: {
       selected: boolean;
-      value: number | undefined;
+      value?: number;
     };
   };
-  type X = {
-    [x: string]: A | GroupType;
+  type ValueStateType = {
+    [key: string]: GallonValueControlProps | GroupType;
     measure: GroupType;
   }[];
-  const [values, setvalues] = useState<X>(
+  const [values, setValues] = useState<ValueStateType>(
     Object.keys(gallon).map((value) => {
       const id = value.replace('L', '');
+      const refValUnchecked = refill[value as keyof typeof refill];
+      const galValUnchecked = gallon[value as keyof typeof gallon];
+      const refillValue = !refValUnchecked ? 0 : refValUnchecked;
+      const gallonValue = !galValUnchecked ? 0 : galValUnchecked;
       return {
         [value]: {
           refill: {
             selected: true,
-            value: refill[value as keyof typeof refill]
+            value: refillValue
           },
           full: {
             selected: false,
-            value: gallon[value as keyof typeof gallon]
+            value: gallonValue + refillValue
           }
         },
         measure: {
@@ -127,7 +112,7 @@ const ItemForSale = ({
           label: value,
           position: 'R',
           default: id === '20' ? true : false,
-          disabled: !refill[value as keyof typeof refill] ? true : false
+          disabled: !refValUnchecked ? true : false
         }
       };
     })
@@ -138,15 +123,28 @@ const ItemForSale = ({
 
   const handleQuantity = {
     handleDecrement: () => {
-      quantity > 0 ? setQuantity(quantity - 1) : quantity;
+      if (quantity > 0) setQuantity(quantity - 1);
     },
     handleIncrement: () => {
-      quantity < 100 ? setQuantity(quantity + 1) : quantity;
+      if (quantity < 100) setQuantity(quantity + 1);
     },
     handleKeyboardChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       setQuantity(parseInt(event.target.value, 10));
     }
   };
+
+  const handleValue = {
+    handleToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      if (event.target === event.currentTarget) {
+        const { state } = event.currentTarget.dataset;
+        const a = {
+          on: () => setValues(),
+          of: () => {}
+        };
+      }
+    }
+  };
+
   const mappingStyles = {
     leve: {
       wrapper: 'bg-lg-primary',
@@ -176,12 +174,17 @@ const ItemForSale = ({
    * quantity
    * vol : 5L 10L 20L
    */
-  const {
-    refill,
-    gallon: { '10L': TenL, '20L': twentyL },
-    freight
-  } = prices;
-  const measure = [values[0].measure, values[1].measure, values[2].measure];
+  const measure: {
+    itemIndex: number;
+    id: string;
+    value: string;
+    label?: string;
+    position?: 'L' | 'R';
+  }[] = values.map((item, index) => {
+    const itemMeasure = item.measure;
+    const Return = { ...itemMeasure, itemIndex: index };
+    return Return;
+  });
   const { wrapper, header, body, footer } = mappingStyles[styleKey];
 
   return (
@@ -199,6 +202,7 @@ const ItemForSale = ({
         gallonSrc={gallonSrc}
         quantity={quantity}
         handleQuantity={handleQuantity}
+        handleValue={handleValue}
         measure={measure}
       />
       <Footer style={footer} label={label} />
@@ -228,35 +232,14 @@ const Header = ({ style, value, label }: HeaderProps) => (
   </div>
 );
 
-const Body = ({ style, gallonSrc, measure, quantity, handleQuantity }: BodyProps) => {
-  // const MesureGroup: MeasureType = [
-  //   {
-  //     id: '5',
-  //     value: '5L',
-  //     label: '5L',
-  //     position: 'R'
-  //   },
-  //   {
-  //     id: '10',
-  //     value: '10L',
-  //     label: '10L',
-  //     position: 'R'
-  //   },
-  //   {
-  //     id: '20',
-  //     value: '20L',
-  //     label: '20L',
-  //     position: 'R',
-  //     default: true
-  //   }
-  // ];
-
-  // const MesureGroupFiltered = MesureGroup.map((item) => {
-  //   const find = measure.find((value) => value.replace('L', '') === item.id);
-  //   const newItem = { ...item, disabled: !find ? true : false };
-  //   return newItem;
-  // });
-
+const Body = ({
+  style,
+  gallonSrc,
+  measure,
+  quantity,
+  handleQuantity,
+  handleValue
+}: BodyProps) => {
   const MesureStyles: RadioGroupStyleProp = {
     RadioGroupRoot:
       'flex justify-center items-start [&:has(button[data-state=checked])>button]:text-white relative h-[45%] ',
@@ -268,7 +251,7 @@ const Body = ({ style, gallonSrc, measure, quantity, handleQuantity }: BodyProps
   };
 
   const { handleDecrement, handleIncrement, handleKeyboardChange } = handleQuantity;
-
+  const { handleToggle } = handleValue;
   return (
     <div className="flex">
       <div className="relative flex flex-1 items-center justify-center">
@@ -286,6 +269,7 @@ const Body = ({ style, gallonSrc, measure, quantity, handleQuantity }: BodyProps
             data-tg-on="COMPLETO"
             data-tg-off="REFIL"
             className={`h-4 w-12 rounded-none bg-white !opacity-100 ${style}`}
+            onClick={handleToggle}
           />
         </div>
       </div>
