@@ -75,21 +75,25 @@ const ItemForSale = ({
   shortName
 }: CallbackRenderOptionsProps<ProductType>) => {
   type GallonValueControlProps = {
-    refill: {
-      selected: boolean;
-      value?: number;
-    };
-    full: {
-      selected: boolean;
-      value?: number;
-    };
+    refill: number;
+    full: number;
   };
   type ValueStateType = {
-    [key: string]: GallonValueControlProps | GroupType;
-    measure: GroupType;
-  }[];
-  const [values, setValues] = useState<ValueStateType>(
-    Object.keys(gallon).map((value) => {
+    current: {
+      price?: number;
+      measure: string;
+    };
+    products: {
+      [key: string]: GallonValueControlProps | GroupType;
+      measure: GroupType;
+    }[];
+  };
+  const [values, setValues] = useState<ValueStateType>({
+    current: {
+      price: gallon['20L'],
+      measure: '20L'
+    },
+    products: Object.keys(gallon).map((value) => {
       const id = value.replace('L', '');
       const refValUnchecked = refill[value as keyof typeof refill];
       const galValUnchecked = gallon[value as keyof typeof gallon];
@@ -97,14 +101,8 @@ const ItemForSale = ({
       const gallonValue = !galValUnchecked ? 0 : galValUnchecked;
       return {
         [value]: {
-          refill: {
-            selected: true,
-            value: refillValue
-          },
-          full: {
-            selected: false,
-            value: gallonValue + refillValue
-          }
+          refill: refillValue,
+          full: gallonValue + refillValue
         },
         measure: {
           id: value,
@@ -116,7 +114,7 @@ const ItemForSale = ({
         }
       };
     })
-  );
+  });
   const [quantity, setQuantity] = useState(0);
 
   const lowName = label.toLowerCase();
@@ -137,10 +135,23 @@ const ItemForSale = ({
     handleToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (event.target === event.currentTarget) {
         const { state } = event.currentTarget.dataset;
-        const a = {
-          on: () => setValues(),
-          of: () => {}
+        // data-tg-on="COMPLETO"
+        // data-tg-off="REFIL"
+        const toggleValues = (gallonKey: 'full' | 'refill') => {
+          const { current, products } = values;
+
+          const a = products.find((p) => p[current.measure] as GallonValueControlProps);
+
+          console.log(a);
+          // return {...products, current:}
         };
+        toggleValues('full');
+        const selectState = {
+          on: () => setValues(values),
+          off: () => setValues(values)
+        };
+        console.log(state);
+        selectState[state as keyof typeof selectState]();
       }
     }
   };
@@ -180,11 +191,8 @@ const ItemForSale = ({
     value: string;
     label?: string;
     position?: 'L' | 'R';
-  }[] = values.map((item, index) => {
-    const itemMeasure = item.measure;
-    const Return = { ...itemMeasure, itemIndex: index };
-    return Return;
-  });
+  }[] = values.products.map((item, index) => ({ ...item.measure, itemIndex: index }));
+
   const { wrapper, header, body, footer } = mappingStyles[styleKey];
 
   return (
