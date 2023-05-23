@@ -163,7 +163,7 @@ const ListOptions = <T,>({
   setSelect,
   className
 }: ListOptionsProps<T>) => (
-  <Dropdown.Content asChild align="start">
+  <Dropdown.Content asChild align="center" collisionPadding={5}>
     <ScrollAreaPrimitive.Root asChild>
       <ScrollAreaPrimitive.Viewport asChild>
         <motion.div
