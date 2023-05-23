@@ -264,11 +264,11 @@ const Body = ({
   handleQuantity,
   handleValue
 }: BodyProps) => {
-  const MesureStyles: RadioGroupStyleProp = {
+  const MesureStyles = {
     RadioGroupRoot:
       'flex justify-center items-start [&:has(button[data-state=checked])>button]:text-white relative h-[45%] ',
     RadioGroupItem:
-      'data-state-checked:text-white peer peer-data-state-checked:opacity-60 transition-faster data-[disabled]:!opacity-20',
+      'focus-visible:outline-none focus-visible:elevation-3 rounded-full data-state-checked:text-white peer peer-data-state-checked:opacity-60 transition-faster data-[disabled]:!opacity-20',
     RadioGroupIndicator: '',
     RadioGroupLabel:
       'absolute bottom-0 text-xs font-semibold text-white opacity-0 [&:has(+[data-state=checked])]:opacity-100 transition-faster'
