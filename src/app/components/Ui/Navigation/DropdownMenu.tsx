@@ -5,13 +5,13 @@ import Button from '../Inputs/Button';
 
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
+import { Slot } from '@radix-ui/react-slot';
 import {
   AnimatePresence,
   AnimationControls,
   motion,
   useAnimationControls
 } from 'framer-motion';
-import { Slot } from '@radix-ui/react-slot';
 
 type ItemsProps<T> = {
   onSelect?: () => void;

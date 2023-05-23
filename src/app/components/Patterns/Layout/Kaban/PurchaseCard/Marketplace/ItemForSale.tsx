@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState } from 'react';
 
 import Icons from 'app/components/Ui/DataDisplay/Icons';
@@ -54,7 +55,10 @@ type BodyProps = ComponentsProps & {
   gallonSrc: ImagePath;
   quantity: number;
   handleValue: {
-    handleToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    handleToggleFullRefill: (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
+    handleChangeMeasure: (measure: string) => void;
   };
   handleQuantity: {
     handleDecrement: () => void;
@@ -82,6 +86,7 @@ const ItemForSale = ({
     current: {
       price?: number;
       measure: string;
+      purchase: 'full' | 'refill';
     };
     products: {
       [key: string]: GallonValueControlProps | GroupType;
@@ -90,8 +95,9 @@ const ItemForSale = ({
   };
   const [values, setValues] = useState<ValueStateType>({
     current: {
-      price: gallon['20L'],
-      measure: '20L'
+      price: refill['20L'],
+      measure: '20L',
+      purchase: 'refill'
     },
     products: Object.keys(gallon).map((value) => {
       const id = value.replace('L', '');
@@ -132,27 +138,37 @@ const ItemForSale = ({
   };
 
   const handleValue = {
-    handleToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    handleToggleFullRefill: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (event.target === event.currentTarget) {
         const { state } = event.currentTarget.dataset;
-        // data-tg-on="COMPLETO"
-        // data-tg-off="REFIL"
         const toggleValues = (gallonKey: 'full' | 'refill') => {
           const { current, products } = values;
 
-          const a = products.find((p) => p[current.measure] as GallonValueControlProps);
-
-          console.log(a);
-          // return {...products, current:}
+          const product = products.find((product) => product[current.measure]);
+          const newPrice = (product![current.measure] as GallonValueControlProps)[
+            gallonKey
+          ];
+          return {
+            ...values,
+            current: { ...values.current, price: newPrice, purchase: gallonKey }
+          };
         };
-        toggleValues('full');
         const selectState = {
-          on: () => setValues(values),
-          off: () => setValues(values)
+          on: () => setValues(toggleValues('refill')),
+          off: () => setValues(toggleValues('full'))
         };
-        console.log(state);
         selectState[state as keyof typeof selectState]();
       }
+    },
+    handleChangeMeasure: (measure: string) => {
+      const product = values.products.find((product) => product[measure]);
+      const newPrice = (product![measure] as GallonValueControlProps)[
+        values.current.purchase
+      ];
+      setValues({
+        ...values,
+        current: { ...values.current, price: newPrice, measure: measure }
+      });
     }
   };
 
@@ -204,7 +220,7 @@ const ItemForSale = ({
         'flex w-28 flex-col justify-between rounded-tl-[6.5rem] rounded-tr-lg'
       )}
     >
-      <Header style={header} label={label} value={refill['20L']!} />
+      <Header style={header} label={label} value={values.current.price!} />
       <Body
         style={body}
         gallonSrc={gallonSrc}
@@ -229,7 +245,7 @@ const Header = ({ style, value, label }: HeaderProps) => (
       <span className="absolute left-1.5 top-[1px] text-[0.45rem] font-extrabold opacity-60">
         R$
       </span>
-      <span className="text-lg font-bold">{value}</span>
+      <span className="text-lg font-bold transition-faster">{value}</span>
       <span className="absolute -bottom-0.5 font-mono text-[0.5rem] font-extrabold opacity-60">
         /un
       </span>
@@ -259,7 +275,7 @@ const Body = ({
   };
 
   const { handleDecrement, handleIncrement, handleKeyboardChange } = handleQuantity;
-  const { handleToggle } = handleValue;
+  const { handleToggleFullRefill, handleChangeMeasure } = handleValue;
   return (
     <div className="flex">
       <div className="relative flex flex-1 items-center justify-center">
@@ -277,7 +293,7 @@ const Body = ({
             data-tg-on="COMPLETO"
             data-tg-off="REFIL"
             className={`h-4 w-12 rounded-none bg-white !opacity-100 ${style}`}
-            onClick={handleToggle}
+            onClick={handleToggleFullRefill}
           />
         </div>
       </div>
@@ -288,6 +304,7 @@ const Body = ({
             group={measure}
             styles={MesureStyles}
             item={<Icons icon="Drop" className="" />}
+            onValueChange={handleChangeMeasure}
           />
           <Divider className="!bg-white/30" />
           {/* CREATE A INPUT TYPE NUMBER */}

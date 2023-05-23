@@ -53,7 +53,7 @@ const products: ProductProps[] = [
       freight: 0,
       gallon: gallonPrices,
       refill: {
-        '20L': 10
+        '20L': 9
       }
     },
     unavailable: true

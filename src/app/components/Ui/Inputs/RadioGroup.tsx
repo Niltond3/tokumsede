@@ -23,16 +23,29 @@ type RadioGroupProps = {
   group: GroupType[];
   styles: RadioGroupStyleProp;
   item?: React.ReactNode;
+  wrapper?: boolean;
+  onValueChange: (value: string) => void;
 };
 
-export default function RadioGroup({ group, styles, item }: RadioGroupProps) {
+export default function RadioGroup({
+  group,
+  styles,
+  item,
+  wrapper,
+  onValueChange
+}: RadioGroupProps) {
   const { RadioGroupRoot, RadioGroupItem, RadioGroupIndicator, RadioGroupLabel } = styles;
   const defaultValue = group.find((val) => val.default)?.value;
+  const Container = wrapper ? 'div' : Fragment;
   return (
-    <RadioPrimitive.Root className={RadioGroupRoot} defaultValue={defaultValue}>
+    <RadioPrimitive.Root
+      className={RadioGroupRoot}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+    >
       {group.map(({ id, value, label, position, indicator, disabled }) => {
         return (
-          <Fragment key={id}>
+          <Container key={id}>
             {label && position === 'R' && (
               <label htmlFor={id} className={RadioGroupLabel}>
                 {label}
@@ -54,7 +67,7 @@ export default function RadioGroup({ group, styles, item }: RadioGroupProps) {
                 {label}
               </label>
             )}
-          </Fragment>
+          </Container>
         );
       })}
     </RadioPrimitive.Root>
