@@ -1,9 +1,10 @@
 import React from 'react';
 
+import { ProductProps } from 'app/components/Patterns/Layout/Kaban/Types';
 import DropdownMenu from 'app/components/Ui/Navigation/DropdownMenu';
 
-import { ProductProps } from '../../../../Types';
 import ItemForSale from './ItemForSale';
+import { CurrentValueProps } from './ItemForSale/Types';
 
 const mappingMenuStyles = {
   trigger: {
@@ -32,7 +33,8 @@ const gallonPrices = {
   '10L': 11,
   '20L': 19
 };
-const products: ProductProps[] = [
+type DropdownProductProps = ProductProps & CurrentValueProps;
+const products: DropdownProductProps[] = [
   {
     id: 1,
     label: 'Leve',

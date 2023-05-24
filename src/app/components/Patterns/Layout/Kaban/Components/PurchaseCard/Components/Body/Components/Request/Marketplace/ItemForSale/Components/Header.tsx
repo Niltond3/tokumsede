@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeaderProps } from './Types';
+import { HeaderProps } from '../Types';
 
 import clsx from 'clsx';
 

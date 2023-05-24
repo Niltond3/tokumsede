@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { ImagePath } from 'app/components/Ui/DataDisplay/Image';
 import { GroupType } from 'app/components/Ui/Inputs/Types';
+import { ItemStateType } from 'app/components/Ui/Navigation/types';
 
 import { TypeIcons } from 'utils/Types';
 
@@ -14,6 +15,18 @@ type MeasureType = {
 }[];
 
 type ComponentsProps = { style: string };
+
+export type GallonValueControlProps = {
+  refill: number;
+  full: number;
+};
+
+export type CurrentValueProps = {
+  price?: number;
+  measure?: string;
+  purchase?: 'full' | 'refill';
+  quantity?: number;
+};
 
 export type HeaderProps = ComponentsProps & {
   value: number;
@@ -39,19 +52,11 @@ export type BodyProps = ComponentsProps & {
 
 export type FooterProps = ComponentsProps & {
   label: keyof TypeIcons;
-};
-
-export type GallonValueControlProps = {
-  refill: number;
-  full: number;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 export type ValueStateType = {
-  current: {
-    price?: number;
-    measure: string;
-    purchase: 'full' | 'refill';
-  };
+  current: CurrentValueProps;
   products: {
     [key: string]: GallonValueControlProps | GroupType;
     measure: GroupType;

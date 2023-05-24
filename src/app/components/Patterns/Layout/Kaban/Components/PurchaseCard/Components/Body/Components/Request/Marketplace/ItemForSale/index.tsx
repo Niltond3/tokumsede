@@ -10,22 +10,33 @@ import { ImagePath } from 'app/components/Ui/DataDisplay/Image';
 import Body from './Components/Body';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
-import { GallonValueControlProps, HandleEventProps, ValueStateType } from './Types';
+import {
+  CurrentValueProps,
+  GallonValueControlProps,
+  HandleEventProps,
+  ValueStateType
+} from './Types';
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-export default function ItemForSale({
-  prices: { refill, gallon },
-  label,
-  controls,
-  shortName
-}: CallbackRenderOptionsProps<ProductType>) {
+export default function ItemForSale(
+  product: CallbackRenderOptionsProps<ProductType & CurrentValueProps>
+) {
+  const {
+    prices: { refill, gallon },
+    label,
+    controls,
+    shortName,
+    setSelect
+  } = product;
+
   const [values, setValues] = useState<ValueStateType>({
     current: {
       price: refill['20L'],
       measure: '20L',
-      purchase: 'refill'
+      purchase: 'refill',
+      quantity: 0
     },
     products: Object.keys(gallon).map((value) => {
       const id = value.replace('L', '');
@@ -112,7 +123,18 @@ export default function ItemForSale({
         handleValue={handleValue}
         measure={measure}
       />
-      <Footer style={footer} label={label} />
+      <Footer
+        style={footer}
+        label={label}
+        onClick={(event) => {
+          event.preventDefault();
+          if (setSelect)
+            setSelect({
+              ...product,
+              ...values.current
+            });
+        }}
+      />
     </motion.div>
   );
 }
@@ -138,9 +160,9 @@ function handleEvents({ quantity, setQuantity, values, setValues }: HandleEventP
           const { state } = event.currentTarget.dataset;
           const toggleValues = (gallonKey: 'full' | 'refill') => {
             const { current, products } = values;
-
-            const product = products.find((product) => product[current.measure]);
-            const newPrice = (product![current.measure] as GallonValueControlProps)[
+            const defaultMeasure = current.measure ? current.measure : '20L';
+            const product = products.find((product) => product[defaultMeasure]);
+            const newPrice = (product![defaultMeasure] as GallonValueControlProps)[
               gallonKey
             ];
             return {
@@ -157,9 +179,11 @@ function handleEvents({ quantity, setQuantity, values, setValues }: HandleEventP
       },
       handleChangeMeasure: (measure: string) => {
         const product = values.products.find((product) => product[measure]);
-        const newPrice = (product![measure] as GallonValueControlProps)[
-          values.current.purchase
-        ];
+        const defaultPurchase = values.current.purchase
+          ? values.current.purchase
+          : 'refill';
+
+        const newPrice = (product![measure] as GallonValueControlProps)[defaultPurchase];
         setValues({
           ...values,
           current: { ...values.current, price: newPrice, measure: measure }

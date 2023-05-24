@@ -122,6 +122,7 @@ const Trigger = <T,>({ arrow, renderSelect, item, className }: TriggerProps<T>) 
     const { closeMenu: _, setSelect: __, ...selected } = object;
     return selected;
   };
+  console.log(item);
   const { wrapper, button, icon } = className;
   const renderSelectItem = () =>
     Array.isArray(item)
