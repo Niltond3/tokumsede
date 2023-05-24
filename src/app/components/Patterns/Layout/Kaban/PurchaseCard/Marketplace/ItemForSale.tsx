@@ -13,7 +13,7 @@ import Divider from 'app/components/Ui/Layout/Divider';
 import { CallbackRenderOptionsProps } from 'app/components/Ui/Navigation/DropdownMenu';
 
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { TypeIcons } from 'utils/Types';
 
 type pricesType = {

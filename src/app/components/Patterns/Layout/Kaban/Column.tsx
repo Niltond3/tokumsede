@@ -3,6 +3,7 @@ import Button from 'app/components/Ui/Inputs/Button';
 
 import PurchaseCard from './PurchaseCard';
 
+import { AnimatePresence } from 'framer-motion';
 import { TypeIcons, ColumnType } from 'utils/Types';
 
 type Styles = {
@@ -49,7 +50,7 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
   const { title, styles, icon } = mappingStyles[id];
   return (
     <div
-      className={`${styles} h-min max-w-[16%] flex-1 rounded-sm px-s  py-xs `}
+      className={`${styles} h-min max-w-[16%] flex-1 rounded-sm px-s py-xs transition-faster`}
       key={id}
     >
       <div className="flex w-full text-sm">
@@ -67,15 +68,17 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
           />
         </div>
       </div>
-      <ul className="max-h-72 min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300">
-        {purchasesIds.map((value, index) => (
-          <PurchaseCard
-            key={`${index}-${value}-${id}`}
-            index={index}
-            purchaseId={`${value}`}
-            currentStatus={`${id}`}
-          />
-        ))}
+      <ul className="max-h-[75vh] min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300 transition-faster">
+        <AnimatePresence initial={false}>
+          {purchasesIds.map((value, index) => (
+            <PurchaseCard
+              key={`${index}-${value}-${id}`}
+              index={index}
+              purchaseId={`${value}`}
+              currentStatus={`${id}`}
+            />
+          ))}
+        </AnimatePresence>
       </ul>
       <Button typeOf="secondary" onClick={onClick} iconL="Add" className="gap-2">
         Fazer novo pedido
