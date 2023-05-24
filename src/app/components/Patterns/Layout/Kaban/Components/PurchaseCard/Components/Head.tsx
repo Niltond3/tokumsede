@@ -4,8 +4,10 @@ import { Copy, Number } from 'app/components/Ui/DataDisplay/Icons';
 import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 
-import { SessionWrapper, ToClipboard } from '.';
+import { ToClipboard } from '../Handles';
+import SessionWrapper from './Body/Components/SessionWrapper';
 
+/*ID NUMBER -> DISTRIBUTOR NAME */
 export default function Head() {
   return (
     <SessionWrapper className="justify-between [&>*]:opacity-30 ">

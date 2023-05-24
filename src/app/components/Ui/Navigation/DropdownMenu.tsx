@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
 import Button from '../Inputs/Button';
+import {
+  CallbackRenderOptionsProps,
+  ItemStateType,
+  ItemsProps,
+  ObjectDefaultProps
+} from './types';
 
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
@@ -13,26 +19,7 @@ import {
   useAnimationControls
 } from 'framer-motion';
 
-type ItemsProps<T> = {
-  onSelect?: () => void;
-  closeMenu?: () => void;
-  setSelect?: React.Dispatch<React.SetStateAction<ItemStateType<T>>>;
-};
-
-export type ObjectDefaultProps<T> = T &
-  Omit<ItemsProps<T>, 'onSelect'> & {
-    id: number;
-    name: string;
-    unavailable: boolean;
-  };
-
-export type CallbackRenderOptionsProps<T> = ObjectDefaultProps<T> & {
-  controls: AnimationControls;
-};
-
 type CallbackType<T> = (Item: T) => React.ReactNode;
-
-type ItemStateType<T> = ObjectDefaultProps<T>[] | ObjectDefaultProps<T>;
 
 type RenderSelectType<T> = Omit<ObjectDefaultProps<T>, 'closeMenu' | 'setSelect'>;
 
@@ -69,7 +56,7 @@ type TriggerProps<T> = RenderSelectProps<T> & {
 type SelectProps<T> = RenderSelectProps<T> &
   Omit<ListOptionsProps<T>, 'closeMenu' | 'controls' | 'className'> & {
     arrow?: boolean;
-    styles: () => {
+    styles: {
       trigger: {
         wrapper: string;
         button: string;
@@ -100,7 +87,7 @@ export default function DropdownMenu<T>({
   useEffect(() => {
     if (open) controls.start('open');
   }, [controls, open]);
-  const { dropdownContent, trigger } = styles();
+  const { dropdownContent, trigger } = styles;
 
   return (
     <Dropdown.Root open={open} onOpenChange={setOpen}>

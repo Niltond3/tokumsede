@@ -5,7 +5,8 @@ import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
 import Button from 'app/components/Ui/Inputs/Button';
 import TextField from 'app/components/Ui/Inputs/TextField';
 
-import { SessionWrapper, ToClipboard } from '.';
+import { ToClipboard } from '../../../Handles';
+import SessionWrapper from './SessionWrapper';
 
 import $ from 'jquery';
 import { TypeIcons, PaymentType } from 'utils/Types';

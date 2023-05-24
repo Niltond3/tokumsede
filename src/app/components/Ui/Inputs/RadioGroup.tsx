@@ -1,23 +1,8 @@
 import React, { Fragment } from 'react';
 
+import { GroupType, RadioGroupStyleProp } from './Types';
+
 import * as RadioPrimitive from '@radix-ui/react-radio-group';
-
-export type GroupType = {
-  id: string;
-  value: string;
-  label?: string;
-  position?: 'L' | 'R';
-  indicator?: React.ReactNode;
-  default?: boolean;
-  disabled?: boolean;
-};
-
-export type RadioGroupStyleProp = {
-  RadioGroupRoot: string;
-  RadioGroupItem: string;
-  RadioGroupIndicator: string;
-  RadioGroupLabel: string;
-};
 
 type RadioGroupProps = {
   group: GroupType[];

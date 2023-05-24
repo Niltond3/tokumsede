@@ -2,16 +2,11 @@
 import React, { Fragment, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
+import { ObjectDefaultProps } from './Types';
 
-import { Listbox, Transition } from '@headlessui/react';
+import { Listbox } from '@headlessui/react';
 import * as Popover from '@radix-ui/react-popover';
 import { AnimatePresence, motion } from 'framer-motion';
-
-export type ObjectDefaultProps<T> = T & {
-  id: number;
-  name: string;
-  unavailable: boolean;
-};
 
 type CallbackType<T> = (Item: T) => React.ReactNode;
 
@@ -94,7 +89,7 @@ const ListOptions = React.forwardRef(
           animate={{ opacity: 1, scale: '100%' }}
           exit={{ opacity: 0, scale: '90%' }}
           ref={ref}
-          className="flex w-64 flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg backdrop-blur-sm transition-all scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm"
+          className="flex w-64 flex-col gap-3 overflow-auto rounded-md bg-lg-primary-base/30 px-m pb-1 pt-4 text-base shadow-lg backdrop-blur-sm transition-all scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm"
         >
           {list.map((item) => (
             <Option

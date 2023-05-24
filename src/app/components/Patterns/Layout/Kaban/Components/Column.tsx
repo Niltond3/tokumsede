@@ -10,11 +10,11 @@ type Styles = {
   [key: string]: { title: string; styles: string; icon: keyof TypeIcons };
 };
 
-interface IColumn extends ColumnType {
+type ColumnProps = ColumnType & {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
+};
 
-export default function Column({ id, purchasesIds, countLabel, onClick }: IColumn) {
+export default function Column({ id, purchasesIds, countLabel, onClick }: ColumnProps) {
   const mappingStyles: Styles = {
     PENDING: {
       title: 'Pendentes',
@@ -47,6 +47,7 @@ export default function Column({ id, purchasesIds, countLabel, onClick }: IColum
       icon: 'Schedule'
     }
   };
+
   const { title, styles, icon } = mappingStyles[id];
   return (
     <div

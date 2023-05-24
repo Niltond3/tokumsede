@@ -2,9 +2,25 @@ import React, { ReactNode } from 'react';
 
 import { Arrow, Home, Hashtag } from '../DataDisplay/Icons';
 import Link from './Link';
+import { EntryProps } from './types';
 
-const svg = {
-  primary: (theme: keyof IThemes) => {
+type ThemesProps = {
+  Breadcrumbs: string;
+  TableOfContents: string;
+};
+
+interface INavBar {
+  theme: keyof ThemesProps;
+  entrys: EntryProps[];
+}
+
+interface INav {
+  children?: ReactNode;
+  className?: string;
+}
+
+const mappingSvg = {
+  primary: (theme: keyof ThemesProps) => {
     const themeMapping = {
       Breadcrumbs: <Home className="mr-2 h-4 w-4" />,
       TableOfContents: <Hashtag className="mr-2 h-4 w-4" />
@@ -13,27 +29,6 @@ const svg = {
   },
   secondary: () => <Arrow className="h-4 w-4" />
 } as const;
-
-interface IThemes {
-  Breadcrumbs: string;
-  TableOfContents: string;
-}
-
-export interface entry {
-  title: string;
-  href: string;
-  level: keyof typeof svg;
-}
-
-interface INavBar {
-  theme: keyof IThemes;
-  entrys: entry[];
-}
-
-interface INav {
-  children?: ReactNode;
-  className?: string;
-}
 
 const themeMapping = {
   Breadcrumbs: {
@@ -79,7 +74,7 @@ const themeMapping = {
   }
 } as const;
 //
-const renderRows = (entrys: entry[], theme: keyof IThemes) =>
+const renderRows = (entrys: EntryProps[], theme: keyof ThemesProps) =>
   entrys.map(({ href, level, title }, index) => (
     <li
       key={index}
@@ -88,7 +83,7 @@ const renderRows = (entrys: entry[], theme: keyof IThemes) =>
       } transition-faster`}
     >
       <Link href={href} className="group transition-faster">
-        {svg[level](theme)}
+        {mappingSvg[level](theme)}
         {title}
       </Link>
     </li>
@@ -109,3 +104,5 @@ export default function NavBar({ theme, entrys }: INavBar) {
     </>
   );
 }
+
+export { mappingSvg };

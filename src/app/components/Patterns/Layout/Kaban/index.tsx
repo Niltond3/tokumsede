@@ -1,7 +1,7 @@
 'use client';
 import { useContext, Dispatch } from 'react';
 
-import Column from './Column';
+import Column from './Components/Column';
 
 import { AppContext } from 'hooks/usePurchase';
 import { PURCHASE_ACTION_TYPES, ColumnsType, PurchaseActionsType } from 'utils/Types';
