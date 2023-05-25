@@ -4,6 +4,7 @@ import Icons from '../DataDisplay/Icons';
 import Button from '../Inputs/Button';
 import {
   CallbackRenderOptionsProps,
+  CallbackType,
   ItemStateType,
   ItemsProps,
   ObjectDefaultProps
@@ -18,8 +19,6 @@ import {
   motion,
   useAnimationControls
 } from 'framer-motion';
-
-type CallbackType<T> = (Item: T) => React.ReactNode;
 
 type RenderSelectType<T> = Omit<ObjectDefaultProps<T>, 'closeMenu' | 'setSelect'>;
 
@@ -122,12 +121,12 @@ const Trigger = <T,>({ arrow, renderSelect, item, className }: TriggerProps<T>) 
     const { closeMenu: _, setSelect: __, ...selected } = object;
     return selected;
   };
-  console.log(item);
   const { wrapper, button, icon } = className;
-  const renderSelectItem = () =>
-    Array.isArray(item)
-      ? item.map((item) => renderSelect(selected(item)))
-      : renderSelect(selected(item));
+
+  const renderSelectItem = () => {
+    if (Array.isArray(item)) return item.map((item) => renderSelect(selected(item)));
+    return renderSelect(selected(item));
+  };
 
   return (
     <div className={`flex ${wrapper}`}>

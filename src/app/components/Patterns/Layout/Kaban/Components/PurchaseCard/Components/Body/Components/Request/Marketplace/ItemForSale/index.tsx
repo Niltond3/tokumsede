@@ -19,10 +19,11 @@ import {
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { isEqual, uniqWith } from 'lodash';
 
-export default function ItemForSale(
-  product: CallbackRenderOptionsProps<ProductType & CurrentValueProps>
-) {
+type ItemForSaleProps = CallbackRenderOptionsProps<ProductType & CurrentValueProps>;
+
+export default function ItemForSale(product: ItemForSaleProps) {
   const {
     prices: { refill, gallon },
     label,
@@ -128,11 +129,45 @@ export default function ItemForSale(
         label={label}
         onClick={(event) => {
           event.preventDefault();
-          if (setSelect)
-            setSelect({
-              ...product,
-              ...values.current
+          if (setSelect) {
+            //...product,
+            //...values.current
+            const { id, label, name, prices, shortName, unavailable } = product;
+            const { measure, price, purchase, quantity } = values.current;
+            setSelect((values) => {
+              const product: ItemForSaleProps = {
+                id,
+                label,
+                name,
+                prices,
+                shortName,
+                unavailable,
+                measure,
+                price,
+                purchase,
+                quantity
+              };
+              const arrayValues = values as ItemForSaleProps[];
+
+              function containsObject(obj: ItemForSaleProps, list: ItemForSaleProps[]) {
+                list.forEach((item) => {
+                  if (
+                    item.id == product.id &&
+                    item.measure == product.measure &&
+                    item.price == product.price &&
+                    item.quantity == product.quantity &&
+                    item.purchase == product.purchase
+                  )
+                    return true;
+                });
+                return false;
+              }
+
+              const productExist = containsObject(product, arrayValues);
+              if (!productExist) return [...arrayValues, product];
+              return [...arrayValues];
             });
+          }
         }}
       />
     </motion.div>

@@ -1,7 +1,12 @@
 import React from 'react';
 
-import { ProductProps } from 'app/components/Patterns/Layout/Kaban/Types';
+import { ProductProps, ProductType } from 'app/components/Patterns/Layout/Kaban/Types';
 import DropdownMenu from 'app/components/Ui/Navigation/DropdownMenu';
+import {
+  CallbackType,
+  ObjectDefaultProps,
+  RenderSelectType
+} from 'app/components/Ui/Navigation/types';
 
 import ItemForSale from './ItemForSale';
 import { CurrentValueProps } from './ItemForSale/Types';
@@ -22,12 +27,19 @@ export default function Marketplace() {
     <DropdownMenu
       styles={mappingMenuStyles}
       list={products}
-      renderSelect={({ shortName }) => <div>{shortName}</div>}
+      renderSelect={(val) => <div></div>}
       renderOptions={ItemForSale}
     />
   );
 }
+type RenderSelectProps = {
+  product: RenderSelectType<ObjectDefaultProps<ProductType>>;
+};
 
+function RenderSelect({ product }: RenderSelectProps) {
+  const { id, label, name, prices, shortName, unavailable } = product;
+  return <div></div>;
+}
 const gallonPrices = {
   '5L': 0,
   '10L': 11,

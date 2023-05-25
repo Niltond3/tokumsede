@@ -26,3 +26,7 @@ export type EntryProps = {
   href: string;
   level: keyof typeof mappingSvg;
 };
+
+export type CallbackType<T> = (Item: T) => React.ReactNode;
+
+export type RenderSelectType<T> = Omit<ObjectDefaultProps<T>, 'closeMenu' | 'setSelect'>;

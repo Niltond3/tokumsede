@@ -33,7 +33,7 @@ type RenderSelectProps<T> = {
 };
 
 export type CallbackRenderOptionsProps<T> = ObjectDefaultProps<T> & {
-  controls: AnimationControls;
+  controls?: AnimationControls;
 };
 
 type RenderOptionsProps<T> = {
