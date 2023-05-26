@@ -19,7 +19,6 @@ import {
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { isEqual, uniqWith } from 'lodash';
 
 type ItemForSaleProps = CallbackRenderOptionsProps<ProductType & CurrentValueProps>;
 
@@ -48,7 +47,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
       return {
         [value]: {
           refill: refillValue,
-          full: gallonValue + refillValue
+          gallon: gallonValue + refillValue
         },
         measure: {
           id: value,
@@ -61,7 +60,6 @@ export default function ItemForSale(product: ItemForSaleProps) {
       };
     })
   });
-  const [quantity, setQuantity] = useState(0);
 
   const lowName = label.toLowerCase();
 
@@ -99,12 +97,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
 
   const { wrapper, header, body, footer } = mappingStyles[styleKey];
 
-  const { handleQuantity, handleValue } = handleEvents({
-    quantity,
-    setQuantity,
-    setValues,
-    values
-  });
+  const { handleValue } = handleEvents({ values, setValues });
 
   return (
     <motion.div
@@ -119,8 +112,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
       <Body
         style={body}
         gallonSrc={gallonSrc}
-        quantity={quantity}
-        handleQuantity={handleQuantity}
+        quantity={values.current.quantity!}
         handleValue={handleValue}
         measure={measure}
       />
@@ -135,7 +127,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
             const { id, label, name, prices, shortName, unavailable } = product;
             const { measure, price, purchase, quantity } = values.current;
             setSelect((values) => {
-              const product: ItemForSaleProps = {
+              const selectProduct: ItemForSaleProps = {
                 id,
                 label,
                 name,
@@ -149,22 +141,23 @@ export default function ItemForSale(product: ItemForSaleProps) {
               };
               const arrayValues = values as ItemForSaleProps[];
 
-              function containsObject(obj: ItemForSaleProps, list: ItemForSaleProps[]) {
-                list.forEach((item) => {
+              function containsObject(item: ItemForSaleProps, array: ItemForSaleProps[]) {
+                let Return = false;
+                array.forEach((object) => {
                   if (
-                    item.id == product.id &&
-                    item.measure == product.measure &&
-                    item.price == product.price &&
-                    item.quantity == product.quantity &&
-                    item.purchase == product.purchase
+                    object.id == item.id &&
+                    object.measure == item.measure &&
+                    object.price == item.price &&
+                    object.quantity == item.quantity &&
+                    object.purchase == item.purchase
                   )
-                    return true;
+                    Return = true;
                 });
-                return false;
+                return Return;
               }
 
-              const productExist = containsObject(product, arrayValues);
-              if (!productExist) return [...arrayValues, product];
+              const productExist = containsObject(selectProduct, arrayValues);
+              if (!productExist) return [...arrayValues, selectProduct];
               return [...arrayValues];
             });
           }
@@ -174,26 +167,15 @@ export default function ItemForSale(product: ItemForSaleProps) {
   );
 }
 
-function handleEvents({ quantity, setQuantity, values, setValues }: HandleEventProps) {
+function handleEvents({ values, setValues }: HandleEventProps) {
   return {
-    handleQuantity: {
-      handleDecrement: () => {
-        if (quantity > 0) setQuantity(quantity - 1);
-      },
-      handleIncrement: () => {
-        if (quantity < 100) setQuantity(quantity + 1);
-      },
-      handleKeyboardChange: (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuantity(parseInt(event.target.value, 10));
-      }
-    },
     handleValue: {
-      handleToggleFullRefill: (
+      handleToggleGallonRefill: (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
       ) => {
         if (event.target === event.currentTarget) {
           const { state } = event.currentTarget.dataset;
-          const toggleValues = (gallonKey: 'full' | 'refill') => {
+          const toggleValues = (gallonKey: 'gallon' | 'refill') => {
             const { current, products } = values;
             const defaultMeasure = current.measure ? current.measure : '20L';
             const product = products.find((product) => product[defaultMeasure]);
@@ -207,7 +189,7 @@ function handleEvents({ quantity, setQuantity, values, setValues }: HandleEventP
           };
           const selectState = {
             on: () => setValues(toggleValues('refill')),
-            off: () => setValues(toggleValues('full'))
+            off: () => setValues(toggleValues('gallon'))
           };
           selectState[state as keyof typeof selectState]();
         }
@@ -222,6 +204,30 @@ function handleEvents({ quantity, setQuantity, values, setValues }: HandleEventP
         setValues({
           ...values,
           current: { ...values.current, price: newPrice, measure: measure }
+        });
+      },
+      handleDecrementQuantity: () => {
+        const { quantity } = values.current;
+        if (quantity && quantity > 0)
+          setValues({
+            ...values,
+            current: { ...values.current, quantity: quantity - 1 }
+          });
+        console.log(quantity);
+      },
+      handleIncrementQuantity: () => {
+        const { quantity } = values.current;
+        if (quantity && quantity < 99)
+          setValues({
+            ...values,
+            current: { ...values.current, quantity: quantity + 1 }
+          });
+        console.log(quantity);
+      },
+      handleKeyboardChangeQuantity: (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValues({
+          ...values,
+          current: { ...values.current, quantity: parseInt(event.target.value, 10) }
         });
       }
     }

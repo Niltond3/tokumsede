@@ -16,7 +16,6 @@ export default function Body({
   gallonSrc,
   measure,
   quantity,
-  handleQuantity,
   handleValue
 }: BodyProps) {
   const MesureStyles = {
@@ -29,8 +28,13 @@ export default function Body({
       'absolute bottom-0 text-xs font-semibold text-white opacity-0 [&:has(+[data-state=checked])]:opacity-100 transition-faster'
   };
 
-  const { handleDecrement, handleIncrement, handleKeyboardChange } = handleQuantity;
-  const { handleToggleFullRefill, handleChangeMeasure } = handleValue;
+  const {
+    handleToggleGallonRefill,
+    handleChangeMeasure,
+    handleDecrementQuantity,
+    handleIncrementQuantity,
+    handleKeyboardChangeQuantity
+  } = handleValue;
   return (
     <div className="flex">
       <div className="relative flex flex-1 items-center justify-center">
@@ -45,10 +49,10 @@ export default function Body({
             id={`${gallonSrc}_bt_tg_text_gallons`}
             typeOf="toggle"
             toggleVariant="text"
-            data-tg-on="COMPLETO"
+            data-tg-on="GALÃO"
             data-tg-off="REFIL"
             className={`h-4 w-12 rounded-none bg-white !opacity-100 ${style}`}
-            onClick={handleToggleFullRefill}
+            onClick={handleToggleGallonRefill}
           />
         </div>
       </div>
@@ -71,9 +75,9 @@ export default function Body({
             buttonStyles={{ wrapper: 'py-s px-xs h-[45%]', button: '', icon: style }}
             className="text-white"
             value={quantity}
-            handleDecrement={handleDecrement}
-            handleIncrement={handleIncrement}
-            onChange={handleKeyboardChange}
+            handleDecrement={handleDecrementQuantity}
+            handleIncrement={handleIncrementQuantity}
+            onChange={handleKeyboardChangeQuantity}
           />
         </div>
       </div>

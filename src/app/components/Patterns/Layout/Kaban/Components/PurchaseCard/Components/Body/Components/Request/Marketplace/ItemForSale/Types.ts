@@ -18,13 +18,13 @@ type ComponentsProps = { style: string };
 
 export type GallonValueControlProps = {
   refill: number;
-  full: number;
+  gallon: number;
 };
 
 export type CurrentValueProps = {
   price?: number;
   measure?: string;
-  purchase?: 'full' | 'refill';
+  purchase?: 'gallon' | 'refill';
   quantity?: number;
 };
 
@@ -38,15 +38,13 @@ export type BodyProps = ComponentsProps & {
   gallonSrc: ImagePath;
   quantity: number;
   handleValue: {
-    handleToggleFullRefill: (
+    handleToggleGallonRefill: (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
     handleChangeMeasure: (measure: string) => void;
-  };
-  handleQuantity: {
-    handleDecrement: () => void;
-    handleIncrement: () => void;
-    handleKeyboardChange: React.ChangeEventHandler<HTMLInputElement>;
+    handleDecrementQuantity: () => void;
+    handleIncrementQuantity: () => void;
+    handleKeyboardChangeQuantity: (event: React.ChangeEvent<HTMLInputElement>) => void;
   };
 };
 
@@ -64,8 +62,6 @@ export type ValueStateType = {
 };
 
 export type HandleEventProps = {
-  quantity: number;
-  setQuantity: Dispatch<SetStateAction<number>>;
   values: ValueStateType;
   setValues: Dispatch<SetStateAction<ValueStateType>>;
 };

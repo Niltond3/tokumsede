@@ -7,7 +7,8 @@ import {
   CallbackType,
   ItemStateType,
   ItemsProps,
-  ObjectDefaultProps
+  ObjectDefaultProps,
+  RenderSelectType
 } from './types';
 
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
@@ -19,8 +20,6 @@ import {
   motion,
   useAnimationControls
 } from 'framer-motion';
-
-type RenderSelectType<T> = Omit<ObjectDefaultProps<T>, 'closeMenu' | 'setSelect'>;
 
 type RenderSelectProps<T> = {
   renderSelect: CallbackType<RenderSelectType<T>>;

@@ -27,18 +27,25 @@ export default function Marketplace() {
     <DropdownMenu
       styles={mappingMenuStyles}
       list={products}
-      renderSelect={(val) => <div></div>}
+      renderSelect={RenderSelect}
       renderOptions={ItemForSale}
     />
   );
 }
-type RenderSelectProps = {
-  product: RenderSelectType<ObjectDefaultProps<ProductType>>;
-};
+type RenderSelectProps = RenderSelectType<
+  ObjectDefaultProps<ProductType & CurrentValueProps>
+>;
 
-function RenderSelect({ product }: RenderSelectProps) {
-  const { id, label, name, prices, shortName, unavailable } = product;
-  return <div></div>;
+function RenderSelect(product: RenderSelectProps) {
+  const { label, name, price, purchase, measure, quantity } = product;
+  return (
+    <div>
+      <span>{measure}</span>
+      <span>{quantity}</span>
+      <span>{label[0]}</span>
+      <span>{purchase}</span>
+    </div>
+  );
 }
 const gallonPrices = {
   '5L': 0,
