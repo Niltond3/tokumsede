@@ -11,9 +11,11 @@ import {
 import ItemForSale from './ItemForSale';
 import { CurrentValueProps } from './ItemForSale/Types';
 
+import clsx from 'clsx';
+
 const mappingMenuStyles = {
   trigger: {
-    wrapper: 'items-center gap-1 flex-[90%]',
+    wrapper: 'items-center gap-4 flex-[90%]',
     button:
       'rounded bg-white/30 p-0.5 shadow-md backdrop-blur-sm transition-faster focus-visible:outline-none data-state-open:shadow-lg',
     icon: ''
@@ -38,12 +40,43 @@ type RenderSelectProps = RenderSelectType<
 
 function RenderSelect(product: RenderSelectProps) {
   const { label, name, price, purchase, measure, quantity } = product;
+  const lowName = label.toLowerCase();
+  const styleKey = lowName as keyof typeof mappingProductsStyles;
+
+  const mappingProductsStyles = {
+    leve: {
+      wrapper: 'bg-lg-primary/30',
+      header: 'border-lg-primary text-lg-primary',
+      footer: 'text-lg-primary'
+    },
+    rica: {
+      wrapper: 'bg-lg-success/30',
+      header: 'border-lg-success text-lg-success',
+      footer: 'text-lg-success'
+    },
+    sport: {
+      wrapper: 'bg-lg-sent/30',
+      header: 'border-lg-sent text-lg-sent',
+      footer: 'text-lg-sent'
+    }
+  } as const;
+  const { wrapper, footer } = mappingProductsStyles[styleKey];
   return (
-    <div>
-      <span>{measure}</span>
-      <span>{quantity}</span>
-      <span>{label[0]}</span>
-      <span>{purchase}</span>
+    <div className={`relative flex h-full items-center justify-center elevation-2`}>
+      <span className="relative flex h-full w-1/2">{label[0]}</span>
+      <div className="flex w-1/2 flex-col ">
+        <span className=" font-semibold">{quantity}</span>
+        <span className="font-semibold">{measure}</span>
+      </div>
+
+      <span
+        className={clsx(
+          `${footer} absolute -bottom-1 -left-1 bg-white px-0.5 py-px text-[10px] font-semibold`,
+          'before:absolute before:left-px before:top-[-3px] before:h-0 before:w-0 before:rotate-45 before:border-[3px] before:border-transparent before:!border-l-gray-700'
+        )}
+      >
+        {purchase}
+      </span>
     </div>
   );
 }

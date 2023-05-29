@@ -62,29 +62,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
   });
 
   const lowName = label.toLowerCase();
-
-  const mappingStyles = {
-    leve: {
-      wrapper: 'bg-lg-primary',
-      header: 'border-lg-primary text-lg-primary',
-      footer: 'hover:text-lg-primary',
-      body: 'text-lg-primary'
-    },
-    rica: {
-      wrapper: 'bg-lg-success',
-      header: 'border-lg-success text-lg-success',
-      footer: 'hover:text-lg-success',
-      body: 'text-lg-success'
-    },
-    sport: {
-      wrapper: 'bg-lg-sent',
-      header: 'border-lg-sent text-lg-sent',
-      footer: 'hover:text-lg-sent',
-      body: 'text-lg-sent'
-    }
-  } as const;
-
-  const styleKey = lowName as keyof typeof mappingStyles;
+  const styleKey = lowName as keyof typeof mappingProductsStyles;
   const gallonSrc = lowName as ImagePath;
 
   const measure: {
@@ -95,7 +73,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
     position?: 'L' | 'R';
   }[] = values.products.map((item, index) => ({ ...item.measure, itemIndex: index }));
 
-  const { wrapper, header, body, footer } = mappingStyles[styleKey];
+  const { wrapper, header, body, footer } = mappingProductsStyles[styleKey];
 
   const { handleValue } = handleEvents({ values, setValues });
 
@@ -208,21 +186,19 @@ function handleEvents({ values, setValues }: HandleEventProps) {
       },
       handleDecrementQuantity: () => {
         const { quantity } = values.current;
-        if (quantity && quantity > 0)
+        if (quantity! > 0)
           setValues({
             ...values,
-            current: { ...values.current, quantity: quantity - 1 }
+            current: { ...values.current, quantity: quantity! - 1 }
           });
-        console.log(quantity);
       },
       handleIncrementQuantity: () => {
         const { quantity } = values.current;
-        if (quantity && quantity < 99)
+        if (quantity! < 99)
           setValues({
             ...values,
-            current: { ...values.current, quantity: quantity + 1 }
+            current: { ...values.current, quantity: quantity! + 1 }
           });
-        console.log(quantity);
       },
       handleKeyboardChangeQuantity: (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({
@@ -233,3 +209,24 @@ function handleEvents({ values, setValues }: HandleEventProps) {
     }
   };
 }
+
+const mappingProductsStyles = {
+  leve: {
+    wrapper: 'bg-lg-primary',
+    header: 'border-lg-primary text-lg-primary',
+    footer: 'hover:text-lg-primary',
+    body: 'text-lg-primary'
+  },
+  rica: {
+    wrapper: 'bg-lg-success',
+    header: 'border-lg-success text-lg-success',
+    footer: 'hover:text-lg-success',
+    body: 'text-lg-success'
+  },
+  sport: {
+    wrapper: 'bg-lg-sent',
+    header: 'border-lg-sent text-lg-sent',
+    footer: 'hover:text-lg-sent',
+    body: 'text-lg-sent'
+  }
+} as const;
