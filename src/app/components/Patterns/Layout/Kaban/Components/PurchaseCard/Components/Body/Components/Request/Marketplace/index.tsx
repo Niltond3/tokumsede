@@ -31,6 +31,7 @@ export default function Marketplace() {
       list={products}
       renderSelect={RenderSelect}
       renderOptions={ItemForSale}
+      arrow={false}
     />
   );
 }
@@ -45,37 +46,33 @@ function RenderSelect(product: RenderSelectProps) {
 
   const mappingProductsStyles = {
     leve: {
-      wrapper: 'bg-lg-primary/30',
+      wrapper: 'bg-lg-primary',
       header: 'border-lg-primary text-lg-primary',
       footer: 'text-lg-primary'
     },
     rica: {
-      wrapper: 'bg-lg-success/30',
+      wrapper: 'bg-lg-success',
       header: 'border-lg-success text-lg-success',
       footer: 'text-lg-success'
     },
     sport: {
-      wrapper: 'bg-lg-sent/30',
+      wrapper: 'bg-lg-sent',
       header: 'border-lg-sent text-lg-sent',
       footer: 'text-lg-sent'
     }
   } as const;
   const { wrapper, footer } = mappingProductsStyles[styleKey];
   return (
-    <div className={`relative flex h-full items-center justify-center elevation-2`}>
-      <span className="relative flex h-full w-1/2">{label[0]}</span>
-      <div className="flex w-1/2 flex-col ">
-        <span className=" font-semibold">{quantity}</span>
-        <span className="font-semibold">{measure}</span>
+    <div
+      className={`${wrapper} relative flex h-full flex-col items-center justify-center gap-1 text-[10px]  font-bold leading-none elevation-2`}
+    >
+      <div className="flex">
+        <span className="relative flex h-full w-1/2">{label[0]}</span>
+        <span className="flex h-full font-semibold">{measure}</span>
       </div>
-
-      <span
-        className={clsx(
-          `${footer} absolute -bottom-1 -left-1 bg-white px-0.5 py-px text-[10px] font-semibold`,
-          'before:absolute before:left-px before:top-[-3px] before:h-0 before:w-0 before:rotate-45 before:border-[3px] before:border-transparent before:!border-l-gray-700'
-        )}
-      >
-        {purchase}
+      <span className="px-0.5">{purchase === 'gallon' ? 'Galão' : 'Refil'}</span>
+      <span className="absolute -left-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-red-600 text-center outline outline-2 outline-lg-primary center-x">
+        {quantity}
       </span>
     </div>
   );
