@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
 import Button from '../Inputs/Button';
+import Divider from '../Layout/Divider';
 import {
   CallbackRenderOptionsProps,
   CallbackType,
@@ -44,6 +45,7 @@ type OptionProps<T> = RenderOptionsProps<T> &
 type TriggerProps<T> = RenderSelectProps<T> & {
   item: ItemStateType<T>;
   arrow: boolean;
+  separator: boolean;
   className: {
     wrapper: string;
     button: string;
@@ -54,6 +56,7 @@ type TriggerProps<T> = RenderSelectProps<T> & {
 type SelectProps<T> = RenderSelectProps<T> &
   Omit<ListOptionsProps<T>, 'closeMenu' | 'controls' | 'className'> & {
     arrow?: boolean;
+    separator?: boolean;
     styles: {
       trigger: {
         wrapper: string;
@@ -66,6 +69,7 @@ type SelectProps<T> = RenderSelectProps<T> &
 
 export default function DropdownMenu<T>({
   arrow = true,
+  separator = true,
   list,
   onSelect,
   renderSelect,
@@ -91,6 +95,7 @@ export default function DropdownMenu<T>({
     <Dropdown.Root open={open} onOpenChange={setOpen}>
       <Trigger
         arrow={arrow}
+        separator={separator}
         renderSelect={renderSelect}
         item={item}
         className={trigger}
@@ -114,7 +119,13 @@ export default function DropdownMenu<T>({
   );
 }
 
-const Trigger = <T,>({ arrow, renderSelect, item, className }: TriggerProps<T>) => {
+const Trigger = <T,>({
+  arrow,
+  separator,
+  renderSelect,
+  item,
+  className
+}: TriggerProps<T>) => {
   const selected = (object: ObjectDefaultProps<T>) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { closeMenu: _, setSelect: __, ...selected } = object;
@@ -129,12 +140,15 @@ const Trigger = <T,>({ arrow, renderSelect, item, className }: TriggerProps<T>) 
 
   return (
     <div className={`flex ${wrapper}`}>
-      <Dropdown.Trigger asChild>
-        <Button aria-label="Customise options" className={button}>
-          <Icons icon="Purchase" className={`pointer-events-none ${icon}`} />
-        </Button>
-      </Dropdown.Trigger>
-      {arrow && <Icons icon="Arrow" />}
+      <div className="flex h-2/3">
+        <Dropdown.Trigger asChild>
+          <Button aria-label="Customise options" className={button}>
+            <Icons icon="Purchase" className={`pointer-events-none ${icon}`} />
+          </Button>
+        </Dropdown.Trigger>
+        {arrow && <Icons icon="Arrow" />}
+        {separator && <Divider orientation="vertical" className="flex" />}
+      </div>
       {renderSelectItem()}
     </div>
   );

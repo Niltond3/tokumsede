@@ -7,13 +7,13 @@ import Marketplace from './Marketplace';
 
 export default function Request() {
   return (
-    <SessionWrapper>
-      <div className="flex min-h-[2rem] gap-2">
-        <i className="flex flex-[10%] items-center justify-center">
+    <SessionWrapper className="flex min-h-[2rem] gap-2">
+      {/* <div className="flex min-h-[2rem] gap-2"> */}
+      {/* <i className="flex flex-[10%] items-center justify-center">
           <Icons icon="Address" />
-        </i>
-        <Marketplace />
-      </div>
+        </i> */}
+      <Marketplace />
+      {/* </div> */}
     </SessionWrapper>
   );
 }
