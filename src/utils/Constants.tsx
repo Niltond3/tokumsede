@@ -1,4 +1,4 @@
-import { IContent } from './Types';
+import * as types from 'common/types';
 
 export const THEMES = {
   LIGHT: 'light',
@@ -8,7 +8,7 @@ export const LOCAL_STORAGE = {
   COLOR_MODE: 'color-mode'
 };
 
-export const NAVIGATION_LINKS: IContent[] = [
+export const NAVIGATION_LINKS: types.NavigationProps[] = [
   {
     icon: 'Home',
     title: 'Principal',

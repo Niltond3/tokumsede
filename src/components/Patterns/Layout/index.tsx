@@ -1,6 +1,6 @@
-import AppBar from 'app/components/Patterns/Layout/AppBar';
-import LeftBar from 'app/components/Patterns/Layout/LeftBar';
-import RightBar from 'app/components/Patterns/Layout/RightBar';
+import AppBar from 'components/Patterns/Layout/AppBar';
+import LeftBar from 'components/Patterns/Layout/LeftBar';
+import RightBar from 'components/Patterns/Layout/RightBar';
 
 import { AppProvider } from 'hooks/usePurchase';
 

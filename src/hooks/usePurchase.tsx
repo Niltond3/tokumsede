@@ -3,9 +3,9 @@ import { ReactNode, createContext, useReducer, Dispatch } from 'react';
 
 import { purchaseReducer } from './reducer';
 
-import { InitialPurchaseStateType, PurchaseActionsType } from 'utils/Types';
+import * as types from 'common/types';
 
-const initialState: InitialPurchaseStateType = {
+const initialState: types.InitialStatePurchaseProps = {
   purchases: [],
   columns: {
     PENDING: { id: 'PENDING', purchasesIds: [], countLabel: 0 },
@@ -18,12 +18,14 @@ const initialState: InitialPurchaseStateType = {
 };
 
 const AppContext = createContext<{
-  state: InitialPurchaseStateType;
-  dispatch: Dispatch<PurchaseActionsType>;
+  state: types.InitialStatePurchaseProps;
+  dispatch: Dispatch<types.ActionPurchaseProps>;
 }>({ state: initialState, dispatch: () => null });
 
-const reducer = (state: InitialPurchaseStateType, action: PurchaseActionsType) =>
-  purchaseReducer(state, action);
+const reducer = (
+  state: types.InitialStatePurchaseProps,
+  action: types.ActionPurchaseProps
+) => purchaseReducer(state, action);
 
 function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);

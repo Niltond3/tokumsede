@@ -5,36 +5,9 @@ import Icons from '../DataDisplay/Icons';
 
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import clsx from 'clsx';
-import { TypeIcons } from 'utils/Types';
+import * as types from 'common/types';
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  asChild?: boolean;
-  iconL?: keyof TypeIcons;
-  iconR?: keyof TypeIcons;
-  typeOf?: keyof typeof mappingStyles;
-  className?: string;
-};
-
-type ConditionalProps =
-  | {
-      typeOf?: 'primary' | 'secondary' | undefined | null;
-      toggleVariant?: never;
-      children?: React.ReactNode;
-    }
-  | {
-      typeOf?: 'toggle';
-      toggleVariant?: keyof typeof toggleVariantStyles;
-      children?: React.ReactNode;
-    }
-  | {
-      typeOf?: 'toggle';
-      toggleVariant?: 'between';
-      children?: never;
-    };
-
-type Props = ButtonProps & ConditionalProps;
-
-const Button = React.forwardRef<HTMLButtonElement, Props>(
+const Button = React.forwardRef<HTMLButtonElement, types.ButtonProps>(
   (
     {
       children,
@@ -44,13 +17,13 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       toggleVariant = 'default',
       className,
       ...props
-    }: Props,
+    }: types.ButtonProps,
     ref
   ) => {
     const Component = typeOf === 'toggle' ? TogglePrimitive.Root : 'button';
 
-    const styles = `${mappingStyles[typeOf]} ${
-      typeOf === 'toggle' && toggleVariantStyles[toggleVariant]
+    const styles = `${mappingButtonStyles[typeOf]} ${
+      typeOf === 'toggle' && toggleButtonStyles[toggleVariant]
     } ${className}`;
 
     const Childrens = () => (
@@ -74,13 +47,13 @@ export default Button;
 const defaultStyle =
   'transition-faster justify-center whitespace-nowrap text-sm font-medium flex items-center opacity-50 hover:opacity-100 rounded';
 
-const mappingStyles = {
+const mappingButtonStyles = {
   primary: defaultStyle,
   secondary: `${defaultStyle} bg-white/30 p-0.5 shadow-md backdrop-blur-sm focus-visible:outline-none data-state-open:shadow-lg`,
   toggle: `${defaultStyle} group peer`
 };
 
-const toggleVariantStyles = {
+const toggleButtonStyles = {
   default: '',
   text: clsx(
     'select-none overflow-hidden backface-hidden transition-faster',
@@ -105,3 +78,5 @@ const toggleVariantStyles = {
     'after:bottom-[-1.55rem]'
   )
 };
+
+export { mappingButtonStyles, toggleButtonStyles };

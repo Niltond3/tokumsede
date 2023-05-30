@@ -3,18 +3,7 @@ import React from 'react';
 
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { clsx } from 'clsx';
-
-type TooltipProps = {
-  children: React.ReactNode;
-  content: React.ReactNode;
-  arrow?: boolean;
-  side?: 'top' | 'right' | 'bottom' | 'left';
-  align?: 'center' | 'start' | 'end';
-  alignOffset?: number;
-  sideOffset?: number;
-  asChild?: boolean;
-  triggerStyles?: string;
-};
+import { TooltipProps } from 'common/types';
 
 export default function Tooltip({
   children,

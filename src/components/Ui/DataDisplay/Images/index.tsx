@@ -1,19 +1,8 @@
 import Image from 'next/image';
 
-import paths from '../../../../utils/ImagesPaths';
+import paths from './ImagesPaths';
 
-export type ImagePath = keyof typeof paths;
-
-interface IImg {
-  size?: number;
-  sizes?: number;
-  width?: number;
-  height?: number;
-  image: ImagePath;
-  className?: string;
-  fill?: boolean;
-  blur?: 'blur' | 'empty';
-}
+import * as types from 'common/types';
 
 export default function Img({
   image,
@@ -24,7 +13,7 @@ export default function Img({
   height,
   fill,
   sizes
-}: IImg) {
+}: types.ImageProps) {
   const src = paths[image];
   return (
     <Image

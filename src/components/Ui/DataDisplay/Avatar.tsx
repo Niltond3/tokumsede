@@ -1,10 +1,8 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 
-interface IAvatarProps {
-  subtitle?: string;
-  src: string | StaticImageData;
-}
-export default function Avatar({ subtitle, src }: IAvatarProps) {
+import * as types from 'common/types';
+
+export default function Avatar({ subtitle, src }: types.AvatarProps) {
   return (
     <div className="flex h-full flex-none items-center justify-center text-center">
       <Image
