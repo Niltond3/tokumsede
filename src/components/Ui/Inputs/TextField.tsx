@@ -4,47 +4,7 @@ import Icons from '../DataDisplay/Icons';
 import Button from './Button';
 
 import clsx from 'clsx';
-
-type TextFieldProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
-  type: keyof typeof mapTextFieldType;
-  maxLength?: number;
-  placeholder?: string;
-} & TextFieldConditionalProps;
-
-type buttonStyles = { wrapper: string; button: string; icon: string };
-
-type TextFieldConditionalProps =
-  | {
-      type: 'number';
-      buttonStyles: buttonStyles;
-      handleIncrement: () => void;
-      handleDecrement: () => void;
-    }
-  | {
-      type: 'currence';
-      buttonStyles?: never;
-      handleIncrement?: never;
-      handleDecrement?: never;
-    }
-  | {
-      type: 'phoneNumber';
-      buttonStyles?: never;
-      handleIncrement?: never;
-      handleDecrement?: never;
-    }
-  | {
-      type: 'text';
-      buttonStyles?: never;
-      handleIncrement?: never;
-      handleDecrement?: never;
-    };
-
-type CaretButonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  diretion: 'L' | 'R';
-};
+import * as types from 'common/types';
 
 export default function TextField({
   onChange,
@@ -57,14 +17,14 @@ export default function TextField({
   handleDecrement,
   handleIncrement,
   id
-}: TextFieldProps) {
+}: types.TextFieldProps) {
   const {
     dataMaxDigits,
     maxLength: ml,
     onInput,
     placeholder: ph,
     type: inputType
-  } = mapTextFieldType[type]({ placeholder, maxLength });
+  } = mappingTextFieldTypes[type]({ placeholder, maxLength });
 
   const Input = (
     <input
@@ -81,7 +41,7 @@ export default function TextField({
   );
   const { wrapper, button, icon } = buttonStyles!;
 
-  const CaretButton = ({ diretion, ...props }: CaretButonProps) => {
+  const CaretButton = ({ diretion, ...props }: types.TextFieldCaretButonProps) => {
     const diretionStyles = {
       L: {
         bt: 'rounded-l-full',
@@ -129,7 +89,7 @@ export default function TextField({
   return type === 'number' ? Number : Input;
 }
 
-const mapTextFieldType = {
+export const mappingTextFieldTypes = {
   currence: () => {
     const mask = (e: React.ChangeEvent<HTMLInputElement>) => {
       const formatter = new Intl.NumberFormat('pt-BR', {

@@ -1,15 +1,11 @@
 import Icons, { Arrow, Mouse, SortDown, SortUp } from '../DataDisplay/Icons';
-import Img from '../DataDisplay/Image';
+import Img from '../DataDisplay/Images';
 
 import { clsx } from 'clsx';
-import { TypeIcons } from 'utils/Types';
+import * as types from 'common/types';
 
-type CheckboxProps = StylesProps & {
-  type: keyof typeof mappingStyles;
-};
-
-export default function Checkbox({ type, icon, title }: CheckboxProps) {
-  const { children, id, inputStyles, labelStyles } = mappingStyles[type]({
+export default function Checkbox({ type, icon, title }: types.CheckboxProps) {
+  const { children, id, inputStyles, labelStyles } = mappingCheckboxStyles[type]({
     title,
     icon
   });
@@ -24,20 +20,6 @@ export default function Checkbox({ type, icon, title }: CheckboxProps) {
   );
 }
 
-type StylesProps = {
-  title?: string;
-  icon?: keyof TypeIcons;
-};
-
-type CheckboxStylesProps = ({ title, icon }: StylesProps) => {
-  id: string;
-  inputStyles: string;
-  labelStyles: string;
-  children: JSX.Element;
-};
-
-type MappingStylesProps = { [key in string]: CheckboxStylesProps };
-
 const defaultStyles = {
   inputHidden: 'peer hidden',
   labelToggle: clsx(
@@ -46,13 +28,16 @@ const defaultStyles = {
     '[&>svg:nth-child(2)]:opacity-0',
     'peer-checked:[&>svg:nth-child(1)]:opacity-0 peer-checked:[&>svg:nth-child(2)]:opacity-100',
     'opacity-50 transition-faster hover:opacity-100',
-    '[&>svg]:absolute [&>svg]:left-1/2  [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:-translate-x-1/2'
+    '[&>svg]:absolute [&>svg]:left-1/2  [&>svg]:top-1/2 [&>svg]:-translate-x-1/2 [&>svg]:-translate-y-1/2'
   )
 };
 const { inputHidden, labelToggle } = defaultStyles;
 
-const mappingStyles: MappingStylesProps = {
-  NavDropdownControl: ({ title = 'Default', icon = 'Default' }: StylesProps) => {
+const mappingCheckboxStyles: types.MappingCheckboxStylesProps = {
+  NavDropdownControl: ({
+    title = 'Default',
+    icon = 'Default'
+  }: types.CheckboxStylesTypes) => {
     return {
       id: `${title.toLowerCase()}-control-dropdown`,
       inputStyles: inputHidden,
@@ -100,12 +85,12 @@ const mappingStyles: MappingStylesProps = {
           <Img
             size={26}
             image="name"
-            className="absolute top-5 right-2 w-5 group-hover:opacity-100 group-peer-checked:!opacity-0 group-peer-checked:center-y"
+            className="absolute right-2 top-5 w-5 group-hover:opacity-100 group-peer-checked:!opacity-0 group-peer-checked:center-y"
           />
           <Img
             size={48}
             image="waves"
-            className="absolute -bottom-1 w-9 group-hover:opacity-100 group-peer-checked:bottom-1 group-peer-checked:w-[1.8rem] group-peer-checked:translate-y-[0.05rem] group-peer-checked:translate-x-[0.45rem]"
+            className="absolute -bottom-1 w-9 group-hover:opacity-100 group-peer-checked:bottom-1 group-peer-checked:w-[1.8rem] group-peer-checked:translate-x-[0.45rem] group-peer-checked:translate-y-[0.05rem]"
           />
         </>
       )
@@ -125,3 +110,5 @@ const mappingStyles: MappingStylesProps = {
     };
   }
 };
+
+export { mappingCheckboxStyles };

@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '../app/components/Ui/Navigation/index.css';
+@import '../components/Ui/Navigation/index.css';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 html {

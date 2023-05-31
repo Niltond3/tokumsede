@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-import TextField from 'app/components/Ui/Inputs/TextField';
+import Icons from 'components/Ui/DataDisplay/Icons';
+import TextField from 'components/Ui/Inputs/TextField';
 
 import SessionWrapper from './SessionWrapper';
 

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { ProductProps, ProductType } from 'app/components/Patterns/Layout/Kaban/Types';
-import DropdownMenu from 'app/components/Ui/Navigation/DropdownMenu';
-import { ObjectDefaultProps, RenderSelectType } from 'app/components/Ui/Navigation/types';
+import { ProductProps, ProductType } from 'components/Patterns/Layout/Kaban/Types';
+import DropdownMenu from 'components/Ui/Navigation/DropdownMenu';
 
 import ItemForSale from './ItemForSale';
 import { CurrentValueProps } from './ItemForSale/Types';
+
+import * as types from 'common/types';
 
 type DropdownProductProps = ProductProps & CurrentValueProps;
 
@@ -31,8 +32,8 @@ export default function Marketplace() {
     />
   );
 }
-type RenderSelectProps = RenderSelectType<
-  ObjectDefaultProps<ProductType & CurrentValueProps>
+type RenderSelectProps = types.RenderSelectType<
+  types.SelectDefaultProps<ProductType & CurrentValueProps>
 >;
 
 function RenderSelect(product: RenderSelectProps) {
@@ -60,14 +61,24 @@ function RenderSelect(product: RenderSelectProps) {
   const { header, footer, measureStyle } = mappingProductsStyles[styleKey];
   return (
     <div
-      className={`bg-white relative flex flex-col h-full items-center justify-center text-[10px] font-bold leading-none elevation-3 min-w-[2.42rem] max-w-[2.42rem]`}
+      className={`relative flex h-full min-w-[2.42rem] max-w-[2.42rem] flex-col items-center justify-center bg-white text-[10px] font-bold leading-none elevation-3`}
     >
-      <span className={`${header} flex items-center justify-center w-full h-1/2`}>{purchase === 'gallon' ? 'GALÃO' : 'REFIL'}</span>
+      <span className={`${header} flex h-1/2 w-full items-center justify-center`}>
+        {purchase === 'gallon' ? 'GALÃO' : 'REFIL'}
+      </span>
       <div className={`${footer} flex h-1/2 w-full`}>
-        <span className="flex items-center justify-center h-full w-full text-xs px-0.5">{label[0]}</span>
-        <span className={`${measureStyle} px-0.5 flex border-l-[1px] border-dashed items-center justify-center`}>{measure}</span>
+        <span className="flex h-full w-full items-center justify-center px-0.5 text-xs">
+          {label[0]}
+        </span>
+        <span
+          className={`${measureStyle} flex items-center justify-center border-l-[1px] border-dashed px-0.5`}
+        >
+          {measure}
+        </span>
       </div>
-      <span className={`${header} absolute -left-2 flex h-3 w-3 items-center justify-center rounded-full text-center outline outline-2 outline-lg-primary center-x`}>
+      <span
+        className={`${header} absolute -left-2 flex h-3 w-3 items-center justify-center rounded-full text-center outline outline-2 outline-lg-primary center-x`}
+      >
         {quantity}
       </span>
     </div>

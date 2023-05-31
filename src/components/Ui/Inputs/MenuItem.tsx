@@ -51,7 +51,7 @@ export default function MenuItem(
   return (
     <div>
       <Link
-        className={`flex w-full justify-end rounded-full bg-[#1E293B] p-2 pr-5 pl-8 text-white duration-300 ease-in-out hover:ml-4 hover:text-purple-500 dark:hover:text-blue-500${
+        className={`flex w-full justify-end rounded-full bg-[#1E293B] p-2 pl-8 pr-5 text-white duration-300 ease-in-out hover:ml-4 hover:text-purple-500 dark:hover:text-blue-500${
           open ? 'flex-row items-center space-x-3' : ''
         }`}
         href={link}

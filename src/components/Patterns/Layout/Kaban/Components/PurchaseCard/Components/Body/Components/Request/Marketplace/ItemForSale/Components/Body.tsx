@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-import Img from 'app/components/Ui/DataDisplay/Image';
-import Button from 'app/components/Ui/Inputs/Button';
-import RadioGroup from 'app/components/Ui/Inputs/RadioGroup';
-import TextField from 'app/components/Ui/Inputs/TextField';
-import Divider from 'app/components/Ui/Layout/Divider';
+import Icons from 'components/Ui/DataDisplay/Icons';
+import Img from 'components/Ui/DataDisplay/Images';
+import Button from 'components/Ui/Inputs/Button';
+import RadioGroup from 'components/Ui/Inputs/RadioGroup';
+import TextField from 'components/Ui/Inputs/TextField';
+import Divider from 'components/Ui/Layout/Divider';
 
 import { BodyProps } from '../Types';
 

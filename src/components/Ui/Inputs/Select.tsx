@@ -2,42 +2,13 @@
 import React, { Fragment, useState } from 'react';
 
 import Icons from '../DataDisplay/Icons';
-import { ObjectDefaultProps } from './Types';
 
 import { Listbox } from '@headlessui/react';
 import * as Popover from '@radix-ui/react-popover';
+import * as types from 'common/types';
 import { AnimatePresence, motion } from 'framer-motion';
 
-type CallbackType<T> = (Item: T) => React.ReactNode;
-
-type RenderSelectProps<T> = {
-  renderSelected: CallbackType<ObjectDefaultProps<T>>;
-};
-
-type RenderOptionsProps<T> = {
-  renderOptions: CallbackType<ObjectDefaultProps<T>>;
-};
-
-type OptionsProps<T> = RenderOptionsProps<T> & {
-  list: ObjectDefaultProps<T>[];
-};
-
-type OptionProps<T> = RenderOptionsProps<T> & {
-  option: ObjectDefaultProps<T>;
-};
-
-type SelectProps<T> = OptionsProps<T> &
-  RenderSelectProps<T> & {
-    multiple?: boolean;
-    arrow?: boolean;
-  };
-
-type ButtonProps<T> = RenderSelectProps<T> & {
-  selected: ObjectDefaultProps<T>;
-  arrow: boolean;
-};
-
-const Option = <T,>({ option, renderOptions }: OptionProps<T>) => (
+const Option = <T,>({ option, renderOptions }: types.SelectOptionProps<T>) => (
   <Listbox.Option
     value={option}
     className={({ active, selected }) =>
@@ -54,8 +25,8 @@ const Option = <T,>({ option, renderOptions }: OptionProps<T>) => (
   </Listbox.Option>
 );
 
-const Button = <T,>({ arrow, renderSelected, selected }: ButtonProps<T>) => {
-  const renderSelect = ({ renderSelected }: RenderSelectProps<T>) =>
+const Button = <T,>({ arrow, renderSelected, selected }: types.SelectButtonProps<T>) => {
+  const renderSelect = ({ renderSelected }: types.RenderSelectProps<T>) =>
     Array.isArray(selected)
       ? selected.map((item) => renderSelected(item))
       : renderSelected(selected);
@@ -79,7 +50,7 @@ const Button = <T,>({ arrow, renderSelected, selected }: ButtonProps<T>) => {
 
 const ListOptions = React.forwardRef(
   <T,>(
-    { list, renderOptions }: OptionsProps<T>,
+    { list, renderOptions }: types.SelectOptionsProps<T>,
     ref: React.ForwardedRef<HTMLUListElement>
   ) => (
     <Popover.Content asChild>
@@ -110,10 +81,10 @@ const SelectRoot = <T,>({
   multiple = false,
   renderOptions,
   renderSelected
-}: SelectProps<T>) => {
-  const [selected, setSelected] = useState<ObjectDefaultProps<T> | ObjectDefaultProps<T>>(
-    [] as ObjectDefaultProps<T>[] | object as ObjectDefaultProps<T>
-  );
+}: types.SelectProps<T>) => {
+  const [selected, setSelected] = useState<
+    types.SelectDefaultProps<T> | types.SelectDefaultProps<T>
+  >([] as types.SelectDefaultProps<T>[] | object as types.SelectDefaultProps<T>);
 
   return (
     <Listbox as="div" value={selected} onChange={setSelected} multiple={multiple}>
@@ -124,7 +95,9 @@ const SelectRoot = <T,>({
             <Popover.Portal>
               <ListOptions
                 list={list}
-                renderOptions={(item) => renderOptions(item as ObjectDefaultProps<T>)}
+                renderOptions={(item) =>
+                  renderOptions(item as types.SelectDefaultProps<T>)
+                }
               />
             </Popover.Portal>
           </AnimatePresence>

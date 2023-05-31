@@ -1,16 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { GroupType, RadioGroupStyleProp } from './Types';
-
 import * as RadioPrimitive from '@radix-ui/react-radio-group';
-
-type RadioGroupProps = {
-  group: GroupType[];
-  styles: RadioGroupStyleProp;
-  item?: React.ReactNode;
-  wrapper?: boolean;
-  onValueChange: (value: string) => void;
-};
+import * as types from 'common/types';
 
 export default function RadioGroup({
   group,
@@ -18,7 +9,7 @@ export default function RadioGroup({
   item,
   wrapper,
   onValueChange
-}: RadioGroupProps) {
+}: types.RadioGroupProps) {
   const { RadioGroupRoot, RadioGroupItem, RadioGroupIndicator, RadioGroupLabel } = styles;
   const defaultValue = group.find((val) => val.default)?.value;
   const Container = wrapper ? 'div' : Fragment;

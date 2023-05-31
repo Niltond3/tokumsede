@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
-import Button from 'app/components/Ui/Inputs/Button';
-import TextField from 'app/components/Ui/Inputs/TextField';
+import Icons from 'components/Ui/DataDisplay/Icons';
+import Tooltip from 'components/Ui/DataDisplay/Tooltip';
+import Button from 'components/Ui/Inputs/Button';
+import TextField from 'components/Ui/Inputs/TextField';
 
 import { ToClipboard } from '../../../Handles';
 import SessionWrapper from './SessionWrapper';

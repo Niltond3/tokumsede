@@ -1,5 +1,5 @@
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-import Button from 'app/components/Ui/Inputs/Button';
+import Icons from 'components/Ui/DataDisplay/Icons';
+import Button from 'components/Ui/Inputs/Button';
 
 import PurchaseCard from './PurchaseCard';
 

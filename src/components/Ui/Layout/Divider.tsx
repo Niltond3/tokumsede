@@ -1,13 +1,11 @@
 import * as Separator from '@radix-ui/react-separator';
 import clsx from 'clsx';
+import { DividerProps } from 'common/types';
 
-type SeparatorProps = {
-  className?: string;
-  orientation?: 'horizontal' | 'vertical';
-};
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default function ({ className = '', orientation = 'horizontal' }: SeparatorProps) {
+export default function Dinider({
+  className = '',
+  orientation = 'horizontal'
+}: DividerProps) {
   return (
     <Separator.Root
       orientation={orientation}

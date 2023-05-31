@@ -1,4 +1,4 @@
-import Kaban from 'app/components/Patterns/Layout/Kaban';
+import Kaban from 'components/Patterns/Layout/Kaban';
 
 export default function Page() {
   return (

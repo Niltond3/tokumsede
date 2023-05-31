@@ -1,15 +1,10 @@
 'use client';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import clsx from 'clsx';
+import * as types from 'common/types';
 
-type ToggleProps = {
-  children: React.ReactNode;
-  type: keyof typeof mappingStyles;
-  className?: string;
-};
-
-const Toggle = ({ children, type, className = '' }: ToggleProps) => {
-  const style = mappingStyles[type];
+const Toggle = ({ children, type, className = '' }: types.ToggleProps) => {
+  const style = toggleMappingStyles[type];
   return (
     <TogglePrimitive.Root
       className={`group peer ${style} ${className}`}
@@ -20,8 +15,7 @@ const Toggle = ({ children, type, className = '' }: ToggleProps) => {
     </TogglePrimitive.Root>
   );
 };
-//[&>*:nth-child(6)>a>p]
-const mappingStyles = {
+export const toggleMappingStyles = {
   root: clsx(''),
   between: clsx(
     'relative flex min-h-[50%] flex-1 child:absolute child:transition-faster child:center',

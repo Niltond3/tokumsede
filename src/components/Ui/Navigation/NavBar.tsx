@@ -1,39 +1,40 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import { Arrow, Home, Hashtag } from '../DataDisplay/Icons';
 import Link from './Link';
-import { EntryProps } from './types';
 
-type ThemesProps = {
-  Breadcrumbs: string;
-  TableOfContents: string;
-};
+import * as types from 'common/types';
 
-interface INavBar {
-  theme: keyof ThemesProps;
-  entrys: EntryProps[];
+export default function NavBar({ theme, entrys }: types.NavBarProps) {
+  const { title, Element } = navBarThemeMapping[theme];
+  return (
+    <>
+      {title && (
+        <h5 className="my-m block py-1 text-sm font-semibold leading-6 text-lg-accent dark:text-dk-accent">
+          Nesta página
+        </h5>
+      )}
+      <Element aria-label={theme} className="flex transition-faster">
+        <ul>{renderRows(entrys, theme)}</ul>
+      </Element>
+    </>
+  );
 }
-
-interface INav {
-  children?: ReactNode;
-  className?: string;
-}
-
-const mappingSvg = {
-  primary: (theme: keyof ThemesProps) => {
-    const themeMapping = {
+const navBarMappingSvg = {
+  primary: (theme: types.NavBarThemesKeys) => {
+    const navBarThemeMapping = {
       Breadcrumbs: <Home className="mr-2 h-4 w-4" />,
       TableOfContents: <Hashtag className="mr-2 h-4 w-4" />
     };
-    return themeMapping[theme];
+    return navBarThemeMapping[theme];
   },
   secondary: () => <Arrow className="h-4 w-4" />
 } as const;
 
-const themeMapping = {
+const navBarThemeMapping = {
   Breadcrumbs: {
     title: false,
-    Element: ({ children, className }: INav) => (
+    Element: ({ children, className }: types.FragmentProps) => (
       <nav
         className={`${[
           className,
@@ -49,13 +50,9 @@ const themeMapping = {
       </nav>
     )
   },
-  /*
-        className={`${className} color__transparent
-    `}
-  */
   TableOfContents: {
     title: true,
-    Element: ({ children, className }: INav) => (
+    Element: ({ children, className }: types.FragmentProps) => (
       <nav
         className={`${[
           className,
@@ -74,35 +71,20 @@ const themeMapping = {
   }
 } as const;
 //
-const renderRows = (entrys: EntryProps[], theme: keyof ThemesProps) =>
+const renderRows = (entrys: types.NavBarEntryProps[], theme: types.NavBarThemesKeys) =>
   entrys.map(({ href, level, title }, index) => (
     <li
       key={index}
+      // eslint-disable-next-line tailwindcss/no-custom-classname
       className={`${
         level === 'primary' ? 'primary' : 'secondary ml-4'
       } transition-faster`}
     >
       <Link href={href} className="group transition-faster">
-        {mappingSvg[level](theme)}
+        {navBarMappingSvg[level](theme)}
         {title}
       </Link>
     </li>
   ));
 
-export default function NavBar({ theme, entrys }: INavBar) {
-  const { title, Element } = themeMapping[theme];
-  return (
-    <>
-      {title && (
-        <h5 className="my-m block py-1 text-sm font-semibold leading-6 text-lg-accent dark:text-dk-accent">
-          Nesta página
-        </h5>
-      )}
-      <Element aria-label={theme} className="flex transition-faster">
-        <ul>{renderRows(entrys, theme)}</ul>
-      </Element>
-    </>
-  );
-}
-
-export { mappingSvg };
+export { navBarMappingSvg, navBarThemeMapping };

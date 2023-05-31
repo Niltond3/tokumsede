@@ -1,11 +1,11 @@
-.nav-bar_side ul {
+.nav-bar_s ul {
   @apply text-slate-700 text-xs leading-6 first:block first:py-1 first:font-medium first:text-sky-500 first:dark:text-sky-400
 }
 
-.nav-bar_side li a {
+.nav-bar_s li a {
   @apply block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300
 }
 
-.nav-bar_side li.secondary a{
+.nav-bar_s li.secondary a{
   @apply flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ProductType } from 'app/components/Patterns/Layout/Kaban/Types';
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-import Button from 'app/components/Ui/Inputs/Button';
+import { ProductType } from 'components/Patterns/Layout/Kaban/Types';
+import Icons from 'components/Ui/DataDisplay/Icons';
+import Button from 'components/Ui/Inputs/Button';
 
 import { CurrentValueProps, FooterProps } from '../Types';
 
@@ -12,7 +12,7 @@ export default function Footer({ style, label, onClick }: FooterProps) {
   return (
     <div className="flex gap-3">
       <span className="flex items-center justify-center rounded-tr-3xl bg-white/20 px-3 py-xs font-bold text-white">
-        {label[0]}
+        {`${label}`}
       </span>
       <Button
         className={clsx(
