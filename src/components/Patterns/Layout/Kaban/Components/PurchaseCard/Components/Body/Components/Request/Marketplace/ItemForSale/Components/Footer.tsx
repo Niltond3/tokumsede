@@ -12,7 +12,7 @@ export default function Footer({ style, label, onClick }: FooterProps) {
   return (
     <div className="flex gap-3">
       <span className="flex items-center justify-center rounded-tr-3xl bg-white/20 px-3 py-xs font-bold text-white">
-        {`${label}`}
+        {label[0]}
       </span>
       <Button
         className={clsx(

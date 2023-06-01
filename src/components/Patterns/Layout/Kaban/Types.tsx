@@ -1,9 +1,10 @@
 import { ImagePath } from 'app/components/Ui/DataDisplay/Image';
 
+import { IconsKey } from 'common/types';
 import { AnimationControls } from 'framer-motion';
 import { TypeIcons } from 'utils/Types';
 
-export type PurchaseCardProps = {
+type PurchaseCardProps = {
   index: number;
   purchaseId: string;
   currentStatus: string;
@@ -15,7 +16,7 @@ type ItemsProps<T> = {
   setSelect?: React.Dispatch<React.SetStateAction<ItemStateType<T>>>;
 };
 
-export type ObjectDefaultProps<T> = T &
+type ObjectDefaultProps<T> = T &
   Omit<ItemsProps<T>, 'onSelect'> & {
     id: number;
     name: string;
@@ -32,7 +33,7 @@ type RenderSelectProps<T> = {
   renderSelect: CallbackType<RenderSelectType<T>>;
 };
 
-export type CallbackRenderOptionsProps<T> = ObjectDefaultProps<T> & {
+type CallbackRenderOptionsProps<T> = ObjectDefaultProps<T> & {
   controls?: AnimationControls;
 };
 
@@ -75,7 +76,7 @@ type SelectProps<T> = RenderSelectProps<T> &
     };
   };
 
-export type ProductProps = ObjectDefaultProps<ProductType>;
+type ProductProps = ObjectDefaultProps<ProductType>;
 
 type pricesType = {
   refill: {
@@ -91,8 +92,8 @@ type pricesType = {
   freight: number;
 };
 
-export type ProductType = {
-  label: keyof TypeIcons;
+type ProductType = {
+  label: IconsKey;
   shortName: string;
   prices: pricesType;
 };
@@ -109,7 +110,7 @@ type ComponentsProps = { style: string };
 
 type HeaderProps = ComponentsProps & {
   value: number;
-  label: keyof TypeIcons;
+  label: IconsKey;
 };
 type BodyProps = ComponentsProps & {
   measure: MeasureType;
@@ -128,5 +129,5 @@ type BodyProps = ComponentsProps & {
   };
 };
 type FooterProps = ComponentsProps & {
-  label: keyof TypeIcons;
+  label: IconsKey;
 };

@@ -1,5 +1,5 @@
-import Avatar from 'app/components/Ui/DataDisplay/Avatar';
-import Container from 'app/components/Ui/Layout/Container';
+import Avatar from 'components/Ui/DataDisplay/Avatar';
+import Container from 'components/Ui/Layout/Container';
 
 import Breadcrumb from './Breadcrumb';
 

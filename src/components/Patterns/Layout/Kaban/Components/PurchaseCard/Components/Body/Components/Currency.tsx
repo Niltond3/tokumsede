@@ -8,28 +8,15 @@ import TextField from 'components/Ui/Inputs/TextField';
 import { ToClipboard } from '../../../Handles';
 import SessionWrapper from './SessionWrapper';
 
+import * as types from 'common/types';
 import $ from 'jquery';
-import { TypeIcons, PaymentType } from 'utils/Types';
 
-type InitialState = {
-  paymentType: PaymentType;
-};
-
-type PaymentLiType = {
-  dropDownId: string;
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  key: string;
-  value: keyof TypeIcons;
-};
-
-type CurrencyProps = {
-  dropDownId: string;
-  purchaseId: string;
-};
-
-export default function Currency({ dropDownId, purchaseId }: CurrencyProps) {
-  const paymentForms: (keyof TypeIcons)[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
-  const initialState: InitialState = {
+export default function Currency({
+  dropDownId,
+  purchaseId
+}: types.KabanCardCurrencyProps) {
+  const paymentForms: types.IconsKey[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
+  const initialState: types.KabanCardCurrencyInitialState = {
     paymentType: 'Cash'
   };
   const [state, setState] = useState(initialState);
@@ -40,7 +27,7 @@ export default function Currency({ dropDownId, purchaseId }: CurrencyProps) {
     const { currentTarget } = event;
     const { value, dataset } = currentTarget;
     $(`#${dataset.check}`).prop('checked', false);
-    setState({ ...state, paymentType: value as PaymentType });
+    setState({ ...state, paymentType: value as types.PaymentType });
   };
 
   return (
@@ -51,7 +38,7 @@ export default function Currency({ dropDownId, purchaseId }: CurrencyProps) {
           <div className="group relative flex flex-1 items-center">
             <input type="checkbox" id={dropDownId} className="group peer hidden"></input>
             <label htmlFor={dropDownId} className="flex cursor-pointer items-center">
-              <Icons icon={paymentType as keyof TypeIcons} />
+              <Icons icon={paymentType as types.IconsKey} />
               <Icons icon="Arrow" />
             </label>
             <ul className="absolute top-full z-10 flex max-h-0 w-full flex-col items-center overflow-hidden rounded-md border-[0.1rem] border-lg-primary-base/0 bg-lg-primary-lighter/0 pt-1 backdrop-blur-sm transition-faster peer-checked:max-h-[10rem] peer-checked:border-lg-primary-base/30 peer-checked:bg-lg-primary-lighter/20">
@@ -99,7 +86,12 @@ export default function Currency({ dropDownId, purchaseId }: CurrencyProps) {
   );
 }
 
-const RenderPaymentLi = ({ dropDownId, handleClick, key, value }: PaymentLiType) => {
+const RenderPaymentLi = ({
+  dropDownId,
+  handleClick,
+  key,
+  value
+}: types.KabanCardCurrencyPaymentLiProps) => {
   return (
     <li className="opacity-50 transition-faster hover:opacity-100" key={key}>
       <button onClick={handleClick} value={value} data-check={dropDownId}>

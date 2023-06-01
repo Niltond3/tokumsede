@@ -1,17 +1,22 @@
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-import Tooltip from 'app/components/Ui/DataDisplay/Tooltip';
-import Button from 'app/components/Ui/Inputs/Button';
-import Link from 'app/components/Ui/Navigation/Link';
+import Icons from 'components/Ui/DataDisplay/Icons';
+import Tooltip from 'components/Ui/DataDisplay/Tooltip';
+import Button from 'components/Ui/Inputs/Button';
+import Link from 'components/Ui/Navigation/Link';
 
-import { IContent } from 'utils/Types';
+import * as types from 'common/types';
 
-type DropdownControllerProps = Omit<IContent, 'href' | 'onClick'>;
+type DropdownControllerProps = Omit<types.NavigationProps, 'href' | 'onClick'>;
 
 type DropdownMenuProps = DropdownControllerProps & {
   index: number;
 };
 
-const DropdownMenu = ({ content = [], icon, title, index }: DropdownMenuProps) => {
+export default function DropdownMenu({
+  content = [],
+  icon,
+  title,
+  index
+}: DropdownMenuProps) {
   const mappingDelay = [
     'group-peer-data-[state=on]:animation-delay-75',
     'group-peer-data-[state=on]:animation-delay-100',
@@ -44,7 +49,7 @@ const DropdownMenu = ({ content = [], icon, title, index }: DropdownMenuProps) =
       </div>
     </li>
   );
-};
+}
 
 const DropdownController = ({ title, icon }: DropdownControllerProps) => (
   <Button typeOf="toggle" toggleVariant="dropdown">
@@ -68,7 +73,12 @@ const DropdownController = ({ title, icon }: DropdownControllerProps) => (
   </Button>
 );
 
-const RenderLi = ({ href, icon, title, style }: IContent & { style: string }) => {
+const RenderLi = ({
+  href,
+  icon,
+  title,
+  style
+}: types.NavigationProps & { style: string }) => {
   return (
     <li
       className={`border-l-2 border-l-lg-primary-base/30 transition-faster hover:border-l-lg-primary-base/100`}
@@ -89,5 +99,3 @@ const RenderLi = ({ href, icon, title, style }: IContent & { style: string }) =>
     </li>
   );
 };
-
-export default DropdownMenu;

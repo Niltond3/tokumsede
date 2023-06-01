@@ -1,17 +1,18 @@
-import DropdownMenu from './DropdownMenu';
-import WrapperSettings from './WrapperButtonsSettings';
+import DropdownMenu from './components/DropdownMenu';
+import WrapperSettings from './components/WrapperButtonsSettings';
 
+import clsx from 'clsx';
 import { NAVIGATION_LINKS } from 'utils/Constants';
 
 export default function LeftBar() {
   return (
     <aside
-      className={[
-        'group/aside -ml-[9.9rem] flex h-full w-40 flex-col bg-lg-primary text-lg-primary-base @container transition-slow',
+      className={clsx(
+        'group/aside ml-[-9.9rem] flex h-full w-40 flex-col bg-lg-primary text-lg-primary-base @container transition-slow',
         'hover:ml-0 hover:w-16 dark:bg-dk-primary',
         'has-open:ml-0 has-open:w-44 has-open:bg-lg-secondary has-open:dark:bg-dk-secondary',
         'child:transition-slow '
-      ].join(' ')}
+      )}
     >
       <WrapperSettings />
       <nav className="relative -top-16">

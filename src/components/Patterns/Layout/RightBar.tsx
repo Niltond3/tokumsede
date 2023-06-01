@@ -1,6 +1,16 @@
-import NavBar, { entry } from 'app/components/Ui/Navigation/NavBar';
+import NavBar from 'components/Ui/Navigation/NavBar';
 
-const entrys: entry[] = [
+import * as types from 'common/types';
+
+export default function RightBar() {
+  return (
+    <div className="fixed right-0 top-0 z-[-1] mt-xxl flex flex-col transition-slow">
+      <NavBar theme="TableOfContents" entrys={entrys} />
+    </div>
+  );
+}
+
+const entrys: types.NavBarEntryProps[] = [
   {
     href: '#',
     title: 'Quick reference',
@@ -62,10 +72,3 @@ const entrys: entry[] = [
     level: 'secondary'
   }
 ];
-export default function RightBar() {
-  return (
-    <div className="fixed right-0 top-0 z-[-1] mt-xxl flex flex-col transition-slow">
-      <NavBar theme="TableOfContents" entrys={entrys} />
-    </div>
-  );
-}

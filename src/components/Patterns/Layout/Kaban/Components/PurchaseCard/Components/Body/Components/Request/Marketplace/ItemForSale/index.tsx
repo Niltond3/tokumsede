@@ -4,8 +4,8 @@ import { useState } from 'react';
 import {
   CallbackRenderOptionsProps,
   ProductType
-} from 'app/components/Patterns/Layout/Kaban/Types';
-import { ImagePath } from 'app/components/Ui/DataDisplay/Image';
+} from 'components/Patterns/Layout/Kaban/Types';
+import { ImagePath } from 'components/Ui/DataDisplay/Image';
 
 import Body from './Components/Body';
 import Footer from './Components/Footer';
@@ -18,6 +18,7 @@ import {
 } from './Types';
 
 import clsx from 'clsx';
+import * as types from 'common/types';
 import { motion } from 'framer-motion';
 
 type ItemForSaleProps = CallbackRenderOptionsProps<ProductType & CurrentValueProps>;

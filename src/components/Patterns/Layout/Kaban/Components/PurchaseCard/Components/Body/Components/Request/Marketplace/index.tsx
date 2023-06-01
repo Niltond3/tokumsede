@@ -1,25 +1,10 @@
 import React from 'react';
 
-import { ProductProps, ProductType } from 'components/Patterns/Layout/Kaban/Types';
-import DropdownMenu from 'components/Ui/Navigation/DropdownMenu';
+import DropdownMenu from 'components/Patterns/Navigation/DropdownMenu';
 
 import ItemForSale from './ItemForSale';
-import { CurrentValueProps } from './ItemForSale/Types';
 
 import * as types from 'common/types';
-
-type DropdownProductProps = ProductProps & CurrentValueProps;
-
-const mappingMenuStyles = {
-  trigger: {
-    wrapper: 'items-center gap-2.5 flex-[90%]',
-    button:
-      'rounded bg-white/30 p-0.5 shadow-md backdrop-blur-sm transition-faster focus-visible:outline-none data-state-open:shadow-lg',
-    icon: ''
-  },
-  dropdownContent:
-    'flex max-h-48 min-h-[11rem] max-w-[16rem] min-w-max gap-4 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm'
-};
 
 export default function Marketplace() {
   return (
@@ -32,32 +17,18 @@ export default function Marketplace() {
     />
   );
 }
-type RenderSelectProps = types.RenderSelectType<
-  types.SelectDefaultProps<ProductType & CurrentValueProps>
->;
 
-function RenderSelect(product: RenderSelectProps) {
-  const { label, name, price, purchase, measure, quantity } = product;
+function RenderSelect({
+  label,
+  name,
+  price,
+  purchase,
+  measure,
+  quantity
+}: types.KabanMarketplaceRenderSelectProps) {
   const lowName = label.toLowerCase();
   const styleKey = lowName as keyof typeof mappingProductsStyles;
 
-  const mappingProductsStyles = {
-    leve: {
-      header: 'bg-lg-primary',
-      footer: 'text-lg-primary',
-      measureStyle: 'border-l-lg-primary'
-    },
-    rica: {
-      header: 'bg-lg-success',
-      footer: 'text-lg-success',
-      measureStyle: 'border-l-lg-success'
-    },
-    sport: {
-      header: 'bg-lg-sent',
-      footer: 'text-lg-sent',
-      measureStyle: 'border-l-lg-sent'
-    }
-  } as const;
   const { header, footer, measureStyle } = mappingProductsStyles[styleKey];
   return (
     <div
@@ -85,13 +56,42 @@ function RenderSelect(product: RenderSelectProps) {
   );
 }
 
+const mappingMenuStyles = {
+  trigger: {
+    wrapper: 'items-center gap-2.5 flex-[90%]',
+    button:
+      'rounded bg-white/30 p-0.5 shadow-md backdrop-blur-sm transition-faster focus-visible:outline-none data-state-open:shadow-lg',
+    icon: ''
+  },
+  dropdownContent:
+    'flex max-h-48 min-h-[11rem] max-w-[16rem] min-w-max gap-4 overflow-auto rounded-md bg-lg-primary-base/30 px-m pt-4 pb-1 text-base shadow-lg ring-1 ring-black/5 backdrop-blur-sm scrollbar-thin scrollbar-track-transparent scrollbar-thumb-lg-secondary/50 scrollbar-corner-transparent focus:outline-none sm:text-sm'
+};
+
+const mappingProductsStyles = {
+  leve: {
+    header: 'bg-lg-primary',
+    footer: 'text-lg-primary',
+    measureStyle: 'border-l-lg-primary'
+  },
+  rica: {
+    header: 'bg-lg-success',
+    footer: 'text-lg-success',
+    measureStyle: 'border-l-lg-success'
+  },
+  sport: {
+    header: 'bg-lg-sent',
+    footer: 'text-lg-sent',
+    measureStyle: 'border-l-lg-sent'
+  }
+} as const;
+
 const gallonPrices = {
   '5L': 0,
   '10L': 11,
   '20L': 19
 };
 
-const products: DropdownProductProps[] = [
+const products: types.DropdownProductProps[] = [
   {
     id: 1,
     label: 'Leve',

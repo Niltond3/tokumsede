@@ -2,8 +2,8 @@ import 'styles/globals.css';
 import { Metadata } from 'next';
 import Script from 'next/script';
 
-import { TooltipProvider } from './components/Ui/DataDisplay/Tooltip';
-import IndexLaytout from 'app/components/Patterns/Layout';
+import IndexLaytout from 'components/Patterns/Layout';
+import { TooltipProvider } from 'components/Ui/DataDisplay/Tooltip';
 
 export const metadata: Metadata = {
   icons: {

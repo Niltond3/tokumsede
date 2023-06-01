@@ -427,6 +427,116 @@ export type NavBarProps = {
   entrys: NavBarEntryProps[];
 };
 
+/**
+ * breadcrumb related types
+ */
+export type BreadcrumbPaths = {
+  icon: IconsKey;
+  title: string;
+  href?: string;
+};
+
+export type GetBreadcrumbPathsProps = {
+  segments: string[];
+  content: NavigationProps[];
+  segmentsIndex: number;
+};
+
+/**
+ * kaban related types
+ */
+
+type KabanProductType = {
+  label: IconsKey;
+  shortName: string;
+  prices: KabanPricesType;
+};
+
+type KabanMarketplaceActions<T> = {
+  onSelect?: () => void;
+  closeMenu?: () => void;
+  setSelect?: React.Dispatch<React.SetStateAction<KabanMarketplaceStateType<T>>>;
+};
+
+type KabanMarketplaceDefaultProps<T> = T &
+  Omit<KabanMarketplaceActions<T>, 'onSelect'> & {
+    id: number;
+    name: string;
+    unavailable: boolean;
+  };
+
+type KabanProductProps = KabanMarketplaceDefaultProps<KabanProductType>;
+
+export type KabanColumnsStylesProps = {
+  [key: string]: { title: string; styles: string; icon: IconsKey };
+};
+
+export type KabanColumnsProps = PurchaseColumnProps & {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+export type KabanPurchaseCardProps = {
+  index: number;
+  purchaseId: string;
+  currentStatus: string;
+};
+
+export type KabanPurchaseCardBodyProps = {
+  dropDownId: string;
+  purchaseId: string;
+};
+
+export type KabanCardCurrencyProps = {
+  dropDownId: string;
+  purchaseId: string;
+};
+
+export type KabanCardCurrencyInitialState = {
+  paymentType: PaymentType;
+};
+
+export type KabanCardCurrencyPaymentLiProps = {
+  dropDownId: string;
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  key: string;
+  value: IconsKey;
+};
+
+type KabanMarketplaceStateType<T> =
+  | KabanMarketplaceDefaultProps<T>[]
+  | KabanMarketplaceDefaultProps<T>;
+
+export type DropdownProductProps = KabanProductProps & CurrentValueProps;
+
+export type CurrentValueProps = {
+  price?: number;
+  measure?: string;
+  purchase?: 'gallon' | 'refill';
+  quantity?: number;
+};
+
+type KabanPricesType = {
+  refill: {
+    '5L'?: number;
+    '10L'?: number;
+    '20L'?: number;
+  };
+  gallon: {
+    '5L'?: number;
+    '10L'?: number;
+    '20L'?: number;
+  };
+  freight: number;
+};
+
+export type KabanMarketplaceRenderSelectProps = RenderSelectType<
+  SelectDefaultProps<KabanProductType & CurrentValueProps>
+>;
+
+/**
+ *
+ */
+
 export type AppPropsWithLayout = AppProps & {
   Component: AppProps['Component'] & {
     PageLayout?: NextComponentType<NextPageContext, any, any>;

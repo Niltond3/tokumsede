@@ -4,12 +4,12 @@ import Currency from './Components/Currency';
 import Personal from './Components/Personal';
 import Request from './Components/Request';
 
-type PurchaseCardBodyProps = {
-  dropDownId: string;
-  purchaseId: string;
-};
+import * as types from 'common/types';
 
-export default function Body({ dropDownId, purchaseId }: PurchaseCardBodyProps) {
+export default function Body({
+  dropDownId,
+  purchaseId
+}: types.KabanPurchaseCardBodyProps) {
   return (
     <>
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}

@@ -3,19 +3,16 @@ import Button from 'components/Ui/Inputs/Button';
 
 import PurchaseCard from './PurchaseCard';
 
+import * as types from 'common/types';
 import { AnimatePresence } from 'framer-motion';
-import { TypeIcons, ColumnType } from 'utils/Types';
 
-type Styles = {
-  [key: string]: { title: string; styles: string; icon: keyof TypeIcons };
-};
-
-type ColumnProps = ColumnType & {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-};
-
-export default function Column({ id, purchasesIds, countLabel, onClick }: ColumnProps) {
-  const mappingStyles: Styles = {
+export default function Column({
+  id,
+  purchasesIds,
+  countLabel,
+  onClick
+}: types.KabanColumnsProps) {
+  const mappingStyles: types.KabanColumnsStylesProps = {
     PENDING: {
       title: 'Pendentes',
       styles: '',

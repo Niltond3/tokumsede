@@ -1,4 +1,4 @@
-import Divider from 'app/components/Ui/Layout/Divider';
+import Divider from 'components/Ui/Layout/Divider';
 
 type SessionProps = {
   children: React.ReactNode;

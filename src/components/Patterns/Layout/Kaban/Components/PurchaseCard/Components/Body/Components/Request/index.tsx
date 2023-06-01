@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Icons from 'app/components/Ui/DataDisplay/Icons';
-
 import SessionWrapper from '../SessionWrapper';
 import Marketplace from './Marketplace';
 

@@ -57,7 +57,7 @@ import { default as SportPh } from './svg/sport_ph.svg';
 import { default as Sport } from './svg/sport.svg';
 import { default as Work } from './svg/work.svg';
 
-import { TypeIcons } from 'utils/Types';
+import { IconsType } from 'common/types';
 
 export {
   Accepted,
@@ -123,7 +123,7 @@ const Icons = ({
   icon = 'default',
   className
 }: {
-  icon?: keyof TypeIcons;
+  icon?: keyof IconsType;
   className?: string;
 }) => icons[icon]({ className });
 

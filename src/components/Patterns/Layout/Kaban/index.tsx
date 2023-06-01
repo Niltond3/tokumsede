@@ -3,8 +3,8 @@ import { useContext, Dispatch } from 'react';
 
 import Column from './Components/Column';
 
+import * as types from 'common/types';
 import { AppContext } from 'hooks/usePurchase';
-import { PURCHASE_ACTION_TYPES, ColumnsType, PurchaseActionsType } from 'utils/Types';
 
 export default function Kaban() {
   const { state, dispatch } = useContext(AppContext);
@@ -17,13 +17,16 @@ export default function Kaban() {
   );
 }
 
-const renderColumns = (columns: ColumnsType, dispatch: Dispatch<PurchaseActionsType>) => {
+const renderColumns = (
+  columns: types.PurchaseColumnsType,
+  dispatch: Dispatch<types.ActionPurchaseProps>
+) => {
   const myColumns: JSX.Element[] = [];
   let key: keyof typeof columns;
 
   for (key in columns) {
     const { id, purchasesIds, countLabel } = columns[key];
-    const { prepare } = PURCHASE_ACTION_TYPES;
+    const { prepare } = types.PURCHASE_ACTION_TYPES;
     myColumns.push(
       <Column
         id={id}
