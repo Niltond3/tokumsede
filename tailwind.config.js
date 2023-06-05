@@ -198,7 +198,7 @@ module.exports = {
   plugins: [
     require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
-    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
     require('@tailwindcss/container-queries'),
     require('tailwindcss-elevation'),
     require('@headlessui/tailwindcss')({ prefix: 'ui' }),

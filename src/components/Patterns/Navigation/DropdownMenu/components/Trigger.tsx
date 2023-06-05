@@ -17,7 +17,7 @@ export default function Trigger<T>({
     const { closeMenu: _, setSelect: __, ...selected } = object;
     return selected;
   };
-  const { wrapper, button, icon } = className;
+  const { wrapper, renderItemWrapper, button, icon } = className;
 
   const renderSelectItem = () => {
     if (Array.isArray(item)) return item.map((item) => renderSelect(selected(item)));
@@ -35,7 +35,11 @@ export default function Trigger<T>({
         {arrow && <Icons icon="Arrow" />}
         {separator && <Divider orientation="vertical" className="flex" />}
       </div>
-      {renderSelectItem()}
+      <div
+        className={`${renderItemWrapper} flex overflow-x-auto overflow-y-hidden scrollbar scrollbar-track-transparent scrollbar-thumb-lg-secondary-base/20 scrollbar-h-2 transition-faster hover:scrollbar-thumb-lg-secondary-base/25`}
+      >
+        {renderSelectItem()}
+      </div>
     </div>
   );
 }

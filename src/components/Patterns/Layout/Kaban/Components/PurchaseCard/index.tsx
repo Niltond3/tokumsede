@@ -34,7 +34,7 @@ export default function PurchaseCard({
         bounce: 0,
         opacity: { duration: time(0.03) }
       }}
-      className="mt-2 flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base transition @container"
+      className="mt-2 max-w-[12rem] flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base transition @container"
     >
       <Head />
       <Body dropDownId={dropDownId} purchaseId={purchaseId} />

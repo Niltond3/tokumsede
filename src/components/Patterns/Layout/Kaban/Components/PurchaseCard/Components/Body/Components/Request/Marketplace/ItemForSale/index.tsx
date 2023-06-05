@@ -1,29 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState } from 'react';
 
-import {
-  CallbackRenderOptionsProps,
-  ProductType
-} from 'components/Patterns/Layout/Kaban/Types';
-import { ImagePath } from 'components/Ui/DataDisplay/Image';
+// import {
+//   CallbackRenderOptionsProps,
+//   ProductType
+// } from 'components/Patterns/Layout/Kaban/Types';
 
 import Body from './Components/Body';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
-import {
-  CurrentValueProps,
-  GallonValueControlProps,
-  HandleEventProps,
-  ValueStateType
-} from './Types';
 
 import clsx from 'clsx';
 import * as types from 'common/types';
 import { motion } from 'framer-motion';
 
-type ItemForSaleProps = CallbackRenderOptionsProps<ProductType & CurrentValueProps>;
-
-export default function ItemForSale(product: ItemForSaleProps) {
+export default function ItemForSale(product: types.KabanItemForSaleProps) {
   const {
     prices: { refill, gallon },
     label,
@@ -31,8 +22,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
     shortName,
     setSelect
   } = product;
-
-  const [values, setValues] = useState<ValueStateType>({
+  const [values, setValues] = useState<types.KabanItemForSaleValueStateType>({
     current: {
       price: refill['20L'],
       measure: '20L',
@@ -64,7 +54,7 @@ export default function ItemForSale(product: ItemForSaleProps) {
 
   const lowName = label.toLowerCase();
   const styleKey = lowName as keyof typeof mappingProductsStyles;
-  const gallonSrc = lowName as ImagePath;
+  const gallonSrc = lowName as types.ImagePath;
 
   const measure: {
     itemIndex: number;
@@ -77,6 +67,42 @@ export default function ItemForSale(product: ItemForSaleProps) {
   const { wrapper, header, body, footer } = mappingProductsStyles[styleKey];
 
   const { handleValue } = handleEvents({ values, setValues });
+
+  function handleSelectProduct(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    event.preventDefault();
+    if (setSelect) {
+      //...product,
+      //...values.current
+      const { id, label, name, prices, shortName, unavailable } = product;
+      const { measure, price, purchase, quantity } = values.current;
+      setSelect((values) => {
+        const selectProduct: types.KabanItemForSaleProps = {
+          id,
+          label,
+          name,
+          controls,
+          prices,
+          shortName,
+          unavailable,
+          measure,
+          price,
+          purchase,
+          quantity
+        };
+        const arrayValues = values as types.KabanItemForSaleProps[];
+        //Check if quantity is equal and if are different sum with the equal element
+        const { exists, index } = containsObject(selectProduct, arrayValues);
+        if (!exists) return [...arrayValues, selectProduct];
+        return arrayValues.map((element, id) => {
+          if (id == index)
+            return Object.assign({}, element, {
+              quantity: element.quantity! + selectProduct.quantity!
+            });
+          return element;
+        });
+      });
+    }
+  }
 
   return (
     <motion.div
@@ -95,58 +121,12 @@ export default function ItemForSale(product: ItemForSaleProps) {
         handleValue={handleValue}
         measure={measure}
       />
-      <Footer
-        style={footer}
-        label={label}
-        onClick={(event) => {
-          event.preventDefault();
-          if (setSelect) {
-            //...product,
-            //...values.current
-            const { id, label, name, prices, shortName, unavailable } = product;
-            const { measure, price, purchase, quantity } = values.current;
-            setSelect((values) => {
-              const selectProduct: ItemForSaleProps = {
-                id,
-                label,
-                name,
-                prices,
-                shortName,
-                unavailable,
-                measure,
-                price,
-                purchase,
-                quantity
-              };
-              const arrayValues = values as ItemForSaleProps[];
-
-              function containsObject(item: ItemForSaleProps, array: ItemForSaleProps[]) {
-                let Return = false;
-                array.forEach((object) => {
-                  if (
-                    object.id == item.id &&
-                    object.measure == item.measure &&
-                    object.price == item.price &&
-                    object.quantity == item.quantity &&
-                    object.purchase == item.purchase
-                  )
-                    Return = true;
-                });
-                return Return;
-              }
-
-              const productExist = containsObject(selectProduct, arrayValues);
-              if (!productExist) return [...arrayValues, selectProduct];
-              return [...arrayValues];
-            });
-          }
-        }}
-      />
+      <Footer style={footer} label={label} onClick={handleSelectProduct} />
     </motion.div>
   );
 }
 
-function handleEvents({ values, setValues }: HandleEventProps) {
+function handleEvents({ values, setValues }: types.KabanItemForSaleHandleEventProps) {
   return {
     handleValue: {
       handleToggleGallonRefill: (
@@ -158,9 +138,9 @@ function handleEvents({ values, setValues }: HandleEventProps) {
             const { current, products } = values;
             const defaultMeasure = current.measure ? current.measure : '20L';
             const product = products.find((product) => product[defaultMeasure]);
-            const newPrice = (product![defaultMeasure] as GallonValueControlProps)[
-              gallonKey
-            ];
+            const newPrice = (
+              product![defaultMeasure] as types.KabanItemForSaleGallonValueControlProps
+            )[gallonKey];
             return {
               ...values,
               current: { ...values.current, price: newPrice, purchase: gallonKey }
@@ -179,7 +159,9 @@ function handleEvents({ values, setValues }: HandleEventProps) {
           ? values.current.purchase
           : 'refill';
 
-        const newPrice = (product![measure] as GallonValueControlProps)[defaultPurchase];
+        const newPrice = (
+          product![measure] as types.KabanItemForSaleGallonValueControlProps
+        )[defaultPurchase];
         setValues({
           ...values,
           current: { ...values.current, price: newPrice, measure: measure }
@@ -187,19 +169,17 @@ function handleEvents({ values, setValues }: HandleEventProps) {
       },
       handleDecrementQuantity: () => {
         const { quantity } = values.current;
-        if (quantity! > 0)
-          setValues({
-            ...values,
-            current: { ...values.current, quantity: quantity! - 1 }
-          });
+        setValues({
+          ...values,
+          current: { ...values.current, quantity: quantity! - 1 }
+        });
       },
       handleIncrementQuantity: () => {
         const { quantity } = values.current;
-        if (quantity! < 99)
-          setValues({
-            ...values,
-            current: { ...values.current, quantity: quantity! + 1 }
-          });
+        setValues({
+          ...values,
+          current: { ...values.current, quantity: quantity! + 1 }
+        });
       },
       handleKeyboardChangeQuantity: (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({
@@ -231,3 +211,27 @@ const mappingProductsStyles = {
     body: 'text-lg-sent'
   }
 } as const;
+
+function containsObject(
+  item: types.KabanItemForSaleProps,
+  array: types.KabanItemForSaleProps[]
+) {
+  let Return = {
+    exists: false,
+    index: 0
+  };
+
+  array.forEach((object, index) => {
+    const commonConditional =
+      object.id == item.id &&
+      object.measure == item.measure &&
+      object.price == item.price &&
+      object.purchase == item.purchase;
+    if (commonConditional)
+      Return = {
+        exists: true,
+        index
+      };
+  });
+  return Return;
+}

@@ -14,8 +14,6 @@ type MeasureType = {
   position?: 'L' | 'R';
 }[];
 
-type ComponentsProps = { style: string };
-
 export type GallonValueControlProps = {
   refill: number;
   gallon: number;

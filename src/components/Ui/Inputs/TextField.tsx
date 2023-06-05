@@ -80,7 +80,6 @@ export default function TextField({
         maxLength={ml}
         placeholder={ph}
         data-max-digits={dataMaxDigits}
-        min="0"
       ></input>
       <CaretButton diretion="R" onClick={handleIncrement} data-action="increment" />
     </label>
@@ -89,7 +88,7 @@ export default function TextField({
   return type === 'number' ? Number : Input;
 }
 
-export const mappingTextFieldTypes = {
+const mappingTextFieldTypes = {
   currence: () => {
     const mask = (e: React.ChangeEvent<HTMLInputElement>) => {
       const formatter = new Intl.NumberFormat('pt-BR', {
@@ -177,3 +176,5 @@ export const mappingTextFieldTypes = {
     };
   }
 };
+
+export { mappingTextFieldTypes };

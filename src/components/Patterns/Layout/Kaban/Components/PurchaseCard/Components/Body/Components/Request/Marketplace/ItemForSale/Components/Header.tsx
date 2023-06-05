@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { HeaderProps } from '../Types';
-
 import clsx from 'clsx';
+import { KabanItemForSaleHeaderProps } from 'common/types';
 
-export default function Header({ style, value, label }: HeaderProps) {
+export default function Header({ style, value, label }: KabanItemForSaleHeaderProps) {
   return (
     <div className="relative flex w-11/12 self-end">
       <div

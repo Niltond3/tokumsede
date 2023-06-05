@@ -7,9 +7,8 @@ import RadioGroup from 'components/Ui/Inputs/RadioGroup';
 import TextField from 'components/Ui/Inputs/TextField';
 import Divider from 'components/Ui/Layout/Divider';
 
-import { BodyProps } from '../Types';
-
 import clsx from 'clsx';
+import * as types from 'common/types';
 
 export default function Body({
   style,
@@ -17,7 +16,7 @@ export default function Body({
   measure,
   quantity,
   handleValue
-}: BodyProps) {
+}: types.KabanItemForSaleBodyProps) {
   const MesureStyles = {
     RadioGroupRoot:
       'flex justify-center items-start [&:has(button[data-state=checked])>button]:text-white relative h-[45%] ',
@@ -66,7 +65,6 @@ export default function Body({
             onValueChange={handleChangeMeasure}
           />
           <Divider className="!bg-white/30" />
-          {/* CREATE A INPUT TYPE NUMBER */}
           <TextField
             id={`quantity-${gallonSrc}`}
             type="number"

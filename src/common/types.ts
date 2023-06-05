@@ -373,16 +373,18 @@ export type DropdownOptionProps<T> = RenderDropdownOptionsProps<T> &
   Omit<DropdownListOptionsProps<T>, 'list' | 'className'> & {
     option: DropdownDefaultProps<T>;
   };
+type TriggerStyleProps = {
+  wrapper: string;
+  renderItemWrapper: string;
+  button: string;
+  icon: string;
+};
 
 export type DropdownTriggerProps<T> = RenderSelectDropdownProps<T> & {
   item: DropdownItemStateType<T>;
   arrow: boolean;
   separator: boolean;
-  className: {
-    wrapper: string;
-    button: string;
-    icon: string;
-  };
+  className: TriggerStyleProps;
 };
 
 export type DropdownSelectProps<T> = RenderSelectDropdownProps<T> &
@@ -390,11 +392,7 @@ export type DropdownSelectProps<T> = RenderSelectDropdownProps<T> &
     arrow?: boolean;
     separator?: boolean;
     styles: {
-      trigger: {
-        wrapper: string;
-        button: string;
-        icon: string;
-      };
+      trigger: TriggerStyleProps;
       dropdownContent: string;
     };
   };
@@ -506,9 +504,9 @@ type KabanMarketplaceStateType<T> =
   | KabanMarketplaceDefaultProps<T>[]
   | KabanMarketplaceDefaultProps<T>;
 
-export type DropdownProductProps = KabanProductProps & CurrentValueProps;
+export type DropdownProductProps = KabanProductProps & KabanCurrentValueProps;
 
-export type CurrentValueProps = {
+export type KabanCurrentValueProps = {
   price?: number;
   measure?: string;
   purchase?: 'gallon' | 'refill';
@@ -530,8 +528,66 @@ type KabanPricesType = {
 };
 
 export type KabanMarketplaceRenderSelectProps = RenderSelectType<
-  SelectDefaultProps<KabanProductType & CurrentValueProps>
+  SelectDefaultProps<KabanProductType & KabanCurrentValueProps>
 >;
+
+export type KabanItemForSaleProps = DropdownCallbackRenderOptionsProps<
+  KabanProductType & KabanCurrentValueProps
+>;
+
+export type KabanItemForSaleValueStateType = {
+  current: KabanCurrentValueProps;
+  products: {
+    [key: string]: KabanItemForSaleGallonValueControlProps | GroupType;
+    measure: GroupType;
+  }[];
+};
+
+export type KabanItemForSaleGallonValueControlProps = {
+  refill: number;
+  gallon: number;
+};
+
+export type KabanItemForSaleHandleEventProps = {
+  values: KabanItemForSaleValueStateType;
+  setValues: React.Dispatch<React.SetStateAction<KabanItemForSaleValueStateType>>;
+};
+
+type KabanMeasureType = {
+  itemIndex: number;
+  id: string;
+  value: string;
+  label?: string;
+  position?: 'L' | 'R';
+}[];
+
+type KabanItemForSaleComponnetsProps = {
+  label: IconsKey;
+  style: string;
+};
+
+export type KabanItemForSaleHeaderProps = KabanItemForSaleComponnetsProps & {
+  value: number;
+};
+
+export type KabanItemForSaleBodyProps = Omit<KabanItemForSaleComponnetsProps, 'label'> & {
+  measure: KabanMeasureType;
+  gallonSrc: ImagePath;
+  quantity: number;
+  handleValue: {
+    handleToggleGallonRefill: (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
+    handleChangeMeasure: (measure: string) => void;
+    handleDecrementQuantity: () => void;
+    handleIncrementQuantity: () => void;
+    handleKeyboardChangeQuantity: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  };
+};
+
+export type KabanItemForSaleFooterProps = KabanItemForSaleComponnetsProps & {
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+};
 
 /**
  *

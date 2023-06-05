@@ -20,8 +20,6 @@ export default function Marketplace() {
 
 function RenderSelect({
   label,
-  name,
-  price,
   purchase,
   measure,
   quantity
@@ -58,7 +56,8 @@ function RenderSelect({
 
 const mappingMenuStyles = {
   trigger: {
-    wrapper: 'items-center gap-2.5 flex-[90%]',
+    wrapper: 'items-center flex-[90%] overflow-hidden',
+    renderItemWrapper: 'pl-2 gap-3',
     button:
       'rounded bg-white/30 p-0.5 shadow-md backdrop-blur-sm transition-faster focus-visible:outline-none data-state-open:shadow-lg',
     icon: ''
