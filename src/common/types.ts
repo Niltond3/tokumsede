@@ -589,6 +589,15 @@ export type KabanItemForSaleFooterProps = KabanItemForSaleComponnetsProps & {
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
+export type KabanItemForSaleHandleSelectProductProps = {
+  event: React.MouseEvent<HTMLButtonElement, MouseEvent>;
+  setSelect?: React.Dispatch<
+    React.SetStateAction<DropdownItemStateType<KabanProductType & KabanCurrentValueProps>>
+  >;
+  values: KabanItemForSaleValueStateType;
+  product: KabanItemForSaleProps;
+};
+
 /**
  *
  */

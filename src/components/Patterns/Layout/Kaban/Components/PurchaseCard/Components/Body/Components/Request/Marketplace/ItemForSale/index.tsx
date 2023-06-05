@@ -68,42 +68,6 @@ export default function ItemForSale(product: types.KabanItemForSaleProps) {
 
   const { handleValue } = handleEvents({ values, setValues });
 
-  function handleSelectProduct(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    event.preventDefault();
-    if (setSelect) {
-      //...product,
-      //...values.current
-      const { id, label, name, prices, shortName, unavailable } = product;
-      const { measure, price, purchase, quantity } = values.current;
-      setSelect((values) => {
-        const selectProduct: types.KabanItemForSaleProps = {
-          id,
-          label,
-          name,
-          controls,
-          prices,
-          shortName,
-          unavailable,
-          measure,
-          price,
-          purchase,
-          quantity
-        };
-        const arrayValues = values as types.KabanItemForSaleProps[];
-        //Check if quantity is equal and if are different sum with the equal element
-        const { exists, index } = containsObject(selectProduct, arrayValues);
-        if (!exists) return [...arrayValues, selectProduct];
-        return arrayValues.map((element, id) => {
-          if (id == index)
-            return Object.assign({}, element, {
-              quantity: element.quantity! + selectProduct.quantity!
-            });
-          return element;
-        });
-      });
-    }
-  }
-
   return (
     <motion.div
       animate={controls}
@@ -121,7 +85,11 @@ export default function ItemForSale(product: types.KabanItemForSaleProps) {
         handleValue={handleValue}
         measure={measure}
       />
-      <Footer style={footer} label={label} onClick={handleSelectProduct} />
+      <Footer
+        style={footer}
+        label={label}
+        onClick={(event) => handleSelectProduct({ event, setSelect, product, values })}
+      />
     </motion.div>
   );
 }
@@ -176,10 +144,11 @@ function handleEvents({ values, setValues }: types.KabanItemForSaleHandleEventPr
       },
       handleIncrementQuantity: () => {
         const { quantity } = values.current;
-        setValues({
-          ...values,
-          current: { ...values.current, quantity: quantity! + 1 }
-        });
+        if (quantity! < 99)
+          setValues({
+            ...values,
+            current: { ...values.current, quantity: quantity! + 1 }
+          });
       },
       handleKeyboardChangeQuantity: (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({
@@ -213,7 +182,7 @@ const mappingProductsStyles = {
 } as const;
 
 function containsObject(
-  item: types.KabanItemForSaleProps,
+  item: Omit<types.KabanItemForSaleProps, 'controls'>,
   array: types.KabanItemForSaleProps[]
 ) {
   let Return = {
@@ -227,6 +196,7 @@ function containsObject(
       object.measure == item.measure &&
       object.price == item.price &&
       object.purchase == item.purchase;
+
     if (commonConditional)
       Return = {
         exists: true,
@@ -234,4 +204,57 @@ function containsObject(
       };
   });
   return Return;
+}
+
+function handleSelectProduct({
+  event,
+  setSelect,
+  product,
+  values
+}: types.KabanItemForSaleHandleSelectProductProps) {
+  event.preventDefault();
+  if (setSelect && values.current.quantity != 0) {
+    //...product,
+    //...values.current
+    const { id, label, name, prices, shortName, unavailable } = product;
+    const { measure, price, purchase, quantity } = values.current;
+    setSelect((values) => {
+      const selectProduct = {
+        id,
+        label,
+        name,
+        prices,
+        shortName,
+        unavailable,
+        measure,
+        price,
+        purchase,
+        quantity
+      };
+      const arrayValues = values as types.KabanItemForSaleProps[];
+      const { exists, index } = containsObject(selectProduct, arrayValues);
+
+      const unshiftNulishQuantityProduct = [
+        ...arrayValues.slice(0, index),
+        ...arrayValues.slice(index + 1)
+      ];
+
+      if (!exists && selectProduct.quantity! > 0) return [...arrayValues, selectProduct];
+      const existentElement = arrayValues[index];
+      if (!existentElement) return [...arrayValues];
+      const newQuantity = existentElement.quantity! + selectProduct.quantity!;
+      if (exists && newQuantity <= 0) return unshiftNulishQuantityProduct;
+      const updateQuantity = [
+        ...arrayValues.slice(0, index),
+        {
+          ...existentElement,
+          quantity: newQuantity <= 99 ? newQuantity : 99
+        },
+        ...arrayValues.slice(index + 1)
+      ];
+      if (exists && newQuantity > 0) return updateQuantity;
+      if (!exists) return [...arrayValues];
+      return [...arrayValues];
+    });
+  }
 }
