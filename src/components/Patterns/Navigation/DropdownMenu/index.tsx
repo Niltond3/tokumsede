@@ -14,14 +14,16 @@ export default function DropdownMenu<T>({
   onSelect,
   renderSelect,
   renderOptions,
-  styles
+  styles,
+  selectItems
 }: types.DropdownSelectProps<T>) {
   const [item, setItem] = useState<types.DropdownItemStateType<T>>(
     [] as types.DropdownDefaultProps<T>[] | object as types.DropdownDefaultProps<T>
   );
   const [open, setOpen] = useState(false);
-  const controls = useAnimationControls();
+  selectItems(item);
 
+  const controls = useAnimationControls();
   const closeMenu = async () => {
     await controls.start('close');
     setOpen(false);

@@ -6,7 +6,13 @@ import ItemForSale from './ItemForSale';
 
 import * as types from 'common/types';
 
-export default function Marketplace() {
+export default function Marketplace({
+  selectedItems
+}: {
+  selectedItems: types.DropdownSelectedItemsCallback<
+    types.KabanProductType & types.KabanCurrentValueProps
+  >;
+}) {
   return (
     <DropdownMenu
       styles={mappingMenuStyles}
@@ -14,6 +20,7 @@ export default function Marketplace() {
       renderSelect={RenderSelect}
       renderOptions={ItemForSale}
       arrow={false}
+      selectItems={selectedItems}
     />
   );
 }
