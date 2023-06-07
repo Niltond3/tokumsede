@@ -58,7 +58,8 @@ type CallbackNodeType<T> = (Item: T) => React.ReactNode;
  */
 // @reducer types
 export type InitialStatePurchaseProps = {
-  purchases: IPurchase[];
+  tempPurchases: PurchaseObjectProps[];
+  purchases: PurchaseObjectProps[];
   columns: PurchaseColumnsType;
 };
 
@@ -643,15 +644,17 @@ export type PaymentType = 'Cash' | 'CreditCard' | 'Pix' | 'IFood';
 
 type OriginType = 'Telefone' | 'Site' | 'App';
 
-interface IPurchase {
-  id: number;
+export type PurchaseObjectProps = {
+  id: string;
   priority: string;
   note: string;
   origin: OriginType;
-  client: IClient;
   distributorName: string;
   payment: PaymentType;
-  lifeCircle: {
+  price: number;
+  exchange: number;
+  client?: IClient;
+  lifeCircle?: {
     register: LifeCircleType;
     accepted: LifeCircleType;
     dispatched: LifeCircleType;
@@ -660,11 +663,12 @@ interface IPurchase {
     scheduled: LifeCircleType;
   };
   products: IProduct[];
-}
+};
 
 export enum PURCHASE_ACTION_TYPES {
   prepare = 'PREPARE_PURCHASE',
   create = 'CREATE_PURCHASE',
+  update = 'UPDATE_PURCHASE',
   delete = 'DELETE_PURCHASE'
 }
 
@@ -672,7 +676,11 @@ type PurchasePayload = {
   [PURCHASE_ACTION_TYPES.prepare]: { columnId: keyof PurchaseColumnsType };
   [PURCHASE_ACTION_TYPES.create]: {
     columnId: keyof PurchaseColumnsType;
-    purchase: IPurchase;
+    purchase: PurchaseObjectProps;
+  };
+  [PURCHASE_ACTION_TYPES.update]: {
+    id: string;
+    updateFields: Partial<PurchaseObjectProps>;
   };
   [PURCHASE_ACTION_TYPES.delete]: { id: number };
 };

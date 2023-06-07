@@ -10,24 +10,34 @@ export default function Body({
   dropDownId,
   purchaseId
 }: types.KabanPurchaseCardBodyProps) {
-  const handleSelectedItems = (
-    items: types.DropdownItemStateType<
-      types.KabanProductType & types.KabanCurrentValueProps
-    >
-  ) => {
-    if (Array.isArray(items)) {
-      items.
-    }
-  };
+  // const handleSelectedItems = (
+  //   items: types.DropdownItemStateType<
+  //     types.KabanProductType & types.KabanCurrentValueProps
+  //   >
+  // ) => {
+  //   if (Array.isArray(items)) {
+  //     items.
+  //   }
+  // };
   return (
     <>
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}
-      <Currency dropDownId={dropDownId} purchaseId={purchaseId} selectedItems={} />
+      <Currency
+        dropDownId={dropDownId}
+        purchaseId={purchaseId}
+        selectedItems={() => {
+          //emptly ignore
+        }}
+      />
       {/* PERSONAL --> CLIENT NAME ->  CLIENT PHONE NUMBER */}
       <Personal />
       {/* ADDRESS --> STREET -> NEIGHBORHOOD -> NUMBER -> COMPLEMENT -> REFERENCE*/}
       {/* PRODUCT --> PRODUCT -> UN VALUE -> QUANTITY -> TOTAL VALUE */}
-      <Request selectedItems={handleSelectedItems} />
+      <Request
+        selectedItems={() => {
+          //emptly ignore
+        }}
+      />
     </>
   );
 }

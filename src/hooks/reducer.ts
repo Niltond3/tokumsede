@@ -9,8 +9,23 @@ export const purchaseReducer = (
     case 'PREPARE_PURCHASE': {
       const { columnId } = action.payload;
       const newColumns = state.columns;
+      const temporaryId = `temp-${state.tempPurchases.length + 1}`;
+      const temporaryPurchase: types.PurchaseObjectProps = {
+        id: temporaryId,
+        distributorName: '',
+        note: '',
+        payment: 'Cash',
+        price: 0,
+        exchange: 0,
+        origin: 'Site',
+        products: [],
+        priority: 'normal'
+      };
 
-      newColumns[columnId].purchasesIds = [...newColumns[columnId].purchasesIds, ''];
+      newColumns[columnId].purchasesIds = [
+        ...newColumns[columnId].purchasesIds,
+        temporaryId
+      ];
 
       newColumns[columnId].countLabel = getCountRequestsByState(columnId, newColumns);
 
@@ -18,12 +33,16 @@ export const purchaseReducer = (
 
       return {
         ...state,
+        tempPurchases: [...state.tempPurchases, temporaryPurchase],
         columns: {
           ...newColumns
         }
       };
     }
     case 'CREATE_PURCHASE': {
+      return state;
+    }
+    case 'UPDATE_PURCHASE': {
       return state;
     }
     case 'DELETE_PURCHASE': {

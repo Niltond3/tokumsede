@@ -1,17 +1,26 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
+import { useContext } from 'react';
+
 import Body from './Components/Body';
 import Footer from './Components/Footer';
 import Head from './Components/Head';
 
 import * as types from 'common/types';
 import { motion } from 'framer-motion';
+import { AppContext } from 'hooks/usePurchase';
 
 export default function PurchaseCard({
   index,
   purchaseId,
   currentStatus
 }: types.KabanPurchaseCardProps) {
+  const { state, dispatch } = useContext(AppContext);
+  const { purchases, tempPurchases } = state;
+
+  function containsOnlyNumbers(str: string) {
+    return /^\d+$/.test(str);
+  }
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase();
   const base = 4;
   const time = (d: number) => d * base;

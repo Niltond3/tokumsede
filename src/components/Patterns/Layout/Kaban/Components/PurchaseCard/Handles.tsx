@@ -4,5 +4,7 @@ const ToClipboard = (event: React.MouseEvent<HTMLButtonElement>) => {
   event.preventDefault();
   navigator.clipboard.writeText(event.currentTarget.dataset.clipboard!);
 };
-
-export { ToClipboard };
+const containsOnlyNumbers = (str: string) => {
+  return /^\d+$/.test(str);
+};
+export { ToClipboard, containsOnlyNumbers };

@@ -6,6 +6,7 @@ import { purchaseReducer } from './reducer';
 import * as types from 'common/types';
 
 const initialState: types.InitialStatePurchaseProps = {
+  tempPurchases: [],
   purchases: [],
   columns: {
     PENDING: { id: 'PENDING', purchasesIds: [], countLabel: 0 },
