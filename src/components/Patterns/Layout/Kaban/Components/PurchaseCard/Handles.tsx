@@ -4,7 +4,10 @@ const ToClipboard = (event: React.MouseEvent<HTMLButtonElement>) => {
   event.preventDefault();
   navigator.clipboard.writeText(event.currentTarget.dataset.clipboard!);
 };
-const containsOnlyNumbers = (str: string) => {
-  return /^\d+$/.test(str);
-};
-export { ToClipboard, containsOnlyNumbers };
+
+const containsOnlyNumbers = (str: string) => /^\d+$/.test(str);
+
+const numberToCurrency = (num: number) =>
+  num.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+
+export { ToClipboard, containsOnlyNumbers, numberToCurrency };

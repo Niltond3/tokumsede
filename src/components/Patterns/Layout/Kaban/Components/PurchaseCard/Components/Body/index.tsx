@@ -22,22 +22,12 @@ export default function Body({
   return (
     <>
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}
-      <Currency
-        dropDownId={dropDownId}
-        purchaseId={purchaseId}
-        selectedItems={() => {
-          //emptly ignore
-        }}
-      />
+      <Currency dropDownId={dropDownId} purchaseId={purchaseId} />
       {/* PERSONAL --> CLIENT NAME ->  CLIENT PHONE NUMBER */}
       <Personal />
       {/* ADDRESS --> STREET -> NEIGHBORHOOD -> NUMBER -> COMPLEMENT -> REFERENCE*/}
       {/* PRODUCT --> PRODUCT -> UN VALUE -> QUANTITY -> TOTAL VALUE */}
-      <Request
-        selectedItems={() => {
-          //emptly ignore
-        }}
-      />
+      <Request purchaseId={purchaseId} />
     </>
   );
 }

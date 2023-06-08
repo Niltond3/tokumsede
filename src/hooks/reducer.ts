@@ -1,4 +1,5 @@
 import * as types from 'common/types';
+import { toInteger } from 'lodash';
 //{ ColumnsType, InitialPurchaseStateType, PurchaseActionsType }
 
 export const purchaseReducer = (
@@ -43,7 +44,33 @@ export const purchaseReducer = (
       return state;
     }
     case 'UPDATE_PURCHASE': {
-      return state;
+      const { id, updateFields } = action.payload;
+      const { purchases, tempPurchases } = state;
+      const isnum = /^\d+$/.test(id);
+      const index = toInteger(id.replace(/\D/g, '')) - 1;
+
+      const newState = (
+        array: types.PurchaseObjectProps[],
+        purchase: types.PurchaseObjectProps,
+        key: keyof types.InitialStatePurchaseProps
+      ) => {
+        const purchases = [
+          ...array.slice(0, index),
+          { ...purchase, ...updateFields },
+          ...array.slice(index + 1)
+        ];
+        return {
+          ...state,
+          [key]: purchases
+        };
+      };
+
+      if (isnum) {
+        const purchase = purchases[index];
+        return newState(purchases, purchase, 'purchases');
+      }
+      const purchase = tempPurchases[index];
+      return newState(tempPurchases, purchase, 'tempPurchases');
     }
     case 'DELETE_PURCHASE': {
       return state;

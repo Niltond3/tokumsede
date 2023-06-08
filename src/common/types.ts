@@ -387,7 +387,7 @@ export type DropdownTriggerProps<T> = RenderSelectDropdownProps<T> & {
   separator: boolean;
   className: TriggerStyleProps;
 };
-export type DropdownSelectedItemsCallback<T> = (Item: DropdownItemStateType<T>) => void;
+type DropdownSelectedItemsCallback<T> = (Item: DropdownItemStateType<T>) => void;
 
 export type DropdownSelectProps<T> = RenderSelectDropdownProps<T> &
   Omit<DropdownListOptionsProps<T>, 'closeMenu' | 'controls' | 'className'> & {
@@ -490,11 +490,10 @@ export type KabanPurchaseCardBodyProps = {
 export type KabanCardCurrencyProps = {
   dropDownId: string;
   purchaseId: string;
-  selectedItems: DropdownSelectedItemsCallback<KabanProductType & KabanCurrentValueProps>;
 };
 
-export type KabanCardCurrencyInitialState = {
-  paymentType: PaymentType;
+export type KabanCardRequestProps = {
+  purchaseId: string;
 };
 
 export type KabanCardCurrencyPaymentLiProps = {

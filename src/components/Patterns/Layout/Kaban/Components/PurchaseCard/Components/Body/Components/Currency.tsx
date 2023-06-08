@@ -5,7 +5,7 @@ import Tooltip from 'components/Ui/DataDisplay/Tooltip';
 import Button from 'components/Ui/Inputs/Button';
 import TextField from 'components/Ui/Inputs/TextField';
 
-import { ToClipboard, containsOnlyNumbers } from '../../../Handles';
+import { ToClipboard, containsOnlyNumbers, numberToCurrency } from '../../../Handles';
 import SessionWrapper from './SessionWrapper';
 
 import * as types from 'common/types';
@@ -15,20 +15,17 @@ import { toInteger } from 'lodash';
 
 export default function Currency({
   dropDownId,
-  purchaseId,
-  selectedItems
+  purchaseId
 }: types.KabanCardCurrencyProps) {
   const paymentForms: types.IconsKey[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
-  const initialState: types.KabanCardCurrencyInitialState = {
-    paymentType: 'Cash'
-  };
+
   // const [state, setState] = useState(initialState);
   // const { paymentType } = state;
   const { state, dispatch } = useContext(AppContext);
   const { update } = types.PURCHASE_ACTION_TYPES;
   const { purchases, tempPurchases } = state;
   const searchArray = containsOnlyNumbers(purchaseId) ? purchases : tempPurchases;
-  const index = toInteger(purchaseId.replace(/\D/g, ''));
+  const index = toInteger(purchaseId.replace(/\D/g, '')) - 1;
   const purchase = searchArray[index];
 
   const handleClickChangePayment = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,12 +38,12 @@ export default function Currency({
       type: update,
       payload: { id: purchaseId, updateFields: { payment: newPaymentType } }
     });
-
-    // setState({ ...state, paymentType: value as types.PaymentType });
   };
 
-  const { payment } = purchase;
-  console.log(purchase);
+  const { payment, price, exchange } = purchase;
+  const currencyPrice = numberToCurrency(price);
+  const currencyExchange = numberToCurrency(exchange);
+
   return (
     <SessionWrapper>
       <div className="flex justify-between gap-2">
@@ -87,7 +84,7 @@ export default function Currency({
             data-clipboard="Total a pagar: R$ 00,00"
             iconL="CurrencyReal"
           >
-            00,00
+            {currencyPrice}
           </Button>
         </Tooltip>
         <Tooltip side="top" content="Troco">

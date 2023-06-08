@@ -18,9 +18,6 @@ export default function PurchaseCard({
   const { state, dispatch } = useContext(AppContext);
   const { purchases, tempPurchases } = state;
 
-  function containsOnlyNumbers(str: string) {
-    return /^\d+$/.test(str);
-  }
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase();
   const base = 4;
   const time = (d: number) => d * base;
