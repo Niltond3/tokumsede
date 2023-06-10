@@ -7,15 +7,6 @@ import Request from './Components/Request';
 import * as types from 'common/types';
 
 export default function Body({ dropDownId, purchase }: types.KabanPurchaseCardBodyProps) {
-  // const handleSelectedItems = (
-  //   items: types.DropdownItemStateType<
-  //     types.KabanProductType & types.KabanCurrentValueProps
-  //   >
-  // ) => {
-  //   if (Array.isArray(items)) {
-  //     items.
-  //   }
-  // };
   return (
     <>
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}

@@ -8,23 +8,15 @@ import TextField from 'components/Ui/Inputs/TextField';
 import SessionWrapper from './SessionWrapper';
 
 import * as types from 'common/types';
-import { ToClipboard, containsOnlyNumbers, numberToCurrency } from 'common/utils';
+import { ToClipboard, numberToCurrency } from 'common/utils';
 import { AppContext } from 'hooks/usePurchase';
 import $ from 'jquery';
-import { toInteger } from 'lodash';
 
-export default function Currency({
-  dropDownId,
-  purchaseId
-}: types.KabanCardCurrencyProps) {
+export default function Currency({ dropDownId, purchase }: types.KabanCardCurrencyProps) {
   const paymentForms: types.IconsKey[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
-
-  const { state, dispatch } = useContext(AppContext);
+  const purchaseId = purchase.id;
+  const { dispatch } = useContext(AppContext);
   const { update } = types.PURCHASE_ACTION_TYPES;
-  const { purchases, tempPurchases } = state;
-  const searchArray = containsOnlyNumbers(purchaseId) ? purchases : tempPurchases;
-  const index = toInteger(purchaseId.replace(/\D/g, '')) - 1;
-  const purchase = searchArray[index];
 
   const handleClickChangePayment = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();

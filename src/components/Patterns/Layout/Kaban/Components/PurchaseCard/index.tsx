@@ -36,9 +36,8 @@ export default function PurchaseCard({
             {...provider.draggableProps}
             ref={provider.innerRef}
             onDragStart={() => provider.dragHandleProps?.onDragStart}
-            initial={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0 }}
             animate={{
-              height: 'min-content',
               opacity: 1,
               transition: {
                 type: 'spring',
@@ -46,11 +45,9 @@ export default function PurchaseCard({
                 opacity: { delaty: time(0.025) }
               }
             }}
-            exit={{ opacity: 0, height: 0 }}
+            exit={{ opacity: 0 }}
             transition={{
               duration: time(0.15),
-              type: 'spring',
-              bounce: 0,
               opacity: { duration: time(0.03) }
             }}
             className="mt-2 max-w-[12rem] flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base transition @container"

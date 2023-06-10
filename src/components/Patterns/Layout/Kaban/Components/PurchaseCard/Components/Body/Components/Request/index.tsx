@@ -6,9 +6,7 @@ import SessionWrapper from '../SessionWrapper';
 import ItemForSale from './Components/ItemForSale';
 
 import * as types from 'common/types';
-import { containsOnlyNumbers } from 'common/utils';
 import { AppContext } from 'hooks/usePurchase';
-import { toInteger } from 'lodash';
 
 export default function Request({ purchase }: types.KabanCardRequestProps) {
   const { dispatch } = useContext(AppContext);
@@ -17,6 +15,7 @@ export default function Request({ purchase }: types.KabanCardRequestProps) {
   return (
     <SessionWrapper className="flex min-h-[2rem] gap-2">
       <DropdownMenu
+        initialState={purchase.products}
         styles={mappingMenuStyles}
         list={products}
         renderSelect={RenderSelect}
@@ -29,11 +28,15 @@ export default function Request({ purchase }: types.KabanCardRequestProps) {
 
           const newPrice = getPrice(itemsAsArray);
 
-          if (newPrice !== purchase.price)
+          if (newPrice !== purchase.price && itemsAsArray != purchase.products) {
             dispatch({
               type: update,
-              payload: { id: purchase.id, updateFields: { price: newPrice } }
+              payload: {
+                id: purchase.id,
+                updateFields: { products: itemsAsArray, price: newPrice }
+              }
             });
+          }
         }}
       />
     </SessionWrapper>

@@ -8,6 +8,7 @@ import PurchaseCard from './PurchaseCard';
 
 import * as types from 'common/types';
 import { AnimatePresence } from 'framer-motion';
+import { AppContext } from 'hooks/usePurchase';
 
 export default function Column({
   id,
@@ -78,20 +79,11 @@ export default function Column({
           >
             <AnimatePresence initial={false}>
               {purchasesIds.map((value, index) => {
-                const purchaseId = value;
-                const { state, dispatch } = useContext(AppContext);
-                const { update } = types.PURCHASE_ACTION_TYPES;
-                const { purchases, tempPurchases } = state;
-                const searchArray = containsOnlyNumbers(purchaseId)
-                  ? purchases
-                  : tempPurchases;
-                const index = toInteger(purchaseId.replace(/\D/g, '')) - 1;
-                const purchase = searchArray[index];
                 return (
                   <PurchaseCard
                     key={`${index}-${value}-${id}`}
                     index={index}
-                    purchase
+                    purchaseId={`${value}`}
                     currentStatus={`${id}`}
                   />
                 );

@@ -400,6 +400,7 @@ export type DropdownSelectProps<T> = RenderSelectDropdownProps<T> &
       dropdownContent: string;
     };
     selectItems: DropdownSelectedItemsCallback<T>;
+    initialState: DropdownDefaultProps<T>[] | DropdownDefaultProps<T>;
   };
 
 /**
@@ -634,13 +635,6 @@ interface IClient {
   address: AddressType;
 }
 
-interface IProduct {
-  id: number;
-  name: string;
-  quantity: number;
-  price: number;
-}
-
 export type PaymentType = 'Cash' | 'CreditCard' | 'Pix' | 'IFood';
 
 type OriginType = 'Telefone' | 'Site' | 'App';
@@ -663,7 +657,7 @@ export type PurchaseObjectProps = {
     canceled: LifeCircleType;
     scheduled: LifeCircleType;
   };
-  products: IProduct[];
+  products: DropdownDefaultProps<KabanProductType & KabanCurrentValueProps>[];
 };
 
 export enum PURCHASE_ACTION_TYPES {

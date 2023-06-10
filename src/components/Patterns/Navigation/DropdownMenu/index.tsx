@@ -15,11 +15,10 @@ export default function DropdownMenu<T>({
   renderSelect,
   renderOptions,
   styles,
-  selectItems
+  selectItems,
+  initialState
 }: types.DropdownSelectProps<T>) {
-  const [item, setItem] = useState<types.DropdownItemStateType<T>>(
-    [] as types.DropdownDefaultProps<T>[] | object as types.DropdownDefaultProps<T>
-  );
+  const [item, setItem] = useState<types.DropdownItemStateType<T>>(initialState);
   const [open, setOpen] = useState(false);
   selectItems(item);
 
