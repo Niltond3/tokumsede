@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
+
 import Icons from 'components/Ui/DataDisplay/Icons';
 import Button from 'components/Ui/Inputs/Button';
 
@@ -66,18 +69,38 @@ export default function Column({
           />
         </div>
       </div>
-      <ul className="max-h-[75vh] min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300 transition-faster">
-        <AnimatePresence initial={false}>
-          {purchasesIds.map((value, index) => (
-            <PurchaseCard
-              key={`${index}-${value}-${id}`}
-              index={index}
-              purchaseId={`${value}`}
-              currentStatus={`${id}`}
-            />
-          ))}
-        </AnimatePresence>
-      </ul>
+      <Droppable droppableId={id}>
+        {(provider) => (
+          <ul
+            ref={provider.innerRef}
+            {...provider.droppableProps}
+            className="max-h-[75vh] min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300 transition-faster"
+          >
+            <AnimatePresence initial={false}>
+              {purchasesIds.map((value, index) => {
+                const purchaseId = value;
+                const { state, dispatch } = useContext(AppContext);
+                const { update } = types.PURCHASE_ACTION_TYPES;
+                const { purchases, tempPurchases } = state;
+                const searchArray = containsOnlyNumbers(purchaseId)
+                  ? purchases
+                  : tempPurchases;
+                const index = toInteger(purchaseId.replace(/\D/g, '')) - 1;
+                const purchase = searchArray[index];
+                return (
+                  <PurchaseCard
+                    key={`${index}-${value}-${id}`}
+                    index={index}
+                    purchase
+                    currentStatus={`${id}`}
+                  />
+                );
+              })}
+            </AnimatePresence>
+            {provider.placeholder}
+          </ul>
+        )}
+      </Droppable>
       <Button typeOf="secondary" onClick={onClick} iconL="Add" className="gap-2">
         Fazer novo pedido
       </Button>

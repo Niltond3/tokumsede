@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import Icons from 'components/Ui/DataDisplay/Icons';
 import Tooltip from 'components/Ui/DataDisplay/Tooltip';
 import Button from 'components/Ui/Inputs/Button';
 import TextField from 'components/Ui/Inputs/TextField';
 
-import { ToClipboard, containsOnlyNumbers, numberToCurrency } from '../../../Handles';
 import SessionWrapper from './SessionWrapper';
 
 import * as types from 'common/types';
+import { ToClipboard, containsOnlyNumbers, numberToCurrency } from 'common/utils';
 import { AppContext } from 'hooks/usePurchase';
 import $ from 'jquery';
 import { toInteger } from 'lodash';
@@ -19,8 +19,6 @@ export default function Currency({
 }: types.KabanCardCurrencyProps) {
   const paymentForms: types.IconsKey[] = ['Cash', 'CreditCard', 'Pix', 'IFood'];
 
-  // const [state, setState] = useState(initialState);
-  // const { paymentType } = state;
   const { state, dispatch } = useContext(AppContext);
   const { update } = types.PURCHASE_ACTION_TYPES;
   const { purchases, tempPurchases } = state;

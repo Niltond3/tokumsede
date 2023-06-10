@@ -6,10 +6,7 @@ import Request from './Components/Request';
 
 import * as types from 'common/types';
 
-export default function Body({
-  dropDownId,
-  purchaseId
-}: types.KabanPurchaseCardBodyProps) {
+export default function Body({ dropDownId, purchase }: types.KabanPurchaseCardBodyProps) {
   // const handleSelectedItems = (
   //   items: types.DropdownItemStateType<
   //     types.KabanProductType & types.KabanCurrentValueProps
@@ -22,12 +19,12 @@ export default function Body({
   return (
     <>
       {/* CURRENCY --> CURRENCY TYPE -> PAYMENT TOTAL -> EXCHANGE VALUE */}
-      <Currency dropDownId={dropDownId} purchaseId={purchaseId} />
+      <Currency dropDownId={dropDownId} purchase={purchase} />
       {/* PERSONAL --> CLIENT NAME ->  CLIENT PHONE NUMBER */}
       <Personal />
       {/* ADDRESS --> STREET -> NEIGHBORHOOD -> NUMBER -> COMPLEMENT -> REFERENCE*/}
       {/* PRODUCT --> PRODUCT -> UN VALUE -> QUANTITY -> TOTAL VALUE */}
-      <Request purchaseId={purchaseId} />
+      <Request purchase={purchase} />
     </>
   );
 }

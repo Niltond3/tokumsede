@@ -1,5 +1,6 @@
 'use client';
 import { useContext, Dispatch } from 'react';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import Column from './Components/Column';
 
@@ -9,10 +10,28 @@ import { AppContext } from 'hooks/usePurchase';
 export default function Kaban() {
   const { state, dispatch } = useContext(AppContext);
   const { columns } = state;
-
+  const onDragEndHandler = (result: DropResult) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+    if (source.droppableId === destination.droppableId) {
+      const { reorder } = types.PURCHASE_ACTION_TYPES;
+      dispatch({
+        type: reorder,
+        payload: { source, destination, purchaseId: draggableId }
+      });
+    }
+    //empty for now
+  };
   return (
     <div className="relative flex flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm">
-      {renderColumns(columns, dispatch)}
+      <DragDropContext onDragEnd={onDragEndHandler}>
+        {renderColumns(columns, dispatch)}
+      </DragDropContext>
     </div>
   );
 }
@@ -22,7 +41,7 @@ const renderColumns = (
   dispatch: Dispatch<types.ActionPurchaseProps>
 ) => {
   const myColumns: JSX.Element[] = [];
-  let key: keyof typeof columns;
+  let key: keyof types.PurchaseColumnsType;
 
   for (key in columns) {
     const { id, purchasesIds, countLabel } = columns[key];

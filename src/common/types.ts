@@ -1,6 +1,7 @@
 import { NextComponentType, NextPageContext } from 'next';
 import type { AppProps } from 'next/app';
 import { StaticImageData } from 'next/image';
+import { DraggableLocation } from 'react-beautiful-dnd';
 
 import * as icons from 'components/Ui/DataDisplay/Icons';
 import imgPaths from 'components/Ui/DataDisplay/Images/ImagesPaths';
@@ -57,15 +58,6 @@ type CallbackNodeType<T> = (Item: T) => React.ReactNode;
  * -usePurchase
  */
 // @reducer types
-export type InitialStatePurchaseProps = {
-  tempPurchases: PurchaseObjectProps[];
-  purchases: PurchaseObjectProps[];
-  columns: PurchaseColumnsType;
-};
-
-export type ActionPurchaseProps =
-  ActionMap<PurchasePayload>[keyof ActionMap<PurchasePayload>];
-
 export type PurchaseColumnsType = {
   PENDING: PurchaseColumnProps;
   ACCEPTED: PurchaseColumnProps;
@@ -75,6 +67,12 @@ export type PurchaseColumnsType = {
   SCHEDULED: PurchaseColumnProps;
 };
 
+export type InitialStatePurchaseProps = {
+  tempPurchases: PurchaseObjectProps[];
+  purchases: PurchaseObjectProps[];
+  columns: PurchaseColumnsType;
+};
+
 export type PurchaseColumnsKey = keyof PurchaseColumnsType;
 
 export type PurchaseColumnProps = {
@@ -82,6 +80,10 @@ export type PurchaseColumnProps = {
   countLabel: number | string;
   purchasesIds: (string | number)[];
 };
+
+export type ActionPurchaseProps =
+  ActionMap<PurchasePayload>[keyof ActionMap<PurchasePayload>];
+
 /**
  * icons related types
  */
@@ -484,16 +486,16 @@ export type KabanPurchaseCardProps = {
 
 export type KabanPurchaseCardBodyProps = {
   dropDownId: string;
-  purchaseId: string;
+  purchase: PurchaseObjectProps;
 };
 
 export type KabanCardCurrencyProps = {
   dropDownId: string;
-  purchaseId: string;
+  purchase: PurchaseObjectProps;
 };
 
 export type KabanCardRequestProps = {
-  purchaseId: string;
+  purchase: PurchaseObjectProps;
 };
 
 export type KabanCardCurrencyPaymentLiProps = {
@@ -665,6 +667,7 @@ export type PurchaseObjectProps = {
 };
 
 export enum PURCHASE_ACTION_TYPES {
+  reorder = 'REORDER_COLUMNS',
   prepare = 'PREPARE_PURCHASE',
   create = 'CREATE_PURCHASE',
   update = 'UPDATE_PURCHASE',
@@ -672,6 +675,11 @@ export enum PURCHASE_ACTION_TYPES {
 }
 
 type PurchasePayload = {
+  [PURCHASE_ACTION_TYPES.reorder]: {
+    purchaseId: string;
+    destination: DraggableLocation;
+    source: DraggableLocation;
+  };
   [PURCHASE_ACTION_TYPES.prepare]: { columnId: keyof PurchaseColumnsType };
   [PURCHASE_ACTION_TYPES.create]: {
     columnId: keyof PurchaseColumnsType;

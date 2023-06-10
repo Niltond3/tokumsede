@@ -1,22 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import DropdownMenu from 'components/Patterns/Navigation/DropdownMenu';
 
-import { containsOnlyNumbers } from '../../../../Handles';
 import SessionWrapper from '../SessionWrapper';
 import ItemForSale from './Components/ItemForSale';
 
 import * as types from 'common/types';
+import { containsOnlyNumbers } from 'common/utils';
 import { AppContext } from 'hooks/usePurchase';
 import { toInteger } from 'lodash';
 
-export default function Request({ purchaseId }: types.KabanCardRequestProps) {
-  const { state, dispatch } = useContext(AppContext);
+export default function Request({ purchase }: types.KabanCardRequestProps) {
+  const { dispatch } = useContext(AppContext);
   const { update } = types.PURCHASE_ACTION_TYPES;
-  const { purchases, tempPurchases } = state;
-  const searchArray = containsOnlyNumbers(purchaseId) ? purchases : tempPurchases;
-  const index = toInteger(purchaseId.replace(/\D/g, '')) - 1;
-  const purchase = searchArray[index];
 
   return (
     <SessionWrapper className="flex min-h-[2rem] gap-2">
@@ -27,11 +23,17 @@ export default function Request({ purchaseId }: types.KabanCardRequestProps) {
         renderOptions={ItemForSale}
         arrow={false}
         selectItems={(items) => {
-          const {} = items;
-          dispatch({
-            type: update,
-            payload: { id: purchaseId, updateFields: { payment: newPaymentType } }
-          });
+          const itemsAsArray = items as types.DropdownDefaultProps<
+            types.KabanProductType & types.KabanCurrentValueProps
+          >[];
+
+          const newPrice = getPrice(itemsAsArray);
+
+          if (newPrice !== purchase.price)
+            dispatch({
+              type: update,
+              payload: { id: purchase.id, updateFields: { price: newPrice } }
+            });
         }}
       />
     </SessionWrapper>
@@ -156,6 +158,15 @@ const products: types.DropdownProductProps[] = [
     unavailable: true
   }
 ];
-function useContext(AppContext: any): { state: any; dispatch: any } {
-  throw new Error('Function not implemented.');
-}
+
+const getPrice = (
+  array: types.DropdownDefaultProps<
+    types.KabanProductType & types.KabanCurrentValueProps
+  >[]
+) => {
+  let totalPrice = 0;
+  array.forEach((item) => {
+    if (item.price && item.quantity) totalPrice = totalPrice + item.price * item.quantity;
+  });
+  return totalPrice;
+};

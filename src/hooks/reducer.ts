@@ -1,12 +1,27 @@
 import * as types from 'common/types';
+import { containsOnlyNumbers } from 'common/utils';
 import { toInteger } from 'lodash';
-//{ ColumnsType, InitialPurchaseStateType, PurchaseActionsType }
 
 export const purchaseReducer = (
   state: types.InitialStatePurchaseProps,
   action: types.ActionPurchaseProps
 ) => {
   switch (action.type) {
+    case 'REORDER_COLUMNS': {
+      const { destination, source, purchaseId } = action.payload;
+      const column = state.columns[source.droppableId as types.PurchaseColumnsKey];
+      const newPurchasesIds = Array.from(column.purchasesIds);
+      newPurchasesIds.splice(source.index, 1);
+      newPurchasesIds.splice(destination.index, 0, purchaseId);
+
+      const newColumn = { ...column, purchasesIds: newPurchasesIds };
+
+      const newColumns = { ...state.columns, [newColumn.id]: newColumn };
+      return {
+        ...state,
+        columns: newColumns
+      };
+    }
     case 'PREPARE_PURCHASE': {
       const { columnId } = action.payload;
       const newColumns = state.columns;
@@ -46,7 +61,6 @@ export const purchaseReducer = (
     case 'UPDATE_PURCHASE': {
       const { id, updateFields } = action.payload;
       const { purchases, tempPurchases } = state;
-      const isnum = /^\d+$/.test(id);
       const index = toInteger(id.replace(/\D/g, '')) - 1;
 
       const newState = (
@@ -65,7 +79,7 @@ export const purchaseReducer = (
         };
       };
 
-      if (isnum) {
+      if (containsOnlyNumbers(id)) {
         const purchase = purchases[index];
         return newState(purchases, purchase, 'purchases');
       }

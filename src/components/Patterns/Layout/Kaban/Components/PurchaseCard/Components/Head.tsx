@@ -4,8 +4,9 @@ import { Copy, Number } from 'components/Ui/DataDisplay/Icons';
 import Tooltip from 'components/Ui/DataDisplay/Tooltip';
 import Button from 'components/Ui/Inputs/Button';
 
-import { ToClipboard } from '../Handles';
 import SessionWrapper from './Body/Components/SessionWrapper';
+
+import { ToClipboard } from 'common/utils';
 
 /*ID NUMBER -> DISTRIBUTOR NAME */
 export default function Head() {

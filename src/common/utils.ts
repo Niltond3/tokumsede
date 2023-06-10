@@ -10,4 +10,6 @@ const containsOnlyNumbers = (str: string) => /^\d+$/.test(str);
 const numberToCurrency = (num: number) =>
   num.toLocaleString('pt-br', { minimumFractionDigits: 2 });
 
-export { ToClipboard, containsOnlyNumbers, numberToCurrency };
+const isArray = (object: any) => Array.isArray(object);
+
+export { ToClipboard, containsOnlyNumbers, numberToCurrency, isArray };
