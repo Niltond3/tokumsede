@@ -18,7 +18,7 @@ export default function Tooltip({
 }: TooltipProps) {
   React.useLayoutEffect = React.useEffect;
   return (
-    <TooltipPrimitive.Root delayDuration={0}>
+    <TooltipPrimitive.Root delayDuration={0} disableHoverableContent>
       <TooltipPrimitive.Trigger asChild>
         {asChild ? (
           children
