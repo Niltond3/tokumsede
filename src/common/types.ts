@@ -668,7 +668,7 @@ export enum PURCHASE_ACTION_TYPES {
   delete = 'DELETE_PURCHASE'
 }
 
-type PurchasePayload = {
+export type PurchasePayload = {
   [PURCHASE_ACTION_TYPES.reorder]: {
     purchaseId: string;
     destination: DraggableLocation;
@@ -684,4 +684,9 @@ type PurchasePayload = {
     updateFields: Partial<PurchaseObjectProps>;
   };
   [PURCHASE_ACTION_TYPES.delete]: { id: number };
+};
+
+export type ActionHandlersProps = {
+  state: InitialStatePurchaseProps;
+  action: ActionPurchaseProps;
 };
