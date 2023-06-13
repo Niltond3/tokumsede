@@ -16,7 +16,13 @@ import { AnimationControls } from 'framer-motion';
 /**
  * utils related types
  */
-
+/**
+ * Generics
+ * V=Value
+ * K=Key
+ * T=Type
+ * E=Element
+ */
 export type NavigationProps = {
   title: string;
   icon: IconsKey;
@@ -32,13 +38,15 @@ export type FragmentProps = {
   className?: string;
 };
 
+type CallbackNodeType<T> = (Item: T) => React.ReactNode;
+
 /**
- * Generics
- * V=Value
- * K=Key
- * T=Type
- * E=Element
+ * hooks related types
+ * -reducer
+ * -usePurchase
  */
+// @reducer types
+
 export type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {
@@ -50,14 +58,48 @@ export type ActionMap<M extends { [index: string]: any }> = {
       };
 };
 
-type CallbackNodeType<T> = (Item: T) => React.ReactNode;
+export type ActionPurchaseProps =
+  ActionMap<PurchasePayload>[keyof ActionMap<PurchasePayload>];
 
-/**
- * hooks related types
- * -reducer
- * -usePurchase
- */
-// @reducer types
+export enum PURCHASE_ACTION_TYPES {
+  reorder = 'REORDER_COLUMNS',
+  prepare = 'PREPARE_PURCHASE',
+  create = 'CREATE_PURCHASE',
+  update = 'UPDATE_PURCHASE',
+  delete = 'DELETE_PURCHASE'
+}
+
+export type PurchasePayload = {
+  [PURCHASE_ACTION_TYPES.reorder]: {
+    purchaseId: string;
+    destination: DraggableLocation;
+    source: DraggableLocation;
+  };
+  [PURCHASE_ACTION_TYPES.prepare]: { columnId: keyof PurchaseColumnsType };
+  [PURCHASE_ACTION_TYPES.create]: {
+    columnId: keyof PurchaseColumnsType;
+    purchase: PurchaseObjectProps;
+  };
+  [PURCHASE_ACTION_TYPES.update]: {
+    id: string;
+    updateFields: Partial<PurchaseObjectProps>;
+  };
+  [PURCHASE_ACTION_TYPES.delete]: { id: number };
+};
+
+type A<key extends PURCHASE_ACTION_TYPES> = (
+  state: InitialStatePurchaseProps,
+  payload: PurchasePayload[key]
+) => InitialStatePurchaseProps;
+
+export type ActionHandlersProps = {
+  [PURCHASE_ACTION_TYPES.reorder]: A<PURCHASE_ACTION_TYPES.reorder>;
+  [PURCHASE_ACTION_TYPES.prepare]: A<PURCHASE_ACTION_TYPES.prepare>;
+  [PURCHASE_ACTION_TYPES.create]: A<PURCHASE_ACTION_TYPES.create>;
+  [PURCHASE_ACTION_TYPES.update]: A<PURCHASE_ACTION_TYPES.update>;
+  [PURCHASE_ACTION_TYPES.delete]: A<PURCHASE_ACTION_TYPES.delete>;
+};
+
 export type PurchaseColumnsType = {
   PENDING: PurchaseColumnProps;
   ACCEPTED: PurchaseColumnProps;
@@ -80,9 +122,6 @@ export type PurchaseColumnProps = {
   countLabel: number | string;
   purchasesIds: (string | number)[];
 };
-
-export type ActionPurchaseProps =
-  ActionMap<PurchasePayload>[keyof ActionMap<PurchasePayload>];
 
 /**
  * icons related types
@@ -658,35 +697,4 @@ export type PurchaseObjectProps = {
     scheduled: LifeCircleType;
   };
   products: DropdownDefaultProps<KabanProductType & KabanCurrentValueProps>[];
-};
-
-export enum PURCHASE_ACTION_TYPES {
-  reorder = 'REORDER_COLUMNS',
-  prepare = 'PREPARE_PURCHASE',
-  create = 'CREATE_PURCHASE',
-  update = 'UPDATE_PURCHASE',
-  delete = 'DELETE_PURCHASE'
-}
-
-export type PurchasePayload = {
-  [PURCHASE_ACTION_TYPES.reorder]: {
-    purchaseId: string;
-    destination: DraggableLocation;
-    source: DraggableLocation;
-  };
-  [PURCHASE_ACTION_TYPES.prepare]: { columnId: keyof PurchaseColumnsType };
-  [PURCHASE_ACTION_TYPES.create]: {
-    columnId: keyof PurchaseColumnsType;
-    purchase: PurchaseObjectProps;
-  };
-  [PURCHASE_ACTION_TYPES.update]: {
-    id: string;
-    updateFields: Partial<PurchaseObjectProps>;
-  };
-  [PURCHASE_ACTION_TYPES.delete]: { id: number };
-};
-
-export type ActionHandlersProps = {
-  state: InitialStatePurchaseProps;
-  action: ActionPurchaseProps;
 };
