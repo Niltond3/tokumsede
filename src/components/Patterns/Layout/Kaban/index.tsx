@@ -18,13 +18,11 @@ export default function Kaban() {
       destination.index === source.index
     )
       return;
-    if (source.droppableId === destination.droppableId) {
-      const { reorder } = types.PURCHASE_ACTION_TYPES;
-      return dispatch({
-        type: reorder,
-        payload: { source, destination, purchaseId: draggableId }
-      });
-    }
+    const { reorder } = types.PURCHASE_ACTION_TYPES;
+    return dispatch({
+      type: reorder,
+      payload: { source, destination, purchaseId: draggableId }
+    });
   };
   return (
     <div className="relative flex flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm">

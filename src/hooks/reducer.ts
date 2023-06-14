@@ -15,9 +15,10 @@ export const purchaseReducer = (
   state: types.InitialStatePurchaseProps,
   action: types.ActionPurchaseProps
 ) => {
-  const { type } = action;
+  const { type, payload } = action;
   const actionHandler = actionHandlers[type];
-  const payload = action.payload as unknown as types.PurchasePayload[typeof type];
-  if (actionHandler) return actionHandler(state, payload);
+
+  if (actionHandler)
+    return actionHandler(state, payload as types.UnionToIntersection<typeof payload>);
   return state;
 };

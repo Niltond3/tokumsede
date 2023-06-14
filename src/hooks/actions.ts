@@ -7,14 +7,53 @@ export function reorderColumns(
   payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder]
 ) {
   const { destination, source, purchaseId } = payload;
-  const column = state.columns[source.droppableId as types.PurchaseColumnsKey];
-  const newPurchasesIds = Array.from(column.purchasesIds);
-  newPurchasesIds.splice(source.index, 1);
-  newPurchasesIds.splice(destination.index, 0, purchaseId);
+  const reorganizeColumn = () => {
+    const column = state.columns[source.droppableId as types.PurchaseColumnsKey];
+    const newPurchasesIds = Array.from(column.purchasesIds);
+    newPurchasesIds.splice(source.index, 1);
+    newPurchasesIds.splice(destination.index, 0, purchaseId);
 
-  const newColumn = { ...column, purchasesIds: newPurchasesIds };
+    const newColumn = { ...column, purchasesIds: newPurchasesIds };
 
-  const newColumns = { ...state.columns, [newColumn.id]: newColumn };
+    return { ...state.columns, [newColumn.id]: newColumn };
+  };
+  console.log('source.droppableId');
+  console.log(source.droppableId);
+  console.log('destination.droppableId');
+  console.log(destination.droppableId);
+  if (source.droppableId == destination.droppableId)
+    return {
+      ...state,
+      columns: reorganizeColumn()
+    };
+  const sourceColumn = state.columns[source.droppableId as types.PurchaseColumnsKey];
+  const destinationColumn =
+    state.columns[destination.droppableId as types.PurchaseColumnsKey];
+
+  const newSourceColumnPurchasesIds = [
+    ...sourceColumn.purchasesIds.slice(0, source.index),
+    ...sourceColumn.purchasesIds.slice(source.index + 1)
+  ];
+
+  const newDestinationColumnPurchaseIds = [
+    ...destinationColumn.purchasesIds.slice(0, destination.index),
+    purchaseId,
+    ...destinationColumn.purchasesIds.slice(destination.index + 1)
+  ];
+
+  const newSourceColumn = { ...sourceColumn, purchasesIds: newSourceColumnPurchasesIds };
+  const newDestinationColumn = {
+    ...destinationColumn,
+    purchasesIds: newDestinationColumnPurchaseIds
+  };
+  //    return { ...state.columns, [newColumn.id]: newColumn };
+
+  const newColumns = {
+    ...state.columns,
+    [newSourceColumn.id]: newSourceColumn,
+    [newDestinationColumn.id]: newDestinationColumn
+  };
+
   return {
     ...state,
     columns: newColumns

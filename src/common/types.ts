@@ -23,6 +23,12 @@ import { AnimationControls } from 'framer-motion';
  * T=Type
  * E=Element
  */
+export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I
+) => void
+  ? I
+  : never;
+
 export type NavigationProps = {
   title: string;
   icon: IconsKey;
@@ -87,17 +93,17 @@ export type PurchasePayload = {
   [PURCHASE_ACTION_TYPES.delete]: { id: number };
 };
 
-type A<key extends PURCHASE_ACTION_TYPES> = (
+type ActionCallback<key extends PURCHASE_ACTION_TYPES> = (
   state: InitialStatePurchaseProps,
   payload: PurchasePayload[key]
 ) => InitialStatePurchaseProps;
 
 export type ActionHandlersProps = {
-  [PURCHASE_ACTION_TYPES.reorder]: A<PURCHASE_ACTION_TYPES.reorder>;
-  [PURCHASE_ACTION_TYPES.prepare]: A<PURCHASE_ACTION_TYPES.prepare>;
-  [PURCHASE_ACTION_TYPES.create]: A<PURCHASE_ACTION_TYPES.create>;
-  [PURCHASE_ACTION_TYPES.update]: A<PURCHASE_ACTION_TYPES.update>;
-  [PURCHASE_ACTION_TYPES.delete]: A<PURCHASE_ACTION_TYPES.delete>;
+  [PURCHASE_ACTION_TYPES.reorder]: ActionCallback<PURCHASE_ACTION_TYPES.reorder>;
+  [PURCHASE_ACTION_TYPES.prepare]: ActionCallback<PURCHASE_ACTION_TYPES.prepare>;
+  [PURCHASE_ACTION_TYPES.create]: ActionCallback<PURCHASE_ACTION_TYPES.create>;
+  [PURCHASE_ACTION_TYPES.update]: ActionCallback<PURCHASE_ACTION_TYPES.update>;
+  [PURCHASE_ACTION_TYPES.delete]: ActionCallback<PURCHASE_ACTION_TYPES.delete>;
 };
 
 export type PurchaseColumnsType = {
