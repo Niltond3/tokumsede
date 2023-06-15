@@ -7,56 +7,52 @@ export function reorderColumns(
   payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder]
 ) {
   const { destination, source, purchaseId } = payload;
-  const reorganizeColumn = () => {
-    const column = state.columns[source.droppableId as types.PurchaseColumnsKey];
-    const newPurchasesIds = Array.from(column.purchasesIds);
-    newPurchasesIds.splice(source.index, 1);
-    newPurchasesIds.splice(destination.index, 0, purchaseId);
+  const newState = { ...state };
+
+  if (source.droppableId == destination.droppableId) {
+    const column = newState.columns[source.droppableId as types.PurchaseColumnsKey];
+    const newPurchasesIds = [
+      ...column.purchasesIds.slice(0, source.index),
+      purchaseId,
+      ...column.purchasesIds.slice(source.index + 1)
+    ];
 
     const newColumn = { ...column, purchasesIds: newPurchasesIds };
 
-    return { ...state.columns, [newColumn.id]: newColumn };
-  };
-  console.log('source.droppableId');
-  console.log(source.droppableId);
-  console.log('destination.droppableId');
-  console.log(destination.droppableId);
-  if (source.droppableId == destination.droppableId)
     return {
-      ...state,
-      columns: reorganizeColumn()
+      ...newState,
+      columns: { ...newState.columns, [newColumn.id]: newColumn }
     };
-  const sourceColumn = state.columns[source.droppableId as types.PurchaseColumnsKey];
+  }
+
+  const sourceColumn = newState.columns[source.droppableId as types.PurchaseColumnsKey];
   const destinationColumn =
-    state.columns[destination.droppableId as types.PurchaseColumnsKey];
+    newState.columns[destination.droppableId as types.PurchaseColumnsKey];
 
-  const newSourceColumnPurchasesIds = [
-    ...sourceColumn.purchasesIds.slice(0, source.index),
-    ...sourceColumn.purchasesIds.slice(source.index + 1)
-  ];
+  const newSourceColumn = {
+    ...sourceColumn,
+    purchasesIds: [
+      ...sourceColumn.purchasesIds.slice(0, source.index),
+      ...sourceColumn.purchasesIds.slice(source.index + 1)
+    ]
+  };
 
-  const newDestinationColumnPurchaseIds = [
-    ...destinationColumn.purchasesIds.slice(0, destination.index),
-    purchaseId,
-    ...destinationColumn.purchasesIds.slice(destination.index + 1)
-  ];
-
-  const newSourceColumn = { ...sourceColumn, purchasesIds: newSourceColumnPurchasesIds };
   const newDestinationColumn = {
     ...destinationColumn,
-    purchasesIds: newDestinationColumnPurchaseIds
-  };
-  //    return { ...state.columns, [newColumn.id]: newColumn };
-
-  const newColumns = {
-    ...state.columns,
-    [newSourceColumn.id]: newSourceColumn,
-    [newDestinationColumn.id]: newDestinationColumn
+    purchasesIds: [
+      ...destinationColumn.purchasesIds.slice(0, destination.index),
+      purchaseId,
+      ...destinationColumn.purchasesIds.slice(destination.index)
+    ]
   };
 
   return {
-    ...state,
-    columns: newColumns
+    ...newState,
+    columns: {
+      ...newState.columns,
+      [newSourceColumn.id]: newSourceColumn,
+      [newDestinationColumn.id]: newDestinationColumn
+    }
   };
 }
 

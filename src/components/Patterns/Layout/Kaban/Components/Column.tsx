@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 
 import Icons from 'components/Ui/DataDisplay/Icons';
@@ -8,7 +7,6 @@ import PurchaseCard from './PurchaseCard';
 
 import * as types from 'common/types';
 import { AnimatePresence } from 'framer-motion';
-import { AppContext } from 'hooks/usePurchase';
 
 export default function Column({
   id,
@@ -51,10 +49,7 @@ export default function Column({
 
   const { title, styles, icon } = mappingStyles[id];
   return (
-    <div
-      className={`${styles} h-min max-w-[16%] flex-1 rounded-sm px-s py-xs transition-faster`}
-      key={id}
-    >
+    <div className={`${styles} h-min max-w-[16%] flex-1 rounded-sm px-s py-xs`} key={id}>
       <div className="flex w-full text-sm">
         <div className="flex flex-1 items-center">
           <Icons icon={icon} className="mr-xs" />
@@ -72,10 +67,10 @@ export default function Column({
       </div>
       <Droppable droppableId={id}>
         {(provider) => (
-          <ul
+          <div
             ref={provider.innerRef}
             {...provider.droppableProps}
-            className="max-h-[75vh] min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300 transition-faster"
+            className="max-h-[75vh] min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300"
           >
             <AnimatePresence initial={false}>
               {purchasesIds.map((value, index) => {
@@ -90,7 +85,7 @@ export default function Column({
               })}
             </AnimatePresence>
             {provider.placeholder}
-          </ul>
+          </div>
         )}
       </Droppable>
       <Button typeOf="secondary" onClick={onClick} iconL="Add" className="gap-2">

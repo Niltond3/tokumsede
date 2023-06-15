@@ -1,5 +1,5 @@
 'use client';
-import { useContext, Dispatch } from 'react';
+import { useContext, Dispatch, useCallback } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import Column from './Components/Column';
@@ -10,20 +10,25 @@ import { AppContext } from 'hooks/usePurchase';
 export default function Kaban() {
   const { state, dispatch } = useContext(AppContext);
   const { columns } = state;
-  const onDragEndHandler = (result: DropResult) => {
-    const { destination, source, draggableId } = result;
-    if (!destination) return;
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    )
-      return;
-    const { reorder } = types.PURCHASE_ACTION_TYPES;
-    return dispatch({
-      type: reorder,
-      payload: { source, destination, purchaseId: draggableId }
-    });
-  };
+
+  const onDragEndHandler = useCallback(
+    (result: DropResult) => {
+      const { destination, source, draggableId } = result;
+      if (!destination) return;
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      )
+        return;
+      const { reorder } = types.PURCHASE_ACTION_TYPES;
+      dispatch({
+        type: reorder,
+        payload: { source, destination, purchaseId: draggableId }
+      });
+    },
+    [dispatch]
+  );
+
   return (
     <div className="relative flex flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm">
       <DragDropContext onDragEnd={onDragEndHandler}>
@@ -36,24 +41,23 @@ export default function Kaban() {
 const renderColumns = (
   columns: types.PurchaseColumnsType,
   dispatch: Dispatch<types.ActionPurchaseProps>
-) => {
-  const myColumns: JSX.Element[] = [];
-  let key: keyof types.PurchaseColumnsType;
+) =>
+  Object.keys(columns).map((columnId) => {
+    const { id, purchasesIds, countLabel } =
+      columns[columnId as keyof types.PurchaseColumnsType];
 
-  for (key in columns) {
-    const { id, purchasesIds, countLabel } = columns[key];
     const { prepare } = types.PURCHASE_ACTION_TYPES;
-    myColumns.push(
+
+    return (
       <Column
+        key={id}
         id={id}
         purchasesIds={purchasesIds}
         countLabel={countLabel}
         onClick={() => dispatch({ type: prepare, payload: { columnId: id } })}
       />
     );
-  }
-  return myColumns;
-};
+  });
 
 /*
   const initialData = {

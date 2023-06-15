@@ -31,7 +31,7 @@ export default function PurchaseCard({
     <Draggable draggableId={purchase.id} index={index}>
       {(provider) => {
         return (
-          <motion.li
+          <motion.div
             {...provider.dragHandleProps}
             {...provider.draggableProps}
             ref={provider.innerRef}
@@ -50,12 +50,12 @@ export default function PurchaseCard({
               duration: time(0.15),
               opacity: { duration: time(0.03) }
             }}
-            className="mt-2 max-w-[12rem] flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base transition @container"
+            className="mt-2 max-w-[12rem] flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base @container"
           >
             <Head />
             <Body dropDownId={dropDownId} purchase={purchase} />
             <Footer />
-          </motion.li>
+          </motion.div>
         );
       }}
     </Draggable>
