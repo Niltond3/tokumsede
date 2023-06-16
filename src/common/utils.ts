@@ -29,10 +29,41 @@ const getCountRequestsByState = (
   return columns[id].purchasesIds.length;
 };
 
+const immutablePush = <T>(array: T[], newElement: T) => [...array, newElement];
+
+const immutableUnshift = <T>(array: T[], newElement: T) => [newElement, ...array];
+
+const immutablePop = <T>(array: T[]) => [...array.slice(0, array.length - 1)];
+
+const immutableShift = <T>(array: T[]) => [...array.slice(1)];
+
+const immutableDelete = <T>(array: T[], index: number) => [
+  ...array.slice(0, index),
+  ...array.slice(index + 1)
+];
+
+const immutableInsert = <T>(array: T[], element: T, index: number) => [
+  ...array.slice(0, index),
+  element,
+  ...array.slice(index)
+];
+
+const immutableMove = <T>(array: T[], element: T, fromIndex: number, toIndex: number) => {
+  const deleted = immutableDelete(array, fromIndex);
+  return immutableInsert(deleted, element, toIndex);
+};
+
 export {
   ToClipboard,
   containsOnlyNumbers,
   numberToCurrency,
   isArray,
-  getCountRequestsByState
+  getCountRequestsByState,
+  immutablePush,
+  immutableUnshift,
+  immutablePop,
+  immutableShift,
+  immutableDelete,
+  immutableInsert,
+  immutableMove
 };

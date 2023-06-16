@@ -1,5 +1,11 @@
 import * as types from 'common/types';
-import { containsOnlyNumbers, getCountRequestsByState } from 'common/utils';
+import {
+  containsOnlyNumbers,
+  getCountRequestsByState,
+  immutableDelete,
+  immutableInsert,
+  immutableMove
+} from 'common/utils';
 import { toInteger } from 'lodash';
 
 export function reorderColumns(
@@ -11,13 +17,17 @@ export function reorderColumns(
 
   if (source.droppableId == destination.droppableId) {
     const column = newState.columns[source.droppableId as types.PurchaseColumnsKey];
-    const newPurchasesIds = [
-      ...column.purchasesIds.slice(0, source.index),
+    const newPurchasesIds = immutableMove(
+      column.purchasesIds,
       purchaseId,
-      ...column.purchasesIds.slice(source.index + 1)
-    ];
+      source.index,
+      destination.index
+    );
 
-    const newColumn = { ...column, purchasesIds: newPurchasesIds };
+    const newColumn = {
+      ...column,
+      purchasesIds: newPurchasesIds
+    };
 
     return {
       ...newState,
@@ -28,22 +38,18 @@ export function reorderColumns(
   const sourceColumn = newState.columns[source.droppableId as types.PurchaseColumnsKey];
   const destinationColumn =
     newState.columns[destination.droppableId as types.PurchaseColumnsKey];
-
   const newSourceColumn = {
     ...sourceColumn,
-    purchasesIds: [
-      ...sourceColumn.purchasesIds.slice(0, source.index),
-      ...sourceColumn.purchasesIds.slice(source.index + 1)
-    ]
+    purchasesIds: immutableDelete(sourceColumn.purchasesIds, source.index)
   };
 
   const newDestinationColumn = {
     ...destinationColumn,
-    purchasesIds: [
-      ...destinationColumn.purchasesIds.slice(0, destination.index),
+    purchasesIds: immutableInsert(
+      destinationColumn.purchasesIds,
       purchaseId,
-      ...destinationColumn.purchasesIds.slice(destination.index)
-    ]
+      destination.index
+    )
   };
 
   return {
