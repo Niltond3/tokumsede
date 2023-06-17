@@ -13,10 +13,12 @@ export function reorderColumns(
   payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder]
 ) {
   const newState = { ...state };
+
   const { from, fromIndex, purchaseId, to, toIndex } = payload;
 
   if (from == to) {
     const column = { ...newState.columns[from] };
+
     const newColumn = {
       ...column,
       purchasesIds: immutableMove(column.purchasesIds, purchaseId, fromIndex, toIndex)
@@ -39,14 +41,27 @@ export function reorderColumns(
     ...destinationColumn,
     purchasesIds: immutableInsert(destinationColumn.purchasesIds, purchaseId, toIndex)
   };
+  const newColumns = {
+    ...newState.columns,
+    [newSourceColumn.id]: newSourceColumn,
+    [newDestinationColumn.id]: newDestinationColumn
+  };
+
+  newColumns[newSourceColumn.id].countLabel = getCountRequestsByState(
+    newSourceColumn.id,
+    newColumns
+  );
+
+  newColumns[newDestinationColumn.id].countLabel = getCountRequestsByState(
+    newDestinationColumn.id,
+    newColumns
+  );
+
+  newColumns.DELIVERED.countLabel = getCountRequestsByState('DELIVERED', newColumns);
 
   return {
     ...newState,
-    columns: {
-      ...newState.columns,
-      [newSourceColumn.id]: newSourceColumn,
-      [newDestinationColumn.id]: newDestinationColumn
-    }
+    columns: newColumns
   };
 }
 

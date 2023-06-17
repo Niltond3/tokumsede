@@ -1,5 +1,5 @@
 import React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import Icons from 'components/Ui/DataDisplay/Icons';
 import Button from 'components/Ui/Inputs/Button';
@@ -61,7 +61,19 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
           />
         </div>
       </div>
-      <Droppable droppableId={id}>
+      <Droppable
+        droppableId={id}
+        renderClone={(provider, snapshot, rubric) => (
+          <PurchaseCard
+            index={rubric.source.index}
+            purchaseId={purchasesIds[rubric.source.index].toString()}
+            currentStatus={`${id}`}
+            provider={provider}
+            rubric={rubric}
+            snapshot={snapshot}
+          />
+        )}
+      >
         {(provider) => (
           <div
             ref={provider.innerRef}
@@ -71,12 +83,18 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
             {/* <AnimatePresence initial={false}> */}
             {purchasesIds.map((value, index) => {
               return (
-                <PurchaseCard
-                  key={`${index}-${value}-${id}`}
-                  index={index}
-                  purchaseId={`${value}`}
-                  currentStatus={`${id}`}
-                />
+                <Draggable draggableId={`${value}`} index={index} key={value}>
+                  {(provider, snapshot, rubric) => (
+                    <PurchaseCard
+                      index={index}
+                      purchaseId={`${value}`}
+                      currentStatus={`${id}`}
+                      provider={provider}
+                      rubric={rubric}
+                      snapshot={snapshot}
+                    />
+                  )}
+                </Draggable>
               );
             })}
             {/* </AnimatePresence> */}

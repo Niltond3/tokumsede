@@ -20,6 +20,7 @@ export default function Kaban() {
       )
         return;
       const { reorder } = types.PURCHASE_ACTION_TYPES;
+      console.log(reorder);
       dispatch({
         type: reorder,
         payload: {

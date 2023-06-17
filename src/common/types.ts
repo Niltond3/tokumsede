@@ -1,7 +1,12 @@
 import { NextComponentType, NextPageContext } from 'next';
 import type { AppProps } from 'next/app';
 import { StaticImageData } from 'next/image';
-import { DraggableLocation } from 'react-beautiful-dnd';
+import {
+  DraggableLocation,
+  DraggableProvided,
+  DraggableRubric,
+  DraggableStateSnapshot
+} from 'react-beautiful-dnd';
 
 import * as icons from 'components/Ui/DataDisplay/Icons';
 import imgPaths from 'components/Ui/DataDisplay/Images/ImagesPaths';
@@ -530,6 +535,9 @@ export type KabanPurchaseCardProps = {
   index: number;
   purchaseId: string;
   currentStatus: string;
+  provider: DraggableProvided;
+  snapshot: DraggableStateSnapshot;
+  rubric: DraggableRubric;
 };
 
 export type KabanPurchaseCardBodyProps = {
