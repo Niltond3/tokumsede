@@ -31,31 +31,32 @@ export default function PurchaseCard({
     <Draggable draggableId={purchase.id} index={index}>
       {(provider) => {
         return (
-          <motion.div
+          <div
             {...provider.dragHandleProps}
             {...provider.draggableProps}
+            key={purchase.id}
             ref={provider.innerRef}
-            onDragStart={() => provider.dragHandleProps?.onDragStart}
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-              transition: {
-                type: 'spring',
-                bounce: 0.3,
-                opacity: { delaty: time(0.025) }
-              }
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: time(0.15),
-              opacity: { duration: time(0.03) }
-            }}
             className="mt-2 max-w-[12rem] flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base @container"
+            // onDragStart={() => provider.dragHandleProps?.onDragStart}
+            // initial={{ opacity: 0 }}
+            // animate={{
+            //   opacity: 1,
+            //   transition: {
+            //     type: 'spring',
+            //     bounce: 0.3,
+            //     opacity: { delaty: time(0.025) }
+            //   }
+            // }}
+            // exit={{ opacity: 0 }}
+            // transition={{
+            //   duration: time(0.15),
+            //   opacity: { duration: time(0.03) }
+            // }}
           >
             <Head />
             <Body dropDownId={dropDownId} purchase={purchase} />
             <Footer />
-          </motion.div>
+          </div>
         );
       }}
     </Draggable>

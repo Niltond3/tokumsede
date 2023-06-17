@@ -1,3 +1,4 @@
+import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 
 import Icons from 'components/Ui/DataDisplay/Icons';
@@ -8,12 +9,7 @@ import PurchaseCard from './PurchaseCard';
 import * as types from 'common/types';
 import { AnimatePresence } from 'framer-motion';
 
-export default function Column({
-  id,
-  purchasesIds,
-  countLabel,
-  onClick
-}: types.KabanColumnsProps) {
+const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsProps) => {
   const mappingStyles: types.KabanColumnsStylesProps = {
     PENDING: {
       title: 'Pendentes',
@@ -72,18 +68,18 @@ export default function Column({
             {...provider.droppableProps}
             className="max-h-[75vh] min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300"
           >
-            <AnimatePresence initial={false}>
-              {purchasesIds.map((value, index) => {
-                return (
-                  <PurchaseCard
-                    key={`${index}-${value}-${id}`}
-                    index={index}
-                    purchaseId={`${value}`}
-                    currentStatus={`${id}`}
-                  />
-                );
-              })}
-            </AnimatePresence>
+            {/* <AnimatePresence initial={false}> */}
+            {purchasesIds.map((value, index) => {
+              return (
+                <PurchaseCard
+                  key={`${index}-${value}-${id}`}
+                  index={index}
+                  purchaseId={`${value}`}
+                  currentStatus={`${id}`}
+                />
+              );
+            })}
+            {/* </AnimatePresence> */}
             {provider.placeholder}
           </div>
         )}
@@ -93,8 +89,9 @@ export default function Column({
       </Button>
     </div>
   );
-}
+};
 
+export default Column;
 /*
   {
         id: '1',

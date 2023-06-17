@@ -12,21 +12,14 @@ export function reorderColumns(
   state: types.InitialStatePurchaseProps,
   payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder]
 ) {
-  const { destination, source, purchaseId } = payload;
   const newState = { ...state };
+  const { from, fromIndex, purchaseId, to, toIndex } = payload;
 
-  if (source.droppableId == destination.droppableId) {
-    const column = newState.columns[source.droppableId as types.PurchaseColumnsKey];
-    const newPurchasesIds = immutableMove(
-      column.purchasesIds,
-      purchaseId,
-      source.index,
-      destination.index
-    );
-
+  if (from == to) {
+    const column = { ...newState.columns[from] };
     const newColumn = {
       ...column,
-      purchasesIds: newPurchasesIds
+      purchasesIds: immutableMove(column.purchasesIds, purchaseId, fromIndex, toIndex)
     };
 
     return {
@@ -35,21 +28,16 @@ export function reorderColumns(
     };
   }
 
-  const sourceColumn = newState.columns[source.droppableId as types.PurchaseColumnsKey];
-  const destinationColumn =
-    newState.columns[destination.droppableId as types.PurchaseColumnsKey];
+  const sourceColumn = { ...newState.columns[from] };
+  const destinationColumn = { ...newState.columns[to] };
   const newSourceColumn = {
     ...sourceColumn,
-    purchasesIds: immutableDelete(sourceColumn.purchasesIds, source.index)
+    purchasesIds: immutableDelete(sourceColumn.purchasesIds, fromIndex)
   };
 
   const newDestinationColumn = {
     ...destinationColumn,
-    purchasesIds: immutableInsert(
-      destinationColumn.purchasesIds,
-      purchaseId,
-      destination.index
-    )
+    purchasesIds: immutableInsert(destinationColumn.purchasesIds, purchaseId, toIndex)
   };
 
   return {

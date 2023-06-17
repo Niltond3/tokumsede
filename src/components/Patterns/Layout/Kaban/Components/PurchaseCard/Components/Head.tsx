@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Copy, Number } from 'components/Ui/DataDisplay/Icons';
+import * as icon from 'components/Ui/DataDisplay/Icons';
 import Tooltip from 'components/Ui/DataDisplay/Tooltip';
 import Button from 'components/Ui/Inputs/Button';
 
@@ -12,13 +12,16 @@ import { ToClipboard } from 'common/utils';
 export default function Head() {
   return (
     <SessionWrapper className="justify-between [&>*]:opacity-30 ">
-      <Tooltip content={<Copy />} side="right">
+      <Button className="h-full">
+        <icon.Drag></icon.Drag>
+      </Button>
+      <Tooltip content={<icon.Copy />} side="right">
         <Button
           className="group relative max-w-min"
           data-clipboard={'000'}
           onClick={ToClipboard}
         >
-          <Number />
+          <icon.Number />
           000
         </Button>
       </Tooltip>

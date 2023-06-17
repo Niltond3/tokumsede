@@ -22,7 +22,13 @@ export default function Kaban() {
       const { reorder } = types.PURCHASE_ACTION_TYPES;
       dispatch({
         type: reorder,
-        payload: { source, destination, purchaseId: draggableId }
+        payload: {
+          from: source.droppableId as types.PurchaseColumnsKey,
+          to: destination.droppableId as types.PurchaseColumnsKey,
+          fromIndex: source.index,
+          toIndex: destination.index,
+          purchaseId: draggableId
+        }
       });
     },
     [dispatch]

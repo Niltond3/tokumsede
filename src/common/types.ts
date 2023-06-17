@@ -78,8 +78,10 @@ export enum PURCHASE_ACTION_TYPES {
 export type PurchasePayload = {
   [PURCHASE_ACTION_TYPES.reorder]: {
     purchaseId: string;
-    destination: DraggableLocation;
-    source: DraggableLocation;
+    from: PurchaseColumnsKey;
+    to: PurchaseColumnsKey;
+    fromIndex: number;
+    toIndex: number;
   };
   [PURCHASE_ACTION_TYPES.prepare]: { columnId: keyof PurchaseColumnsType };
   [PURCHASE_ACTION_TYPES.create]: {
