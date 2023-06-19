@@ -16,17 +16,22 @@ export default function Head({
   handleProps?: DraggableProvidedDragHandleProps | null;
 }) {
   return (
-    <SessionWrapper className="justify-between [&>*]:opacity-30">
-      <Button className="h-full text-2xl" {...handleProps}>
+    <SessionWrapper className="group items-center justify-between">
+      <div
+        className="h-full text-[25px] opacity-0 transition-faster group-hover:opacity-50"
+        {...handleProps}
+      >
         <icon.Drag></icon.Drag>
+      </div>
+      <Button
+        className="group h-full max-w-min translate-x-[-80%] opacity-30 group-hover:translate-x-0"
+        data-clipboard={'000'}
+        onClick={ToClipboard}
+      >
+        <icon.Number />
+        000
       </Button>
-      <Tooltip content={<icon.Copy />} side="right">
-        <Button className="group max-w-min" data-clipboard={'000'} onClick={ToClipboard}>
-          <icon.Number />
-          000
-        </Button>
-      </Tooltip>
-      <span>Distribuidora</span>
+      <span className="opacity-30">Distribuidora</span>
     </SessionWrapper>
   );
 }

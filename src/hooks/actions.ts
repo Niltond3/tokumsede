@@ -16,12 +16,17 @@ export function reorderColumns(
 
   const { from, fromIndex, purchaseId, to, toIndex } = payload;
 
-  if (from == to) {
+  if (from === to && fromIndex === toIndex) return state;
+  if (from === to) {
     const column = { ...newState.columns[from] };
+
+    const reorderPurchaseIds = [...column.purchasesIds];
+    const [removePurchaseId] = reorderPurchaseIds.splice(fromIndex, 1);
+    reorderPurchaseIds.splice(toIndex, 0, removePurchaseId);
 
     const newColumn = {
       ...column,
-      purchasesIds: immutableMove(column.purchasesIds, purchaseId, fromIndex, toIndex)
+      purchasesIds: reorderPurchaseIds
     };
 
     return {
@@ -32,15 +37,23 @@ export function reorderColumns(
 
   const sourceColumn = { ...newState.columns[from] };
   const destinationColumn = { ...newState.columns[to] };
+
+  const newSourcePurchaseIds = [...sourceColumn.purchasesIds];
+  const newDestinationPurchaseIds = [...destinationColumn.purchasesIds];
+
+  const [removePurchaseId] = newSourcePurchaseIds.splice(fromIndex, 1);
+  newDestinationPurchaseIds.splice(toIndex, 0, removePurchaseId);
+
   const newSourceColumn = {
     ...sourceColumn,
-    purchasesIds: immutableDelete(sourceColumn.purchasesIds, fromIndex)
+    purchasesIds: newSourcePurchaseIds
   };
 
   const newDestinationColumn = {
     ...destinationColumn,
-    purchasesIds: immutableInsert(destinationColumn.purchasesIds, purchaseId, toIndex)
+    purchasesIds: newDestinationPurchaseIds
   };
+
   const newColumns = {
     ...newState.columns,
     [newSourceColumn.id]: newSourceColumn,

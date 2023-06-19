@@ -14,13 +14,8 @@ export default function Kaban() {
     (result: DropResult) => {
       const { destination, source, draggableId } = result;
       if (!destination) return;
-      if (
-        destination.droppableId === source.droppableId &&
-        destination.index === source.index
-      )
-        return;
+
       const { reorder } = types.PURCHASE_ACTION_TYPES;
-      console.log(reorder);
       dispatch({
         type: reorder,
         payload: {
