@@ -7,6 +7,7 @@ import Body from './Components/Body';
 import Footer from './Components/Footer';
 import Head from './Components/Head';
 
+import clsx from 'clsx';
 import * as types from 'common/types';
 import { containsOnlyNumbers } from 'common/utils';
 import { motion } from 'framer-motion';
@@ -35,7 +36,11 @@ export default function PurchaseCard({
     <div
       ref={provider.innerRef}
       {...provider.draggableProps}
-      className="mt-2 max-w-[12rem] flex-1 rounded-md bg-lg-primary p-2 text-sm text-lg-primary-base @container transition-faster"
+      className={clsx(
+        'mt-2 max-w-[12rem] rounded-md p-2 text-sm text-lg-primary-base @container transition-faster',
+        'hover:translate-x-0.5 hover:translate-y-0.5 hover:elevation-5',
+        `${snapshot.isDragging ? 'bg-lg-secondary/80' : 'bg-lg-secondary'}`
+      )}
       // initial={{ opacity: 0 }}
       // animate={{
       //   opacity: 1,

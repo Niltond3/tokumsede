@@ -31,7 +31,7 @@ export default function Kaban() {
   );
 
   return (
-    <div className="relative flex flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm">
+    <div className="relative flex min-w-[1200px] flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm @container">
       <DragDropContext onDragEnd={onDragEndHandler}>
         {renderColumns(columns, dispatch)}
       </DragDropContext>

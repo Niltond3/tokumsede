@@ -71,7 +71,7 @@ function RenderSelect({
         </span>
       </div>
       <span
-        className={`${header} absolute -left-2 flex h-3 w-3 items-center justify-center rounded-full text-center outline outline-2 outline-lg-primary center-x`}
+        className={`${header} absolute -left-2 flex h-3 w-3 items-center justify-center rounded-full text-center outline outline-2 outline-lg-secondary center-x`}
       >
         {quantity}
       </span>

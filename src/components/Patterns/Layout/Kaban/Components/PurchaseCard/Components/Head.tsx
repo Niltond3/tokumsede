@@ -16,7 +16,7 @@ export default function Head({
   handleProps?: DraggableProvidedDragHandleProps | null;
 }) {
   return (
-    <SessionWrapper className="group items-center justify-between">
+    <SessionWrapper className="group relative items-center justify-between">
       <div
         className="h-full text-[25px] opacity-0 transition-faster group-hover:opacity-50"
         {...handleProps}
@@ -24,7 +24,7 @@ export default function Head({
         <icon.Drag></icon.Drag>
       </div>
       <Button
-        className="group h-full max-w-min translate-x-[-80%] opacity-30 group-hover:translate-x-0"
+        className="group absolute left-0 h-full max-w-min opacity-30 group-hover:left-[10%]"
         data-clipboard={'000'}
         onClick={ToClipboard}
       >

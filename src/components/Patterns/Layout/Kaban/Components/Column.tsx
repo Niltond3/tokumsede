@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import Icons from 'components/Ui/DataDisplay/Icons';
@@ -6,46 +6,21 @@ import Button from 'components/Ui/Inputs/Button';
 
 import PurchaseCard from './PurchaseCard';
 
+import clsx from 'clsx';
 import * as types from 'common/types';
 import { AnimatePresence } from 'framer-motion';
+import { AppContext } from 'hooks/usePurchase';
 
 const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsProps) => {
-  const mappingStyles: types.KabanColumnsStylesProps = {
-    PENDING: {
-      title: 'Pendentes',
-      styles: '',
-      icon: 'Pending'
-    },
-    ACCEPTED: {
-      title: 'Aceitos',
-      styles: '',
-      icon: 'Accepted'
-    },
-    DISPATCHED: {
-      title: 'Despachados',
-      styles: '',
-      icon: 'logistics'
-    },
-    DELIVERED: {
-      title: 'Entregues',
-      styles: '',
-      icon: 'Delivered'
-    },
-    CANCELED: {
-      title: 'Cancelados',
-      styles: '',
-      icon: 'Cancel'
-    },
-    SCHEDULED: {
-      title: 'Agendados',
-      styles: '',
-      icon: 'Schedule'
-    }
-  };
+  const { state, dispatch } = useContext(AppContext);
 
   const { title, styles, icon } = mappingStyles[id];
+
   return (
-    <div className={`${styles} h-min max-w-[16%] flex-1 rounded-sm px-s py-xs`} key={id}>
+    <div
+      className={`h-min min-w-[14%] max-w-[16%] flex-1 rounded-sm px-s py-xs`}
+      key={id}
+    >
       <div className="flex w-full text-sm">
         <div className="flex flex-1 items-center">
           <Icons icon={icon} className="mr-xs" />
@@ -74,11 +49,14 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
           />
         )}
       >
-        {(provider) => (
+        {(provider, snapshot) => (
           <div
             ref={provider.innerRef}
             {...provider.droppableProps}
-            className="max-h-[75vh] min-h-[2rem] overflow-y-auto px-1 py-2 scrollbar-thin scrollbar-thumb-slate-300"
+            className={clsx(
+              'max-h-[75vh] min-h-[2rem] overflow-visible overflow-y-auto rounded-md px-1 py-2 scrollbar-thumb-slate-300 scrollbar-w-1 transition-fast',
+              `${snapshot.isDraggingOver ? styles : ''}`
+            )}
           >
             {/* <AnimatePresence initial={false}> */}
             {purchasesIds.map((value, index) => {
@@ -142,3 +120,36 @@ export default Column;
         products: [{ id: '', name: '', quantity: '', price: '' }]
       }
 */
+
+const mappingStyles: types.KabanColumnsStylesProps = {
+  PENDING: {
+    title: 'Pendentes',
+    styles: 'bg-lg-warning/30',
+    icon: 'Pending'
+  },
+  ACCEPTED: {
+    title: 'Aceitos',
+    styles: 'bg-lg-info/30',
+    icon: 'Accepted'
+  },
+  DISPATCHED: {
+    title: 'Despachados',
+    styles: 'bg-lg-sent/30',
+    icon: 'logistics'
+  },
+  DELIVERED: {
+    title: 'Entregues',
+    styles: 'bg-lg-success/30',
+    icon: 'Delivered'
+  },
+  CANCELED: {
+    title: 'Cancelados',
+    styles: 'bg-lg-error/30',
+    icon: 'Cancel'
+  },
+  SCHEDULED: {
+    title: 'Agendados',
+    styles: 'bg-lg-wait/30',
+    icon: 'Schedule'
+  }
+};
