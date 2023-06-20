@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 
 const plugin = require('tailwindcss/plugin');
+const {
+  scrollbarGutter,
+  scrollbarWidth,
+  scrollbarColor
+} = require('tailwind-scrollbar-utilities');
 
 module.exports = {
   darkMode: 'class',
@@ -198,10 +203,12 @@ module.exports = {
   plugins: [
     require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
-    require('tailwind-scrollbar')({ nocompatible: true }),
     require('@tailwindcss/container-queries'),
     require('tailwindcss-elevation'),
     require('@headlessui/tailwindcss')({ prefix: 'ui' }),
+    scrollbarGutter(), // no options to configure
+    scrollbarWidth(), // no options to configure
+    scrollbarColor(), // no options to configure
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
       addVariant('second', '&:nth-child(2)');

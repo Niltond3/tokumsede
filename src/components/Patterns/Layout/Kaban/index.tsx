@@ -1,9 +1,10 @@
 'use client';
-import { useContext, Dispatch, useCallback } from 'react';
+import { useContext, useCallback } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import Column from './Components/Column';
 
+import clsx from 'clsx';
 import * as types from 'common/types';
 import { AppContext } from 'hooks/usePurchase';
 
@@ -31,34 +32,32 @@ export default function Kaban() {
   );
 
   return (
-    <div className="relative flex min-w-[1200px] flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm @container">
-      <DragDropContext onDragEnd={onDragEndHandler}>
-        {renderColumns(columns, dispatch)}
-      </DragDropContext>
-    </div>
+    <DragDropContext onDragEnd={onDragEndHandler}>
+      <div
+        className={clsx(
+          'relative flex min-w-[1200px] flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm @container'
+        )}
+      >
+        {Object.keys(columns).map((columnId) => {
+          const { id, purchasesIds, countLabel } =
+            columns[columnId as keyof types.PurchaseColumnsType];
+
+          const { prepare } = types.PURCHASE_ACTION_TYPES;
+
+          return (
+            <Column
+              key={id}
+              id={id}
+              purchasesIds={purchasesIds}
+              countLabel={countLabel}
+              onClick={() => dispatch({ type: prepare, payload: { columnId: id } })}
+            />
+          );
+        })}
+      </div>
+    </DragDropContext>
   );
 }
-
-const renderColumns = (
-  columns: types.PurchaseColumnsType,
-  dispatch: Dispatch<types.ActionPurchaseProps>
-) =>
-  Object.keys(columns).map((columnId) => {
-    const { id, purchasesIds, countLabel } =
-      columns[columnId as keyof types.PurchaseColumnsType];
-
-    const { prepare } = types.PURCHASE_ACTION_TYPES;
-
-    return (
-      <Column
-        key={id}
-        id={id}
-        purchasesIds={purchasesIds}
-        countLabel={countLabel}
-        onClick={() => dispatch({ type: prepare, payload: { columnId: id } })}
-      />
-    );
-  });
 
 /*
   const initialData = {

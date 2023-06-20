@@ -1,80 +1,41 @@
 import * as types from 'common/types';
-import {
-  containsOnlyNumbers,
-  getCountRequestsByState,
-  immutableDelete,
-  immutableInsert,
-  immutableMove
-} from 'common/utils';
+import { containsOnlyNumbers, getCountRequestsByState } from 'common/utils';
 import { toInteger } from 'lodash';
 
 export function reorderColumns(
   state: types.InitialStatePurchaseProps,
   payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder]
 ) {
-  const newState = { ...state };
+  const newState = state;
 
   const { from, fromIndex, purchaseId, to, toIndex } = payload;
 
   if (from === to && fromIndex === toIndex) return state;
-  if (from === to) {
-    const column = { ...newState.columns[from] };
+  const newFromColumn = newState.columns[from];
+  const newToColumn = newState.columns[to];
 
-    const reorderPurchaseIds = [...column.purchasesIds];
-    const [removePurchaseId] = reorderPurchaseIds.splice(fromIndex, 1);
-    reorderPurchaseIds.splice(toIndex, 0, removePurchaseId);
+  newFromColumn.purchasesIds.splice(fromIndex, 1);
 
-    const newColumn = {
-      ...column,
-      purchasesIds: reorderPurchaseIds
-    };
-
-    return {
-      ...newState,
-      columns: { ...newState.columns, [newColumn.id]: newColumn }
-    };
-  }
-
-  const sourceColumn = { ...newState.columns[from] };
-  const destinationColumn = { ...newState.columns[to] };
-
-  const newSourcePurchaseIds = [...sourceColumn.purchasesIds];
-  const newDestinationPurchaseIds = [...destinationColumn.purchasesIds];
-
-  const [removePurchaseId] = newSourcePurchaseIds.splice(fromIndex, 1);
-  newDestinationPurchaseIds.splice(toIndex, 0, removePurchaseId);
-
-  const newSourceColumn = {
-    ...sourceColumn,
-    purchasesIds: newSourcePurchaseIds
-  };
-
-  const newDestinationColumn = {
-    ...destinationColumn,
-    purchasesIds: newDestinationPurchaseIds
-  };
+  newToColumn.purchasesIds.splice(toIndex, 0, purchaseId);
 
   const newColumns = {
     ...newState.columns,
-    [newSourceColumn.id]: newSourceColumn,
-    [newDestinationColumn.id]: newDestinationColumn
+    [from]: newFromColumn,
+    [to]: newToColumn
   };
 
-  newColumns[newSourceColumn.id].countLabel = getCountRequestsByState(
-    newSourceColumn.id,
-    newColumns
-  );
-
-  newColumns[newDestinationColumn.id].countLabel = getCountRequestsByState(
-    newDestinationColumn.id,
-    newColumns
-  );
-
-  newColumns.DELIVERED.countLabel = getCountRequestsByState('DELIVERED', newColumns);
+  const newFromColumnCount = getCountRequestsByState(from, newColumns);
+  const newToColumnCount = getCountRequestsByState(to, newColumns);
+  const newDeliveryCount = getCountRequestsByState('DELIVERED', newState.columns);
 
   return {
     ...newState,
-    columns: newColumns
+    columns: {
+      ...newColumns,
+      [from]: { ...newFromColumn, countLabel: newFromColumnCount },
+      [to]: { ...newToColumn, countLabel: newToColumnCount },
+      DELIVERED: { ...newColumns.DELIVERED, countLabel: newDeliveryCount }
+    }
   };
 }
 
