@@ -135,6 +135,17 @@ export type PurchaseColumnProps = {
   countLabel: number | string;
   purchasesIds: (string | number)[];
 };
+/**
+ * Accordion related types
+ */
+
+export type AccordionItemProps = {
+  value: string;
+  triggerClassName?: string;
+  triggerChildren: React.ReactNode;
+  contentClassName?: string;
+  contentChildren: React.ReactNode;
+};
 
 /**
  * icons related types

@@ -39,9 +39,10 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
             ref={provider.innerRef}
             {...provider.droppableProps}
             className={clsx(
-              'scrollbar-w-1 max-h-[75vh] min-h-[2rem] overflow-visible overflow-y-auto rounded-md px-1 py-2 scrollbar-thumb-slate-300 transition-fast',
+              'max-h-[75vh] min-h-[2rem] overflow-visible overflow-y-auto rounded-md px-1 py-2 scrollbar scrollbar-thumb-slate-300 scrollbar-w-1 transition-fast',
               `${snapshot.isDraggingOver ? styles : ''}`
             )}
+            style={{ scrollbarGutter: 'stable both-edges' }}
           >
             {/* <AnimatePresence initial={false}> */}
             {purchasesIds.map((value, index) => {

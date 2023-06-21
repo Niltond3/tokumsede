@@ -1,11 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
 const plugin = require('tailwindcss/plugin');
-const {
-  scrollbarGutter,
-  scrollbarWidth,
-  scrollbarColor
-} = require('tailwind-scrollbar-utilities');
 
 module.exports = {
   darkMode: 'class',
@@ -40,12 +35,20 @@ module.exports = {
           '0%': { opacity: 1, maxHeight: '11rem' },
           '100%': { opacity: 0, maxHeight: '0px' }
         },
-        'hover-here': {
-          '0%, 100%': {
-            transform: 'translateX(-30%) rotate(-15deg)'
+        'slide-down': {
+          '0%': {
+            height: 0
           },
-          '50%': {
-            transform: 'translateX(0) rotate(0deg)'
+          '100%': {
+            height: 'var(--radix-accordion-content-height)'
+          }
+        },
+        'slide-up': {
+          '0%': {
+            height: 'var(--radix-accordion-content-height)'
+          },
+          '100%': {
+            height: 0
           }
         }
       },
@@ -55,7 +58,9 @@ module.exports = {
         'intro-menu': 'intro-menu .40s ease-in-out forwards 0.1s',
         'list-open': 'list-open .8s ease-in-out forwards 0.1s',
         'list-close': 'list-close .8s ease-in-out forwards 0.1s',
-        'hover-here': 'hover-here 1.4s infinite'
+        'hover-here': 'hover-here 1.4s infinite',
+        'slide-down': 'slide-down .30s ease-in-out',
+        'slide-up': 'slide-up .30s ease-in-out'
       },
       spacing: {
         none: '0px',
@@ -206,9 +211,7 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     require('tailwindcss-elevation'),
     require('@headlessui/tailwindcss')({ prefix: 'ui' }),
-    scrollbarGutter(), // no options to configure
-    scrollbarWidth(), // no options to configure
-    scrollbarColor(), // no options to configure
+    require('tailwind-scrollbar')({ nocompatible: true }),
     plugin(({ addVariant, addUtilities }) => {
       addVariant('child', '&>*');
       addVariant('second', '&:nth-child(2)');
