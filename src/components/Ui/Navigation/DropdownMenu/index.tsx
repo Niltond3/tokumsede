@@ -11,29 +11,31 @@ type DropdownMenuProps = {
   triggerIcon?: types.IconsKey;
   triggerLabel?: React.ReactNode;
   children: React.ReactNode;
-  triggerClassName?: string;
-  contentClassName?: string;
-  arrownClassName?: string;
+  triggerStyles?: string;
+  contentStyles?: string;
+  arrownStyles?: string;
   arrown?: boolean;
   side?: Side;
   sideOffset?: number;
+  alignOffset?: number;
 };
 
 export default function DropdownMenu({
   triggerIcon,
   triggerLabel,
   children,
-  triggerClassName = '',
-  contentClassName = '',
-  arrownClassName = '',
+  triggerStyles = '',
+  contentStyles = '',
+  arrownStyles = '',
   arrown = false,
   side,
-  sideOffset
+  sideOffset = 0,
+  alignOffset = 0
 }: DropdownMenuProps) {
   return (
     <DropdownMenuPrimitive.Root>
-      <DropdownMenuPrimitive.Trigger asChild className={triggerClassName}>
-        <Button iconL={triggerIcon} aria-label="Customise options">
+      <DropdownMenuPrimitive.Trigger asChild className={triggerStyles}>
+        <Button typeOf="noStyle" iconR={triggerIcon} aria-label="Customise options">
           {triggerLabel}
         </Button>
       </DropdownMenuPrimitive.Trigger>
@@ -41,11 +43,12 @@ export default function DropdownMenu({
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.Content
           sideOffset={sideOffset}
-          className={contentClassName}
+          alignOffset={alignOffset}
+          className={contentStyles}
           side={side}
         >
           <>{children}</>
-          {arrown && <DropdownMenuPrimitive.Arrow className={arrownClassName} />}
+          {arrown && <DropdownMenuPrimitive.Arrow className={arrownStyles} />}
         </DropdownMenuPrimitive.Content>
       </DropdownMenuPrimitive.Portal>
     </DropdownMenuPrimitive.Root>
@@ -56,16 +59,17 @@ export function DropdownSub({
   triggerIcon,
   triggerLabel,
   children,
-  triggerClassName = '',
-  contentClassName = '',
-  arrownClassName,
+  triggerStyles = '',
+  contentStyles = '',
+  arrownStyles,
   arrown,
-  sideOffset
+  sideOffset = 0,
+  alignOffset = 0
 }: DropdownMenuProps) {
   return (
     <DropdownMenuPrimitive.Sub>
-      <DropdownMenuPrimitive.SubTrigger asChild className={triggerClassName}>
-        <Button iconL={triggerIcon} aria-label="Customise options">
+      <DropdownMenuPrimitive.SubTrigger asChild className={triggerStyles}>
+        <Button typeOf="noStyle" iconR={triggerIcon} aria-label="Customise options">
           {triggerLabel}
         </Button>
       </DropdownMenuPrimitive.SubTrigger>
@@ -73,11 +77,11 @@ export function DropdownSub({
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.SubContent
           sideOffset={sideOffset}
-          alignOffset={-5}
-          className={contentClassName}
+          alignOffset={alignOffset}
+          className={contentStyles}
         >
           <>{children}</>
-          {arrown && <DropdownMenuPrimitive.Arrow className={arrownClassName} />}
+          {arrown && <DropdownMenuPrimitive.Arrow className={arrownStyles} />}
         </DropdownMenuPrimitive.SubContent>
       </DropdownMenuPrimitive.Portal>
     </DropdownMenuPrimitive.Sub>

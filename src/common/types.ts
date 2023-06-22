@@ -206,7 +206,7 @@ type ButtonPrimitiveProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 type ConditionalButtonProps =
   | {
-      typeOf?: 'primary' | 'secondary' | undefined | null;
+      typeOf?: 'primary' | 'secondary' | 'noStyle' | undefined | null;
       toggleVariant?: never;
       children?: React.ReactNode;
     }

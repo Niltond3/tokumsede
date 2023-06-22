@@ -50,6 +50,7 @@ const defaultStyle =
 const mappingButtonStyles = {
   primary: defaultStyle,
   secondary: `${defaultStyle} bg-white/30 p-0.5 shadow-md backdrop-blur-sm focus-visible:outline-none data-state-open:shadow-lg`,
+  noStyle: '',
   toggle: `${defaultStyle} group peer`
 };
 

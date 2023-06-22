@@ -17,7 +17,7 @@ export default function Head({
       className="relative items-center justify-between"
       handleProps={handleProps}
     >
-      <div className="h-full select-none text-[25px] opacity-0 transition-faster group-hover:animate-pulse">
+      <div className="h-full select-none text-[0px] opacity-0 transition-faster group-hover:animate-pulse group-hover:!text-[25px]">
         <icon.Drag />
       </div>
       <div className="group absolute left-0 flex h-full max-w-min select-none items-center font-bold opacity-30 transition-faster group-hover:left-[10%]">
