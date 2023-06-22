@@ -1,3 +1,4 @@
+import Icons from 'components/Ui/DataDisplay/Icons';
 import Button from 'components/Ui/Inputs/Button';
 
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
@@ -34,8 +35,13 @@ export default function DropdownMenu({
 }: DropdownMenuProps) {
   return (
     <DropdownMenuPrimitive.Root>
-      <DropdownMenuPrimitive.Trigger asChild className={triggerStyles}>
-        <Button typeOf="noStyle" iconR={triggerIcon} aria-label="Customise options">
+      <DropdownMenuPrimitive.Trigger asChild>
+        <Button
+          typeOf="noStyle"
+          iconR={triggerIcon}
+          aria-label="Customise options"
+          className={triggerStyles}
+        >
           {triggerLabel}
         </Button>
       </DropdownMenuPrimitive.Trigger>
@@ -68,10 +74,11 @@ export function DropdownSub({
 }: DropdownMenuProps) {
   return (
     <DropdownMenuPrimitive.Sub>
-      <DropdownMenuPrimitive.SubTrigger asChild className={triggerStyles}>
-        <Button typeOf="noStyle" iconR={triggerIcon} aria-label="Customise options">
+      <DropdownMenuPrimitive.SubTrigger>
+        <div className={triggerStyles}>
           {triggerLabel}
-        </Button>
+          <Icons icon={triggerIcon} />
+        </div>
       </DropdownMenuPrimitive.SubTrigger>
 
       <DropdownMenuPrimitive.Portal>

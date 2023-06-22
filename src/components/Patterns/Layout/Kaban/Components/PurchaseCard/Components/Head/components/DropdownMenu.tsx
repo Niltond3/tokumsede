@@ -65,8 +65,8 @@ const SubMenu = ({ children, triggerLabel }: DropdownSubmenuPurchaseCardProps) =
   <DropdownSub
     triggerLabel={triggerLabel}
     triggerIcon="Arrow"
-    sideOffset={3}
-    alignOffset={-7}
+    sideOffset={0}
+    alignOffset={-5}
     triggerStyles="text-lg-primary p-1 text-xs font-medium flex items-center justify-between rounded py-1 pl-5 pr-1 transition-faster hover:bg-lg-primary hover:text-lg-primary-base"
     contentStyles="bg-lg-primary-base text-lg-primary p-1 rounded-md text-xs gap-0.5 elevation-8 flex flex-col font-medium"
   >
