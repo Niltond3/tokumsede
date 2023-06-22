@@ -7,7 +7,7 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import * as types from 'common/types';
 import { AnimatePresence, useAnimationControls } from 'framer-motion';
 
-export default function DropdownMenu<T>({
+export default function SelectList<T>({
   arrow = true,
   separator = true,
   list,

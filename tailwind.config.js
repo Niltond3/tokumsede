@@ -19,6 +19,10 @@ module.exports = {
         4: '4 4 0%'
       },
       keyframes: {
+        pulse: {
+          '0%, 100%': { opacity: 0 },
+          '50%': { opacity: 1 }
+        },
         opacity: {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 }
@@ -28,8 +32,8 @@ module.exports = {
           '100%': { opacity: '.5', transform: 'translateX(0)' }
         },
         'list-open': {
-          '0%': { opacity: 0, maxHeight: '0px' },
-          '100%': { opacity: 1, maxHeight: '11rem' }
+          '0%': { opacity: 0, maxHeight: '0px', visibility: 'hidden' },
+          '100%': { opacity: 1, maxHeight: '11rem', visibility: 'visible' }
         },
         'list-close': {
           '0%': { opacity: 1, maxHeight: '11rem' },
@@ -53,7 +57,7 @@ module.exports = {
         }
       },
       animation: {
-        // slideIn: 'slideIn .25s ease-in-out forwards var(--delay, 0)',
+        pulse: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         opacity: 'opacity .35s ease-in-out forwards 0.1s',
         'intro-menu': 'intro-menu .40s ease-in-out forwards 0.1s',
         'list-open': 'list-open .8s ease-in-out forwards 0.1s',

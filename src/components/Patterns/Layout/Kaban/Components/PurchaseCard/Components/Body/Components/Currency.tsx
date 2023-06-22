@@ -5,7 +5,7 @@ import Tooltip from 'components/Ui/DataDisplay/Tooltip';
 import Button from 'components/Ui/Inputs/Button';
 import TextField from 'components/Ui/Inputs/TextField';
 
-import SessionWrapper from './SessionWrapper';
+import SessionWrapper from '../../SessionWrapper';
 
 import * as types from 'common/types';
 import { ToClipboard, numberToCurrency } from 'common/utils';

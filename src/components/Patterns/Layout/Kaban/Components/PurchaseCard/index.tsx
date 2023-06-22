@@ -37,7 +37,7 @@ export default function PurchaseCard({
       ref={provider.innerRef}
       {...provider.draggableProps}
       className={clsx(
-        '!left-auto !top-auto mt-2 max-w-[12rem] rounded-md p-2 text-sm text-lg-primary-base @container transition-faster',
+        'group !left-auto !top-auto mt-2 max-w-[12rem] rounded-md p-2 text-sm text-lg-primary-base @container transition-faster',
         'hover:translate-x-0.5 hover:translate-y-0.5 hover:elevation-5',
         `${snapshot.isDragging ? 'bg-lg-secondary/80' : 'bg-lg-secondary'}`
       )}

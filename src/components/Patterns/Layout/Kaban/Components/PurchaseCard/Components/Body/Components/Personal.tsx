@@ -3,7 +3,7 @@ import React from 'react';
 import Icons from 'components/Ui/DataDisplay/Icons';
 import TextField from 'components/Ui/Inputs/TextField';
 
-import SessionWrapper from './SessionWrapper';
+import SessionWrapper from '../../SessionWrapper';
 
 export default function Personal() {
   return (

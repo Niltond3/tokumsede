@@ -36,6 +36,7 @@ import { default as LevePh } from './svg/leve_ph.svg';
 import { default as Leve } from './svg/leve.svg';
 import { default as LightMode } from './svg/light_mode.svg';
 import { default as logistics } from './svg/logistics.svg';
+import { default as Menu } from './svg/menu.svg';
 import { default as Mouse } from './svg/mouse.svg';
 import { default as NotificationsOff } from './svg/notifications_off.svg';
 import { default as NotificationsOn } from './svg/notifications_on.svg';
@@ -97,6 +98,7 @@ export {
   Leve,
   LevePh,
   LightMode,
+  Menu,
   Mouse,
   NotificationsOff,
   NotificationsOn,

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
-import DropdownMenu from 'components/Patterns/Navigation/DropdownMenu';
+import SelectList from 'components/Patterns/Inputs/SelectList';
 
-import SessionWrapper from '../SessionWrapper';
+import SessionWrapper from '../../../SessionWrapper';
 import ItemForSale from './Components/ItemForSale';
 
 import * as types from 'common/types';
@@ -14,7 +14,7 @@ export default function Request({ purchase }: types.KabanCardRequestProps) {
 
   return (
     <SessionWrapper className="flex min-h-[2rem] gap-2">
-      <DropdownMenu
+      <SelectList
         initialState={purchase.products}
         styles={mappingMenuStyles}
         list={products}
