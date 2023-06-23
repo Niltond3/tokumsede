@@ -113,22 +113,24 @@ export type ActionHandlersProps = {
   [PURCHASE_ACTION_TYPES.delete]: ActionCallback<PURCHASE_ACTION_TYPES.delete>;
 };
 
-export type PurchaseColumnsType = {
-  PENDING: PurchaseColumnProps;
-  ACCEPTED: PurchaseColumnProps;
-  DISPATCHED: PurchaseColumnProps;
-  DELIVERED: PurchaseColumnProps;
-  CANCELED: PurchaseColumnProps;
-  SCHEDULED: PurchaseColumnProps;
-};
+export enum StatusColumns {
+  PENDING,
+  ACCEPTED,
+  DISPATCHED,
+  DELIVERED,
+  CANCELED,
+  SCHEDULED
+}
+
+export type PurchaseColumnsType = { [key in StatusColumns]: PurchaseColumnProps };
+
+export type PurchaseColumnsKey = keyof PurchaseColumnsType;
 
 export type InitialStatePurchaseProps = {
   tempPurchases: PurchaseObjectProps[];
   purchases: PurchaseObjectProps[];
   columns: PurchaseColumnsType;
 };
-
-export type PurchaseColumnsKey = keyof PurchaseColumnsType;
 
 export type PurchaseColumnProps = {
   id: PurchaseColumnsKey;

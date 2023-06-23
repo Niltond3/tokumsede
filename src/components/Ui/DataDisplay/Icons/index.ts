@@ -11,6 +11,8 @@ import { default as Attendant } from './svg/attendant.svg';
 import { default as Cancel } from './svg/cancel.svg';
 import { default as Caret } from './svg/caret.svg';
 import { default as Cash } from './svg/cash.svg';
+import { default as Check } from './svg/check.svg';
+import { default as Command } from './svg/command.svg';
 import { default as Commercial } from './svg/commercial.svg';
 import { default as Contact } from './svg/contact.svg';
 import { default as Copy } from './svg/copy.svg';
@@ -53,10 +55,12 @@ import { default as RicaPh } from './svg/rica_ph.svg';
 import { default as Rica } from './svg/rica.svg';
 import { default as Schedule } from './svg/schedule.svg';
 import { default as Settings } from './svg/settings.svg';
+import { default as Shift } from './svg/Shift.svg';
 import { default as SortDown } from './svg/sort_down.svg';
 import { default as SortUp } from './svg/sort_up.svg';
 import { default as SportPh } from './svg/sport_ph.svg';
 import { default as Sport } from './svg/sport.svg';
+import { default as Uncheck } from './svg/uncheck.svg';
 import { default as Work } from './svg/work.svg';
 
 import { IconsType } from 'common/types';
@@ -74,6 +78,8 @@ export {
   Cancel,
   Caret,
   Cash,
+  Check,
+  Command,
   Commercial,
   Contact,
   Copy,
@@ -115,9 +121,11 @@ export {
   RicaPh,
   Schedule,
   Settings,
+  Shift,
   SortDown,
   SortUp,
   Sport,
+  Uncheck,
   SportPh,
   Work,
   logistics
