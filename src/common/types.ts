@@ -113,16 +113,18 @@ export type ActionHandlersProps = {
   [PURCHASE_ACTION_TYPES.delete]: ActionCallback<PURCHASE_ACTION_TYPES.delete>;
 };
 
-export enum StatusColumns {
-  PENDING,
-  ACCEPTED,
-  DISPATCHED,
-  DELIVERED,
-  CANCELED,
-  SCHEDULED
+export enum Status {
+  PENDING = 'PENDENTE',
+  ACCEPTED = 'ACEITO',
+  DISPATCHED = 'DESPACHADO',
+  DELIVERED = 'ENTREGUE',
+  CANCELED = 'CANCELADO',
+  SCHEDULED = 'AGENDADO'
 }
 
-export type PurchaseColumnsType = { [key in StatusColumns]: PurchaseColumnProps };
+export type StatusKey = keyof typeof Status;
+
+export type PurchaseColumnsType = { [key in keyof typeof Status]: PurchaseColumnProps };
 
 export type PurchaseColumnsKey = keyof PurchaseColumnsType;
 

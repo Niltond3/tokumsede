@@ -1,22 +1,22 @@
-'use client';
-import { useContext, useCallback } from 'react';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+'use client'
+import { useContext, useCallback } from 'react'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
-import Column from './Components/Column';
+import Column from './Components/Column'
 
-import clsx from 'clsx';
-import * as types from 'common/types';
-import { AppContext } from 'hooks/usePurchase';
+import clsx from 'clsx'
+import * as types from 'common/types'
+import { AppContext } from 'hooks/usePurchase'
 
 export default function Kaban() {
-  const { state, dispatch } = useContext(AppContext);
-  const { columns } = state;
+  const { state, dispatch } = useContext(AppContext)
+  const { columns } = state
   const onDragEndHandler = useCallback(
     (result: DropResult) => {
-      const { destination, source, draggableId } = result;
-      if (!destination) return;
+      const { destination, source, draggableId } = result
+      if (!destination) return
 
-      const { reorder } = types.PURCHASE_ACTION_TYPES;
+      const { reorder } = types.PURCHASE_ACTION_TYPES
       dispatch({
         type: reorder,
         payload: {
@@ -24,25 +24,25 @@ export default function Kaban() {
           to: destination.droppableId as types.PurchaseColumnsKey,
           fromIndex: source.index,
           toIndex: destination.index,
-          purchaseId: draggableId
-        }
-      });
+          purchaseId: draggableId,
+        },
+      })
     },
-    [dispatch]
-  );
+    [dispatch],
+  )
 
   return (
     <DragDropContext onDragEnd={onDragEndHandler}>
       <div
         className={clsx(
-          'relative flex min-w-[1200px] flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm @container'
+          'relative flex min-w-[1200px] flex-1 flex-wrap justify-between gap-2 backdrop-blur-sm @container',
         )}
       >
         {Object.keys(columns).map((columnId) => {
           const { id, purchasesIds, countLabel } =
-            columns[columnId as keyof types.PurchaseColumnsType];
+            columns[columnId as keyof types.PurchaseColumnsType]
 
-          const { prepare } = types.PURCHASE_ACTION_TYPES;
+          const { prepare } = types.PURCHASE_ACTION_TYPES
 
           return (
             <Column
@@ -52,11 +52,11 @@ export default function Kaban() {
               countLabel={countLabel}
               onClick={() => dispatch({ type: prepare, payload: { columnId: id } })}
             />
-          );
+          )
         })}
       </div>
     </DragDropContext>
-  );
+  )
 }
 
 /*

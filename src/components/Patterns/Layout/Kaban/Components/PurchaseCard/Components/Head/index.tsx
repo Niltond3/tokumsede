@@ -1,17 +1,27 @@
-import React from 'react';
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import React from 'react'
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd'
 
-import DropdownMenu from './components/DropdownMenu';
-import * as icon from 'components/Ui/DataDisplay/Icons';
+import DropdownMenu from './components/DropdownMenu'
+import * as icon from 'components/Ui/DataDisplay/Icons'
 
-import SessionWrapper from '../SessionWrapper';
+import SessionWrapper from '../SessionWrapper'
 
-/*ID NUMBER -> DISTRIBUTOR NAME */
+import * as types from 'common/types'
+
+type PurchaseCardHeadProps = {
+  handleProps?: DraggableProvidedDragHandleProps | null
+  status: string
+  purchaseId: string
+  fromIndex: number
+}
+
+/* ID NUMBER -> DISTRIBUTOR NAME */
 export default function Head({
-  handleProps
-}: {
-  handleProps?: DraggableProvidedDragHandleProps | null;
-}) {
+  handleProps,
+  status,
+  purchaseId,
+  fromIndex,
+}: PurchaseCardHeadProps) {
   return (
     <SessionWrapper
       className="relative items-center justify-between"
@@ -27,7 +37,12 @@ export default function Head({
       <span className="absolute right-0 select-none opacity-30 transition-faster group-hover:right-[10%]">
         Distribuidora
       </span>
-      <DropdownMenu />
+      <DropdownMenu
+        status={status}
+        from={status as types.PurchaseColumnsKey}
+        purchaseId={purchaseId}
+        fromIndex={fromIndex}
+      />
     </SessionWrapper>
-  );
+  )
 }

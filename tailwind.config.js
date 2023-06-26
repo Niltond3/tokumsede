@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const plugin = require('tailwindcss/plugin');
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   darkMode: 'class',
@@ -11,50 +11,50 @@ module.exports = {
         'menu-corner': "url('../../public/images/corner.svg')",
         'menu-corner-dark': "url('../../public/images/corner-dark.svg')",
         'menu-corner-secondary': "url('../../public/images/corner-secondary.svg')",
-        'menu-corner-tertiary': "url('../../public/images/corner-tertiary.svg')"
+        'menu-corner-tertiary': "url('../../public/images/corner-tertiary.svg')",
       },
       flex: {
         2: '2 2 0%',
         3: '3 3 0%',
-        4: '4 4 0%'
+        4: '4 4 0%',
       },
       keyframes: {
         pulse: {
           '0%, 100%': { opacity: 0 },
-          '50%': { opacity: 1 }
+          '50%': { opacity: 1 },
         },
         opacity: {
           '0%': { opacity: 0 },
-          '100%': { opacity: 1 }
+          '100%': { opacity: 1 },
         },
         'intro-menu': {
           '0%': { opacity: 0, transform: 'translateX(100%)' },
-          '100%': { opacity: '.5', transform: 'translateX(0)' }
+          '100%': { opacity: '.5', transform: 'translateX(0)' },
         },
         'list-open': {
           '0%': { opacity: 0, maxHeight: '0px', visibility: 'hidden' },
-          '100%': { opacity: 1, maxHeight: '11rem', visibility: 'visible' }
+          '100%': { opacity: 1, maxHeight: '11rem', visibility: 'visible' },
         },
         'list-close': {
           '0%': { opacity: 1, maxHeight: '11rem' },
-          '100%': { opacity: 0, maxHeight: '0px' }
+          '100%': { opacity: 0, maxHeight: '0px' },
         },
         'slide-down': {
           '0%': {
-            height: 0
+            height: 0,
           },
           '100%': {
-            height: 'var(--radix-accordion-content-height)'
-          }
+            height: 'var(--radix-accordion-content-height)',
+          },
         },
         'slide-up': {
           '0%': {
-            height: 'var(--radix-accordion-content-height)'
+            height: 'var(--radix-accordion-content-height)',
           },
           '100%': {
-            height: 0
-          }
-        }
+            height: 0,
+          },
+        },
       },
       animation: {
         pulse: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -64,7 +64,7 @@ module.exports = {
         'list-close': 'list-close .8s ease-in-out forwards 0.1s',
         'hover-here': 'hover-here 1.4s infinite',
         'slide-down': 'slide-down .30s ease-in-out',
-        'slide-up': 'slide-up .30s ease-in-out'
+        'slide-up': 'slide-up .30s ease-in-out',
       },
       spacing: {
         none: '0px',
@@ -75,13 +75,13 @@ module.exports = {
         l: '2rem',
         xl: '4rem',
         xxl: '5rem',
-        xxxl: '13rem'
+        xxxl: '13rem',
       },
       fontFamily: {
-        title: ['Josefin Sans', 'sans-serif']
+        title: ['Josefin Sans', 'sans-serif'],
       },
       fontSize: {
-        'base-10': '62,5%'
+        'base-10': '62,5%',
       },
       colors: {
         current: 'currentColor',
@@ -94,7 +94,7 @@ module.exports = {
             DEFAULT: '#0F122A',
             dark: '#000001',
             darker: '#000000',
-            darkest: '#000000'
+            darkest: '#000000',
           },
           secondary: {
             base: '#BFC4E8',
@@ -104,15 +104,15 @@ module.exports = {
             DEFAULT: '#1D3B55',
             dark: '#0F1E2B',
             darker: '#000101',
-            darkest: '#000000'
+            darkest: '#000000',
           },
           accent: '#38BDF8',
-          success: '#42be65', //Entregue
-          warning: '#f1c21b', //pendente
-          error: '#fa4d56', //Cancelado
-          info: '#4589ff', //Aceito
-          sent: '#a56eff', //enviado
-          wait: '#8d8d8d' //Agendado
+          success: '#42be65', // Entregue
+          warning: '#f1c21b', // pendente
+          error: '#fa4d56', // Cancelado
+          info: '#4589ff', // Aceito
+          sent: '#a56eff', // enviado
+          wait: '#8d8d8d', // Agendado
         },
         lg: {
           primary: {
@@ -123,7 +123,7 @@ module.exports = {
             DEFAULT: '#1767ac',
             dark: '#145590',
             darker: '#154977',
-            darkest: '#173e63'
+            darkest: '#173e63',
           },
           secondary: {
             base: '#e4eefa',
@@ -133,7 +133,7 @@ module.exports = {
             DEFAULT: '#3088d4',
             dark: '#18518c',
             darker: '#174675',
-            darkest: '#193c61'
+            darkest: '#193c61',
           },
           accent: {
             base: '#C7F5FF',
@@ -143,7 +143,7 @@ module.exports = {
             DEFAULT: '#00B5DE',
             dark: '#0092B3',
             darker: '#006C85',
-            darkest: '#00252E'
+            darkest: '#00252E',
           },
           success: {
             base: '#CDF4D8',
@@ -153,8 +153,8 @@ module.exports = {
             DEFAULT: '#24A148',
             dark: '#1D8139',
             darker: '#0E3F1C',
-            darkest: '#041107'
-          }, //Entregue
+            darkest: '#041107',
+          }, // Entregue
           warning: {
             base: '#FEF9E7',
             lightest: '#F9E7A4',
@@ -163,8 +163,8 @@ module.exports = {
             DEFAULT: '#F1C21B',
             dark: '#CAA10C',
             darker: '#655006',
-            darkest: '#181301'
-          }, //pendente
+            darkest: '#181301',
+          }, // pendente
           error: {
             base: '#FCE9EA',
             lightest: '#F9D2D4',
@@ -173,8 +173,8 @@ module.exports = {
             DEFAULT: '#DA1E28',
             dark: '#AF1820',
             darker: '#550C0F',
-            darkest: '#160304'
-          }, //Cancelado
+            darkest: '#160304',
+          }, // Cancelado
           info: {
             base: '#C2D6FF',
             lightest: '#85ADFF',
@@ -183,8 +183,8 @@ module.exports = {
             DEFAULT: '#0043CE',
             dark: '#0036A3',
             darker: '#00297A',
-            darkest: '#000E29'
-          }, //Aceito
+            darkest: '#000E29',
+          }, // Aceito
           sent: {
             base: '#E7D7FE',
             lightest: '#D1B4FE',
@@ -193,8 +193,8 @@ module.exports = {
             DEFAULT: '#8A3FFC',
             dark: '#6504F6',
             darker: '#4C03BA',
-            darkest: '#33027E'
-          }, //Despachado
+            darkest: '#33027E',
+          }, // Despachado
           wait: {
             base: '#E3E3E3',
             lightest: '#C4C4C4',
@@ -203,11 +203,11 @@ module.exports = {
             DEFAULT: '#6F6F6F',
             dark: '#595959',
             darker: '#424242',
-            darkest: '#2B2B2B'
-          } //Agendado
-        }
-      }
-    }
+            darkest: '#2B2B2B',
+          }, // Agendado
+        },
+      },
+    },
   },
   plugins: [
     require('tailwindcss-animate'),
@@ -217,74 +217,74 @@ module.exports = {
     require('@headlessui/tailwindcss')({ prefix: 'ui' }),
     require('tailwind-scrollbar')({ nocompatible: true }),
     plugin(({ addVariant, addUtilities }) => {
-      addVariant('child', '&>*');
-      addVariant('second', '&:nth-child(2)');
-      addVariant('has-open', '&:has(input#open-menu:checked)');
-      addVariant('has-checked', '&:has(input:checked)');
-      addVariant('pseudos', ':merge(&::before,)&::after');
+      addVariant('child', '&>*')
+      addVariant('second', '&:nth-child(2)')
+      addVariant('has-open', '&:has(input#open-menu:checked)')
+      addVariant('has-checked', '&:has(input:checked)')
+      addVariant('pseudos', ':merge(&::before,)&::after')
       addUtilities({
         '.backface-visible': {
-          'backface-visibility': 'visible'
+          'backface-visibility': 'visible',
         },
         '.backface-hidden': {
-          'backface-visibility': 'hidden'
-        }
-      });
+          'backface-visibility': 'hidden',
+        },
+      })
       addUtilities({
         '.transition-slow': {
-          transition: 'all 1s ease-out'
+          transition: 'all 1s ease-out',
         },
         '.transition-fast': {
-          transition: 'all 0.5s ease-out'
+          transition: 'all 0.5s ease-out',
         },
         '.transition-faster': {
-          transition: 'all 0.3s ease-out'
+          transition: 'all 0.3s ease-out',
         },
         '.center-x': {
           top: '50%',
           '--tw-translate-y': '-50%',
-          transform: 'translateY(var(--tw-translate-y))'
+          transform: 'translateY(var(--tw-translate-y))',
         },
         '.center-y': {
           left: '50%',
           '--tw-translate-x': '-50%',
-          transform: 'translateX(var(--tw-translate-x))'
+          transform: 'translateX(var(--tw-translate-x))',
         },
         '.center': {
           top: '50%',
           left: '50%',
           '--tw-translate-y': '-50%',
           '--tw-translate-x': '-50%',
-          transform: 'translate(var(--tw-translate-x),var(--tw-translate-y))'
-        }
-      });
+          transform: 'translate(var(--tw-translate-x),var(--tw-translate-y))',
+        },
+      })
     }),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(
         {
           'animation-delay': (value) => {
             return {
-              'animation-delay': value
-            };
-          }
+              'animation-delay': value,
+            }
+          },
         },
         {
-          values: theme('transitionDelay')
-        }
-      );
+          values: theme('transitionDelay'),
+        },
+      )
     }),
     plugin(function groupPeer({ addVariant, matchVariant, theme }) {
-      let pseudoVariants = [
+      const pseudoVariants = [
         // ... Any other pseudo variants you want to support.
         // See https://github.com/tailwindlabs/tailwindcss/blob/6729524185b48c9e25af62fc2372911d66e7d1f0/src/corePlugins.js#L78
-        'checked'
-      ].map((variant) => (Array.isArray(variant) ? variant : [variant, `&:${variant}`]));
+        'checked',
+      ].map((variant) => (Array.isArray(variant) ? variant : [variant, `&:${variant}`]))
 
-      let normalize = (value, isRoot = true) => {
-        const placeholder = '--tw-placeholder';
-        const placeholderRe = new RegExp(placeholder, 'g');
+      const normalize = (value, isRoot = true) => {
+        const placeholder = '--tw-placeholder'
+        const placeholderRe = new RegExp(placeholder, 'g')
         if (value.startsWith('--')) {
-          return `var(${value})`;
+          return `var(${value})`
         }
 
         // Keep raw strings if it starts with `url(`
@@ -294,12 +294,12 @@ module.exports = {
             .filter(Boolean)
             .map((part) => {
               if (/^url\(.*?\)$/.test(part)) {
-                return part;
+                return part
               }
 
-              return normalize(part, false);
+              return normalize(part, false)
             })
-            .join('');
+            .join('')
         }
 
         // Convert `_` to ` `, except for escaped underscores `\_`
@@ -307,40 +307,40 @@ module.exports = {
           .replace(
             /([^\\])_+/g,
             (fullMatch, characterBefore) =>
-              characterBefore + ' '.repeat(fullMatch.length - 1)
+              characterBefore + ' '.repeat(fullMatch.length - 1),
           )
           .replace(/^_/g, ' ')
-          .replace(/\\_/g, '_');
+          .replace(/\\_/g, '_')
 
         // Remove leftover whitespace
         if (isRoot) {
-          value = value.trim();
+          value = value.trim()
         }
 
         // Add spaces around operators inside math functions like calc() that do not follow an operator
         // or '('.
         value = value.replace(/(calc|min|max|clamp)\(.+\)/g, (match) => {
-          let vars = [];
+          const vars = []
           return match
             .replace(/var\((--.+?)[,)]/g, (match, g1) => {
-              vars.push(g1);
-              return match.replace(g1, placeholder);
+              vars.push(g1)
+              return match.replace(g1, placeholder)
             })
             .replace(
               /(-?\d*\.?\d(?!\b-\d.+[,)](?![^+\-/*])\D)(?:%|[a-z]+)?|\))([+\-/*])/g,
-              '$1 $2 '
+              '$1 $2 ',
             )
-            .replace(placeholderRe, () => vars.shift());
-        });
+            .replace(placeholderRe, () => vars.shift())
+        })
 
-        return value;
-      };
+        return value
+      }
 
-      for (let [variantName, state] of pseudoVariants) {
+      for (const [variantName, state] of pseudoVariants) {
         addVariant(`group-peer-${variantName}`, (ctx) => {
-          let result = typeof state === 'function' ? state(ctx) : state;
-          return result.replace(/&(\S+)/, ':merge(.peer)$1 ~ .group &');
-        });
+          const result = typeof state === 'function' ? state(ctx) : state
+          return result.replace(/&(\S+)/, ':merge(.peer)$1 ~ .group &')
+        })
       }
       matchVariant(
         'group-peer-data',
@@ -348,65 +348,63 @@ module.exports = {
           modifier
             ? `:merge(.peer\\/${modifier})[data-${normalize(value)}] ~ .group &`
             : `:merge(.peer)[data-${normalize(value)}] ~ .group &`,
-        { values: theme('data') ?? {} }
-      );
+        { values: theme('data') ?? {} },
+      )
     }),
     plugin(function (helpers) {
       // variants that help styling Radix-UI components
-      dataStateVariant('open', helpers);
-      dataStateVariant('closed', helpers);
-      dataStateVariant('on', helpers);
-      dataStateVariant('off', helpers);
-      dataStateVariant('checked', helpers);
-      dataStateVariant('unchecked', helpers);
-      dataOrientationVariant('horizontal', helpers);
-      dataOrientationVariant('vertical', helpers);
-    })
-  ]
-};
+      dataStateVariant('open', helpers)
+      dataStateVariant('closed', helpers)
+      dataStateVariant('on', helpers)
+      dataStateVariant('off', helpers)
+      dataStateVariant('checked', helpers)
+      dataStateVariant('unchecked', helpers)
+      dataOrientationVariant('horizontal', helpers)
+      dataOrientationVariant('vertical', helpers)
+    }),
+  ],
+}
 function dataOrientationVariant(
   state,
   {
     addVariant, // for registering custom variants
-    e // for manually escaping strings meant to be used in class names
-  }
+    e, // for manually escaping strings meant to be used in class names
+  },
 ) {
   addVariant(`data-orientation-${state}`, ({ modifySelectors, separator }) => {
     modifySelectors(({ className }) => {
       return `.${e(
-        `data-orientation-${state}${separator}${className}`
-      )}[data-orientation='${state}']`;
-    });
-  });
+        `data-orientation-${state}${separator}${className}`,
+      )}[data-orientation='${state}']`
+    })
+  })
 }
 function dataStateVariant(
   state,
   {
     addVariant, // for registering custom variants
-    e // for manually escaping strings meant to be used in class names
-  }
+    e, // for manually escaping strings meant to be used in class names
+  },
 ) {
   addVariant(`data-state-${state}`, ({ modifySelectors, separator }) => {
     modifySelectors(({ className }) => {
-      return `.${e(
-        `data-state-${state}${separator}${className}`
-      )}[data-state='${state}']`;
-    });
-  });
+      return `.${e(`data-state-${state}${separator}${className}`)}[data-state='${state}']`
+    })
+  })
 
   addVariant(`group-data-state-${state}`, ({ modifySelectors, separator }) => {
     modifySelectors(({ className }) => {
       return `.group[data-state='${state}'] .${e(
-        `group-data-state-${state}${separator}${className}`
-      )}`;
-    });
-  });
+        `group-data-state-${state}${separator}${className}`,
+      )}`
+    })
+  })
 
   addVariant(`peer-data-state-${state}`, ({ modifySelectors, separator }) => {
     modifySelectors(({ className }) => {
       return `.peer[data-state='${state}'] ~ .${e(
-        `peer-data-state-${state}${separator}${className}`
-      )}`;
-    });
-  });
+        `peer-data-state-${state}${separator}${className}`,
+      )}`
+    })
+  })
 }

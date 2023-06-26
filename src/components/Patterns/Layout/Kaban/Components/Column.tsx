@@ -1,20 +1,16 @@
-import React, { useContext } from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import React from 'react'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
 
-import Icons from 'components/Ui/DataDisplay/Icons';
-import Button from 'components/Ui/Inputs/Button';
+import Icons from 'components/Ui/DataDisplay/Icons'
+import Button from 'components/Ui/Inputs/Button'
 
-import PurchaseCard from './PurchaseCard';
+import PurchaseCard from './PurchaseCard'
 
-import clsx from 'clsx';
-import * as types from 'common/types';
-import { AnimatePresence } from 'framer-motion';
-import { AppContext } from 'hooks/usePurchase';
+import clsx from 'clsx'
+import * as types from 'common/types'
 
 const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsProps) => {
-  const { state, dispatch } = useContext(AppContext);
-
-  const { title, styles, icon } = mappingStyles[id];
+  const { title, styles, icon } = mappingStyles[id]
 
   return (
     <div className={clsx(`h-min flex-1 rounded-sm px-s py-xs`)}>
@@ -40,7 +36,7 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
             {...provider.droppableProps}
             className={clsx(
               'max-h-[75vh] min-h-[2rem] overflow-visible overflow-y-auto rounded-md px-1 py-2 scrollbar scrollbar-thumb-slate-300 scrollbar-w-1 transition-fast',
-              `${snapshot.isDraggingOver ? styles : ''}`
+              `${snapshot.isDraggingOver ? styles : ''}`,
             )}
             style={{ scrollbarGutter: 'stable both-edges' }}
           >
@@ -59,7 +55,7 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
                     />
                   )}
                 </Draggable>
-              );
+              )
             })}
             {/* </AnimatePresence> */}
             {provider.placeholder}
@@ -70,10 +66,10 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
         Fazer novo pedido
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default Column;
+export default Column
 /*
   {
         id: '1',
@@ -111,31 +107,31 @@ const mappingStyles: types.KabanColumnsStylesProps = {
   PENDING: {
     title: 'Pendentes',
     styles: 'bg-lg-warning/30',
-    icon: 'Pending'
+    icon: 'Pending',
   },
   ACCEPTED: {
     title: 'Aceitos',
     styles: 'bg-lg-info/30',
-    icon: 'Accepted'
+    icon: 'Accepted',
   },
   DISPATCHED: {
     title: 'Despachados',
     styles: 'bg-lg-sent/30',
-    icon: 'logistics'
+    icon: 'logistics',
   },
   DELIVERED: {
     title: 'Entregues',
     styles: 'bg-lg-success/30',
-    icon: 'Delivered'
+    icon: 'Delivered',
   },
   CANCELED: {
     title: 'Cancelados',
     styles: 'bg-lg-error/30',
-    icon: 'Cancel'
+    icon: 'Cancel',
   },
   SCHEDULED: {
     title: 'Agendados',
     styles: 'bg-lg-wait/30',
-    icon: 'Schedule'
-  }
-};
+    icon: 'Schedule',
+  },
+}

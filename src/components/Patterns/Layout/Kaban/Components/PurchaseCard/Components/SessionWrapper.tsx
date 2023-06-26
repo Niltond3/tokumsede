@@ -1,17 +1,18 @@
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import { ReactNode } from 'react'
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd'
 
-import Divider from 'components/Ui/Layout/Divider';
+import Divider from 'components/Ui/Layout/Divider'
 
 type SessionProps = {
-  children: React.ReactNode;
-  className?: string;
-  handleProps?: DraggableProvidedDragHandleProps | null;
-};
+  children: ReactNode
+  className?: string
+  handleProps?: DraggableProvidedDragHandleProps | null
+}
 
 export default function SessionWrapper({
   children,
   className = '',
-  handleProps
+  handleProps,
 }: SessionProps) {
   return (
     <section {...handleProps}>
@@ -20,5 +21,5 @@ export default function SessionWrapper({
         <Divider className="my-s" />
       </>
     </section>
-  );
+  )
 }

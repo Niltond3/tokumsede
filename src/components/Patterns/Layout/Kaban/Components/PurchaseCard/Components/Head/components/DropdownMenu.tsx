@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react'
 
-import * as icons from 'components/Ui/DataDisplay/Icons';
-import Dropdown from 'components/Ui/Navigation/Dropdown';
+import * as icons from 'components/Ui/DataDisplay/Icons'
+import Dropdown from 'components/Ui/Navigation/Dropdown'
 
-import * as types from 'common/types';
+import * as types from 'common/types'
+import { AppContext } from 'hooks/usePurchase'
+import { capitalize } from 'lodash'
 
-export default function DropdownMenu() {
-  console.log(Object.keys(types.StatusColumns));
-  console.log(types.StatusColumns);
+type HeadDropdownMenuProps = {
+  status: string
+  from: types.PurchaseColumnsKey
+  purchaseId: string
+  fromIndex: number
+}
+
+export default function DropdownMenu({
+  status,
+  from,
+  purchaseId,
+  fromIndex,
+}: HeadDropdownMenuProps) {
+  const { state, dispatch } = useContext(AppContext)
+  const { reorder } = types.PURCHASE_ACTION_TYPES
+
+  const handleValueChange = (value: string) => {
+    const to = value as types.PurchaseColumnsKey
+    const toIndex = state.columns[to].purchasesIds.length
+    dispatch({
+      type: reorder,
+      payload: {
+        from,
+        to,
+        fromIndex,
+        toIndex,
+        purchaseId,
+      },
+    })
+  }
+
   return (
     <Dropdown
       triggerIcon="Menu"
@@ -55,50 +85,49 @@ export default function DropdownMenu() {
       </SubMenu>
       <Dropdown.Separator />
       <Dropdown.Label className="flex select-none pl-5">Status</Dropdown.Label>
-      <Dropdown.RadioGroup>
-        {Object.keys(types.StatusColumns).map((val, index) => (
+      <Dropdown.RadioGroup value={status} onValueChange={handleValueChange}>
+        {Object.keys(types.Status).map((val, index) => (
           <RadioItem key={`radio-item-${val}-${index}`} value={val}>
-            {val}
+            {capitalize(types.Status[val as types.StatusKey])}
           </RadioItem>
         ))}
       </Dropdown.RadioGroup>
     </Dropdown>
-  );
+  )
 }
 
 const itemStyles =
-  'flex w-48 select-none items-center justify-between rounded py-1 pl-5 pr-1 transition-faster hover:bg-lg-primary hover:text-lg-primary-base';
+  'flex w-48 select-none items-center justify-between rounded py-1 pl-5 pr-1 transition-faster hover:bg-lg-primary hover:text-lg-primary-base'
 
-const Item = ({ children, className }: types.FragmentProps) => (
+const Item = ({ children }: types.FragmentProps) => (
   <Dropdown.Item className={itemStyles}>
     <>{children}</>
   </Dropdown.Item>
-);
+)
 
 const RadioItem = ({ children, value }: types.FragmentProps & { value: string }) => (
   <Dropdown.RadioItem value={value} className={itemStyles}>
     <>{children}</>
   </Dropdown.RadioItem>
-);
+)
 
 type ShortcutsProps = {
-  press: string;
-  shift?: boolean;
-  command?: boolean;
-  ctrl?: boolean;
-};
+  press: string
+  shift?: boolean
+  command?: boolean
+}
 
-const Shortcuts = ({ press, command = true, ctrl, shift }: ShortcutsProps) => (
+const Shortcuts = ({ press, command = true, shift }: ShortcutsProps) => (
   <div className="flex items-center opacity-70">
     {command && <icons.Command />}
     {shift && '+'}
     {shift && <icons.Shift />}+{press}
   </div>
-);
+)
 
 type DropdownSubmenuPurchaseCardProps = types.FragmentProps & {
-  triggerLabel: React.ReactNode;
-};
+  triggerLabel: React.ReactNode
+}
 
 const SubMenu = ({ children, triggerLabel }: DropdownSubmenuPurchaseCardProps) => (
   <Dropdown.Sub
@@ -111,4 +140,4 @@ const SubMenu = ({ children, triggerLabel }: DropdownSubmenuPurchaseCardProps) =
   >
     <>{children}</>
   </Dropdown.Sub>
-);
+)
