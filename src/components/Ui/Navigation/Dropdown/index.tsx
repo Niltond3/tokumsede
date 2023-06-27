@@ -9,24 +9,28 @@ import * as types from 'common/types'
 // export const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'];
 
 type Side = (typeof SIDE_OPTIONS)[number]
-type DropdownProps = {
-  triggerIcon?: types.IconsKey
-  triggerLabel?: ReactNode
-  children: ReactNode
-  triggerStyles?: string
+type DropdownContentProps = {
   contentStyles?: string
   arrownStyles?: string
   arrown?: boolean
   side?: Side
   sideOffset?: number
   alignOffset?: number
+  children: ReactNode
+}
+type DropdownProps = DropdownContentProps & {
+  triggerIcon?: types.IconsKey
+  triggerLabel?: ReactNode
+  triggerStyles?: string
+  portal?: boolean
 }
 
 export default function Dropdown({
   triggerIcon,
   triggerLabel,
-  children,
   triggerStyles = '',
+  portal = true,
+  children,
   contentStyles = '',
   arrownStyles = '',
   arrown = false,
@@ -40,18 +44,55 @@ export default function Dropdown({
         {triggerLabel}
       </DropdownButton>
 
-      <DropdownPrimitive.Portal>
-        <DropdownPrimitive.Content
+      {portal ? (
+        <DropdownPrimitive.Portal>
+          <DropdownContent
+            arrown={arrown}
+            sideOffset={sideOffset}
+            alignOffset={alignOffset}
+            contentStyles={contentStyles}
+            side={side}
+            arrownStyles={arrownStyles}
+          >
+            {children}
+          </DropdownContent>
+        </DropdownPrimitive.Portal>
+      ) : (
+        <DropdownContent
+          arrown={arrown}
           sideOffset={sideOffset}
           alignOffset={alignOffset}
-          className={contentStyles}
+          contentStyles={contentStyles}
           side={side}
+          arrownStyles={arrownStyles}
         >
-          <>{children}</>
-          {arrown && <DropdownPrimitive.Arrow className={arrownStyles} />}
-        </DropdownPrimitive.Content>
-      </DropdownPrimitive.Portal>
+          {children}
+        </DropdownContent>
+      )}
     </DropdownPrimitive.Root>
+  )
+}
+
+function DropdownContent({
+  children,
+  contentStyles,
+  arrownStyles,
+  arrown,
+  side,
+  sideOffset,
+  alignOffset,
+}: DropdownContentProps) {
+  return (
+    <DropdownPrimitive.Content
+      sideOffset={sideOffset}
+      alignOffset={alignOffset}
+      className={contentStyles}
+      side={side}
+      sticky="always"
+    >
+      <>{children}</>
+      {arrown && <DropdownPrimitive.Arrow className={arrownStyles} />}
+    </DropdownPrimitive.Content>
   )
 }
 

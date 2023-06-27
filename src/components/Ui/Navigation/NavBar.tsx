@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
-import { Arrow, Home, Hashtag } from '../DataDisplay/Icons';
-import Link from './Link';
+import { Arrow, Home, Hashtag } from '../DataDisplay/Icons'
+import Link from './Link'
 
-import * as types from 'common/types';
+import * as types from 'common/types'
 
 export default function NavBar({ theme, entrys }: types.NavBarProps) {
-  const { title, Element } = navBarThemeMapping[theme];
+  const { title, Element } = navBarThemeMapping[theme]
   return (
     <>
       {title && (
@@ -18,18 +18,18 @@ export default function NavBar({ theme, entrys }: types.NavBarProps) {
         <ul>{renderRows(entrys, theme)}</ul>
       </Element>
     </>
-  );
+  )
 }
 const navBarMappingSvg = {
   primary: (theme: types.NavBarThemesKeys) => {
     const navBarThemeMapping = {
       Breadcrumbs: <Home className="mr-2 h-4 w-4" />,
-      TableOfContents: <Hashtag className="mr-2 h-4 w-4" />
-    };
-    return navBarThemeMapping[theme];
+      TableOfContents: <Hashtag className="mr-2 h-4 w-4" />,
+    }
+    return navBarThemeMapping[theme]
   },
-  secondary: () => <Arrow className="h-4 w-4" />
-} as const;
+  secondary: () => <Arrow className="h-4 w-4" />,
+} as const
 
 const navBarThemeMapping = {
   Breadcrumbs: {
@@ -43,12 +43,12 @@ const navBarThemeMapping = {
           '[&>*]:inline-flex [&>*]:items-center',
           '[&>ul]:relative [&>ul]:z-10 [&>ul]:space-x-1',
           '[&>ul>li>a]:flex [&>ul>li>a]:items-center [&>ul>li>a]:text-sm [&>ul>li>a]:font-medium [&>ul>li>a]:text-lg-secondary-lighter hover:[&>ul>li>a]:text-lg-secondary-base',
-          'dark:[&>ul>li>a]:text-dk-secondary-base dark:hover:[&>ul>li>a]:text-dk-accent'
+          'dark:[&>ul>li>a]:text-dk-secondary-base dark:hover:[&>ul>li>a]:text-dk-accent',
         ].join(' ')}`}
       >
         {children}
       </nav>
-    )
+    ),
   },
   TableOfContents: {
     title: true,
@@ -62,14 +62,14 @@ const navBarThemeMapping = {
           '[&>ul>li>a]:block [&>ul>li>a]:py-1 [&>ul>li>a]:font-medium [&>ul>li>a]:text-lg-primary-darkest hover:[&>ul>li>a]:text-lg-primary-light',
           'dark:[&>ul>li>a]:text-dk-secondary-base dark:hover:[&>ul>li>a]:text-dk-accent',
           '[&>ul>li>a>svg]:absolute [&>ul>li>a>svg]:right-full [&>ul>li>a>svg]:top-1/2 [&>ul>li>a>svg]:-translate-y-1/2',
-          '[&_.primary>svg]:opacity-0'
+          '[&_.primary>svg]:opacity-0',
         ].join(' ')}`}
       >
         {children}
       </nav>
-    )
-  }
-} as const;
+    ),
+  },
+} as const
 //
 const renderRows = (entrys: types.NavBarEntryProps[], theme: types.NavBarThemesKeys) =>
   entrys.map(({ href, level, title }, index) => (
@@ -85,6 +85,6 @@ const renderRows = (entrys: types.NavBarEntryProps[], theme: types.NavBarThemesK
         {title}
       </Link>
     </li>
-  ));
+  ))
 
-export { navBarMappingSvg, navBarThemeMapping };
+export { navBarMappingSvg, navBarThemeMapping }

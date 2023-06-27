@@ -31,7 +31,7 @@ export default function PurchaseCard({
       styles: (isDragging: boolean) =>
         clsx(
           `border-[1px] border-dashed border-lg-primary text-lg-primary-darker`,
-          `[&_*]:data-[type=separator]:!bg-black`,
+          `[&_.separator]:bg-lg-primary-darker/30`,
           `${isDragging ? 'bg-lg-secondary-base/80' : 'bg-lg-secondary-base'}`,
         ),
     },
