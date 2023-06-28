@@ -8,6 +8,7 @@ import PurchaseCard from './PurchaseCard'
 
 import clsx from 'clsx'
 import * as types from 'common/types'
+import { AnimatePresence } from 'framer-motion'
 
 const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsProps) => {
   const { title, styles, icon } = mappingStyles[id]
@@ -40,24 +41,24 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
             )}
             style={{ scrollbarGutter: 'stable both-edges' }}
           >
-            {/* <AnimatePresence initial={false}> */}
-            {purchasesIds.map((value, index) => {
-              return (
-                <Draggable index={index} draggableId={`${value}`} key={value}>
-                  {(provider, snapshot, rubric) => (
-                    <PurchaseCard
-                      index={index}
-                      purchaseId={`${value}`}
-                      currentStatus={`${id}`}
-                      provider={provider}
-                      rubric={rubric}
-                      snapshot={snapshot}
-                    />
-                  )}
-                </Draggable>
-              )
-            })}
-            {/* </AnimatePresence> */}
+            <AnimatePresence initial={false}>
+              {purchasesIds.map((value, index) => {
+                return (
+                  <Draggable index={index} draggableId={`${value}`} key={value}>
+                    {(provider, snapshot, rubric) => (
+                      <PurchaseCard
+                        index={index}
+                        purchaseId={`${value}`}
+                        currentStatus={`${id}`}
+                        provider={provider}
+                        rubric={rubric}
+                        snapshot={snapshot}
+                      />
+                    )}
+                  </Draggable>
+                )
+              })}
+            </AnimatePresence>
             {provider.placeholder}
           </div>
         )}

@@ -11,6 +11,7 @@ import { AppContext } from 'hooks/usePurchase'
 export default function Kaban() {
   const { state, dispatch } = useContext(AppContext)
   const { columns } = state
+
   const onDragEndHandler = useCallback(
     (result: DropResult) => {
       const { destination, source, draggableId } = result

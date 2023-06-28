@@ -40,8 +40,8 @@ export default function DropdownMenu({
 
   return (
     <Dropdown
-      triggerIcon="Menu"
-      triggerStyles="!opacity-0 transition-faster group-hover:!opacity-100"
+      buttonIcon="Menu"
+      buttonStyles="!opacity-0 transition-faster group-hover:!opacity-100"
       side="right"
       arrown
       sideOffset={10}
@@ -131,11 +131,11 @@ type DropdownSubmenuPurchaseCardProps = types.FragmentProps & {
 
 const SubMenu = ({ children, triggerLabel }: DropdownSubmenuPurchaseCardProps) => (
   <Dropdown.Sub
-    triggerLabel={triggerLabel}
-    triggerIcon="Arrow"
+    buttonLabel={triggerLabel}
+    buttonIcon="Arrow"
     sideOffset={0}
     alignOffset={-5}
-    triggerStyles="text-lg-primary p-1 text-xs font-medium flex items-center justify-between rounded py-1 pl-5 pr-1 transition-faster hover:bg-lg-primary hover:text-lg-primary-base"
+    buttonStyles="text-lg-primary p-1 text-xs font-medium flex items-center justify-between rounded py-1 pl-5 pr-1 transition-faster hover:bg-lg-primary hover:text-lg-primary-base"
     contentStyles="bg-lg-primary-base text-lg-primary p-1 rounded-md text-xs gap-0.5 elevation-8 flex flex-col font-medium"
   >
     <>{children}</>

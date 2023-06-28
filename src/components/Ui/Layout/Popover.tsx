@@ -1,17 +1,17 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react'
 
-import Icons from '../DataDisplay/Icons';
-import Img from '../DataDisplay/Images';
-import TextField from '../Inputs/TextField';
-import Divider from './Divider';
+import Icons from '../DataDisplay/Icons'
+import Img from '../DataDisplay/Images'
+import TextField from '../Inputs/TextField'
+import Divider from './Divider'
 
-import { Listbox, Transition } from '@headlessui/react';
-import * as PopoverPrimitive from '@radix-ui/react-popover';
-import clsx from 'clsx';
-import * as types from 'common/types';
+import { Listbox, Transition } from '@headlessui/react'
+import * as PopoverPrimitive from '@radix-ui/react-popover'
+import clsx from 'clsx'
+import * as types from 'common/types'
 
 const Popover = ({ list, multiple = true, className = '' }: types.PopoverSelectProps) => {
-  const [selected, setSelected] = useState<types.PopoverSelectableProps[]>([list[0]]);
+  const [selected, setSelected] = useState<types.PopoverSelectableProps[]>([list[0]])
 
   return (
     <Listbox value={selected} onChange={setSelected} multiple={multiple}>
@@ -46,8 +46,8 @@ const Popover = ({ list, multiple = true, className = '' }: types.PopoverSelectP
         </PopoverPrimitive.Portal>
       </PopoverPrimitive.Root>
     </Listbox>
-  );
-};
+  )
+}
 
 export const ListboxOptions = React.forwardRef<
   HTMLUListElement,
@@ -78,16 +78,16 @@ export const ListboxOptions = React.forwardRef<
               }
             >
               {({ selected }) => {
-                const { name, measure, value } = item;
+                const { name, measure, value } = item
 
                 const currencyValue = value.toLocaleString('pt-br', {
-                  minimumFractionDigits: 2
-                });
+                  minimumFractionDigits: 2,
+                })
                 const mappingStyles = {
                   leve: '',
                   rica: '',
-                  sport: ''
-                } as const;
+                  sport: '',
+                } as const
                 return (
                   <>
                     <div className="flex ">
@@ -101,7 +101,7 @@ export const ListboxOptions = React.forwardRef<
                           <div
                             className={clsx(
                               'absolute bottom-0 flex h-1/3 w-1/3 border-spacing-1 items-center justify-center rounded-br-xl rounded-tl-xl border-[1px] border-white bg-lg-success p-2 outline outline-1 outline-lg-accent-darker',
-                              mappingStyles[name as keyof typeof mappingStyles]
+                              mappingStyles[name as keyof typeof mappingStyles],
                             )}
                           >
                             <span className="text-[11px] font-medium text-lg-primary-base">
@@ -128,10 +128,10 @@ export const ListboxOptions = React.forwardRef<
                           type="number"
                           buttonStyles={{ button: '', icon: '', wrapper: '' }}
                           handleDecrement={() => {
-                            //void
+                            // void
                           }}
                           handleIncrement={() => {
-                            //void
+                            // void
                           }}
                         />
                         {/* <input type="number" className="w-full"></input> */}
@@ -144,14 +144,14 @@ export const ListboxOptions = React.forwardRef<
                       </span>
                     ) : null}
                   </>
-                );
+                )
               }}
             </Listbox.Option>
           ))}
         </>
       </Listbox.Options>
     </Transition>
-  );
-});
+  )
+})
 
-export default Popover;
+export default Popover

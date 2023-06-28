@@ -7,6 +7,7 @@ import Head from './Components/Head'
 import clsx from 'clsx'
 import * as types from 'common/types'
 import { containsOnlyNumbers } from 'common/utils'
+import { motion } from 'framer-motion'
 import { AppContext } from 'hooks/usePurchase'
 import { toInteger } from 'lodash'
 
@@ -43,32 +44,22 @@ export default function PurchaseCard({
   const purchase = searchArray[arrayIndex]
 
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase()
-  // const base = 4;
-  // const time = (d: number) => d * base;
 
   return (
-    <div
+    <motion.div
       ref={provider.innerRef}
       {...provider.draggableProps}
       className={clsx(
         'group !left-auto !top-auto mt-2 max-w-[12rem] rounded-md p-2 text-sm @container transition-faster',
-        'hover:translate-x-0.5 hover:translate-y-0.5 hover:elevation-5',
+        'hover:elevation-5',
         `${styles(snapshot.isDragging)}`,
       )}
-      // initial={{ opacity: 0 }}
-      // animate={{
-      //   opacity: 1,
-      //   transition: {
-      //     type: 'spring',
-      //     bounce: 0.3,
-      //     opacity: { delaty: time(0.025) }
-      //   }
-      // }}
-      // exit={{ opacity: 0 }}
-      // transition={{
-      //   duration: time(0.15),
-      //   opacity: { duration: time(0.03) }
-      // }}
+      initial={{ height: 0, opacity: 0 }}
+      animate={{
+        height: 'auto',
+        opacity: 1,
+      }}
+      exit={{ height: 0, opacity: 0 }}
     >
       <Head
         handleProps={provider.dragHandleProps}
@@ -78,6 +69,6 @@ export default function PurchaseCard({
       />
       <Body dropDownId={dropDownId} purchase={purchase} />
       <Footer />
-    </div>
+    </motion.div>
   )
 }

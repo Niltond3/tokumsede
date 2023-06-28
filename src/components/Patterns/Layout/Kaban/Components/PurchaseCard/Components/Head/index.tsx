@@ -24,10 +24,10 @@ export default function Head({
 }: PurchaseCardHeadProps) {
   return (
     <SessionWrapper
-      className="relative items-center justify-between"
+      className="relative items-center justify-end"
       handleProps={handleProps}
     >
-      <div className="h-full select-none text-[0px] opacity-0 transition-faster group-hover:animate-pulse group-hover:!text-[25px]">
+      <div className="absolute left-0 select-none text-[0px] opacity-0 transition-faster center-x group-hover:animate-pulse group-hover:!text-lg">
         <icon.Drag />
       </div>
       <div className="group absolute left-0 flex h-full max-w-min select-none items-center font-bold opacity-30 transition-faster group-hover:left-[10%]">

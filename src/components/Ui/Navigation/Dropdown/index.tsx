@@ -1,131 +1,133 @@
-import { ReactNode } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
+import * as icons from 'components/Ui/DataDisplay/Icons'
 import Icons from 'components/Ui/DataDisplay/Icons'
 
 import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu'
-import { SIDE_OPTIONS } from '@radix-ui/react-popper'
 import * as types from 'common/types'
+import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
 
-// export const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'];
+const DropdownContext = createContext<{
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}>({
+  open: false,
+  setOpen: () => {},
+})
 
-type Side = (typeof SIDE_OPTIONS)[number]
-type DropdownContentProps = {
-  contentStyles?: string
-  arrownStyles?: string
-  arrown?: boolean
-  side?: Side
-  sideOffset?: number
-  alignOffset?: number
-  children: ReactNode
-}
-type DropdownProps = DropdownContentProps & {
-  triggerIcon?: types.IconsKey
-  triggerLabel?: ReactNode
-  triggerStyles?: string
-  portal?: boolean
-}
+export default function Dropdown(props: types.DropdownProps) {
+  const [open, setOpen] = useState(false)
 
-export default function Dropdown({
-  triggerIcon,
-  triggerLabel,
-  triggerStyles = '',
-  portal = true,
-  children,
-  contentStyles = '',
-  arrownStyles = '',
-  arrown = false,
-  side,
-  sideOffset = 0,
-  alignOffset = 0,
-}: DropdownProps) {
   return (
-    <DropdownPrimitive.Root>
-      <DropdownButton icon={triggerIcon} className={triggerStyles}>
-        {triggerLabel}
-      </DropdownButton>
-
-      {portal ? (
-        <DropdownPrimitive.Portal>
-          <DropdownContent
-            arrown={arrown}
-            sideOffset={sideOffset}
-            alignOffset={alignOffset}
-            contentStyles={contentStyles}
-            side={side}
-            arrownStyles={arrownStyles}
-          >
-            {children}
-          </DropdownContent>
-        </DropdownPrimitive.Portal>
-      ) : (
-        <DropdownContent
-          arrown={arrown}
-          sideOffset={sideOffset}
-          alignOffset={alignOffset}
-          contentStyles={contentStyles}
-          side={side}
-          arrownStyles={arrownStyles}
-        >
-          {children}
-        </DropdownContent>
-      )}
-    </DropdownPrimitive.Root>
+    <DropdownContext.Provider value={{ open, setOpen }}>
+      <DropdownPrimitive.Root open={open} onOpenChange={setOpen}>
+        <DropdownButton className={props.buttonStyles} {...props}>
+          {props.buttonLabel}
+        </DropdownButton>
+        <DropdownMenu {...props}>{props.children}</DropdownMenu>
+      </DropdownPrimitive.Root>
+    </DropdownContext.Provider>
   )
 }
 
-function DropdownContent({
+function DropdownButton({
+  buttonIcon = 'Menu',
   children,
-  contentStyles,
-  arrownStyles,
-  arrown,
-  side,
-  sideOffset,
-  alignOffset,
-}: DropdownContentProps) {
+  className = '',
+  openIndicator = false,
+}: types.DropdownButtonProps) {
   return (
-    <DropdownPrimitive.Content
-      sideOffset={sideOffset}
-      alignOffset={alignOffset}
-      className={contentStyles}
-      side={side}
-      sticky="always"
+    <DropdownPrimitive.Trigger
+      aria-label="Customise options"
+      className={`flex items-center gap-0.5 ${className} group`}
     >
       <>{children}</>
-      {arrown && <DropdownPrimitive.Arrow className={arrownStyles} />}
-    </DropdownPrimitive.Content>
-  )
-}
-
-type DropdownButtonProps = types.FragmentProps & {
-  icon?: types.IconsKey
-}
-
-function DropdownButton({ children, className, icon }: DropdownButtonProps) {
-  return (
-    <DropdownPrimitive.Trigger aria-label="Customise options" className={className}>
-      <>{children}</>
-      <Icons icon={icon} />
+      <Icons icon={buttonIcon} />
+      {openIndicator && (
+        <icons.Arrow className="transition-faster group-data-state-open:rotate-90" />
+      )}
     </DropdownPrimitive.Trigger>
   )
 }
 
-function DropdownSub({
-  triggerIcon,
-  triggerLabel,
+const DropdownMenuContext = createContext({
+  closeMenu: () => {},
+})
+
+function DropdownMenu({
   children,
-  triggerStyles = '',
+  arrown,
+  arrownStyles,
+  ...props
+}: types.DropdownMenuProps) {
+  const { open, setOpen } = useContext(DropdownContext)
+  const controls = useAnimationControls()
+
+  async function closeMenu() {
+    await controls.start('closed')
+    setOpen(false)
+  }
+
+  useEffect(() => {
+    if (open) {
+      controls.start('open')
+    }
+  }, [controls, open])
+
+  return (
+    <DropdownMenuContext.Provider value={{ closeMenu }}>
+      <AnimatePresence>
+        {open && (
+          <DropdownPrimitive.Portal forceMount>
+            <DropdownPrimitive.Content
+              className={props.contentStyles}
+              {...props}
+              sticky="always"
+              asChild
+            >
+              <motion.div
+                initial="closed"
+                animate={controls}
+                exit="closed"
+                variants={{
+                  open: {
+                    opacity: 1,
+                    transition: { ease: 'easeOut', duration: 0.1 },
+                  },
+                  closed: {
+                    opacity: 0,
+                    transition: { ease: 'easeIn', duration: 0.2 },
+                  },
+                }}
+              >
+                <>{children}</>
+                {arrown && <DropdownPrimitive.Arrow className={arrownStyles} />}
+              </motion.div>
+            </DropdownPrimitive.Content>
+          </DropdownPrimitive.Portal>
+        )}
+      </AnimatePresence>
+    </DropdownMenuContext.Provider>
+  )
+}
+
+function DropdownSub({
+  buttonIcon,
+  buttonLabel,
+  children,
+  buttonStyles = '',
   contentStyles = '',
   arrownStyles,
   arrown,
   sideOffset = 0,
   alignOffset = 0,
-}: DropdownProps) {
+}: types.DropdownProps) {
   return (
     <DropdownPrimitive.Sub>
       <DropdownPrimitive.SubTrigger>
-        <div className={triggerStyles}>
-          {triggerLabel}
-          <Icons icon={triggerIcon} />
+        <div className={buttonStyles}>
+          {buttonLabel}
+          <Icons icon={buttonIcon} />
         </div>
       </DropdownPrimitive.SubTrigger>
 
@@ -157,17 +159,12 @@ function DropdownLabel({ children, className }: types.FragmentProps) {
   )
 }
 
-type DropdownRadioGroupProps = types.FragmentProps & {
-  onValueChange?: (value: string) => void
-  value?: string
-}
-
 function DropdownRadioGroup({
   children,
   className,
   onValueChange,
   value,
-}: DropdownRadioGroupProps) {
+}: types.DropdownRadioGroupProps) {
   return (
     <DropdownPrimitive.RadioGroup
       className={`${className}`}
@@ -179,17 +176,12 @@ function DropdownRadioGroup({
   )
 }
 
-type DropdownRadioItemProps = types.FragmentProps & {
-  value: string
-  onSelect?: (event: Event) => void
-}
-
 function DropdownRadioItem({
   children,
   className,
   value,
   onSelect,
-}: DropdownRadioItemProps) {
+}: types.DropdownRadioItemProps) {
   return (
     <DropdownPrimitive.RadioItem
       className={`${className} relative`}
@@ -197,7 +189,7 @@ function DropdownRadioItem({
       onSelect={onSelect}
     >
       <DropdownPrimitive.ItemIndicator className="absolute left-1 center-x">
-        <Icons icon="Check" />
+        <icons.Check />
       </DropdownPrimitive.ItemIndicator>
       <>{children}</>
     </DropdownPrimitive.RadioItem>
