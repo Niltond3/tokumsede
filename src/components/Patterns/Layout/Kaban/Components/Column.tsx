@@ -42,16 +42,15 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
             style={{ scrollbarGutter: 'stable both-edges' }}
           >
             <AnimatePresence initial={false}>
-              {purchasesIds.map((value, index) => {
+              {purchasesIds.reverse().map((value, index) => {
                 return (
                   <Draggable index={index} draggableId={`${value}`} key={value}>
-                    {(provider, snapshot, rubric) => (
+                    {(provider, snapshot) => (
                       <PurchaseCard
                         index={index}
                         purchaseId={`${value}`}
                         currentStatus={`${id}`}
                         provider={provider}
-                        rubric={rubric}
                         snapshot={snapshot}
                       />
                     )}

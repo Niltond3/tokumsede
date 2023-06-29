@@ -16,11 +16,7 @@ import {
   CSSProperties,
   ChangeEvent,
 } from 'react'
-import {
-  DraggableProvided,
-  DraggableRubric,
-  DraggableStateSnapshot,
-} from 'react-beautiful-dnd'
+import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
 
 import * as icons from 'components/Ui/DataDisplay/Icons'
 import imgPaths from 'components/Ui/DataDisplay/Images/ImagesPaths'
@@ -629,7 +625,6 @@ export type KabanPurchaseCardProps = {
   currentStatus: string
   provider: DraggableProvided
   snapshot: DraggableStateSnapshot
-  rubric: DraggableRubric
 }
 
 export type KabanPurchaseCardBodyProps = {

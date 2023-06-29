@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 import Body from './Components/Body'
 import Footer from './Components/Footer'
@@ -7,7 +7,7 @@ import Head from './Components/Head'
 import clsx from 'clsx'
 import * as types from 'common/types'
 import { containsOnlyNumbers } from 'common/utils'
-import { motion } from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 import { AppContext } from 'hooks/usePurchase'
 import { toInteger } from 'lodash'
 
@@ -20,7 +20,8 @@ export default function PurchaseCard({
 }: types.KabanPurchaseCardProps) {
   const { state } = useContext(AppContext)
   const { purchases, tempPurchases } = state
-  const isSaved = containsOnlyNumbers(purchaseId)
+  const alreadyExist = containsOnlyNumbers(purchaseId)
+  const controls = useAnimationControls()
   const arrayBase = {
     true: {
       searchArray: purchases,
@@ -38,12 +39,18 @@ export default function PurchaseCard({
     },
   }
 
-  const { searchArray, styles } = arrayBase[`${isSaved}`]
+  const { searchArray, styles } = arrayBase[`${alreadyExist}`]
 
   const arrayIndex = toInteger(purchaseId.replace(/\D/g, '')) - 1
   const purchase = searchArray[arrayIndex]
 
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase()
+
+  useEffect(() => {
+    controls.start('create')
+  }, [controls])
+
+  useEffect(() => {}, [])
 
   return (
     <motion.div
@@ -54,12 +61,19 @@ export default function PurchaseCard({
         'hover:elevation-5',
         `${styles(snapshot.isDragging)}`,
       )}
-      initial={{ height: 0, opacity: 0 }}
-      animate={{
-        height: 'auto',
-        opacity: 1,
+      initial="delete"
+      animate={controls}
+      exit="delete"
+      variants={{
+        create: {
+          height: 'auto',
+          opacity: 1,
+        },
+        delete: {
+          height: 0,
+          opacity: 0,
+        },
       }}
-      exit={{ height: 0, opacity: 0 }}
     >
       <Head
         handleProps={provider.dragHandleProps}
