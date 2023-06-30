@@ -46,18 +46,30 @@ export default function PurchaseCard({
 
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase()
 
+  // useEffect(() => {}, [controls])
+  function getStyle() {
+    const { style } = provider.draggableProps
+    if (!snapshot.isDropAnimating) {
+      return style
+    }
+    controls.set('create')
+    return {
+      ...style,
+      // cannot be 0, but make it super tiny
+      transitionDuration: `0.001s`,
+    }
+  }
+
   useEffect(() => {
     controls.start('create')
   }, [controls])
-
-  useEffect(() => {}, [])
 
   return (
     <motion.div
       ref={provider.innerRef}
       {...provider.draggableProps}
       className={clsx(
-        'group !left-auto !top-auto mt-2 max-w-[12rem] rounded-md p-2 text-sm @container transition-faster',
+        'group !left-auto !top-auto max-w-[12rem] rounded-md p-2 text-sm @container transition-faster',
         'hover:elevation-5',
         `${styles(snapshot.isDragging)}`,
       )}
@@ -68,12 +80,15 @@ export default function PurchaseCard({
         create: {
           height: 'auto',
           opacity: 1,
+          marginTop: 4,
         },
         delete: {
           height: 0,
           opacity: 0,
+          marginTop: 0,
         },
       }}
+      style={getStyle()}
     >
       <Head
         handleProps={provider.dragHandleProps}

@@ -1,42 +1,52 @@
 import * as types from 'common/types'
 import { containsOnlyNumbers, getCountRequestsByState } from 'common/utils'
+import update from 'immutability-helper'
 import { toInteger } from 'lodash'
 
 export function reorderColumns(
   state: types.InitialStatePurchaseProps,
   payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder],
 ) {
-  const newState = state
-
   const { from, fromIndex, purchaseId, to, toIndex } = payload
 
   if (from === to && fromIndex === toIndex) return state
-  const newFromColumn = newState.columns[from]
-  const newToColumn = newState.columns[to]
 
-  newFromColumn.purchasesIds.splice(fromIndex, 1)
+  if (from === to)
+    return update(state, {
+      columns: {
+        [from]: {
+          purchasesIds: {
+            $splice: [
+              [fromIndex, 1],
+              [toIndex, 0, purchaseId],
+            ],
+          },
+        },
+      },
+    })
 
-  newToColumn.purchasesIds.splice(toIndex, 0, purchaseId)
+  const newState = update(state, {
+    columns: {
+      [from]: {
+        purchasesIds: {
+          $splice: [[fromIndex, 1]],
+        },
+      },
+      [to]: { purchasesIds: { $splice: [[toIndex, 0, purchaseId]] } },
+    },
+  })
 
-  const newColumns = {
-    ...newState.columns,
-    [from]: newFromColumn,
-    [to]: newToColumn,
-  }
-
-  const newFromColumnCount = getCountRequestsByState(from, newColumns)
-  const newToColumnCount = getCountRequestsByState(to, newColumns)
+  const newFromColumnCount = getCountRequestsByState(from, newState.columns)
+  const newToColumnCount = getCountRequestsByState(to, newState.columns)
   const newDeliveryCount = getCountRequestsByState('DELIVERED', newState.columns)
 
-  return {
-    ...newState,
+  return update(newState, {
     columns: {
-      ...newColumns,
-      [from]: { ...newFromColumn, countLabel: newFromColumnCount },
-      [to]: { ...newToColumn, countLabel: newToColumnCount },
-      DELIVERED: { ...newColumns.DELIVERED, countLabel: newDeliveryCount },
+      [from]: { countLabel: { $set: newFromColumnCount } },
+      [to]: { countLabel: { $set: newToColumnCount } },
+      DELIVERED: { countLabel: { $set: newDeliveryCount } },
     },
-  }
+  })
 }
 
 export function preparePurchase(
