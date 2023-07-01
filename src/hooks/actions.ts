@@ -11,8 +11,13 @@ export function reorderColumns(
 
   if (from === to && fromIndex === toIndex) return state
 
+  let newState = updatePurchase(state, {
+    id: purchaseId,
+    updateFields: { updateAt: new Date() },
+  })
+
   if (from === to)
-    return update(state, {
+    return update(newState, {
       columns: {
         [from]: {
           purchasesIds: {
@@ -25,7 +30,7 @@ export function reorderColumns(
       },
     })
 
-  const newState = update(state, {
+  newState = update(state, {
     columns: {
       [from]: {
         purchasesIds: {
@@ -56,6 +61,7 @@ export function preparePurchase(
   const { columnId } = payload
   const newColumns = state.columns
   const temporaryId = `temp-${state.tempPurchases.length + 1}`
+  const date = new Date()
   const temporaryPurchase: types.PurchaseObjectProps = {
     id: temporaryId,
     distributorName: '',
@@ -66,6 +72,7 @@ export function preparePurchase(
     origin: 'Site',
     products: [],
     priority: 'normal',
+    createAt: date,
   }
 
   newColumns[columnId].purchasesIds = [...newColumns[columnId].purchasesIds, temporaryId]

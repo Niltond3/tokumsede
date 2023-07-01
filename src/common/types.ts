@@ -105,6 +105,8 @@ export type PurchaseObjectProps = {
   price: number
   exchange: number
   client?: IClient
+  createAt?: Date
+  updateAt?: Date
   lifeCircle?: {
     register: LifeCircleType
     accepted: LifeCircleType
@@ -158,7 +160,7 @@ export type ActionHandlersProps = {
   [PURCHASE_ACTION_TYPES.delete]: ActionCallback<PURCHASE_ACTION_TYPES.delete>
 }
 
-export enum Status {
+export enum STATUS {
   PENDING = 'PENDENTE',
   ACCEPTED = 'ACEITO',
   DISPATCHED = 'DESPACHADO',
@@ -167,7 +169,7 @@ export enum Status {
   SCHEDULED = 'AGENDADO',
 }
 
-export type StatusKey = keyof typeof Status
+export type StatusKey = keyof typeof STATUS
 
 export type PurchaseColumnProps = {
   id: PurchaseColumnsKey
@@ -175,7 +177,7 @@ export type PurchaseColumnProps = {
   purchasesIds: (string | number)[]
 }
 
-export type PurchaseColumnsType = { [key in keyof typeof Status]: PurchaseColumnProps }
+export type PurchaseColumnsType = { [key in StatusKey]: PurchaseColumnProps }
 
 export type PurchaseColumnsKey = keyof PurchaseColumnsType
 

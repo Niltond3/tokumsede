@@ -49,10 +49,12 @@ export default function PurchaseCard({
   // useEffect(() => {}, [controls])
   function getStyle() {
     const { style } = provider.draggableProps
-    if (!snapshot.isDropAnimating) {
-      return style
-    }
-    controls.set('create')
+    if (!snapshot.isDropAnimating) return style
+
+    controls.start({
+      height: 100,
+    })
+
     return {
       ...style,
       // cannot be 0, but make it super tiny
@@ -61,8 +63,15 @@ export default function PurchaseCard({
   }
 
   useEffect(() => {
-    controls.start('create')
-  }, [controls])
+    console.log(purchase)
+    console.log(state)
+    if (!purchase.updateAt) controls.start('create')
+    else
+      controls.start({
+        height: 100,
+        opacity: 0.3,
+      })
+  }, [controls, purchase, purchase.updateAt, state])
 
   return (
     <motion.div

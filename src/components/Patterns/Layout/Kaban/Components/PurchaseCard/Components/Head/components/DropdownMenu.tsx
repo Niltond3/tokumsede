@@ -86,9 +86,9 @@ export default function DropdownMenu({
       <Dropdown.Separator />
       <Dropdown.Label className="flex select-none pl-5">Status</Dropdown.Label>
       <Dropdown.RadioGroup value={status} onValueChange={handleValueChange}>
-        {Object.keys(types.Status).map((val, index) => (
+        {Object.keys(types.STATUS).map((val, index) => (
           <RadioItem key={`radio-item-${val}-${index}`} value={val}>
-            {capitalize(types.Status[val as types.StatusKey])}
+            {capitalize(types.STATUS[val as types.StatusKey])}
           </RadioItem>
         ))}
       </Dropdown.RadioGroup>
