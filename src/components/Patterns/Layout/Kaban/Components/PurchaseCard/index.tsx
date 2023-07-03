@@ -43,10 +43,18 @@ export default function PurchaseCard({
 
   const arrayIndex = toInteger(purchaseId.replace(/\D/g, '')) - 1
   const purchase = searchArray[arrayIndex]
-
+  useEffect(() => {
+    if (!purchase.updateAt) controls.start('create')
+    else
+      controls.start({
+        height: 'auto',
+        opacity: 1,
+        marginTop: 4,
+        transition: { duration: 0 },
+      })
+  }, [controls, purchase])
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase()
 
-  // useEffect(() => {}, [controls])
   function getStyle() {
     const { style } = provider.draggableProps
     if (!snapshot.isDropAnimating) return style
@@ -61,17 +69,6 @@ export default function PurchaseCard({
       transitionDuration: `0.001s`,
     }
   }
-
-  useEffect(() => {
-    console.log(purchase)
-    console.log(state)
-    if (!purchase.updateAt) controls.start('create')
-    else
-      controls.start({
-        height: 100,
-        opacity: 0.3,
-      })
-  }, [controls, purchase, purchase.updateAt, state])
 
   return (
     <motion.div

@@ -16,21 +16,22 @@ export function reorderColumns(
     updateFields: { updateAt: new Date() },
   })
 
-  if (from === to)
-    return update(newState, {
-      columns: {
-        [from]: {
-          purchasesIds: {
-            $splice: [
-              [fromIndex, 1],
-              [toIndex, 0, purchaseId],
-            ],
-          },
+  newState = update(newState, {
+    columns: {
+      [from]: {
+        purchasesIds: {
+          $splice: [
+            [fromIndex, 1],
+            [toIndex, 0, purchaseId],
+          ],
         },
       },
-    })
+    },
+  })
+  console.log(newState)
+  if (from === to) return newState
 
-  newState = update(state, {
+  newState = update(newState, {
     columns: {
       [from]: {
         purchasesIds: {
