@@ -11,7 +11,7 @@ import * as types from 'common/types'
 type PurchaseCardHeadProps = {
   handleProps?: DraggableProvidedDragHandleProps | null
   status: string
-  purchaseId: string
+  purchase: types.PurchaseObjectProps
   fromIndex: number
 }
 
@@ -19,7 +19,7 @@ type PurchaseCardHeadProps = {
 export default function Head({
   handleProps,
   status,
-  purchaseId,
+  purchase,
   fromIndex,
 }: PurchaseCardHeadProps) {
   return (
@@ -32,7 +32,7 @@ export default function Head({
       </div>
       <div className="group absolute left-0 flex h-full max-w-min select-none items-center font-bold opacity-30 transition-faster group-hover:left-[10%]">
         <icon.Number />
-        000
+        {purchase.id}
       </div>
       <span className="absolute right-0 select-none opacity-30 transition-faster group-hover:right-[10%]">
         Distribuidora
@@ -40,7 +40,7 @@ export default function Head({
       <DropdownMenu
         status={status}
         from={status as types.PurchaseColumnsKey}
-        purchaseId={purchaseId}
+        purchase={purchase}
         fromIndex={fromIndex}
       />
     </SessionWrapper>

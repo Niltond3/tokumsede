@@ -43,33 +43,18 @@ export default function PurchaseCard({
 
   const arrayIndex = toInteger(purchaseId.replace(/\D/g, '')) - 1
   const purchase = searchArray[arrayIndex]
-  useEffect(() => {
-    if (!purchase.updateAt) controls.start('create')
-    else
-      controls.start({
-        height: 'auto',
-        opacity: 1,
-        marginTop: 4,
-        transition: { duration: 0 },
-      })
-  }, [controls, purchase])
+
+  // useEffect(() => {
+  //   if (!purchase.updateAt) {
+  //     controls.start('create')
+  //   }
+  //   controls.start('update')
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [controls])
+
   const dropDownId = `${currentStatus}-drop-down-control-${index}`.toLocaleLowerCase()
-
-  function getStyle() {
-    const { style } = provider.draggableProps
-    if (!snapshot.isDropAnimating) return style
-
-    controls.start({
-      height: 100,
-    })
-
-    return {
-      ...style,
-      // cannot be 0, but make it super tiny
-      transitionDuration: `0.001s`,
-    }
-  }
-
+  const base = 4
+  const t = (d: number) => d * base
   return (
     <motion.div
       ref={provider.innerRef}
@@ -79,27 +64,55 @@ export default function PurchaseCard({
         'hover:elevation-5',
         `${styles(snapshot.isDragging)}`,
       )}
-      initial="delete"
-      animate={controls}
-      exit="delete"
-      variants={{
-        create: {
-          height: 'auto',
-          opacity: 1,
-          marginTop: 4,
-        },
-        delete: {
-          height: 0,
-          opacity: 0,
-          marginTop: 0,
+      initial={{ height: 0, opacity: 0, marginTop: 0 }}
+      animate={{
+        height: 'auto',
+        opacity: 1,
+        marginTop: 4,
+        transition: {
+          type: 'spring',
+          bounce: 0.3,
+          opacity: { delay: t(0.025) },
         },
       }}
-      style={getStyle()}
+      exit={{ height: 0, opacity: 0, marginTop: 0 }}
+      transition={{
+        duration: t(0.15),
+        type: 'spring',
+        bounce: 0,
+        opacity: { duration: purchase.updateAt ? 0 : t(0.03) },
+      }}
+      // initial={purchase.updateAt ? 'update' : 'delete'}
+      // animate={controls}
+      // exit="delete"
+      // variants={{
+      //   create: {
+      //     height: 'auto',
+      //     opacity: 1,
+      //     marginTop: 4,
+      //     transition: {
+      //       type: 'spring',
+      //       bounce: 0.3,
+      //       opacity: { delay: t(0.025) },
+      //     },
+      //   },
+      //   delete: {
+      //     height: 0,
+      //     opacity: 0,
+      //     marginTop: 0,
+      //   },
+      //   update: {
+      //     height: 'auto',
+      //     opacity: 1,
+      //     marginTop: 4,
+      //     transition: { duration: 0 },
+      //   },
+      // }}
     >
       <Head
         handleProps={provider.dragHandleProps}
         status={currentStatus}
-        purchaseId={purchaseId}
+        purchase={purchase}
         fromIndex={index}
       />
       <Body dropDownId={dropDownId} purchase={purchase} />

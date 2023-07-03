@@ -3,58 +3,6 @@ import { containsOnlyNumbers, getCountRequestsByState } from 'common/utils'
 import update from 'immutability-helper'
 import { toInteger } from 'lodash'
 
-export function reorderColumns(
-  state: types.InitialStatePurchaseProps,
-  payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder],
-) {
-  const { from, fromIndex, purchaseId, to, toIndex } = payload
-
-  if (from === to && fromIndex === toIndex) return state
-
-  let newState = updatePurchase(state, {
-    id: purchaseId,
-    updateFields: { updateAt: new Date() },
-  })
-
-  newState = update(newState, {
-    columns: {
-      [from]: {
-        purchasesIds: {
-          $splice: [
-            [fromIndex, 1],
-            [toIndex, 0, purchaseId],
-          ],
-        },
-      },
-    },
-  })
-  console.log(newState)
-  if (from === to) return newState
-
-  newState = update(newState, {
-    columns: {
-      [from]: {
-        purchasesIds: {
-          $splice: [[fromIndex, 1]],
-        },
-      },
-      [to]: { purchasesIds: { $splice: [[toIndex, 0, purchaseId]] } },
-    },
-  })
-
-  const newFromColumnCount = getCountRequestsByState(from, newState.columns)
-  const newToColumnCount = getCountRequestsByState(to, newState.columns)
-  const newDeliveryCount = getCountRequestsByState('DELIVERED', newState.columns)
-
-  return update(newState, {
-    columns: {
-      [from]: { countLabel: { $set: newFromColumnCount } },
-      [to]: { countLabel: { $set: newToColumnCount } },
-      DELIVERED: { countLabel: { $set: newDeliveryCount } },
-    },
-  })
-}
-
 export function preparePurchase(
   state: types.InitialStatePurchaseProps,
   payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.prepare],
@@ -74,6 +22,8 @@ export function preparePurchase(
     products: [],
     priority: 'normal',
     createAt: date,
+    currentStatus: columnId,
+    currentIndex: newColumns[columnId].purchasesIds.length,
   }
 
   newColumns[columnId].purchasesIds = [...newColumns[columnId].purchasesIds, temporaryId]
@@ -121,4 +71,92 @@ export function updatePurchase(
   }
   const purchase = tempPurchases[index]
   return newState(tempPurchases, purchase, 'tempPurchases')
+}
+
+export function deletePurchase(
+  state: types.InitialStatePurchaseProps,
+  payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.delete],
+) {
+  const { purchase } = payload
+  const { currentIndex, currentStatus } = purchase
+  console.log('deletePurchase')
+  console.log(purchase)
+
+  if (currentStatus) {
+    const newState = update(state, {
+      columns: {
+        [currentStatus]: {
+          purchasesIds: {
+            $splice: [[currentIndex, 1]],
+          },
+        },
+      },
+    })
+    const newCurrentColumnCount = getCountRequestsByState(currentStatus, newState.columns)
+    const newDeliveryCount = getCountRequestsByState('DELIVERED', newState.columns)
+
+    return update(newState, {
+      columns: {
+        [currentStatus]: { countLabel: { $set: newCurrentColumnCount } },
+        DELIVERED: { countLabel: { $set: newDeliveryCount } },
+      },
+    })
+  }
+
+  return state
+}
+
+export function reorderColumns(
+  state: types.InitialStatePurchaseProps,
+  payload: types.PurchasePayload[types.PURCHASE_ACTION_TYPES.reorder],
+) {
+  const { from, fromIndex, purchaseId, to, toIndex } = payload
+
+  if (from === to && fromIndex === toIndex) return state
+
+  let newState = updatePurchase(state, {
+    id: purchaseId,
+    updateFields: { updateAt: new Date(), currentIndex: toIndex, currentStatus: to },
+  })
+
+  if (from === to)
+    return update(newState, {
+      columns: {
+        [from]: {
+          purchasesIds: {
+            $splice: [
+              [fromIndex, 1],
+              [toIndex, 0, purchaseId],
+            ],
+          },
+        },
+      },
+    })
+
+  newState = update(newState, {
+    columns: {
+      [from]: {
+        purchasesIds: {
+          $splice: [[fromIndex, 1]],
+        },
+      },
+      [to]: {
+        purchasesIds: {
+          $splice: [[toIndex, 0, purchaseId]],
+        },
+      },
+    },
+  })
+
+  const newFromColumnCount = getCountRequestsByState(from, newState.columns)
+  const newToColumnCount = getCountRequestsByState(to, newState.columns)
+  const newDeliveryCount = getCountRequestsByState('DELIVERED', newState.columns)
+
+  return update(newState, {
+    columns: {
+      [from]: { countLabel: { $set: newFromColumnCount } },
+      [to]: { countLabel: { $set: newToColumnCount } },
+      DELIVERED: { countLabel: { $set: newDeliveryCount } },
+    },
+  })
 }

@@ -10,18 +10,18 @@ import { capitalize } from 'lodash'
 type HeadDropdownMenuProps = {
   status: string
   from: types.PurchaseColumnsKey
-  purchaseId: string
+  purchase: types.PurchaseObjectProps
   fromIndex: number
 }
 
 export default function DropdownMenu({
   status,
   from,
-  purchaseId,
+  purchase,
   fromIndex,
 }: HeadDropdownMenuProps) {
   const { state, dispatch } = useContext(AppContext)
-  const { reorder } = types.PURCHASE_ACTION_TYPES
+  const { reorder, delete: del } = types.PURCHASE_ACTION_TYPES
 
   const handleValueChange = (value: string) => {
     const to = value as types.PurchaseColumnsKey
@@ -33,8 +33,18 @@ export default function DropdownMenu({
         to,
         fromIndex,
         toIndex,
-        purchaseId,
+        purchaseId: purchase.id,
       },
+    })
+  }
+
+  const handleDeletePurchase = () => {
+    console.log('handleDeletePurchase')
+    console.log(purchase)
+
+    dispatch({
+      type: del,
+      payload: { purchase },
     })
   }
 
@@ -51,7 +61,7 @@ export default function DropdownMenu({
       <Item>
         Salvar Pedido <Shortcuts press="S" />
       </Item>
-      <Item>
+      <Item onSelect={handleDeletePurchase}>
         Apagar Pedido <Shortcuts press="A" />
       </Item>
       <SubMenu triggerLabel={'Outras ações'}>
@@ -99,8 +109,11 @@ export default function DropdownMenu({
 const itemStyles =
   'flex w-48 select-none items-center justify-between rounded py-1 pl-5 pr-1 transition-faster hover:bg-lg-primary hover:text-lg-primary-base'
 
-const Item = ({ children }: types.FragmentProps) => (
-  <Dropdown.Item className={itemStyles}>
+const Item = ({
+  children,
+  onSelect,
+}: types.FragmentProps & { onSelect?: (event: Event) => void }) => (
+  <Dropdown.Item className={itemStyles} onSelect={onSelect}>
     <>{children}</>
   </Dropdown.Item>
 )

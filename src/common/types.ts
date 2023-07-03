@@ -107,6 +107,8 @@ export type PurchaseObjectProps = {
   client?: IClient
   createAt?: Date
   updateAt?: Date
+  currentIndex?: number
+  currentStatus?: PurchaseColumnsKey
   lifeCircle?: {
     register: LifeCircleType
     accepted: LifeCircleType
@@ -135,7 +137,7 @@ export type PurchasePayload = {
     id: string
     updateFields: Partial<PurchaseObjectProps>
   }
-  [PURCHASE_ACTION_TYPES.delete]: { id: number }
+  [PURCHASE_ACTION_TYPES.delete]: { purchase: PurchaseObjectProps }
 }
 
 export type ActionPurchaseProps =
