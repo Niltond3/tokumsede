@@ -629,6 +629,7 @@ export type KabanPurchaseCardProps = {
   currentStatus: string
   provider: DraggableProvided
   snapshot: DraggableStateSnapshot
+  columnId: PurchaseColumnsKey
 }
 
 export type KabanPurchaseCardBodyProps = {

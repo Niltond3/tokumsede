@@ -30,7 +30,7 @@ export default function Head({
       <div className="absolute left-0 select-none text-[0px] opacity-0 transition-faster center-x group-hover:animate-pulse group-hover:!text-lg">
         <icon.Drag />
       </div>
-      <div className="group absolute left-0 flex h-full max-w-min select-none items-center font-bold opacity-30 transition-faster group-hover:left-[10%]">
+      <div className="group absolute left-0 flex h-full max-w-min select-none items-center gap-1 whitespace-nowrap font-bold opacity-30 transition-faster group-hover:left-[10%]">
         <icon.Number />
         {purchase.id}
       </div>

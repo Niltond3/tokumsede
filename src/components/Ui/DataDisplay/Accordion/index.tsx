@@ -1,24 +1,24 @@
-import React from 'react';
+import React from 'react'
 
-import * as icons from 'components/Ui/DataDisplay/Icons';
+import * as icons from 'components/Ui/DataDisplay/Icons'
 
-import * as AccordionPrimitives from '@radix-ui/react-accordion';
-import * as types from 'common/types';
+import * as AccordionPrimitives from '@radix-ui/react-accordion'
+import * as types from 'common/types'
 
-const Accordion = AccordionPrimitives.Root;
+const Accordion = AccordionPrimitives.Root
 
 const AccordionItem = ({
   value,
   contentChildren,
   contentClassName = '',
   triggerChildren,
-  triggerClassName = ''
+  triggerClassName = '',
 }: types.AccordionItemProps) => (
   <AccordionPrimitives.Item value={value}>
     <AccordionTrigger className={triggerClassName}>{triggerChildren}</AccordionTrigger>
     <AccordionContent className={contentClassName}>{contentChildren}</AccordionContent>
   </AccordionPrimitives.Item>
-);
+)
 
 const AccordionTrigger = React.forwardRef<HTMLButtonElement, types.FragmentProps>(
   ({ children, className, ...props }: types.FragmentProps, forwardRef) => (
@@ -35,8 +35,8 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement, types.FragmentProps
         />
       </AccordionPrimitives.Trigger>
     </AccordionPrimitives.Header>
-  )
-);
+  ),
+)
 
 const AccordionContent = React.forwardRef<HTMLDivElement, types.FragmentProps>(
   ({ children, className, ...props }: types.FragmentProps, forwardedRef) => (
@@ -47,9 +47,9 @@ const AccordionContent = React.forwardRef<HTMLDivElement, types.FragmentProps>(
     >
       <div className="">{children}</div>
     </AccordionPrimitives.Content>
-  )
-);
+  ),
+)
 
-export default Accordion;
+export default Accordion
 
-export { AccordionItem };
+export { AccordionItem }

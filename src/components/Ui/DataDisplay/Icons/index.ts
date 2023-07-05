@@ -25,6 +25,7 @@ import { default as Default } from './svg/default.svg'
 import { default as Delivered } from './svg/delivered.svg'
 import { default as Deliveryman } from './svg/deliveryman.svg'
 import { default as Distributor } from './svg/distributor.svg'
+import { default as Drag2 } from './svg/drag_2.svg'
 import { default as Drag } from './svg/drag.svg'
 import { default as Drop } from './svg/drop.svg'
 import { default as Exchange } from './svg/exchange.svg'
@@ -92,6 +93,7 @@ export {
   Delivered,
   Deliveryman,
   Distributor,
+  Drag2,
   Drag,
   Drop,
   Exchange,

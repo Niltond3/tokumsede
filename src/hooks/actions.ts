@@ -9,7 +9,7 @@ export function preparePurchase(
 ) {
   const { columnId } = payload
   const newColumns = state.columns
-  const temporaryId = `temp-${state.tempPurchases.length + 1}`
+  const temporaryId = `t-${state.tempPurchases.length + 1}`
   const date = new Date()
   const temporaryPurchase: types.PurchaseObjectProps = {
     id: temporaryId,
@@ -26,7 +26,7 @@ export function preparePurchase(
     currentIndex: newColumns[columnId].purchasesIds.length,
   }
 
-  newColumns[columnId].purchasesIds = [...newColumns[columnId].purchasesIds, temporaryId]
+  newColumns[columnId].purchasesIds = [temporaryId, ...newColumns[columnId].purchasesIds]
 
   newColumns[columnId].countLabel = getCountRequestsByState(columnId, newColumns)
 

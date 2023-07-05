@@ -36,7 +36,7 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
             ref={provider.innerRef}
             {...provider.droppableProps}
             className={clsx(
-              'max-h-[75vh] min-h-[2rem] overflow-visible overflow-y-auto rounded-md px-1 py-2 scrollbar scrollbar-thumb-slate-300 scrollbar-w-1 transition-fast',
+              'max-h-[75vh] min-h-[2rem] overflow-visible overflow-y-auto rounded-md px-1 py-2 scrollbar scrollbar-thumb-slate-300 scrollbar-w-1',
               `${snapshot.isDraggingOver ? styles : ''}`,
             )}
             style={{ scrollbarGutter: 'stable both-edges' }}
@@ -52,6 +52,7 @@ const Column = ({ id, purchasesIds, countLabel, onClick }: types.KabanColumnsPro
                         currentStatus={`${id}`}
                         provider={provider}
                         snapshot={snapshot}
+                        columnId={id}
                       />
                     )}
                   </Draggable>
